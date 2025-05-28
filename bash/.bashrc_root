@@ -1,3 +1,0 @@
-  prompt_color='\[\033[;94m\]'
-	info_color='\[\033[1;31m\]'
-	prompt_symbol=💀
