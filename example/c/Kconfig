@@ -1,0 +1,74 @@
+mainmenu "Simple C Project Configuration"
+
+menu "General"
+    config SYSTEM_NAME
+        string "System Name"
+        default "example_system"
+        help
+            This option sets the name of the system.
+
+    config DEBUG
+        bool "Enable Debug"
+        default n
+        help
+            Enable this option to include debug information in the build.
+endmenu
+
+menu "Connection"  
+    comment "UART configuration options"
+    config ENABLE_UART
+        bool "Enable UART"
+        default y
+        help
+            Enable this option to include UART support in the build.
+    
+    config UART_BAUD_RATE
+        int "UART Baud Rate"
+        default 115200
+        depends on ENABLE_UART
+        help
+            Set the baud rate for UART communication.
+endmenu
+
+menu "Mavlink Settings"
+    config ENABLE_MAVLINK
+        bool "Enable Mavlink"
+        default n
+        help
+            Enable this option to include Mavlink support in the build.
+
+    config MAVLINK_SYSTEM_ID
+        int "Mavlink System ID"
+        default 1
+        depends on ENABLE_MAVLINK
+        default 1
+        range 0 255
+        help
+            Set the system ID for Mavlink communication.
+endmenu
+
+menu "Log Backend"
+    choice
+        prompt "Select logging backend"
+        default LOG_UART
+    config LOG_NONE
+        bool "No Logging"
+    config LOG_UART
+        bool "UART Logging"
+    config LOG_FILE
+        bool "File Logging"
+    endchoice
+endmenu
+
+menu "Drivers"
+    config ENABLE_SENSOR
+        bool "Enable Sensor Driver"
+        default y
+            select SENSOR_COMMON
+
+    config SENSOR_COMMON
+        bool "Sensor Common Layer"
+        default n
+        help
+            This option is selected automatically when enabling the sensor driver.
+endmenu

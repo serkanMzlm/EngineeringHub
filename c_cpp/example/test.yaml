@@ -1,9 +1,0 @@
-controls:
-  - name: thrust
-    value: 0.8
-  - name: roll
-    value: 0.2
-  - name: pitch
-    value: -0.5
-  - name: yaw
-    value: 1.0

@@ -1,0 +1,39 @@
+
+#
+# General
+#
+CONFIG_SYSTEM_NAME="example_system"
+# CONFIG_DEBUG is not set
+# end of General
+
+#
+# Connection
+#
+
+#
+# UART configuration options
+#
+CONFIG_ENABLE_UART=y
+CONFIG_UART_BAUD_RATE=115200
+# end of Connection
+
+#
+# Mavlink Settings
+#
+# CONFIG_ENABLE_MAVLINK is not set
+# end of Mavlink Settings
+
+#
+# Log Backend
+#
+# CONFIG_LOG_NONE is not set
+CONFIG_LOG_UART=y
+# CONFIG_LOG_FILE is not set
+# end of Log Backend
+
+#
+# Drivers
+#
+CONFIG_ENABLE_SENSOR=y
+CONFIG_SENSOR_COMMON=y
+# end of Drivers

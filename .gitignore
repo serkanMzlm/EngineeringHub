@@ -9,7 +9,9 @@ CMakeLists.txt.user
 **/**.json
 **/deneme***
 
+**/site/**
 
+**.config
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
 
@@ -35,7 +37,6 @@ tags
 .DS_Store
 .directory
 *.debug
-Makefile*
 *.prl
 *.app
 moc_*.cpp
