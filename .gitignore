@@ -92,3 +92,4 @@ Debug
 Startup
 .metadata
 *.ld
+**.metadata
