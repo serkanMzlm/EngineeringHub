@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <float.h>
 #include <string.h>
+#include <stdarg.h>
 
 #include "stdio_fundamentals.h"
 
@@ -45,6 +46,9 @@ int main(int argc, char *argv[])
     printf("15 - Bitwise operations demo\n");
     printf("16 - Shift operations demo\n");
     printf("17 - Unsigned bitwise demo\n");
+    printf("18 - Function pointers demo\n");
+    printf("19 - Basic pointer demo\n");
+    printf("20 - Const pointers demo\n");
     printf("Choice: ");
 
     scanf("%d", &function_selector);
@@ -103,11 +107,31 @@ int main(int argc, char *argv[])
     case 17:
         demoUnsignedBitwise();
         break;
+    case 18:
+        demoFunctionPointers();
+        break;
+    case 19:
+        demoBasicPointer();
+        break;
+    case 20:
+        demoConstPointers();
+        break;
     default:
         printf("Invalid selection\n");
         break;
     }
 
+    printf(COLOR_RST LINE);
+    printf(COLOR_BLK "Color: Black\n");
+    printf(COLOR_RED "Color: Red\n");
+    printf(COLOR_GRN "Color: Green\n");
+    printf(COLOR_YLW "Color: Yellow\n");
+    printf(COLOR_BLE "Color: Blue\n");
+    printf(COLOR_MGT "Color: Magenta\n");
+    printf(COLOR_CYN "Color: Cyan\n");
+    printf(COLOR_WHT "Color: White\n");
+    printf(COLOR_RST LINE);
+    
     return 0;
 }
 
@@ -119,6 +143,65 @@ void systemInitializer(void)
 void systemFinalizer(void)
 {
     printf("System cleanup completed\n"); // program sonrası temizlik
+}
+
+// Fonksiyon implementasyonları
+void hello(void)
+{
+    printf("Hello!\n");
+}
+
+int add(int a, int b)
+{
+    return a + b;
+}
+
+// Pointer parametre (call by reference)
+void swapValues(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Array parametre kullanımı
+int sumArray(int arr[], int size)
+{
+    int sum = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        sum += arr[i];
+    }
+
+    return sum;
+}
+
+// Variadic function (değişken sayıda parametre)
+int sumVariadic(int count, ...)
+{
+    va_list args;
+    va_start(args, count);
+
+    int sum = 0;
+
+    for (int i = 0; i < count; i++)
+    {
+        sum += va_arg(args, int);
+    }
+
+    va_end(args);
+
+    return sum;
+}
+
+// Recursive (özyinelemeli / yineleyici) fonksiyon
+int sumRecursive(int arr[], int size)
+{
+    if (size <= 0)
+        return 0;
+
+    return arr[size - 1] + sumRecursive(arr, size - 1);
 }
 
 void handlePrint(float temperature_value, unsigned int device_id)
@@ -225,16 +308,16 @@ void handleGetchar(void)
 // ASCII ve string dönüşüm demo
 void demoTypeConversions(void)
 {
-    // __attribute__((unused)) ile tanımlanan değişken, derleyici tarafından 
+    // __attribute__((unused)) ile tanımlanan değişken, derleyici tarafından
     // kullanılmayan bir değişken olarak işaretlenir. Hata vermeden derlenmesini sağlar.
-    char ascii_char __attribute__((unused)) = 65;  // 65 ASCII -> 'A' 
+    char ascii_char __attribute__((unused)) = 65; // 65 ASCII -> 'A'
     const char *string_float = "15.48";
     const char *string_int = "253";
 
     char char_array[4] = {'A', 65, 'B', 'D'};
 
-    int parsed_int = atoi(string_int);        // string -> int
-    float parsed_float = atof(string_float);  // string -> float
+    int parsed_int = atoi(string_int);       // string -> int
+    float parsed_float = atof(string_float); // string -> float
 
     printf("Parsed int: %d\n , %ld byte", parsed_int, sizeof(parsed_int));
     printf("Parsed float: %.2f\n, %ld byte", parsed_float, sizeof(parsed_float));
@@ -244,7 +327,6 @@ void demoTypeConversions(void)
 
     printf("====================================\n");
 }
-
 
 // Sabitler ve veri tip limitleri
 void demoConstantsAndLimits(void)
@@ -261,7 +343,6 @@ void demoConstantsAndLimits(void)
 
     printf("====================================\n");
 }
-
 
 // static vs local değişken davranışı
 void demoStaticBehavior(void)
@@ -295,7 +376,6 @@ void demoStringInput(void)
     printf("====================================\n");
 }
 
-
 // strcat / strcpy / strcmp davranışları
 void demoStringOperations(void)
 {
@@ -318,14 +398,13 @@ void demoStringOperations(void)
     printf("====================================\n");
 }
 
-
 // strchr / strrchr davranışı
 void demoStringSearch(void)
 {
     char text[] = "asdfghmzxcm";
 
-    char *first_match = strchr(text, 'm');   // ilk 'm'
-    char *last_match  = strrchr(text, 'm');  // son 'm'
+    char *first_match = strchr(text, 'm'); // ilk 'm'
+    char *last_match = strrchr(text, 'm'); // son 'm'
 
     if (first_match)
         printf("First match from m: %s\n", first_match);
@@ -345,7 +424,6 @@ void demoStructAccess(void)
     printf("====================================\n");
 }
 
-
 // pointer ile struct erişimi
 void demoPointerAccess(void)
 {
@@ -354,7 +432,6 @@ void demoPointerAccess(void)
 
     printf("====================================\n");
 }
-
 
 // union memory overlay davranışı
 void demoUnionAccess(void)
@@ -374,12 +451,12 @@ void demoBitwiseOperations(int a, int b)
 {
     int results[6];
 
-    results[0] = a << 1;   // left shift
-    results[1] = a >> 1;   // right shift
-    results[2] = a & b;    // AND
-    results[3] = a | b;    // OR
-    results[4] = a ^ b;    // XOR
-    results[5] = ~a;       // NOT
+    results[0] = a << 1; // left shift
+    results[1] = a >> 1; // right shift
+    results[2] = a & b;  // AND
+    results[3] = a | b;  // OR
+    results[4] = a ^ b;  // XOR
+    results[5] = ~a;     // NOT
 
     const char *labels[] = {
         "a << 1",
@@ -387,8 +464,7 @@ void demoBitwiseOperations(int a, int b)
         "a & b",
         "a | b",
         "a ^ b",
-        "~a"
-    };
+        "~a"};
 
     printf("Bitwise operations (a=%d, b=%d)\n", a, b);
 
@@ -399,7 +475,6 @@ void demoBitwiseOperations(int a, int b)
 
     printf("====================================\n");
 }
-
 
 // Shift demo (loop tabanlı)
 void demoShiftOperations(int value)
@@ -419,7 +494,6 @@ void demoShiftOperations(int value)
     printf("====================================\n");
 }
 
-
 // unsigned bitwise demo
 void demoUnsignedBitwise(void)
 {
@@ -427,7 +501,7 @@ void demoUnsignedBitwise(void)
     unsigned int b = 10; // 00001010
 
     unsigned int and_r = a & b;
-    unsigned int or_r  = a | b;
+    unsigned int or_r = a | b;
     unsigned int xor_r = a ^ b;
     unsigned int not_r = (unsigned char)~a;
 
@@ -436,6 +510,48 @@ void demoUnsignedBitwise(void)
     printf("(a | b) = %u\n", or_r);
     printf("(a ^ b) = %u\n", xor_r);
     printf("~a      = %u\n", not_r);
+
+    printf("====================================\n");
+}
+
+// Function pointer demo
+void demoFunctionPointers(void)
+{
+    void (*funcPtr)(void) = hello; // void fonksiyon pointer
+    int (*addPtr)(int, int) = add; // int dönen fonksiyon pointer
+
+    funcPtr(); // indirect call
+    int result = addPtr(3, 5);
+
+    printf("Add result: %d\n", result);
+    printf("====================================\n");
+}
+
+// Basic pointer demo
+void demoBasicPointer(void)
+{
+    int value = 10;
+    int *ptr = &value;
+
+    printf("ptr address: %p | value: %d\n", (void *)ptr, *ptr);
+
+    printf("====================================\n");
+}
+
+// const pointer davranışları
+void demoConstPointers(void)
+{
+    int x = 10;
+    int y = 20;
+
+    const int *ptr1 = &x; // pointer değişebilir, değer değişmez
+    ptr1 = &y;            // OK
+
+    int *const ptr2 = &x; // pointer sabit, değer değişebilir
+    *ptr2 = 15;           // OK
+
+    printf("ptr1 (const value ptr): %d\n", *ptr1);
+    printf("ptr2 (const ptr): %d\n", *ptr2);
 
     printf("====================================\n");
 }

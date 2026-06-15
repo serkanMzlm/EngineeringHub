@@ -48,4 +48,10 @@ filter_existing_files(SOURCE_FILES FILTERED_SOURCE_FILES)
 message(STATUS "Verifying Filtered Source Files: ${FILTERED_SOURCE_FILES}")
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
-add_executable(SimpleCProjects ${FILTERED_SOURCE_FILES})
+# add_executable(SimpleCProjects ${FILTERED_SOURCE_FILES})
+
+add_executable(stdio_test ${CMAKE_CURRENT_SOURCE_DIR}/src/stdio_fundamentals.c)
+add_executable(file_test ${CMAKE_CURRENT_SOURCE_DIR}/src/file_operations.c)
+add_executable(dynamic_memory_test ${CMAKE_CURRENT_SOURCE_DIR}/src/dynamic_memory.c)
+add_executable(algorithm_lab_test ${CMAKE_CURRENT_SOURCE_DIR}/src/algorithm_lab.c)
+add_executable(system_network_ip_reader ${CMAKE_CURRENT_SOURCE_DIR}/src/system_network_ip_reader.c)
