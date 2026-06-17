@@ -127,15 +127,19 @@ set(ALL_TARGETS "")
 # Her hedef bağımsızdır; kaynak dosyası, include ve flag'leri ayrı yönetilir.
 # ==============================================================================
 
-add_executable(basics_test      src/tutorial/basics.c)
-add_executable(io_test          src/tutorial/io.c)
-add_executable(pointers_test    src/tutorial/pointers.c)
-add_executable(structs_test     src/tutorial/structs.c)
-add_executable(functions_test   src/tutorial/functions.c)
-add_executable(bitwise_test     src/tutorial/bitwise.c)
-add_executable(strings_test     src/tutorial/strings.c)
-add_executable(memory_test      src/tutorial/memory.c)
-add_executable(algorithms       src/algorithms.c)
+add_executable(basics_test         src/tutorial/basics.c)
+add_executable(io_test             src/tutorial/io.c)
+add_executable(pointers_test       src/tutorial/pointers.c)
+add_executable(structs_test        src/tutorial/structs.c)
+add_executable(functions_test      src/tutorial/functions.c)
+add_executable(bitwise_test        src/tutorial/bitwise.c)
+add_executable(strings_test        src/tutorial/strings.c)
+add_executable(memory_test         src/tutorial/memory.c)
+add_executable(preprocessor_test   src/tutorial/preprocessor.c)
+add_executable(time_demo           src/tutorial/time_demo.c)
+add_executable(algorithms          src/algorithms.c)
+
+target_link_libraries(time_demo PRIVATE m)
 
 list(APPEND ALL_TARGETS
     basics_test
@@ -146,6 +150,8 @@ list(APPEND ALL_TARGETS
     bitwise_test
     strings_test
     memory_test
+    preprocessor_test
+    time_demo
     algorithms
 )
 
