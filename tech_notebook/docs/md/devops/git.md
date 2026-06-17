@@ -17,6 +17,7 @@ graph LR
 - `--global` → Kullanıcının **~/.gitconfig**
 - `--system` → Sistem geneli **/etc/gitconfig**
 
+
 ```bash linenums="1"
 # Kullanıcı bilgisi
 git config --global user.name   "Serkan"

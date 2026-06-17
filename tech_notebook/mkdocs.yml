@@ -12,6 +12,34 @@ nav:
       - C++: md/programming/cpp.md
       - Python: md/programming/python.md
 
+  - Embedded:
+      - Concepts: md/embedded/concepts.md
+      - STM Notes: md/embedded/stm.md
+      - AVR Notes: md/embedded/avr.md
+  - Linux:
+      - Basic Information: md/linux/basics.md
+      - Package Management: md/linux/package_management.md
+      - Commands: md/linux/commands_utilities.md
+      - Shell Scripting: md/linux/shell_scripting.md
+      - Networking: md/linux/networking.md
+      - Services & Daemons: md/linux/services_daemons.md
+      - Raspberry Pi: md/linux/raspberry.md
+      - Problems & Solutions: md/linux/problems_and_solutions.md
+  - AI:
+      - Fundamentals: md/ai/fundamentals.md
+      - Machine Learning Workflow: md/ai/machine_learning_workflow.md
+      - Tools: md/ai/tools.md
+
+            
+  - Robotics:
+      - ROS2: md/robotics/ros2.md
+      - Gazebo: md/robotics/gazebo.md
+  - DevOps:
+      - Git: md/devops/git.md
+      - Docker: md/devops/docker.md
+      - GStreamer: md/devops/gstreamer.md
+
+
 theme:
   name: material # readthedocs
   language: tr
