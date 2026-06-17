@@ -1,0 +1,1041 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Teknik dokümantasyon">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Concepts - Dokümantasyon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#terimler" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href="../../.." title="Dokümantasyon" class="md-header__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dokümantasyon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Concepts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label=""  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label=""  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Sekmeler" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/design_pattern/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Dokümantasyon" class="md-nav__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    Dokümantasyon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../programming/design_pattern/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#terimler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terimler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu-mpu-mcu" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPU - MPU - MCU
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aapcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      AAPCS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bit-banding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bit-Banding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Levels
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvic-nested-vectored-interrupt-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIC (Nested Vectored Interrupt Controller)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rcc-hsi-hse" class="md-nav__link">
+    <span class="md-ellipsis">
+      RCC - HSI - HSE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ahb-apb" class="md-nav__link">
+    <span class="md-ellipsis">
+      AHB - APB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#burst-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Burst Transfer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isr-interrupt-service-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      ISR (Interrupt Service Routine)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#svc-supervisor-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      SVC (Supervisor Call)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swd-serial-wire-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      SWD (Serial Wire Debug)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jtag-joint-test-action-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      JTAG (Joint Test Action Group)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#itm-instrumentation-trace-macrocell" class="md-nav__link">
+    <span class="md-ellipsis">
+      ITM (Instrumentation Trace Macrocell)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpio-nibble" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPIO - Nibble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross Compiler
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Concepts</h1>
+
+<p><img alt="mcu" src="../../../assets/img/embedded/cpu_mpu_mcu.png" /></p>
+<h2 id="terimler">Terimler<a class="headerlink" href="#terimler" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Peripheral:</strong> CPU çekirdeğinin dışında kalan ve donanımsal bir iş yapan tüm modüllerdir. (GPIO, TIMER, USART / UART, SPI, I2C, ADC, DMA, USB vs.)</li>
+<li><strong>ALU (Arithmetic Logic Unit):</strong> Aritmetik (toplama, çıkarma, çarpma vb.) ve mantıksal (AND, OR, XOR vb.) işlemleri gerçekleştirir.</li>
+<li><strong>CU (Control Unit):</strong> Komutları sırayla okur, çözümler ve diğer donanım birimlerini yönlendiren kontrol sinyallerini üretir. Sistem bileşenleri arasında senkronizasyon sağlar.</li>
+<li><strong>Register:</strong> Çok hızlı, küçük kapasiteli geçici depolama birimleridir.</li>
+<li><strong>callee-saved:</strong> Bir fonksiyon bu register’ları kullanıyorsa, işi bitince eski haline geri getirme olayıdır.</li>
+<li><strong>FPU (Floating Point Unit):</strong> Kayan noktalı (float/double) işlemleri CPU yerine donanım üzerinde gerçekleştirerek işlemciyi rahatlatır; FPU yoksa veya devre dışıysa bu hesaplamalar yazılımsal olarak CPU’ya bindirilir, FPU aktif olduğunda ise aynı işlemler donanım seviyesinde yürütülür.</li>
+<li><strong>T Bit:</strong> İşlemcinin komutları hangi dilde çalıştıracağını belirleyen hayati bir kontrol bitidir; Cortex-M mimarisinde yalnızca Thumb komutları desteklendiği için bu bit her zaman 1 olmak zorundadır ve yanlış bir adresleme veya hatalı fonksiyon çağrısı sonucu <strong>T bit’in 0</strong> durumuna düşmesi, işlemcinin geçersiz bir yürütme durumuna girmesine ve doğrudan <code>HardFault</code> oluşmasına neden olur.<ul>
+<li>LSB = 1 → Thumb Modu (Tüm komutların 16 bit uzunluğunda olması)</li>
+<li>LSB = 0 → ARM Modu (Tüm komutların 32 bit uzunluğunda olması)</li>
+</ul>
+</li>
+<li><strong>PLL (Phase Locked Loop):</strong>Giriş olarak verilen düşük frekanslı ve kararlı bir clock kaynağını (örn. kristal veya internal RC) referans alarak, bunu çarpan ve bölücüler yardımıyla daha yüksek ve sistem gereksinimlerine uygun frekanslara dönüştüren dahili saat üretim birimidir. Sistem clock’unun, bus clock’larının ve peripheral clock’larının performans gereksinimlerine göre ölçeklenmesini sağlar. Yanlış PLL konfigürasyonu, zamanlama hatalarına, çevre birimlerinin çalışmamasına veya sistem kararsızlığına yol açabilir.</li>
+</ul>
+<h2 id="cpu-mpu-mcu">CPU - MPU - MCU<a class="headerlink" href="#cpu-mpu-mcu" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>CPU (Central Processing Unit) - Processor</strong>, bir sistemde komutları alan, yorumlayan ve yürüten merkezi işlem birimidir. Bilgisayarlarda, <strong>mikroişlemcilerde (MPU)</strong> ve <strong>mikrodenetleyicilerde (MCU)</strong> temel bileşen olarak yer alır. Program akışını yönetir, hesaplamaları gerçekleştirir ve sistemin genel çalışma düzenini koordine eder.</li>
+<li><strong>MPU (Microprocessor Unit)</strong>, temel olarak yalnızca işlemci çekirdeğini içeren bir bileşendir. Bellek ve çevresel birimler harici olarak bağlanır. Yüksek işlem gücü ve esnek yapı sunar.<ul>
+<li>Harici RAM, ROM/Flash ve çevresel birimlere (GPIO, UART, SPI vb.) ihtiyaç duyar.</li>
+<li>Genellikle MMU (Memory Management Unit) içerir.</li>
+<li>Linux gibi işletim sistemlerini çalıştırabilir.</li>
+<li>PC’ler, sunucular ve embedded Linux tabanlı sistemlerde yaygın olarak kullanılır.</li>
+</ul>
+</li>
+<li><strong>MCU (Microcontroller Unit)</strong>, tek bir entegre çipte işlemci çekirdeği + bellek + çevre birimleri (GPIO, timer, ADC, UART, I²C, SPI vb.) barındıran tam donanımlı gömülü sistem bileşenidir.<ul>
+<li><strong>Dahili Bellek:</strong> Flash/ROM (Program kodu depolama), SRAM (Veri ve stack alanı)</li>
+<li><strong>Çevresel Birimler:</strong> GPIO, ADC, Timers/Counter, UART, SPI, I²C, CAN, USB vb. </li>
+<li><strong>Avantajları:</strong> Düşük maliyet, düşük güç tüketimi, tek kartta tüm bileşenler.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>MPU</th>
+<th>MCU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>İşlemci</td>
+<td>Var (yalnızca çekirdek)</td>
+<td>Var (çekirdek + çevresel birimler)</td>
+</tr>
+<tr>
+<td>Bellek</td>
+<td>Harici RAM/ROM</td>
+<td>Dahili Flash + SRAM</td>
+</tr>
+<tr>
+<td>Çevresel Birimler</td>
+<td>Harici eklentilerle sağlanır</td>
+<td>Dahili UART, GPIO, ADC, timer vb. modüller</td>
+</tr>
+<tr>
+<td>Kullanım Alanı</td>
+<td>PC, sunucu, yüksek performans</td>
+<td>Gömülü sistem, IoT, otomotiv, endüstri</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aapcs">AAPCS<a class="headerlink" href="#aapcs" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>AAPCS (ARM Architecture Procedure Call Standard)</strong>, ARM mimarisinde fonksiyon çağrı sözleşmesini tanımlar. Amaçlar:<ul>
+<li><strong>Parametre İletimi:</strong> İlk dört parametre <code>r0–r3</code> register’larında, fazlası stack taşınır.</li>
+<li><strong>Geri Dönüş Adresi:</strong> <code>lr</code> (link register) içinde saklanır.</li>
+<li><strong>Yığın Düzeni:</strong> Yeni çerçevede önce geri dönüş adresi, sonra yerel register kurtarma alanı, en altta yerel değişkenler yer alır.</li>
+<li><strong>Kayıt Koru:</strong> Callee‑saved (<code>r4–r11</code>) ve Caller‑saved (<code>r0–r3, r12, lr</code>) register’lar ayrıştırılır.</li>
+</ul>
+</li>
+<li>Bu standart, farklı derleyiciler ve kütüphaneler arasında uyum ve taşınabilirlik sağlar.</li>
+</ul>
+<h2 id="memory">Memory<a class="headerlink" href="#memory" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Stack Memory:</strong> Fonksiyon çağrıldığında bellek ayrılır, fonksiyon bittiğinde otomatik olarak geri verilir.</p>
+<ul>
+<li><strong>Yerel Değişkenler:</strong> Fonksiyonlara ait yerel değişkenler ve dönüş adresleri stack üzerinde tutulur.</li>
+<li><strong>Yapı:</strong> Her fonksiyon çağrısı için ayrı bir <em>stack frame</em> oluşturulur.</li>
+<li><strong>Sınır:</strong> Boyutu sınırlıdır; kontrolsüz kullanım <em>stack overflow</em> hatasına yol açabilir.</li>
+</ul>
+</li>
+<li>
+<p><strong>Heap Memory:</strong>  Bellek, çalışma zamanı sırasında <code>malloc</code>, <code>calloc</code>, <code>new</code> gibi fonksiyonlarla ayrılır.</p>
+<ul>
+<li><strong>Yaşam Süresi:</strong> Açıkça serbest bırakılana (<code>free</code>, <code>delete</code>) kadar bellekte kalır.</li>
+<li><strong>Kullanım Alanı:</strong> Boyutu önceden bilinmeyen veri yapıları ve uzun ömürlü nesneler için kullanılır.</li>
+<li><strong>Risk:</strong> Yanlış yönetim bellek sızıntılarına (<em>memory leak</em>) ve parçalanmaya (<em>fragmentation</em>) neden olabilir.</li>
+</ul>
+</li>
+<li>
+<p>ARM Cortex‑M işlemcide iki ayrı stack kullanılır:</p>
+<ul>
+<li><strong>MSP (Main Stack Pointer):</strong> Sistem başlangıcında yığını MSP yönetir.</li>
+<li><strong>PSP (Process Stack Pointer):</strong> OS/RTOS kullanıldığında, her thread kendi PSP yığınına sahip olabilir.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Bilgi</p>
+<table>
+<thead>
+<tr>
+<th>İşaretçi</th>
+<th>Kullanım Alanı</th>
+<th>Mod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSP</td>
+<td>Kesme servis rutinleri ve sistem başlatma</td>
+<td>Privileged (kernel)</td>
+</tr>
+<tr>
+<td>PSP</td>
+<td>Uygulama kodu ve thread işlemleri</td>
+<td>Thread (user)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// PSP kullanımı örneği (CMSIS)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">__set_PSP</span><span class="p">(</span><span class="mh">0x20002000</span><span class="p">);</span><span class="w">       </span><span class="c1">// PSP başlangıç adresini ayarla</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">__set_CONTROL</span><span class="p">(</span><span class="n">__get_CONTROL</span><span class="p">()</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// CONTROL register’da SPSEL bit’i = 1 (PSP seç)</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<h2 id="bit-banding">Bit-Banding<a class="headerlink" href="#bit-banding" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Bit‑Banding</strong>, belirli bellek bölgesindeki her biti ayrı bir adrese eşler. Böylece tek adımla tek bir biti set/clear edebilirsiniz:</li>
+<li>Memory Region: 0x20000000–0x200FFFFF</li>
+<li>Alias Region: 0x22000000–0x23FFFFFF</li>
+<li>Hesaplama Formülü: <code>alias_addr = alias_base + (byte_offset × 32) + (bit_number × 4)</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ODR</td>
+<td>Output Data Register (çıkış verisi)</td>
+</tr>
+<tr>
+<td>IDR</td>
+<td>Input Data Register (giriş verisi)</td>
+</tr>
+<tr>
+<td>BSRR</td>
+<td>Bit Set/Reset Register (set ve reset için)</td>
+</tr>
+<tr>
+<td>BRR</td>
+<td>Bit Reset Register (sadece reset için)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="access-levels">Access Levels<a class="headerlink" href="#access-levels" title="Permanent link">&para;</a></h2>
+<p>Gömülü sistemlerde erişim seviyeleri, kodun hangi modda çalıştığını ve hangi kaynaklara erişebileceğini belirler</p>
+<table>
+<thead>
+<tr>
+<th>Mod</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Handler Mode</td>
+<td>Kesme ve istisna işleyicilerinin (ISR) çalıştığı, her zaman ayrıcalıklı modu.</td>
+</tr>
+<tr>
+<td>Thread/User Mode</td>
+<td>Normal uygulama kodunun çalıştığı mod; ister ayrıcalıklı, ister kısıtlı olabilir.</td>
+</tr>
+<tr>
+<td>PAL (Privileged Access)</td>
+<td>Tüm sistem kaynaklarına tam erişime izin verir (örn. donanım kontrolü).</td>
+</tr>
+<tr>
+<td>NPAL (Non‑Privileged)</td>
+<td>Korunan belleğe ve kritik birimlere erişimi sınırlandırır.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="nvic-nested-vectored-interrupt-controller">NVIC (Nested Vectored Interrupt Controller)<a class="headerlink" href="#nvic-nested-vectored-interrupt-controller" title="Permanent link">&para;</a></h2>
+<p>ARM Cortex‑M mikrodenetleyicilerinde kesme yönetimini üstlenen donanım modülüdür:</p>
+<ul>
+<li><strong>Vectored Interrupts:</strong> Her kesme kaynağı için önceden tanımlı vektör tablosu (ISR adresleri).</li>
+<li><strong>Öncelik Seviyeleri:</strong> 0 (en yüksek) → 255 (en düşük) arası öncelik atayarak, kritik kesmelere öncelik verebilirsiniz.</li>
+<li><strong>Nesting (İç İçe Kesme):</strong> Daha yüksek öncelikli kesme, daha düşük öncelikli bir ISR çalışırken bile tetiklenip işlenebilir.</li>
+<li><strong>Enable/Disable:</strong> İstediğiniz kesmeyi <code>NVIC_EnableIRQ(IRQn)</code> ve <code>NVIC_DisableIRQ(IRQn)</code> ile kontrol edebilirsiniz.</li>
+</ul>
+<h2 id="rcc-hsi-hse">RCC - HSI - HSE<a class="headerlink" href="#rcc-hsi-hse" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>RCC (Reset and Clock Control)</strong>, mikrodenetleyicideki tüm modüllere saat (clock) sinyallerini sağlayan ve donanım-software sıfırlama (reset) işlemlerini yöneten merkezi bir birimdir.<ul>
+<li><strong>Saat Kaynak Seçimi:</strong> Dahili osilatör (HSI), harici kristal (HSE) veya PLL (Phase‑Locked Loop) kullanımı</li>
+<li><code>AHB, APB1/APB2</code> gibi bus’lar için bölme (prescaler) değerlerini ayarlar</li>
+<li><strong>PLL</strong> parametreleriyle sistem saat hızını (SYSCLK) optimize eder</li>
+<li><strong>Güç Tüketimi:</strong> Düşük güçlü modlar için clock gating (kullanılmayan modülleri durdurma)</li>
+<li>Sistem reset’i, güç reset’i, bağımsız watchdog reset’i gibi kaynakları kontrol eder</li>
+<li>Her modülün reset bit’ini (örneğin <code>RCC_APB1RSTR</code>) yazarak o çevresel birimi yeniden başlatır</li>
+</ul>
+</li>
+<li><strong>HSI (High-Speed Internal) Oscillator:</strong> MCU içinde entegre edilmiştir (Dahili osilatör).<ul>
+<li><strong>Frekans:</strong> STM32 modellerine göre genellikle 8 MHz veya 16 MHz.</li>
+<li><strong>Avantaj:</strong> Harici kristal gerekmez, hızlı başlar ve düşük güç tüketir.</li>
+<li><strong>Dezavantaj:</strong> Doğruluğu <code>±1 %</code> civarında; hassas zamanlama gerektiren protokoller için ideal değil.</li>
+</ul>
+</li>
+<li><strong>HSE (High-Speed External) Oscillator:</strong> Harici kristal veya dış saat sinyali kullanır.<ul>
+<li><strong>Desteklenen frekans:</strong> 4 MHz – 25 MHz</li>
+<li><strong>Avantaj:</strong> Çok daha kararlı ve doğru saat kaynağı.</li>
+<li><strong>Kullanım:</strong> USB, CAN, SDIO, yüksek hızlı UART gibi hassas zamanlama gerektiren iletişimler.</li>
+</ul>
+</li>
+</ul>
+<h2 id="ahb-apb">AHB - APB<a class="headerlink" href="#ahb-apb" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>AHB (Advanced High-performance Bus):</strong>, ARM AMBA (Advanced Microcontroller Bus Architecture) ailesinin yüksek hızlı veri yolu katmanıdır. Özellikleri:</p>
+<ul>
+<li><strong>Yüksek Bant Genişliği:</strong> Burst transfer desteği sayesinde ardışık veri bloklarını kesintisiz taşır.</li>
+<li><strong>Düşük Gecikme:</strong> Pipeline mimarisiyle her döngüde bir transfer başlatılabilir.</li>
+<li><strong>Multi‑Master Desteği:</strong> Birden fazla bus master (ör. DMA, CPU) arasında arbitraj yaparak kontrolü paylaşır.</li>
+<li><strong>Ana işlemci (CPU)</strong> ve <strong>DMA</strong> birimi doğrudan AHB’ye bağlıdır.</li>
+<li><strong>Sistem bellekleri</strong> (SRAM/Flash) ve sabit bellek arayüzleri genellikle AHB üzerinden erişilir.</li>
+</ul>
+</li>
+<li>
+<p><strong>APB (Advanced Peripheral Bus):</strong>, AMBA ailesinin düşük hızlı çevre birimleri için tasarlanmış basitleştirilmiş veri yoludur:</p>
+<ul>
+<li><strong>Düşük Karmaşıklık:</strong> Tek döngülü, pipelineless tasarım; aracılar (bridges) üzerinden AHB’ye bağlanır.</li>
+<li><strong>Düşük Güç Tüketimi:</strong> Çevresel birimleri gerektikçe uyandıracak şekilde çalışır.</li>
+<li><strong>Tipik Kullanım:</strong> UART, SPI, I²C, Timer’lar gibi düşük hızlı algılayıcı ve kontrol modülleri APB üzerinde yer alır.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Özelikler</th>
+<th><strong>AHP</strong></th>
+<th><strong>APB</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hız</td>
+<td>Yüksek hızda veri iletimi</td>
+<td>Düşük hızda veri iletimi</td>
+</tr>
+<tr>
+<td>Veri Transferi</td>
+<td>Burst transfer, pipelining, yüksek hız</td>
+<td>Tek veri transferi, basit iletişim</td>
+</tr>
+<tr>
+<td>Yapı</td>
+<td>Karmaşık, daha fazla donanım gereksinimi</td>
+<td>Basit, düşük maliyetli</td>
+</tr>
+<tr>
+<td>Gecikme</td>
+<td>Düşük gecikme</td>
+<td>Yüksek gecikme</td>
+</tr>
+<tr>
+<td>Uygulama Alanları</td>
+<td>CPU, DMA, bellek arayüzleri, büyük veri transferi</td>
+<td>Çevre birimleri (UART, I2C, GPIO, Timer vb.) ile iletişim</td>
+</tr>
+<tr>
+<td>Bağlantı Tipi</td>
+<td>Master/slave yapısı, daha karmaşık bağlantılar</td>
+<td>Basit veri iletimi ve bağlantılar</td>
+</tr>
+<tr>
+<td>Güç Tüketimi</td>
+<td>Yüksek güç tüketimi</td>
+<td>Düşük güç tüketimi</td>
+</tr>
+</tbody>
+</table>
+<h2 id="burst-transfer">Burst Transfer<a class="headerlink" href="#burst-transfer" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Yüksek hızlı veri yollarında ardışık ve blok halinde veri iletimi sağlayan yöntemdir:</li>
+<li><strong>Blok İletimi:</strong> Birçok küçük hatta tek tek veri yerine, büyük bir veri bloğu peş peşe aktarılır.</li>
+<li><strong>Verimlilik:</strong> Her küçük veri paketi için ayrı başlatma/durdurma/idare işlemi yapılmaz; başlatma/durdurma maliyeti tek seferde ödenir.</li>
+<li><strong>Düşük Gecikme:</strong> Pipeline desteğiyle, her clock döngüsünde yeni bir veri kelimesi transfer edilebilir.</li>
+<li><strong>Yüksek Bant Genişliği:</strong> Burst modunda, topyekûn aktarım hızında ciddi artış sağlar.</li>
+</ul>
+<h2 id="isr-interrupt-service-routine">ISR (Interrupt Service Routine)<a class="headerlink" href="#isr-interrupt-service-routine" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>interrupt</strong> oluştuğunda otomatik olarak çağrılan kesme işleyici fonksiyonudur. Ana program akışı duraklar, <strong>ISR</strong> çalışır, sonra ana programa döner.</li>
+<li>CPU <strong>LR</strong> (link register) içerisine dönüş adresini kaydeder</li>
+<li>Kesme kaynağı bayrağını temizleyip (ör. <code>EXTI-&gt;PR |= …</code>) ilgili işlemi yapar</li>
+<li><strong>R0–R12</strong> → Genel amaçlı register’lar</li>
+<li><strong>SP</strong> (Stack Pointer) → Geçici veri ve ISR dönüş adresi</li>
+<li><strong>LR</strong> (Link Register) → ISR öncesi dönüş adresi</li>
+<li><strong>PC</strong> (Program Counter) → Bir sonraki yürütülecek komut</li>
+</ul>
+<h2 id="svc-supervisor-call">SVC (Supervisor Call)<a class="headerlink" href="#svc-supervisor-call" title="Permanent link">&para;</a></h2>
+<p>Yazılım kesmesi (<code>svc</code>) aracılığıyla kullanıcı uygulamasından çekirdek veya RTOS hizmetlerine (ör. bellek ayırma, görev oluşturma) erişim sağlar.</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nf">SVC</span><span class="w"> </span><span class="mi">#5</span><span class="w">    </span><span class="c1">; SVC numarası 5 ile çekirdek çağrısı</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">__ASM</span><span class="p">(</span><span class="s">&quot;svc 5&quot;</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="swd-serial-wire-debug">SWD (Serial Wire Debug)<a class="headerlink" href="#swd-serial-wire-debug" title="Permanent link">&para;</a></h2>
+<ul>
+<li>ARM Cortex‑M programlama ve hata ayıklama amacıyla kullanılan, az (2) pinli (SWDIO, SWCLK) ve düşük overhead’li bir debug arayüzüdür.</li>
+<li><strong>Düşük pin sayısı</strong> ile JTAG’a göre avantajlı</li>
+<li>Gerçek zamanlı bellek okuma/yazma, register izleme</li>
+<li><strong>SWO</strong> (Serial Wire Output) ile trace mesajlarını aktarır</li>
+</ul>
+<h2 id="jtag-joint-test-action-group">JTAG (Joint Test Action Group)<a class="headerlink" href="#jtag-joint-test-action-group" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Elektronik bileşenlerin test ve hata ayıklama standardıdır:</li>
+<li>4 - 5 pinli protokol (TCK, TMS, TDI, TDO, TRST)</li>
+<li>Boundary‑scan test, IC programlama, çekirdek debug</li>
+<li>SWD’ın alt kümesi olarak bazı ARM çekirdeklerinde desteklenir</li>
+<li>JTAG, çoklu cihaz desteği ve <strong>boundary-scan</strong> gibi üretim odaklı yetenekler sunduğu için vardır; SWD ise ARM mikrodenetleyicilerde aynı debug işlevlerini daha az pinle sağlamak amacıyla geliştirilmiş bir alternatiftir</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>JTAG</strong></th>
+<th><strong>SWD</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pin Sayısı</strong></td>
+<td>5-6 pin</td>
+<td>2 pin</td>
+</tr>
+<tr>
+<td><strong>Temel Pinler</strong></td>
+<td>TDI, TDO, TMS, TCK, TRST (opsiyonel)</td>
+<td>SWDIO, SWCLK</td>
+</tr>
+<tr>
+<td><strong>Zincirleme Desteği</strong></td>
+<td>Var, birden fazla cihazı zincirleme olarak bağlayabilir</td>
+<td>Yok, her cihaz için ayrı bağlantı gereklidir</td>
+</tr>
+<tr>
+<td><strong>Hız ve Performans</strong></td>
+<td>Daha fazla veri iletimi, daha yüksek hız, ancak karmaşık sistemlerde yavaş olabilir</td>
+<td>Daha hızlı veri iletimi, düşük pin sayısı ile daha hızlı sonuç alabilirsiniz</td>
+</tr>
+<tr>
+<td><strong>Karmaşıklık</strong></td>
+<td>Daha karmaşık, çok sayıda pin ve yapılandırma gerektirir</td>
+<td>Daha basit, düşük pin sayısı ve yapılandırma gerektirir</td>
+</tr>
+<tr>
+<td><strong>Kullanım Alanları</strong></td>
+<td>Daha büyük ve karmaşık sistemler, FPGA'lar, bellekler, CPU'lar</td>
+<td>ARM Cortex-M mikrodenetleyiciler, düşük pinli yapılar</td>
+</tr>
+<tr>
+<td><strong>Debugging Yeteneği</strong></td>
+<td>Kapsamlı debugging, register işlemleri ve sistem izleme</td>
+<td>Temel debugging, register okuma/yazma, programlama</td>
+</tr>
+<tr>
+<td><strong>Zamanlayıcı Desteği</strong></td>
+<td>Yüksek hızda test ve iletişim gerektiren sistemler için uygundur</td>
+<td>Düşük pin sayısı ile hızlı hata ayıklama sağlar</td>
+</tr>
+<tr>
+<td><strong>Enerji Tüketimi</strong></td>
+<td>Daha fazla enerji tüketebilir, daha fazla pin kullanıldığı için</td>
+<td>Daha az enerji tüketir, çünkü sadece 2 pin kullanılır</td>
+</tr>
+<tr>
+<td><strong>Karmaşık Sistemler İçin Uygunluk</strong></td>
+<td>Yüksek hızda ve karmaşık sistemlerde kullanılır</td>
+<td>Daha basit ve düşük pin sayısına sahip sistemler için uygundur</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>OpenOCD (Open On-Chip Debugger), mikrodenetleyici ve SoC’lere JTAG/SWD üzerinden programlama ve hata ayıklama yapılmasını sağlayan açık kaynaklı bir debug sunucusudur.</p>
+</div>
+<h2 id="itm-instrumentation-trace-macrocell">ITM (Instrumentation Trace Macrocell)<a class="headerlink" href="#itm-instrumentation-trace-macrocell" title="Permanent link">&para;</a></h2>
+<ul>
+<li>ITM, ARM Cortex‑M tabanlı mikrodenetleyicilerde yerleşik olarak bulunan, <strong>gerçek zamanlı izleme</strong> ve <strong>hata ayıklama</strong> altyapısıdır:</li>
+<li><strong>Gerçek Zamanlı İzleme:</strong> Kodunuzun akışını, fonksiyon çağrılarını veya değişken değerlerini canlı olarak “trace” edebilirsiniz.</li>
+<li><strong>Düşük Gecikme:</strong> <code>SWO</code> (Serial Wire Output) pininden taşan veriyi, sistem performansını etkilemeden aktarır.</li>
+<li><strong>Performans Analizi:</strong> Zaman damgalı etiketler (timestamps) sayesinde hangi kod bloğunun ne kadar sürdüğünü ölçebilir, darboğazları hızla tespit edebilirsiniz.</li>
+<li><strong>Özelleştirilebilir Paketler:</strong> Hem ARM tarafından tanımlı standart trace paketlerini hem de kendi veri formatlarınızı kullanabilirsiniz.</li>
+<li>Zamanlama hatalarını keşfetme</li>
+<li>Döngü sayımlarını ve iş parçacıkları arasındaki geçişleri izleme</li>
+<li>Kalıcı log alınamayan gerçek zamanlı sistemlerde debug</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>Cortex-M0/M0+/M1/M2 çekirdekleri düşük alan ve maliyet odaklı tasarlandığı için CoreSight debug altyapısını (ITM, DWT, ETM) içermez; Cortex-M3 ve sonrası ise ileri seviye debug ve izleme (trace) gereksinimleri nedeniyle ITM’ye geçmiştir.</p>
+</div>
+<h2 id="gpio-nibble">GPIO  - Nibble<a class="headerlink" href="#gpio-nibble" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Mikrodenetleyici veya işlemci üzerinde bulunan; dijital giriş (input) veya dijital çıkış (output) olarak yapılandırılabilen, donanım seviyesinde kontrol edilen genel amaçlı pinlerdir.</li>
+<li>4 bitten oluşan bir veri birimidir → 0000–1111 (hex’de 0–F)<ul>
+<li><strong>MSB (Most Significant Bit)</strong> en soldaki bittir</li>
+<li><strong>LSB (Least Significant Bit)</strong> en sağdaki bittir.</li>
+</ul>
+</li>
+<li><code>&amp;</code> Bitwise And, <code>|</code> Bitwise Or, <code>^</code> Bitwise XOR</li>
+<li><code>~</code> Bitwise NOT, <code>&lt;&lt;</code> Bitwise Shift Left, <code>&gt;&gt;</code> Bitwise Shift Right</li>
+</ul>
+<h2 id="cross-compiler">Cross Compiler<a class="headerlink" href="#cross-compiler" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bir x86 veya macOS/Windows gibi “geliştirme host” makinenizde çalışıp, farklı bir “hedef” platform (ör. ARM Cortex‑M) için derlenmiş kod üreten derleyicidir. En yaygın örnek:</li>
+</ul>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>arm-none-eabi-gcc
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>│   │    │      └─ gcc (GNU Compiler Collection)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>│   │    └─ eabi (Embedded Application Binary Interface)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>│   └─ none (OS yok: bare‑metal)
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>└─ arm (ARM mimarisi)
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li>Çıktı Dosya Biçimleri<ul>
+<li><strong>ELF (.elf):</strong> Çalıştırılabilir, simge tablosu ve debug bilgisi içerir. (Linux/Unix standardı)</li>
+<li><strong>HEX (.hex):</strong> Intel HEX formatı; her satırda adres + byte dizisi ASCII olarak saklanır. Mikrodenetleyici bootloader’larına uygundur.</li>
+<li><strong>BIN (.bin):</strong> Saf makine kodu; hiçbir meta‑veri içermez, doğrudan belleğe veya flash’a yazılır.</li>
+</ul>
+</li>
+<li><strong>Tipik Derleme Akışı</strong><ul>
+<li><code>arm-none-eabi-gcc -c main.c -o main.o</code> → Derleme</li>
+<li><code>arm-none-eabi-ld main.o -T linker_script.ld -o firmware.elf</code> → Bağlama</li>
+<li><code>arm-none-eabi-objcopy -O ihex firmware.elf firmware.hex</code> → HEX’e dönüştürme</li>
+<li><code>arm-none-eabi-objcopy -O binary firmware.elf firmware.bin</code> → BIN’e dönüştürme</li>
+</ul>
+</li>
+</ul>
+<pre class="mermaid"><code>graph LR
+  A[main.c] --&gt; |Preprocessor| B{main.i};
+  B --&gt; |Parser| C[Code generator];
+  C --&gt; D[main.s];
+  D --&gt; |Assembler| E[main.o];
+  E --&gt; |Linker| F[Debug File .elf];
+  F --&gt; |Objcopy Tool| H["(.bin)"]
+  G["Other Lib (.a)"] --&gt; |Linker| F["Debug File (.elf)"];</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.linked", "content.code.select", "content.code.wrap", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>

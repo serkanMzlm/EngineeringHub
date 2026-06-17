@@ -1,0 +1,988 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Teknik dokümantasyon">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Machine learning workflow - Dokümantasyon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#x-ve-y-kavram" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href="../../.." title="Dokümantasyon" class="md-header__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dokümantasyon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Machine learning workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label=""  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label=""  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Sekmeler" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/design_pattern/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Dokümantasyon" class="md-nav__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    Dokümantasyon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../programming/design_pattern/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#x-ve-y-kavram" class="md-nav__link">
+    <span class="md-ellipsis">
+      X ve Y Kavramı
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crossvalidation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross‑Validation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#veri-hazrlama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Veri Hazırlama
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yaygn-olceklendirme-yontemleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Yaygın Ölçeklendirme Yöntemleri
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Yaygın Ölçeklendirme Yöntemleri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normalization-minmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normalization (Min–Max)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standardization-z-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standardization (Z-Score)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kategorik-veriler-ve-one-hot-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kategorik Veriler ve One-Hot Encoding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Algoritmalar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algoritmalar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feature-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Scaling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradyan-inis-tabanl-algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gradyan İniş Tabanlı Algoritmalar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distancebased" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distance‑Based
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#treebased-algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tree‑Based Algoritmalar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaygn-yontemler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Yaygın Yöntemler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onehot-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      One‑Hot Encoding
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-tree-karar-agac" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Tree (Karar Ağacı)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#determination-katsays-r2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Determination Katsayısı (R²)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roc-egrisi-receiver-operating-characteristic-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROC Eğrisi (Receiver Operating Characteristic Curve)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roc-auc-skoru" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROC AUC Skoru
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Machine learning workflow</h1>
+
+<h2 id="x-ve-y-kavram">X ve Y Kavramı<a class="headerlink" href="#x-ve-y-kavram" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>X (Bağımsız Değişkenler / Features):</strong> Modelin girdi olarak kullandığı özelliklerdir.</li>
+<li>
+<p><strong>Y (Bağımlı Değişken / Target):</strong> Modelin tahmin etmeye çalıştığı çıktıdır.</p>
+</li>
+<li>
+<p><strong>Örnek Ev Fiyat Tahmini:</strong> X (metrekare, oda sayısı, konum, bina yaşı) -&gt; Y (ev fiyatı)  </p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>Modelin başarısı, yalnızca algoritmaya değil; X ve Y’nin doğru tanımlanmasına doğrudan bağlıdır.</p>
+</div>
+<hr />
+<h2 id="crossvalidation">Cross‑Validation<a class="headerlink" href="#crossvalidation" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Cross‑Validation, makine öğrenimi modellerinin genelleme yeteneğini (overfitting’i önleyerek gerçek dünyada nasıl performans göstereceğini) değerlendirmek için yaygın olarak kullanılan bir tekniktir. Temel adımlar şöyle işler: <ul>
+<li><strong>Veri Kümesini Parçalara Bölme</strong><ul>
+<li>En yaygın yöntem <strong>k‑fold</strong> cross‑validation’dır: Veri seti eşit büyüklükte k parçaya (fold) bölünür.</li>
+<li>Örneğin <code>k = 5</code> ise, veri beş parçaya ayrılır.</li>
+</ul>
+</li>
+<li><strong>Eğitim ve Test Döngüleri</strong><ul>
+<li>Her seferinde bu k parçadan biri test seti, kalan <code>k – 1</code> parça eğitim seti olarak kullanılır.</li>
+<li>Toplam k farklı model eğitilir ve test edilir.</li>
+</ul>
+</li>
+<li><strong>Performans Ölçümü</strong><ul>
+<li>Her döngü için hata veya skor metriği (örn. doğruluk, MSE, R²) hesaplanır.</li>
+<li>Tüm k sonuç ortalanarak nihai performans tahmini elde edilir.</li>
+</ul>
+</li>
+<li><strong>Avantajları</strong><ul>
+<li>Veri setindeki rastgele bölünmelere bağlı sapmayı azaltır.</li>
+<li>Modelin farklı alt kümelerde nasıl davrandığına dair kapsamlı bilgi sunar.</li>
+<li>Özellikle küçük veri setlerinde daha güvenilir bir değerlendirme sağlar.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="hata" src="../../../assets/img/ai/cross.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Yöntem</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k‑Fold</td>
+<td>Veri k parçaya bölünür ve k kez eğitim/test yapılır.</td>
+</tr>
+<tr>
+<td>Stratified k‑Fold</td>
+<td>Özellikle sınıflandırmada, her fold’da sınıf oranlarını korur.</td>
+</tr>
+<tr>
+<td>Leave-One-Out</td>
+<td>k = N (her örnek bir fold); her model tek bir örnek test eder.</td>
+</tr>
+<tr>
+<td>Shuffle Split</td>
+<td>Rastgele bölme ve tekrarlama; her döngüde farklı rastgele bölme.</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="hata" src="../../../assets/img/ai/cross_validation.png" /></p>
+<ul>
+<li><strong>Genelleme Hatalarını Ölçer:</strong> Tek seferlik eğitim/test bölünmesine kıyasla daha istikrarlı metrikler sağlar.</li>
+<li><strong>Model Seçimi:</strong> Farklı hiperparametrelerin karşılaştırılmasında güvenilir sonuç verir.</li>
+<li><strong>Küçük Veri Setleri:</strong> Sınırlı veri olduğunda, her örnek hem eğitim hem test için kullanılarak veri verimli değerlendirilir.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>Bu yöntemle, modelinizin Coefficient of Determination (<code>R²</code>), doğruluk veya diğer metriklere dayalı performans tahmininiz daha güvenilir ve tekrarlanabilir hale gelir.</p>
+</div>
+<h2 id="veri-hazrlama">Veri Hazırlama<a class="headerlink" href="#veri-hazrlama" title="Permanent link">&para;</a></h2>
+<p>Model performansını en çok etkileyen aşama, veri hazırlamadır. Tipik akış aşağıdaki gibidir:</p>
+<pre class="mermaid"><code>graph LR
+  A[Clean Data] --&gt; B[Transform Data];
+  B --&gt; C[Reduce Data];</code></pre>
+<ol>
+<li>
+<p><strong>Clean Data (Veri Temizleme):</strong> </p>
+<ul>
+<li>Eksik değerlerin giderilmesi veya silinmesi</li>
+<li>Tutarsız birimlerin normalize edilmesi (ör. m², kg)</li>
+<li>Hatalı veya anlamsız kayıtların ayıklanması</li>
+<li>Kategorik etiketlerin düzenlenmesi</li>
+</ul>
+</li>
+<li>
+<p><strong>Transform Data (Veri Dönüştürme):</strong></p>
+<ul>
+<li>Log / ölçek dönüşümleri</li>
+<li>Tarih alanlarının parçalanması</li>
+<li>Kategorik verilerin sayısal temsile çevrilmesi</li>
+<li>Özellik dağılımlarının dengelenmesi</li>
+</ul>
+</li>
+<li>
+<p><strong>Reduce Data (Veri Azaltma):</strong></p>
+<ul>
+<li>Sabit veya anlamsız kolonların kaldırılması (ID, hash vb.)</li>
+<li>Yüksek korelasyonlu özelliklerin azaltılması</li>
+<li>Boyut indirgeme yaklaşımları</li>
+</ul>
+</li>
+</ol>
+<h2 id="yaygn-olceklendirme-yontemleri">Yaygın Ölçeklendirme Yöntemleri<a class="headerlink" href="#yaygn-olceklendirme-yontemleri" title="Permanent link">&para;</a></h2>
+<h3 id="normalization-minmax">Normalization (Min–Max)<a class="headerlink" href="#normalization-minmax" title="Permanent link">&para;</a></h3>
+<p><img alt="hesap" src="../../../assets/img/ai/calculus_1.png" /></p>
+<ul>
+<li>Özellikleri 0–1 aralığına sıkıştırır</li>
+<li>Karşılaştırmayı kolaylaştırır</li>
+<li>Aykırı değerlere duyarlıdır</li>
+</ul>
+<h3 id="standardization-z-score">Standardization (Z-Score)<a class="headerlink" href="#standardization-z-score" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ortalama = 0, standart sapma = 1</li>
+<li>Aykırı değerlere daha dayanıklıdır</li>
+<li>Dağılım varsayımı içerir</li>
+</ul>
+<p><img alt="hesap" src="../../../assets/img/ai/calculus_2.png" /></p>
+<h2 id="kategorik-veriler-ve-one-hot-encoding">Kategorik Veriler ve One-Hot Encoding<a class="headerlink" href="#kategorik-veriler-ve-one-hot-encoding" title="Permanent link">&para;</a></h2>
+<p>Kategorik değişkenler doğrudan sayısal işlemlere uygun değildir. Bu nedenle binary temsile dönüştürülür.</p>
+<ul>
+<li>Her kategori ayrı bir sütun</li>
+<li>
+<p>Varlık: 1, yokluk: 0</p>
+</li>
+<li>
+<p><strong>Avantaj:</strong> Mesafeye dayalı algoritmalar için doğru temsil</p>
+</li>
+<li><strong>Dezavantaj:</strong>Çok kategori → boyut patlaması</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Renk</th>
+<th>Kırmızı</th>
+<th>Mavi</th>
+<th>Yeşil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kırmızı</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Mavi</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Yeşil</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="hesap" src="../../../assets/img/ai/color.png" /></p>
+<h2 id="algoritmalar">Algoritmalar<a class="headerlink" href="#algoritmalar" title="Permanent link">&para;</a></h2>
+<h3 id="feature-scaling">Feature Scaling<a class="headerlink" href="#feature-scaling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Farklı aralıklardaki özellikler, <strong>gradyan iniş</strong> gibi optimizasyon tabanlı algoritmalarda öğrenme hızını ve kararlılığı bozar. İki yaygın yöntem:</li>
+</ul>
+<h3 id="gradyan-inis-tabanl-algoritmalar">Gradyan İniş Tabanlı Algoritmalar<a class="headerlink" href="#gradyan-inis-tabanl-algoritmalar" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Linear regression, logistic regression, sinir ağları, PCA vb. modeller gradyan iniş ile parametrelerini günceller. Özellik aralıkları farklı olduğunda:<ul>
+<li>Büyük değerli özellikler çok küçük adımlarla güncellenir,</li>
+<li>Küçük değerli özellikler çok büyük adımlarla güncellenir,</li>
+<li>Sonuçta öğrenme yavaşlar veya dengesizleşir.</li>
+</ul>
+</li>
+<li>Bu yüzden tüm özellikleri aynı ölçeğe getirmek, gradyan inişin minimuma hızlı ve dengeli yakınsamasını sağlar.</li>
+</ul>
+<h3 id="distancebased">Distance‑Based<a class="headerlink" href="#distancebased" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Özellikler arası mesafeye duyarlıdır</li>
+<li>Ölçeklendirme <strong>zorunludur</strong></li>
+<li>
+<p><strong>Örnek kullanım alanı:</strong> Benzerlik, kümelenme, yakın komşuluk</p>
+</li>
+<li>
+<p><strong>Örnek Algoritmalar:</strong></p>
+<ul>
+<li><strong>K‑NN (K‑Nearest Neighbors):</strong> Sınıflandırma ve regresyon için en yakın K komşuyu kullanır.</li>
+<li><strong>K‑means:</strong> Veri kümesini K kümeye ayırır, merkezine en yakın noktaları bulur.</li>
+<li><strong>SVM (Support Vector Machines):</strong> Sınıflandırma için hiperdüzlemler oluşturur; mesafe ölçüsüne duyarlıdır.</li>
+</ul>
+</li>
+<li><strong>Neden Ölçeklendirme?</strong><ul>
+<li>İki özellik farklı aralıklardaysa (örneğin not ortalaması 0–5, gelir 0–100 000), gelir özelliği mesafeyi domine eder.</li>
+<li><strong>Öklidyen mesafe</strong> gibi metrikler, tüm özellikleri eşit katkıda bulunacak şekilde normalizasyon gerektirir.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="oklid" src="../../../assets/img/ai/oklid.png" /></p>
+<hr />
+<h3 id="treebased-algoritmalar">Tree‑Based Algoritmalar<a class="headerlink" href="#treebased-algoritmalar" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ağaç tabanlı modeller, hem sınıflandırma hem de regresyon problemlerinde en popüler yöntemlerden biridir. Doğrusal olmayan ilişkileri kolayca yakalar ve özellik ölçeğine duyarsızdır.</li>
+<li>Karakteristik Özellikler:<ul>
+<li><strong>Split (Bölme) Kriteri:</strong> Her düğümde, veri setini en homojen alt kümelere ayıran tek bir özelliğe göre bölme.</li>
+<li><strong>Özellik Ölçeğine Duyarsızlık:</strong> Tek bir özelliğe dayalı böldüğü için, diğer özelliklerin değer aralıkları bölme kararını etkilemez.</li>
+<li><strong>Kararlılık &amp; Yorumlanabilirlik:</strong> Model yapısı ağaç grafiği şeklinde görselleştirilebilir.</li>
+</ul>
+</li>
+<li>Örnek Algoritmalar:<ul>
+<li><strong>Decision Tree:</strong> Tek bir ağaç yapısı kullanır.</li>
+<li><strong>Random Forest:</strong> Birden çok karar ağacından oluşan topluluk yöntemi.</li>
+<li><strong>Gradient Boosted Trees:</strong> Ardışık ağaçlarla hatayı azaltan güçlendirme yöntemi.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="tree" src="../../../assets/img/ai/tree.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>Mesafeye dayalı algoritmalarda mutlaka ölçeklendirme yapın.
+Ağaç tabanlı algoritmalar ise ölçekleme gerektirmez; farklı aralıklardaki özellikleri doğrudan kullanabilir.</p>
+</div>
+<hr />
+<h3 id="yaygn-yontemler">Yaygın Yöntemler<a class="headerlink" href="#yaygn-yontemler" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Yöntem</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k-Fold</td>
+<td>Veri k parçaya bölünür, her parça test edilir</td>
+</tr>
+<tr>
+<td>Stratified k-Fold</td>
+<td>Sınıf oranları korunur</td>
+</tr>
+<tr>
+<td>Leave-One-Out</td>
+<td>Her örnek tek başına test edilir</td>
+</tr>
+<tr>
+<td>Shuffle Split</td>
+<td>Rastgele ve tekrarlı bölme</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Özellikle küçük veri setlerinde cross-validation kritik öneme sahiptir.</p>
+</blockquote>
+<hr />
+<h3 id="onehot-encoding">One‑Hot Encoding<a class="headerlink" href="#onehot-encoding" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kategorik değişkenleri (örneğin renkler) binary sütunlara dönüştürür. Her kategori için bir sütun oluşturulur; o kategori var ise 1, yok ise 0 ile gösterilir:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Renk</th>
+<th>Kırmızı</th>
+<th>Mavi</th>
+<th>Yeşil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kırmızı</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Mavi</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Yeşil</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Avantaj:</strong> Mesafeye dayalı algoritmalarda doğru mesafe ölçümü sağlar.</li>
+<li><strong>Dezavantaj:</strong> Çok sayıda kategori varsa boyut patlamasına (high dimensionality) yol açabilir.</li>
+</ul>
+<p><img alt="hesap" src="../../../assets/img/ai/color.png" /></p>
+<h2 id="decision-tree-karar-agac">Decision Tree (Karar Ağacı)<a class="headerlink" href="#decision-tree-karar-agac" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Hem sınıflandırma hem de regresyon görevlerinde kullanılan, parametrik olmayan denetimli öğrenme (supervised learning) algoritmasıdır.</li>
+<li>Nasıl Çalışır?<ul>
+<li>Veri, her düğümde en iyi ayırımı sağlayan özellik ve eşik değeri (ör. Gini impurity, Entropy) seçilerek ikili dallara ayrılır.</li>
+<li>Yaprak düğümlere kadar veya önceden belirlenmiş koşullara (ör. maksimum derinlik) ulaşana dek bölünme devam eder.</li>
+</ul>
+</li>
+<li><strong>Avantajlar:</strong><ul>
+<li>Yorumlanabilir ve hızlıdır.</li>
+<li>Veri ön işleme (normalizasyon, ölçekleme) genellikle gerekmez.</li>
+</ul>
+</li>
+<li><strong>Dezavantajlar:</strong><ul>
+<li>Derin ağaçlar aşırı öğrenmeye meyillidir.</li>
+<li>Karar sınırlarını dikdörtgenlere benzer bölgelere böler, dolayısıyla karmaşık sınırlar zor öğrenilir</li>
+</ul>
+</li>
+</ul>
+<p><img alt="hesap" src="../../../assets/img/ai/dectree.png" /></p>
+<h2 id="determination-katsays-r2">Determination Katsayısı (R²)<a class="headerlink" href="#determination-katsays-r2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bir regresyon modelinin verideki toplam varyansın ne kadarını açıkladığını gösteren istatistiksel ölçüdür.</li>
+<li>Özellikler:<ul>
+<li>Aralık: Teorik olarak </li>
+<li><strong>-∞</strong> ile <strong>1</strong> arasında; pratikte modeller iyi çalıştığında <code>0 - 1</code> arası.</li>
+<li>1’e yaklaşması, modelin veriye mükemmel uyduğunu; 0’a yakın veya negatif olması ise kötü uyumu işaret eder.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>Not: Yüksek R², modelin kesinlikle doğru olduğunu değil, sadece verideki değişimi iyi açıkladığını gösterir. Örneğin aşırı öğrenme (overfitting) durumu da yüksek R² ile maskelenebilir.</p>
+</div>
+<p><img alt="hesap" src="../../../assets/img/ai/coefdeter.png" /></p>
+<h2 id="roc-egrisi-receiver-operating-characteristic-curve">ROC Eğrisi (Receiver Operating Characteristic Curve)<a class="headerlink" href="#roc-egrisi-receiver-operating-characteristic-curve" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>İkili sınıflandırmada farklı karar eşiklerinin (<strong>threshold</strong>) performansını, <strong>Gerçek Pozitif Oranı (TPR)</strong> ve <strong>Yanlış Pozitif Oranı (FPR)</strong> eksenine karşı çizerek gösteren grafiktir.</p>
+</li>
+<li>
+<p><strong>Kullanım:</strong></p>
+<ul>
+<li><strong>Eşik değeri seçimi:</strong> Eğriye en yakın nokta, en iyi dengeyi sağlar.</li>
+<li><strong>İki modelin karşılaştırılması:</strong> Eğrisi üstte kalan model daha iyi ayırt edici güce sahiptir.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="roc" src="../../../assets/img/ai/roc_1.png" /></p>
+<p><img alt="roc" src="../../../assets/img/ai/roc_2.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Bilgi</p>
+<p><a href="https://www.youtube.com/watch?v=4jRBRDbJemM&amp;ab_channel=StatQuestwithJoshStarmer">Josh Starmer’dan açık anlatım</a></p>
+</div>
+<h2 id="roc-auc-skoru">ROC AUC Skoru<a class="headerlink" href="#roc-auc-skoru" title="Permanent link">&para;</a></h2>
+<ul>
+<li>ROC eğrisinin altındaki alanın (<code>Area Under Curve</code>) sayısal değeridir.</li>
+<li><strong>Özellikler:</strong><ul>
+<li>Aralık: 0.0–1.0<ul>
+<li>0.5: Rastgele tahmin (şans)</li>
+<li>1.0: Mükemmel ayırt edici güç</li>
+</ul>
+</li>
+<li>Modelin tüm eşiklerdeki ayırt edici performansını özetler.</li>
+</ul>
+</li>
+<li><strong>Yorum:</strong><ul>
+<li>0.7–0.8: İyi</li>
+<li>0.8–0.9: Çok iyi</li>
+<li>0.9: Mükemmel</li>
+</ul>
+</li>
+</ul>
+<p><img alt="roc" src="../../../assets/img/ai/roc_3.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">İpuçları ve Ek Bilgiler</p>
+<ul>
+<li><strong>Model Değerlendirme:</strong> Sadece tek bir metriğe (ör. R²’ye) bağlı kalmayın; MSE, MAE, Precision, Recall, F1-score gibi ek metrikleri de inceleyin.</li>
+<li><strong>Görselleştirme:</strong> Karar ağacını sklearn.tree.export_graphviz veya plot_tree ile görselleştirin, böylece karar kurallarını somut olarak görebilirsiniz.</li>
+<li><strong>Hiperparametre Ayarı:</strong> GridSearchCV veya RandomizedSearchCV kullanarak <code>n_estimators</code>, <code>max_depth</code>, <code>min_samples_split</code> gibi parametreleri optimize edin.</li>
+<li><strong>Genel Bakış:</strong> Ensemble yöntemler (Random Forest, Gradient Boosting) tek ağaçlara kıyasla genellikle daha kararlı ve yüksek performanslı sonuçlar verir. Cesaretli olun, hatalı sonuçlardan ders çıkarın ve modelinizi sürekli iyileştirmeye odaklanın! </li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.linked", "content.code.select", "content.code.wrap", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>

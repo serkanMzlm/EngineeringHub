@@ -1,0 +1,807 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Teknik dokümantasyon">
+      
+      
+      
+      
+      
+        <link rel="next" href="../compiler/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Design Pattern - Dokümantasyon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#design-pattern" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href="../../.." title="Dokümantasyon" class="md-header__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dokümantasyon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Design Pattern
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label=""  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label=""  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Sekmeler" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Dokümantasyon" class="md-nav__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    Dokümantasyon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Programming
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Design Pattern
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Design Pattern
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creational" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creational
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structural" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structural
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#behavioral" class="md-nav__link">
+    <span class="md-ellipsis">
+      Behavioral
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    C
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creational" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creational
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structural" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structural
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#behavioral" class="md-nav__link">
+    <span class="md-ellipsis">
+      Behavioral
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="design-pattern">Design Pattern<a class="headerlink" href="#design-pattern" title="Permanent link">&para;</a></h1>
+<h2 id="creational">Creational<a class="headerlink" href="#creational" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Factory Method</strong> </p>
+<ul>
+<li>Nesne oluşturma sorumluluğunu doğrudan client kodundan alarak, bu sorumluluğu bir fabrika metoduna devreden bir tasarım desenidir. Temel amaç, sistemin hangi somut sınıfı üreteceğine dair bilgisinin merkezi bir noktada toplanması ve üst seviye bileşenlerin alt seviye detaylara bağımlılığının azaltılmasıdır. Bu yaklaşım sayesinde sistem; genişletilmeye açık, değişikliğe kapalı (Open/Closed Principle) bir mimari kazanır. Yeni bir nesne türü eklendiğinde, mevcut istemci kodunda değişiklik yapılmasına gerek kalmaz.</li>
+<li><strong>Kavramsal Örnek</strong> Bir lojistik sisteminde kara, deniz ve hava taşımacılığı yapılmaktadır. Sipariş yönetim sistemi yalnızca “taşıma” işlemini bilir; ancak taşımanın kamyon, gemi ya da uçak ile yapılacağını bilmez.
+Factory Method, siparişin türüne veya konfigürasyona göre doğru taşıma nesnesinin üretilmesini sağlar. Sipariş sistemi yalnızca “taşıma başlat” talebinde bulunur, hangi aracın kullanıldığı detayından tamamen soyutlanır.</li>
+</ul>
+</li>
+<li>
+<p><strong>Abstract Factory</strong></p>
+<ul>
+<li>Birbiriyle ilişkili veya birlikte çalışması gereken nesnelerin, somut sınıfları belirtilmeden bir “ürün ailesi” halinde oluşturulmasını sağlayan bir tasarım desenidir. Bu desen, özellikle platform bağımlı veya varyantlı sistemlerde tutarlılığı korumak için kullanılır. Aynı ürün ailesine ait nesnelerin birbiriyle uyumlu olmasını garanti altına alır ve istemci tarafında yanlış kombinasyonların oluşmasını engeller.</li>
+<li><strong>Kavramsal Örnek</strong> Bir kullanıcı arayüzü kütüphanesinin hem masaüstü hem de gömülü sistemler için çalıştığını düşünelim. Masaüstü ortamında buton, menü ve pencere bileşenleri farklı; gömülü sistemde ise daha sade ve hafif bileşenler gereklidir. Abstract Factory, “masaüstü arayüz ailesi” veya “gömülü arayüz ailesi” seçildiğinde, bu aileye ait tüm bileşenlerin birlikte ve uyumlu şekilde üretilmesini sağlar. Böylece farklı platformlara ait bileşenlerin yanlışlıkla birlikte kullanılması önlenir.</li>
+</ul>
+</li>
+<li>
+<p><strong>Builder</strong></p>
+<ul>
+<li>Karmaşık nesnelerin oluşturulma sürecini, nesnenin son temsilinden ayıran bir tasarım desenidir. Özellikle çok sayıda opsiyonel alanı bulunan veya farklı konfigürasyonlarla üretilebilen nesneler için kullanılır. Bu desen, nesne oluşturma sürecini adımlara böler ve her adımın kontrollü bir şekilde ilerlemesini sağlar. Aynı oluşturma süreci kullanılarak farklı varyantlarda nesneler üretilebilir.</li>
+<li><strong>Kavramsal Örnek</strong> Bir insansız hava aracı (İHA) konfigürasyon sürecini ele alalım. Aynı temel platform üzerinde farklı sensörler, haberleşme modülleri ve güç sistemleri seçilebilir. Builder yaklaşımı ile önce gövde, ardından sensörler, daha sonra haberleşme ve en son yazılım bileşenleri eklenir. Aynı adımlar kullanılarak keşif amaçlı veya lojistik amaçlı farklı İHA konfigürasyonları oluşturulabilir. Oluşturma süreci standart kalırken, ortaya çıkan ürün değişir.</li>
+</ul>
+</li>
+<li>
+<p><strong>Prototype</strong></p>
+<ul>
+<li>Yeni nesnelerin sıfırdan oluşturulması yerine, mevcut bir nesnenin kopyalanması (klonlanması) yoluyla üretilmesini sağlayan bir tasarım desenidir. Bu desen, nesne oluşturma maliyetinin yüksek olduğu veya nesnenin karmaşık bir başlangıç konfigürasyonuna sahip olduğu durumlarda tercih edilir. Sistem, referans alınacak bir prototip nesne üzerinden hızlı ve tutarlı üretim yapar.</li>
+<li><strong>Kavramsal Örnek</strong> Simülasyon ortamında kullanılan bir sensör modelinin çok sayıda kopyasına ihtiyaç duyulduğunu varsayalım. Her sensör aynı temel özelliklere sahiptir ancak küçük parametre farkları bulunur. Prototype kullanılarak, önceden yapılandırılmış bir sensör modeli klonlanır ve yalnızca gerekli parametreler değiştirilir. Böylece hem zaman kazanılır hem de tutarlı bir yapı korunur.</li>
+</ul>
+</li>
+<li>
+<p><strong>Singleton</strong></p>
+<ul>
+<li>Bir sınıftan sistem genelinde yalnızca tek bir örnek oluşturulmasını garanti altına alan bir tasarım desenidir. Ayrıca bu örneğe kontrollü ve merkezi bir erişim noktası sağlar. Bu desen, paylaşılan kaynakların yönetimi, global konfigürasyonlar veya sistem çapında tekil olması gereken servisler için kullanılır. Yanlış veya aşırı kullanımı mimari bağımlılıkları artırabileceğinden dikkatli uygulanmalıdır.</li>
+<li><strong>Kavramsal Örnek</strong> Bir sistemde merkezi bir konfigürasyon yöneticisi olduğunu düşünelim. Tüm modüller sistem ayarlarını buradan okumaktadır. Eğer bu yapıdan birden fazla örnek oluşturulursa, ayarların tutarsızlaşması ve beklenmeyen davranışlar ortaya çıkabilir. Singleton sayesinde sistem genelinde tek bir konfigürasyon yöneticisi bulunur ve tüm bileşenler aynı kaynağı kullanır.</li>
+</ul>
+</li>
+</ol>
+<h2 id="structural">Structural<a class="headerlink" href="#structural" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Adapter</strong><ul>
+<li>Birbiriyle uyumsuz arayüzlere sahip bileşenlerin birlikte çalışmasını sağlayan bir yapısal tasarım desenidir. Mevcut bir sınıfın arayüzünü, istemcinin beklediği arayüze dönüştürerek sistem içinde yeniden kullanılabilir hâle getirir. Bu desen, özellikle üçüncü parti kütüphaneler, legacy sistemler veya değiştirilemeyen bileşenlerle entegrasyon süreçlerinde tercih edilir. Temel hedef, mevcut kodu değiştirmeden uyumluluk sağlamaktır.</li>
+<li><strong>Kavramsal Örnek</strong>  Bir sistemin standart veri formatı JSON iken, entegre edilmesi gereken harici bir servis XML formatında veri üretmektedir. Adapter, XML veriyi alıp sistemin beklediği JSON yapısına dönüştürerek, üst seviye bileşenlerin bu farklılıktan etkilenmeden çalışmasını sağlar.</li>
+</ul>
+</li>
+<li><strong>Bridge</strong><ul>
+<li>Soyutlama (abstraction) ile implementasyonu birbirinden ayırarak, her ikisinin de bağımsız olarak geliştirilmesini sağlayan bir tasarım desenidir. Bu yaklaşım, sınıf hiyerarşisinin kontrolsüz büyümesini engeller ve “çok boyutlu değişkenlik” içeren sistemlerde esnekliği artırır.</li>
+<li><strong>Kavramsal Örnek</strong> Bir görüntü işleme sistemi düşünelim. Sistem hem farklı görüntü kaynaklarını (kamera, dosya, ağ) hem de farklı işleme yöntemlerini (filtreleme, sıkıştırma, analiz) desteklemektedir. Bridge kullanıldığında, görüntü kaynağı ile işleme algoritması birbirinden ayrılır. Yeni bir kamera türü eklendiğinde mevcut işleme yöntemleri etkilenmez; yeni bir algoritma eklendiğinde ise kaynaklar değişmeden kullanılabilir.</li>
+</ul>
+</li>
+<li><strong>Composite</strong><ul>
+<li>Nesneleri tree yapısı içerisinde organize ederek, tekil nesneler ile nesne gruplarının aynı arayüz üzerinden yönetilmesini sağlar. Bu desen, hiyerarşik yapılarda istemcinin tekil mi yoksa bileşik bir yapı ile mi çalıştığını bilmesine gerek kalmadan işlem yapabilmesini hedefler.</li>
+<li><strong>Kavramsal Örnek</strong> Bir dosya sistemi yapısını ele alalım. Dosyalar tekil nesneler, klasörler ise dosya ve alt klasörlerden oluşan bileşik yapılardır. Composite sayesinde bir dosya üzerinde yapılan “boyut hesaplama” işlemi, klasör üzerinde de aynı şekilde çağrılabilir ve tüm alt elemanların toplam boyutu otomatik olarak hesaplanır.</li>
+</ul>
+</li>
+<li><strong>Decorator</strong><ul>
+<li>Bir nesneye çalışma zamanında yeni davranışlar eklenmesini sağlayan bir tasarım desenidir. Kalıtım (inheritance) kullanmadan, nesnenin sorumluluklarını genişletmeye olanak tanır. Bu yaklaşım, sınıf sayısının kontrolsüz artmasını önler ve daha esnek bir genişletme mekanizması sunar.</li>
+<li><strong>Kavramsal Örnek</strong> Bir haberleşme modülünde temel veri gönderimi yapılmaktadır. Bazı senaryolarda şifreleme, bazılarında ise sıkıştırma gerekmektedir. Decorator ile temel gönderim yapısı korunur; ihtiyaç duyulduğunda şifreleme veya sıkıştırma katmanları eklenerek davranış genişletilir. Bu katmanlar isteğe bağlı olarak kombine edilebilir.</li>
+</ul>
+</li>
+<li><strong>Facade</strong><ul>
+<li>Karmaşık bir alt sistemin önüne basitleştirilmiş ve tek bir giriş noktası koyarak, istemcinin bu alt sistemle olan etkileşimini kolaylaştıran bir tasarım desenidir. Amaç, istemcinin sistem içindeki detaylı bağımlılıkları bilmesini engellemek ve kullanım kolaylığı sağlamaktır.</li>
+<li><strong>Kavramsal Örnek</strong> Bir multimedya sisteminde ses, video, ağ ve donanım sürücüleri ayrı ayrı çalışmaktadır. Facade, “medya oynat” gibi tek bir operasyon sunarak, istemcinin bu alt sistemlerin başlatılması, senkronizasyonu ve kapatılması gibi detaylarla uğraşmasını engeller.</li>
+</ul>
+</li>
+<li><strong>Flyweight</strong><ul>
+<li>Çok sayıda benzer nesnenin bulunduğu sistemlerde bellek kullanımını optimize etmek amacıyla kullanılan bir tasarım desenidir. Bu desen, nesnelerin ortak (intrinsic) durumlarını paylaşarak, her nesne için tekrar tekrar aynı verinin tutulmasını önler.</li>
+<li><strong>Kavramsal Örnek</strong> Bir harita uygulamasında binlerce ağaç nesnesi olduğunu düşünelim. Ağaçların türü, rengi ve modeli aynıdır; yalnızca konumları farklıdır. Flyweight yaklaşımı ile ağaç model bilgisi tek bir yerde tutulur, her ağaç için yalnızca konum bilgisi ayrı olarak saklanır. Böylece bellek tüketimi ciddi ölçüde azaltılır.</li>
+</ul>
+</li>
+<li><strong>Proxy</strong><ul>
+<li>Başka bir nesneye erişimi kontrol eden veya bu erişimi yöneten bir ara katman nesnesidir. Bu desen; erişim kontrolü, gecikmeli başlatma (lazy initialization), önbellekleme veya güvenlik gibi gereksinimlerin karşılanması için kullanılır.</li>
+<li><strong>Kavramsal Örnek</strong> Uzak bir sunucudan büyük boyutlu veriler çeken bir sistem düşünelim. Her erişimde doğrudan sunucuya gitmek maliyetlidir. Proxy, ilk istekte veriyi sunucudan alır ve önbelleğe koyar. Sonraki taleplerde aynı veri doğrudan proxy üzerinden sunularak performans artırılır ve sistem yükü azaltılır.</li>
+</ul>
+</li>
+</ol>
+<h2 id="behavioral">Behavioral<a class="headerlink" href="#behavioral" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Chain of Responsibility</strong><ul>
+<li>Bir isteğin birden fazla nesne tarafından ele alınabileceği durumlarda, isteği gönderen taraf ile isteği işleyen taraflar arasındaki sıkı bağımlılığı ortadan kaldıran bir tasarım desenidir. İstek, zincir (chain) hâlinde sıralanmış işleyiciler boyunca iletilir ve uygun olan işleyici tarafından karşılanır. İsteğin hangi nesne tarafından işleneceği istemci tarafından bilinmez ve bilinmesi de gerekmez. </li>
+<li><strong>Kavramsal Örnek</strong> Bir teknik destek sisteminde talepler; seviye 1, seviye 2 ve seviye 3 destek ekipleri tarafından ele alınmaktadır. Basit bir sorun ilk seviyede çözülürken, daha karmaşık talepler otomatik olarak bir üst seviyeye aktarılır. Talep sahibi, isteğin hangi ekip tarafından çözüldüğünü bilmeden süreci başlatır.</li>
+</ul>
+</li>
+<li><strong>Command</strong><ul>
+<li>Bir isteği nesne olarak kapsülleyerek; isteğin parametreleriyle birlikte saklanmasını, kuyruklanmasını veya geri alınmasını (undo) mümkün kılan bir tasarım desenidir. Bu desen, isteği başlatan nesne ile isteği yerine getiren nesne arasındaki bağımlılığı minimize eder ve işlemlerin daha esnek yönetilmesini sağlar.</li>
+<li><strong>Kavramsal Örnek</strong> Bir uzaktan kumanda sisteminde farklı cihazlar (ışık, klima, perde) kontrol edilmektedir. Her buton, belirli bir işlemi temsil eden bir komut nesnesine bağlıdır. Butona basıldığında kumanda, hangi cihazın nasıl çalıştığını bilmeden yalnızca ilgili komutu tetikler.</li>
+</ul>
+</li>
+<li><strong>Iterator</strong><ul>
+<li>Belirli bir dilin veya ifade yapısının kurallarını tanımlayarak, bu ifadelerin yorumlanmasını sağlayan bir tasarım desenidir. Genellikle basit ve sık tekrarlanan kurallara sahip mini dillerde veya yapılandırılabilir ifade sistemlerinde kullanılır.</li>
+<li><strong>Kavramsal Örnek</strong> Bir konfigürasyon dosyasında “AND”, “OR”, “NOT” gibi mantıksal ifadelerle kurallar tanımlandığını düşünelim. Interpreter, bu ifadeleri parse eder ve sistemin davranışını bu kurallara göre dinamik olarak belirler.</li>
+</ul>
+</li>
+<li><strong>Mediator</strong><ul>
+<li>Bir koleksiyonun iç yapısını açığa çıkarmadan, elemanları üzerinde sıralı bir şekilde gezinilmesini sağlayan bir tasarım desenidir. Bu desen, farklı veri yapılarının aynı erişim mantığıyla kullanılmasına imkân tanır.</li>
+<li><strong>Kavramsal Örnek</strong> Bir sistemde liste, ağaç ve grafik yapılarında tutulan veriler bulunmaktadır. Iterator sayesinde istemci, bu veri yapılarını nasıl saklandıklarını bilmeden, elemanlar üzerinde tek tip bir dolaşım mantığıyla işlem yapabilir.</li>
+</ul>
+</li>
+<li><strong>Memento</strong><ul>
+<li>Birden fazla nesne arasındaki doğrudan iletişimi ortadan kaldırarak, bu iletişimi merkezi bir aracı nesne üzerinden yöneten bir tasarım desenidir. Bu yaklaşım, nesneler arası bağımlılıkları azaltır ve sistemin daha okunabilir ve yönetilebilir olmasını sağlar.</li>
+<li><strong>Kavramsal Örnek</strong> Bir hava trafik kontrol sisteminde uçaklar birbirleriyle doğrudan iletişim kurmaz. Tüm koordinasyon, merkezi bir kontrol kulesi üzerinden sağlanır. Mediator, uçaklar arasındaki etkileşimi düzenleyerek karmaşıklığı tek noktada toplar.</li>
+</ul>
+</li>
+<li><strong>Observer</strong><ul>
+<li>Bir nesnede meydana gelen durum değişikliklerinin, bu nesneye bağımlı diğer nesnelere otomatik olarak bildirilmesini sağlayan bir tasarım desenidir. Bu desen, olay tabanlı (event-driven) mimarilerin temel yapı taşlarından biridir.</li>
+<li><strong>Kavramsal Örnek</strong> Bir sensör verisi güncellendiğinde; izleme ekranı, kayıt sistemi ve alarm modülü bu değişiklikten eş zamanlı olarak haberdar edilir. Sensör, bu bileşenleri doğrudan çağırmaz; yalnızca durumu değiştiğini bildirir.</li>
+</ul>
+</li>
+<li><strong>State</strong><ul>
+<li>Bir nesnenin iç durumuna bağlı olarak davranışını değiştirmesini sağlayan bir tasarım desenidir. Bu yaklaşım, çok sayıda koşul ifadesi (if/else, switch) kullanımını ortadan kaldırarak, duruma özel davranışları ayrı yapılar hâline getirir.</li>
+<li><strong>Kavramsal Örnek</strong> Bir otonom aracın “beklemede”, “hareket hâlinde” ve “acil durum” gibi farklı çalışma modları vardır. Araç, mevcut durumuna göre farklı tepkiler verir. State kullanıldığında, her mod kendi davranış kurallarını içerir.</li>
+</ul>
+</li>
+<li><strong>Strategy</strong><ul>
+<li>Aynı işi yapan ancak farklı algoritmalara sahip davranışların, çalışma zamanında değiştirilebilir olmasını sağlayan bir tasarım desenidir. Bu desen, algoritma ailesini kapsüller ve istemcinin algoritma detaylarından bağımsız çalışmasını sağlar.</li>
+<li><strong>Kavramsal Örnek</strong> Bir rota planlama sisteminde; en kısa yol, en hızlı yol veya en güvenli yol seçenekleri bulunmaktadır. Kullanıcı tercihine göre uygun strateji seçilir ve sistem bu stratejiye göre rota üretir.</li>
+</ul>
+</li>
+<li><strong>Template Method</strong><ul>
+<li>Bir algoritmanın iskeletini tanımlar ve bazı adımlarının alt sınıflar tarafından özelleştirilmesine izin verir. Algoritmanın genel akışı sabit kalırken, değişken adımlar kontrollü şekilde esnetilir.</li>
+<li><strong>Kavramsal Örnek</strong> Bir veri işleme sürecinde; veri okuma, doğrulama, işleme ve raporlama adımları her zaman aynıdır. Ancak doğrulama veya raporlama yöntemi projeye göre değişebilir. Template Method, bu değişken adımların özelleştirilmesini sağlar.</li>
+</ul>
+</li>
+<li><strong>Visitor</strong><ul>
+<li>Bir nesne yapısı üzerinde çalışacak yeni operasyonların, nesnelerin kendisini değiştirmeden eklenmesini sağlayan bir tasarım desenidir. Bu desen, özellikle kararlı (stabil) nesne yapıları üzerinde sık sık yeni işlemler eklenmesi gereken durumlarda tercih edilir.</li>
+<li><strong>Kavramsal Örnek</strong> Bir soyut sözdizimi ağacı (AST) üzerinde; analiz, optimizasyon ve raporlama gibi farklı işlemler yapılmaktadır. Visitor sayesinde bu işlemler, ağacın yapısı değiştirilmeden sisteme eklenebilir.</li>
+</ul>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Altbilgi" >
+        
+        
+          
+          <a href="../compiler/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: Compiler">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sonraki
+              </span>
+              <div class="md-ellipsis">
+                Compiler
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.linked", "content.code.select", "content.code.wrap", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>

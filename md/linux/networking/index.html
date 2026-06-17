@@ -1,0 +1,719 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Teknik dokümantasyon">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Networking - Dokümantasyon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ip-adresleri-ve-snflar" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href="../../.." title="Dokümantasyon" class="md-header__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dokümantasyon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Networking
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label=""  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label=""  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Sekmeler" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/design_pattern/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Dokümantasyon" class="md-nav__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    Dokümantasyon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../programming/design_pattern/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ip-adresleri-ve-snflar" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP Adresleri ve Sınıfları
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subnet-mask-alt-ag-maskesi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subnet Mask (Alt Ağ Maskesi)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gateway-varsaylan-ag-gecidi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gateway (Varsayılan Ağ Geçidi)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-adresi" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAC Adresi
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-domain-name-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      DNS (Domain Name System)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nic-network-interface-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      NIC (Network Interface Card)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ftp-file-transfer-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      FTP (File Transfer Protocol)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rsync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rsync
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scp-secure-copy-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      SCP (Secure Copy Protocol)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-secure-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH (Secure Shell)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cockpit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cockpit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp-dynamic-host-configuration-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      DHCP (Dynamic Host Configuration Protocol)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Networking</h1>
+
+<h2 id="ip-adresleri-ve-snflar"><strong>IP Adresleri ve Sınıfları</strong><a class="headerlink" href="#ip-adresleri-ve-snflar" title="Permanent link">&para;</a></h2>
+<p>Ağ üzerinde iletişim kuran her cihaza atanan benzersiz 32‑bit (IPv4) veya 128‑bit (IPv6) sayıdır. IPv4’te dört ondalık bölümle <strong><em>(ör. 192.168.1.10)</em></strong>, IPv6’da ise sekiz grup onaltılık sayıyla <strong>(2001:0db8:85a3::8a2e:0370:7334)</strong> gösterilir.
+- <strong>IP (Internet Protocol):</strong> İnternetteki her cihazın benzersiz kimliğidir. Trafiğin doğru hedefe yönlendirilmesini sağlar.
+- <strong>Sınıflar:</strong> Eskiden her ip adresi 5 sınıfa ayrılırdı. Günümüzde CIDR yaygın olsa da temel fikir halen öğretici:</p>
+<table>
+<thead>
+<tr>
+<th>Sınıf</th>
+<th>Aralık</th>
+<th>Kullanım Alanı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>0.0.0.0   - 127.255.255.255</td>
+<td>Çok büyük ağlar</td>
+</tr>
+<tr>
+<td>B</td>
+<td>128.0.0.0 - 191.255.255.255</td>
+<td>Orta boy ağlar</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.0.0.0 - 223.255.255.255</td>
+<td>Küçük ağlar</td>
+</tr>
+<tr>
+<td>D</td>
+<td>224.0.0.0 - 239.255.255.255</td>
+<td>Multicast yayınlar</td>
+</tr>
+<tr>
+<td>E</td>
+<td>240.0.0.0 - 255.255.255.255</td>
+<td>Deneysel / rezerve</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Loopback:</strong> 127.0.0.1 “kendi kendinle konuşman” için. Yerel sistem testi ve geliştirme için vazgeçilmez.</li>
+</ul>
+<h2 id="subnet-mask-alt-ag-maskesi"><strong>Subnet Mask (Alt Ağ Maskesi)</strong><a class="headerlink" href="#subnet-mask-alt-ag-maskesi" title="Permanent link">&para;</a></h2>
+<ul>
+<li>IP adresini <strong>“ağ kısmı”</strong> ve <strong>“cihaz kısmı”</strong> olarak ikiye bölen 32‑bit değer. Genellikle dört ondalık bölümle gösterilir (ör. 255.255.255.0). <strong>255</strong> olan bitler → ağ adresini, <strong>0</strong> olan bitler → host (cihaz) adresini temsil eder</li>
+<li>Örnek: 255.255.255.0 → ilk 24 bit ağ, son 8 bit host.</li>
+<li>CIDR karşılığı: /24</li>
+</ul>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eth0
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="c1"># Çıktıda &quot;inet 192.168.1.10/24&quot; görürseniz:</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1">#   - IP: 192.168.1.10</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1">#   - Alt ağ masking: /24 (255.255.255.0)</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="gateway-varsaylan-ag-gecidi"><strong>Gateway (Varsayılan Ağ Geçidi)</strong><a class="headerlink" href="#gateway-varsaylan-ag-gecidi" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Yerel ağdan çıkış noktasıdır. Genellikle bir router veya firewall cihazı.</li>
+<li>Farklı ağları birbirine bağlar.</li>
+<li>Bir cihaz başka ağdaki IP’lere paket gönderdiğinde kullanılır.
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ip<span class="w"> </span>route
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="c1"># default via 192.168.1.1 dev eth0 (Burada 192.168.1.1 sizin gateway’inizdir.)</span>
+</span></code></pre></div></td></tr></table></div></li>
+</ul>
+<h2 id="mac-adresi"><strong>MAC Adresi</strong><a class="headerlink" href="#mac-adresi" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Her NIC (Network Interface Card) için üretici tarafından atanan 48‑bit benzersiz donanım adresi. Genellikle altı çift onaltılık sayı ile gösterilir (00:1A:2B:3C:4D:5E).</li>
+<li>Veri Bağlantı Katmanı (OSI Katman 2).</li>
+<li>Donanıma gömülü, normalde değiştirilemez (ancak ip link set dev eth0 address ile yazılımla da değiştirilebilir).</li>
+<li>IP adresi katmanından bağımsız çalışır; LAN içi iletişimde kullanılır.
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>eth0
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="c1"># link/ether 00:1a:2b:3c:4d:5e brd ff:ff:ff:ff:ff:ff</span>
+</span></code></pre></div></td></tr></table></div></li>
+</ul>
+<h2 id="dns-domain-name-system"><strong>DNS (Domain Name System)</strong><a class="headerlink" href="#dns-domain-name-system" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Alan adlarını (ör. chat.openai.com) IP adreslerine çeviren hiyerarşik dağıtık bir sistem.</li>
+<li>“İnsan-dostu” isimlerle internette gezinmeyi mümkün kılar.
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>dig<span class="w"> </span>+short<span class="w"> </span>example.com
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="c1"># ya da</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>nslookup<span class="w"> </span>example.com
+</span></code></pre></div></td></tr></table></div></li>
+</ul>
+<h2 id="nic-network-interface-card"><strong>NIC (Network Interface Card)</strong><a class="headerlink" href="#nic-network-interface-card" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ağa bağlı cihazlar ve bilgisayarlar arasındaki veri iletişimini yönetmek için kullanılan bir donanım bileşenidir. NIC, bir bilgisayarın ağa bağlanabilmesi için gereken fiziksel bağlantıyı sağlar ve verilerin kablosuz veya kablolu ağlar üzerinden transfer edilmesini sağlar</li>
+<li>Fiziksel veya sanal ağ adaptörü.</li>
+<li>Ethernet, Wi‑Fi, Bluetooth vs. gibi farklı türleri vardır.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p><code>/etc/hosts</code> Küçük ölçekli isim‑adres eşleştirmelerini içerir. </p>
+</div>
+<h2 id="ftp-file-transfer-protocol"><strong>FTP (File Transfer Protocol)</strong><a class="headerlink" href="#ftp-file-transfer-protocol" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Port 21 üzerinden çalışan eski işlevsel dosya aktarım protokolü. Şifrelenmemiştir, bu yüzden güvensiz kabul edilir.
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>ftp<span class="w"> </span>ftp.example.com
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="c1"># kullanıcı ve şifre ile oturum açarsınız</span>
+</span></code></pre></div></td></tr></table></div></li>
+</ul>
+<h2 id="rsync"><strong>Rsync</strong><a class="headerlink" href="#rsync" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Dosya ve dizinleri hem yerelde hem de uzak sistemlerde senkronize eden, delta-transfer (sadece değişen blokları) destekli araç.<ul>
+<li><code>-a</code> Arşiv modu (izinler, tarih, vs.)</li>
+<li><code>-v</code> Ayrıntılı çıktı</li>
+<li><code>-z</code> Sıkıştırma</li>
+<li><code>--progress</code> Aktarım durumu</li>
+<li><code>--delete</code> ile hedefde olmayan dosyaları siler.</li>
+<li><code>--dry-run</code> ile neler yapılacağını test edersiniz.</li>
+</ul>
+</li>
+</ul>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>rsync<span class="w"> </span>-avz<span class="w"> </span>--progress<span class="w"> </span>/local/dir/<span class="w"> </span>user@remote:/backup/dir/
+</span></code></pre></div></td></tr></table></div>
+<h2 id="scp-secure-copy-protocol"><strong>SCP (Secure Copy Protocol)</strong><a class="headerlink" href="#scp-secure-copy-protocol" title="Permanent link">&para;</a></h2>
+<ul>
+<li>SSH tüneli üzerinden dosya transferi yapan, verileri otomatik olarak şifreleyen araç.</li>
+<li><code>-r:</code> Dizinleri recursive kopyalar.
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>scp<span class="w"> </span>-r<span class="w"> </span>./project<span class="w"> </span>user@192.168.1.100:/var/www/html/
+</span></code></pre></div></td></tr></table></div></li>
+</ul>
+<h2 id="ssh-secure-shell"><strong>SSH (Secure Shell)</strong><a class="headerlink" href="#ssh-secure-shell" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Uzak makinaya şifreli bağlantı kuran, komut satırı ve port yönlendirme gibi özellikler sunan protokol. <code>ssh user@remote_host</code></li>
+<li>Önemli Ayarlar (/etc/ssh/sshd_config):</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Ayar</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Port</td>
+<td>SSH dinleme portu (varsayılan 22).</td>
+</tr>
+<tr>
+<td>PermitRootLogin no</td>
+<td>Direkt root girişini engeller.</td>
+</tr>
+<tr>
+<td>PermitEmptyPasswords</td>
+<td>Boş parola kullanımını yasaklar.</td>
+</tr>
+<tr>
+<td>AllowUsers serkan</td>
+<td>Sadece belirtilen kullanıcı(lar) giriş yapabilir.</td>
+</tr>
+<tr>
+<td>ClientAliveInterval</td>
+<td>Boşta kalındığında sunucudan istemciye ping gönderme aralığı (s).</td>
+</tr>
+<tr>
+<td>ClientAliveCountMax</td>
+<td>Kaç ping sonrası bağlantıyı keser (0 = sınırsız).</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Anahtar Tabanlı Kimlik Doğrulama</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w">     </span><span class="c1"># Anahtar çifti oluşturur</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>ssh-copy-id<span class="w"> </span>user@host<span class="w">     </span><span class="c1"># Public anahtarı uzak sunucuya kopyalar</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/id_ed25519<span class="w"> </span>user@host<span class="w">  </span><span class="c1"># Belirli anahtar ile bağlanma</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="cockpit"><strong>Cockpit</strong><a class="headerlink" href="#cockpit" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Web tabanlı, interaktif sunucu yönetim konsolu. Sistem durumu, servisler, konteynerler ve kullanıcı yönetimi gibi işlemleri tarayıcıda yapmanızı sağlar.</li>
+</ul>
+<h2 id="dhcp-dynamic-host-configuration-protocol"><strong>DHCP (Dynamic Host Configuration Protocol)</strong><a class="headerlink" href="#dhcp-dynamic-host-configuration-protocol" title="Permanent link">&para;</a></h2>
+<ul>
+<li>LAN’a katılan cihazlara otomatik IP, subnet mask, gateway ve DNS bilgisi atayan protokol.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.linked", "content.code.select", "content.code.wrap", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1154 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Teknik dokümantasyon">
+      
+      
+      
+      
+        <link rel="prev" href="../design_pattern/">
+      
+      
+        <link rel="next" href="../c/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Compiler - Dokümantasyon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#compiler" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href="../../.." title="Dokümantasyon" class="md-header__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dokümantasyon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Compiler
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label=""  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label=""  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Sekmeler" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../design_pattern/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Dokümantasyon" class="md-nav__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    Dokümantasyon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Programming
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design_pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Design Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Compiler
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiler
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#derleme-asamalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Derleme Aşamaları
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gcc-g-parametreleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      GCC / G++ Parametreleri
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kconfig-ve-menuconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kconfig ve Menuconfig
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmake" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMake
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    C
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#derleme-asamalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Derleme Aşamaları
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gcc-g-parametreleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      GCC / G++ Parametreleri
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kconfig-ve-menuconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kconfig ve Menuconfig
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmake" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMake
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="compiler">Compiler<a class="headerlink" href="#compiler" title="Permanent link">&para;</a></h1>
+<pre class="mermaid"><code>graph LR
+  A[main.c - main.cpp] --&gt; |Preprocessor| B[main.i];
+  B --&gt; |Compiler| C[main.s];
+  C --&gt; |Assembler| D[main.o];
+  D --&gt; |Linker| E[main];</code></pre>
+<h2 id="derleme-asamalar">Derleme Aşamaları<a class="headerlink" href="#derleme-asamalar" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Pre-processing:</strong> Macro ifadeleri çözümlenir, yorum satırları temizlenir ve kod saf C/Cpp kodu haline getirilir.</p>
+</li>
+<li>
+<p><strong>Compilation:</strong> Temizlenen C/Cpp kodu, hedef işlemcinin mimarisine uygun assembly diline çevrilir.</p>
+</li>
+<li>
+<p><strong>Assembly:</strong> Assembly kodu, makine diline (0 ve 1) dönüştürülerek bir object file oluşturulur.</p>
+</li>
+<li>
+<p><strong>Linking:</strong> Programda kullanılan kütüphaneler ve farklı object file dosyaları bir araya getirilerek nihai executable dosya üretilir.</p>
+</li>
+</ol>
+<h2 id="gcc-g-parametreleri">GCC / G++ Parametreleri<a class="headerlink" href="#gcc-g-parametreleri" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Wall:</strong> Kod içerisindeki temel warning mesajlarını aktif eder. </li>
+<li><strong>Wextra:</strong> Standart uyarıların ötesinde, daha detaylı ve hassas warning mesajlarının gösterilmesini sağlar.</li>
+<li><strong>Wconversion:</strong> Veri kaybına yol açabilecek type conversion işlemleriyle ilgili uyarıları tetikler.</li>
+<li><strong>Wsign-conversion:</strong> Signed ve unsigned veri türleri arasında yapılan dönüşümlerdeki olası risklere karşı uyarı verir.</li>
+<li><strong>std=c++11:</strong> Derleme işlemi sırasında kaynak kodun C++11 standardına göre işleneceğini belirtir.</li>
+<li><strong>I:</strong> Projede kullanılan header file dosyalarının aranacağı dizini (include path) tanımlar.</li>
+<li><strong>O:</strong> Optimizasyon seviyesini ayarlar.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Örnek Kullanımlar</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>gcc<span class="w"> </span>-E<span class="w"> </span>main.c<span class="w"> </span>-o<span class="w"> </span>main.i<span class="w">         </span><span class="c1"># Pre-processing .i dosyası</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>gcc<span class="w"> </span>-S<span class="w"> </span>main.i<span class="w"> </span>-o<span class="w"> </span>main.s<span class="w">         </span><span class="c1"># Compilation .s dosyası</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>gcc<span class="w"> </span>-c<span class="w"> </span>main.s<span class="w"> </span>-o<span class="w"> </span>main.o<span class="w">         </span><span class="c1"># Assembly .o dosyası</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>gcc<span class="w"> </span>main.o<span class="w"> </span>-o<span class="w"> </span>main<span class="w">              </span><span class="c1"># Linking </span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>gcc<span class="w"> </span>-save-temps<span class="w"> </span>main.c<span class="w"> </span>-o<span class="w"> </span>main<span class="w">  </span><span class="c1"># Tek komutta tüm adımlar </span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>gcc<span class="w"> </span>-o<span class="w"> </span>main.o<span class="w"> </span>main.c<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wconversion<span class="w"> </span>-Wsign-conversion
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>g++<span class="w"> </span>-o<span class="w"> </span>main.o<span class="w"> </span>main.cpp<span class="w"> </span>-std<span class="o">=</span>c++11<span class="w"> </span>-I/source/includes<span class="w"> </span>-O2
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">VS Code Derleyici Ayarları</p>
+<div class="language-json highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">tasks.json</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">            </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C++ Build&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;g++&quot;</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="hll"><span class="w">            </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-std=c++20&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-Wall&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-Wextra&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-Wconversion&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-Wsign-conversion&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-Werror&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-o&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;main.cpp&quot;</span><span class="p">],</span>
+</span></span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">            </span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">            </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;build&quot;</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">            </span><span class="nt">&quot;isDefault&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<h2 id="kconfig-ve-menuconfig">Kconfig ve Menuconfig<a class="headerlink" href="#kconfig-ve-menuconfig" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Kconfig (Altyapı ve Sözdizimi Katmanı):</strong> Projedeki özelliklerin, bağımlılıkların ve varsayılan değerlerin tanımlandığı metin tabanlı konfigürasyon dosyalarıdır.</li>
+<li>
+<p><strong>Menuconfig (Arayüz Katmanı):</strong> Kconfig dosyalarında tanımlanan kuralları okuyarak geliştiriciye grafiksel veya terminal tabanlı bir görsel arayüz sunan araçtır.</p>
+</li>
+<li>
+<p><strong>Veri Türleri:</strong> Tanımlanan değişkenin türünü belirler. <code>bool</code>, <code>string</code>, <code>int</code>, <code>hex</code> (onaltılık sayı) ve <code>tristate</code> (n: kapalı, y: açık, m: modül) türleri mevcuttur. </p>
+</li>
+<li><strong><code>mainmenu</code>:</strong> Konfigürasyon ekranının en üstünde yer alacak ana başlığı tanımlar.</li>
+<li><strong><code>comment</code>:</strong> Geliştiriciye bilgi vermek amacıyla arayüzde görünecek açıklama satırları ekler.</li>
+<li><strong><code>menu / endmenu</code>:</strong> Seçenekleri hiyerarşik bir alt menü altında gruplar.</li>
+<li><strong><code>choice / endchoice</code>:</strong> Kullanıcının listeden sadece tek bir seçeneği seçebileceği çoktan seçmeli gruplar oluşturur.</li>
+<li><strong><code>config</code>:</strong> Yeni bir yapılandırma parametresi tanımlar.</li>
+<li><strong><code>default</code>:</strong> Parametrenin başlangıçtaki varsayılan değerini belirler.</li>
+<li><strong><code>depends on</code>:</strong> Bir seçeneğin görünür veya seçilebilir olmasını başka bir parametrenin durumuna bağlar (dependency).</li>
+<li><strong><code>select</code>:</strong> Bir seçenek aktif edildiğinde, ihtiyaç duyduğu diğer bağımlılıkları otomatik olarak etkinleştirir.</li>
+<li><strong><code>range</code>:</strong> int veya hex türündeki sayısal girdilerin minimum ve maksimum sınırlarını belirler.</li>
+<li><strong><code>help</code>:</strong> Kullanıcının arayüzde yardım butonuna bastığında göreceği detaylı açıklama metnini içerir.</li>
+</ul>
+<h2 id="make">Make<a class="headerlink" href="#make" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>#</code>:</strong> Yorum satırı işaretidir.</li>
+<li><strong><code>@</code>:</strong> Başına geldiği komutun kendisini terminal çıktısında gizler, sadece komutun ürettiği sonucu gösterir.</li>
+<li><strong><code>$</code>:</strong> Değişkenlere veya otomatik değişkenlere referans vermek için kullanılır.</li>
+<li><strong><code>=</code>:</strong> Gecikmeli (recursive) değişken ataması yapar. Değişkenin değeri, çağrıldığı andaki güncel içeriğe göre belirlenir.</li>
+<li><strong><code>:=</code>:</strong> Anında (simple) değerlendirilerek değişken atar.</li>
+<li><strong><code>?=</code>:</strong> Eğer değişken daha önce tanımlanmamışsa varsayılan değeri atar, tanımlıysa mevcut değeri korur.</li>
+<li><strong><code>$@</code>:</strong> Mevcut kuralın target adını temsil eden otomatik değişkendir.</li>
+<li><strong><code>$^</code>:</strong> Target'a ait tüm dependencies listesini tutan otomatik değişkendir.</li>
+<li><strong><code>$&lt;</code>:</strong> Target'ın tetiklenmesini sağlayan first dependency ifade eden otomatik değişkendir.</li>
+<li><strong><code>$?</code>:</strong> Target dosyasından daha yeni bir değiştirilme tarihine (timestamp) sahip olan dependencies listeler.</li>
+<li><strong><code>*</code>:</strong> Dosya adı genişletmede kullanılan joker karakterdir (wildcard); belirtilen dizindeki tüm dosyalarla eşleşir.</li>
+<li><strong><code>%</code>:</strong> Şablon (pattern) eşleştirmelerinde değişken olan dinamik kısmı temsil eder. Yapısal kurallarda pattern rule tanımlamak için de kullanılır (Örn: %.o: %.c).</li>
+<li><strong><code>:</code></strong> Bir target ile onun çalışması için gereken dependencies arasındaki ilişkiyi kurar.</li>
+<li><strong><code>::</code>:</strong> Aynı target adı için birbirinden bağımsız ve farklı zamanlarda çalışabilecek birden fazla kural tanımlanmasını sağlar.</li>
+<li><strong><code>\</code>:</strong> Uzun komutların veya satırların bir sonraki satırdan devam ettiğini belirten satır birleştirme karakteridir.</li>
+<li><strong><code>make -s</code>:</strong> Komutları sessiz modda (silent mode) çalıştırır; terminale işlem adımlarını basmaz.</li>
+<li><strong><code>make -k</code>:</strong> Bir kuralda hata oluşsa bile, o hatadan bağımsız olan diğer targets derlenmesine devam eder (keep going).</li>
+<li><strong><code>make -i</code>:</strong> Derleme sırasında karşılaşılan hataları ignore eder sürecin sonuna kadar devam etmesini sağlar.</li>
+</ul>
+<div class="language-Makefile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nf">target</span><span class="o">:</span><span class="w"> </span><span class="n">dependencies</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="nb">command</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Kritik Kural</p>
+<ol>
+<li>
+<p>Makefile kurallarının altındaki komut satırlarında girintileme işlemi kesinlikle <strong>TAB</strong> karakteri ile yapılmalıdır. <strong>Boşluk (Space)</strong> kullanılması durumunda derleyici hata verecektir.</p>
+</li>
+<li>
+<p>Makefile dosyasının bulunduğu dizinde kullandığımız target adında bir dizin veya dosya varsa make ile bu target çalıştırdığımızda <code>make: '...' is up to date.</code> hatası alırız. Bu hatanın önüne geçmek için <code>.PHONY</code> kullanılır. Direkt olarak target çalışmasını sağlar.</p>
+</li>
+<li>
+<p><code>wildcard</code> fonksiyonu mutlaka <code>:=</code> ile birlikte kullanılmalıdır aksi halde genişletilmez</p>
+</li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>Bu kullanım tüm .c dosyalarını .o uzantılı versiyonlara çevirir
+<div class="language-make highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nv">SRC</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>wildcard<span class="w"> </span>*.c<span class="k">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nv">OBJ</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>SRC:.c<span class="o">=</span>.o<span class="k">)</span>
+</span></code></pre></div></td></tr></table></div></p>
+</div>
+<h2 id="cmake">CMake<a class="headerlink" href="#cmake" title="Permanent link">&para;</a></h2>
+<p>CMake, platformlar arası derleme süreçlerini otomatikleştirmek ve build dosyalarını (Makefile, Ninja vb.) oluşturmak için kullanılan bir meta-derleme sistemidir.</p>
+<ul>
+<li>
+<p><strong>Directories (CMakeLists.txt):</strong> Projenin ana ve alt dizinlerinde yer alır. Derleme mimarisini, hedefleri ve bağımlılıkları tanımlayan ana yapı taşlarıdır.</p>
+</li>
+<li>
+<p><strong>Scripts (<code>&lt;script&gt;.cmake</code>):</strong> cmake -P komutuyla doğrudan terminalden çalıştırılabilen, derleme sürecinden bağımsız dosya veya dizin işlemlerini otomatikleştiren betiklerdir</p>
+</li>
+<li>
+<p><strong>Modules (<code>&lt;module&gt;.cmake</code>):</strong> include() veya find_package() komutları vasıtasıyla ana build sürecine dahil edilen, harici kütüphaneleri bulma veya özel fonksiyonları projeye katma işlevi gören yardımcı dosyalardır.</p>
+</li>
+<li>
+<p><strong><code>if - elseif - else</code>:</strong> Mantıksal koşul bloklarıdır. <strong>1, TRUE, Y, YES, ON</strong> ifadeleri doğru; <strong>0, FALSE, N, NO, OFF, IGNORE, NOTFOUND ve boş metinler</strong> yanlış kabul edilir.</p>
+<ul>
+<li><strong>DEFINED</strong> Değişkenin tanımlı olup olmadığı kontrol edilir.</li>
+<li><strong>COMMAND</strong> Belirtilen CMake komutunun mevcut olup olmadığını kontrol eder.</li>
+<li><strong>EXISTS</strong>  Belirtilen dosya veya klasör yolunun fiziksel olarak var olup olmadığını kontrol eder.</li>
+<li><strong>STREQUAL</strong> İki string değerin eşit olup olmadığını kontrol eder.</li>
+<li><strong>NOT</strong> , <strong>AND</strong>, <strong>OR</strong></li>
+<li><strong>STRGREATER</strong> , <strong>STRLESS</strong></li>
+</ul>
+</li>
+<li>
+<p><strong><code>foreach</code> ve <code>while</code>:</strong> Belirli bir dosya listesi veya şart sağlandığı sürece döngüler yürütür.</p>
+</li>
+</ul>
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">foreach</span><span class="p">(</span><span class="s">x</span><span class="w"> </span><span class="s">RANGE</span><span class="w"> </span><span class="s">10</span><span class="p">)</span><span class="w">       </span><span class="c"># 0&#39;dan 10&#39;a kadar (10 dahil)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nb">foreach</span><span class="p">(</span><span class="s">x</span><span class="w"> </span><span class="s">RANGE</span><span class="w"> </span><span class="s">10</span><span class="w"> </span><span class="s">20</span><span class="p">)</span><span class="w">    </span><span class="c"># 10&#39;dan 20&#39;ve kadar</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nb">foreach</span><span class="p">(</span><span class="s">x</span><span class="w"> </span><span class="s">RANGE</span><span class="w"> </span><span class="s">10</span><span class="w"> </span><span class="s">20</span><span class="w"> </span><span class="s">5</span><span class="p">)</span><span class="w">  </span><span class="c"># 10&#39;dan 20&#39;ye 5&#39;erli artışla</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li>
+<p><strong><code>function</code>:</strong> Çağrıldığı yerde local scope oluşturur. Fonksiyon içindeki değişikliklerin dışarıyı etkilemesi için <code>PARENT_SCOPE</code> anahtar kelimesi kullanılmalıdır.</p>
+<ul>
+<li><strong>ARGC:</strong> Fonksiyona girilen toplam argüman sayısı.</li>
+<li><strong>ARGV:</strong> Girilen tüm argümanların listesi.</li>
+<li><strong>ARGN:</strong> Belirlenen parametre isimlerinin dışında kalan ekstra argümanların listesi.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>macro</code>:</strong> Çağrıldığı yere doğrudan kopyalanarak yapıştırılır (inline). Çağrıldığı yerdeki kapsamı (parent scope) kullanır ve oradaki değişkenleri değiştirebilir.</p>
+</li>
+<li>
+<p><strong><code>cmake_minimum_required</code>:</strong> Projenin sorunsuz derlenebilmesi için gereken minimum CMake sürümünü zorunlu kılar.</p>
+</li>
+<li>
+<p><strong><code>project</code>:</strong> Projenin adını, versiyonunu ve kullanılacak programlama dillerini (C, CXX vb.) tanımlar.</p>
+</li>
+<li>
+<p><strong><code>add_executable</code>:</strong> Belirtilen kaynak kodlardan çalıştırılabilir bir nihai program (executable) hedefi oluşturur.</p>
+</li>
+<li>
+<p><strong><code>add_library</code>:</strong> Proje içinde kullanılacak veya dışarıya sunulacak kütüphane (static, shared veya interface) hedefleri oluşturur.</p>
+</li>
+<li>
+<p><strong><code>add_subdirectory</code>:</strong> Belirtilen alt dizine geçiş yaparak oradaki CMakeLists.txt dosyasının çalıştırılmasını sağlar.</p>
+</li>
+<li>
+<p><strong><code>target_include_directories</code>:</strong> Oluşturulan bir hedefe özel header arama dizinlerini tanımlar.</p>
+<ul>
+<li><strong>PUBLIC:</strong> Hem hedef hem tüketiciler</li>
+<li><strong>PRIVATE:</strong> Tanımlanan dizinleri sadece ilgili hedefin kendisi kullanır; bu hedefi tüketen diğer projeler bu dizinleri görmez</li>
+<li><strong>INTERFACE:</strong> İlgili hedefin kendisi derlenirken bu dizinleri kullanmaz, ancak bu hedefi projesine dahil eden tüketiciler bu dizinleri otomatik olarak içeri alır.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>include</code>:</strong> Harici bir .cmake betiğini veya kütüphane yapılandırma dosyasını mevcut CMake akışına dahil eder.</p>
+</li>
+<li>
+<p><strong><code>set</code>:</strong> Bir CMake değişkeni oluşturur. Değişken değerine <code>${DEGISKEN_ADI}</code> şeklinde erişilir. Tırnak kullanırsan araya boşluk koysan bile CMake onu tek bir bütün string kabul eder. Araya elle <code>;</code> koyarsan listeye çevirir. Tırnak kullanmazsan, her boşluk otomatik olarak bir <code>;</code> (yani liste elemanı) halini alır.</p>
+</li>
+<li>
+<p><strong><code>unset</code>:</strong> Tanımlanmış bir değişkeni bellekten silerek tanımsız hale getirir.</p>
+</li>
+<li>
+<p><strong>$ENV{}`:</strong> İşletim sistemine ait ortam değişkenlerine erişmek veya onları değiştirmek için kullanılır.</p>
+</li>
+<li>
+<p><strong><code>list(param1 param2 ...)</code>:</strong> Değişken listeleri üzerinde işlem yapar. <code>param1</code> listesi ne yapılacağı, <code>param2</code> listenin adıdır. (APPEND, REMOVE_AT, REMOVE_ITEM, REMOVE_DUPLICATES, SORT, INSERT, REVERSE, LENGTH, GET, SUBLIST, JOIN, FIND)</p>
+</li>
+<li>
+<p><strong><code>string(param1 param2 ... param_out)</code>:</strong> Metin ifadelerinin üzerinde işlem yapılmasını sağlar. <code>param1</code> ne yapılacağını, <code>param2</code> dize ifadesi ve <code>param_out</code> çıktıyı tutan değişkendir. (FIND, REPLACE, PREPEND, APPEND, TOLOWER, TOUPPER, LENGTH)</p>
+</li>
+<li>
+<p><strong><code>message:</code></strong> Terminale çıktı basılmasını sağlar.</p>
+<ul>
+<li><code>message(STATUS "Cmake File Status Worked...")</code></li>
+<li><code>message(DEBUG "Cmake File Debug Worked...")</code></li>
+<li><code>message(WARNING "Cmake File WARNING Worked...")</code></li>
+<li><code>message(FATAL ERROR "Cmake File FATAL ERROR Worked...")</code></li>
+<li><code>message("Cmake File Worked...")</code></li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_target_properties</code> / <code>set_property</code>:</strong> Belirli bir hedefe veya nesneye (C++ standart versiyonu, çıktı adı vb.) özel nitelikler ve kurallar atar.</p>
+</li>
+<li>
+<p><strong><code>install</code>:</strong> Derleme sonucunda üretilen dosyaların, kütüphanelerin veya başlık dosyalarının hedef işletim sistemindeki belirli dizinlere (Örn: <code>/usr/local/bin</code>) kurulma kurallarını belirler.</p>
+<ul>
+<li><strong>FILES</strong> dosyayı kopyalar</li>
+<li><strong>TARGETS</strong><code>add_executable()</code> veya <code>add_library()</code> ile oluşturulan hedefleri (binary veya kütüphane) kurar.</li>
+<li><strong>EXPORT</strong> Yaptığımız dosyaları <code>find_package</code> komutu ile bulmamızı sağlayacak şekilde gerekli forma dönüştürür.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>find_package</code>:</strong> Sistemde kurulu harici paketleri arar. Önce <code>Find&lt;paket_adi&gt;.cmake</code> biçimindeki <strong>MODULE</strong> modunu, bulamazsa <code>&lt;paket_adi&gt;-config.cmake</code> biçimindeki <strong>CONFIG</strong> modunu tarar. </p>
+<ul>
+<li><strong>REQUIRED</strong> ifadesi paketin bulunmasını zorunlu kılar. </li>
+</ul>
+</li>
+<li>
+<p><strong><code>option</code>:</strong> Kullanıcıya derleme sürecini özelleştirebileceği <strong>ON/OFF</strong> anahtarları sunar. Terminalden <code>cmake -DENABLE_FEATURE=ON ..</code> şeklinde tetiklenebilir.</p>
+</li>
+<li>
+<p><strong><code>add_compile_options</code>:</strong> Geçerli dizin ve altındaki tüm hedeflere uygulanacak derleyici parametrelerini (Örn: <code>-Wall</code>) ekler.</p>
+</li>
+<li>
+<p><strong><code>add_compile_definitions</code> ve <code>add_definitions</code>:</strong> Kod içerisinden erişilebilecek derleme zamanı makroları tanımlar (Eski bir komut olan <code>add_definitions</code> yerine hedef bazlı yönetim için <code>target_compile_definitions</code> kullanımı modern CMake standartlarında daha çok önerilir).</p>
+</li>
+<li>
+<p><strong><code>file(GLOB)</code> / <code>file(GLOB_RECURSE)</code>:</strong> Belirtilen şablona uyan dosyaları tarayarak bir liste oluşturur (<strong>GLOB_RECURSE</strong> alt klasörleri de tarar).</p>
+</li>
+<li>
+<p><strong><code>add_custom_command</code>:</strong> Belirli bir dosya çıktısı üretmek amacıyla derleme sürecine özel bir komut adımı (Örn: kod üretici çalıştırma) ekler.</p>
+</li>
+<li>
+<p><strong><code>add_custom_target</code>:</strong> Fiziksel bir dosya çıktısı olmasa bile, sadece istenen komutları çalıştırmak üzere bağımsız bir build hedefi (Örn: make documentation) oluşturur.</p>
+</li>
+<li>
+<p><strong><code>execute_process</code>:</strong> Yapılandırma anında terminal üzerinde harici komutlar (Örn: git clone) çalıştırır. </p>
+<ul>
+<li><strong>COMMAND:</strong>  Çalıştırılacak komutu ifade edin</li>
+<li><strong>WORKING_DIRECTORY:</strong> Komutların çalışacağı dizini ifade eder.</li>
+<li><strong>RESULT_VARIABLE:</strong> Komutun sonucu başarılı olursa 0, başarısız olursa 1 değerini döndürür.</li>
+<li><strong>OUTPUT_VARIABLE:</strong> Komut çıktısını değişkene atar.</li>
+<li><strong>ERROR_VARIABLE:</strong> Komutta bir hata oluşursa bu hatayı sakladığı değişkeni ayarlarız.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>cmake_policy</code>:</strong> Eski ve yeni CMake sürümleri arasındaki davranış değişikliklerini ve geriye dönük uyumluluk kurallarını yönetir.</p>
+</li>
+</ul>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span>
+<span class="normal"><a href="#__codelineno-5-8">8</a></span>
+<span class="normal"><a href="#__codelineno-5-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>cmake<span class="w"> </span>--help<span class="w">                     </span><span class="c1"># CMake ve build yöntemleri hakkında genel bilgi.</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>cmake<span class="w"> </span>--help-variable-list<span class="w">       </span><span class="c1"># Kullanılabilir değişkenleri listeler.</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>cmake<span class="w"> </span>--help-variable<span class="w"> </span><span class="o">[</span>variable<span class="o">]</span><span class="w"> </span><span class="c1"># Belirtilen değişken hakkında detaylı bilgi.</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w">              </span><span class="c1"># -S cmake&#39;in bulunduğu dizin, -B hedef dizin</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w">              </span><span class="c1"># Belirtilen kurallara göre dizini derler (make)</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>cmake<span class="w"> </span>-P<span class="w"> </span>a.cmake<span class="w">                 </span><span class="c1"># -P derleme yapmadan dosyayı yürütür.</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Ninja&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<ol>
+<li>
+<p>Modern CMake pratiklerinde, yeni dosyalar eklendiğinde CMake'in bunu otomatik fark edip yeniden tetiklenmemesi riskinden dolayı kaynak kodları listelerken <code>file(GLOB)</code> yerine dosyaları tek tek elle yazmak tercih edilir.</p>
+</li>
+<li>
+<p><code>CACHE</code> anahtar kelimesiyle tanımlanan değişkenler, build/CMakeCache.txt dosyasında saklanır. Bu sayede her cmake komutu çalıştığında değerler tekrar hesaplanmaz, doğrudan bellekten okunarak hızlı erişim sağlanır. Komut satırından <code>-D</code> parametresiyle gönderilen değerlerin önbellekteki eski değerlerin üzerine zorla yazılması için FORCE ifadesi kullanılır
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c"># Cache değişkeni tanımlama şablonu:</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nb">set</span><span class="p">(</span><span class="s">DEGISKEN_ADI</span><span class="w"> </span><span class="s2">&quot;Değer&quot;</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">TUR</span><span class="w"> </span><span class="s2">&quot;Açıklama Metni&quot;</span><span class="w"> </span><span class="s">[FORCE]</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="c"># Örnek Kullanım:</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="nb">set</span><span class="p">(</span><span class="s">ENABLE_LOGGING</span><span class="w"> </span><span class="s">ON</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">BOOL</span><span class="w"> </span><span class="s2">&quot;Sistem loglarını aktif eder&quot;</span><span class="w"> </span><span class="s">FORCE</span><span class="p">)</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="err">3.</span><span class="w"> </span><span class="err">`CMakeLists.txt`</span><span class="w"> </span><span class="err">içinde</span><span class="w"> </span><span class="err">`add_executable`</span><span class="w"> </span><span class="err">veya</span><span class="w"> </span><span class="err">project</span><span class="w"> </span><span class="err">gibi</span><span class="w"> </span><span class="err">derleme</span><span class="w"> </span><span class="err">hedefleri</span><span class="w"> </span><span class="err">barındırdığı</span><span class="w"> </span><span class="err">için</span><span class="w"> </span><span class="err">`-P`</span><span class="w"> </span><span class="err">(Script</span><span class="w"> </span><span class="err">modu)</span><span class="w"> </span><span class="err">ile</span><span class="w"> </span><span class="err">çalıştırılamaz,</span><span class="w"> </span><span class="err">hata</span><span class="w"> </span><span class="err">verir.</span><span class="w"> </span><span class="err">`-P`</span><span class="w"> </span><span class="err">parametresi</span><span class="w"> </span><span class="err">sadece</span><span class="w"> </span><span class="err">saf</span><span class="w"> </span><span class="err">script</span><span class="w"> </span><span class="err">komutları</span><span class="w"> </span><span class="err">içeren</span><span class="w"> </span><span class="err">`.cmake`</span><span class="w"> </span><span class="err">dosyaları</span><span class="w"> </span><span class="err">için</span><span class="w"> </span><span class="err">geçerlidir.</span>
+</span></code></pre></div></td></tr></table></div></p>
+</li>
+</ol>
+</div>
+<table>
+<thead>
+<tr>
+<th>Değişken</th>
+<th>Anlamı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROJECT_NAME</code></td>
+<td><code>project()</code> komutunda belirtilen güncel proje adı</td>
+</tr>
+<tr>
+<td><code>CMAKE_PROJECT_NAME</code></td>
+<td>En üst (kök) dizindeki ana <code>project()</code> adı</td>
+</tr>
+<tr>
+<td><code>CMAKE_VERSION</code></td>
+<td>Sistemde çalışan güncel CMake sürümü</td>
+</tr>
+<tr>
+<td><code>CMAKE_GENERATOR</code></td>
+<td>Yapı oluşturucuyu belirtir (Ninja, Unix Makefiles)</td>
+</tr>
+<tr>
+<td><code>CMAKE_SOURCE_DIR</code></td>
+<td>Ana (kök) proje dizininin tam yolu</td>
+</tr>
+<tr>
+<td><code>CMAKE_CURRENT_SOURCE_DIR</code></td>
+<td>O anda işlenen CMakeLists.txt dosyasının bulunduğu dizin</td>
+</tr>
+<tr>
+<td><code>PROJECT_SOURCE_DIR</code></td>
+<td>En son çağrılan project() komutuna ait dizin yolu</td>
+</tr>
+<tr>
+<td><code>CMAKE_BINARY_DIR</code></td>
+<td>Çıktıların üretildiği ana build dizini</td>
+</tr>
+<tr>
+<td><code>CMAKE_SYSTEM</code></td>
+<td>Hedef işletim sisteminin tam adı ve versiyonu</td>
+</tr>
+<tr>
+<td><code>CMAKE_SYSTEM_NAME</code></td>
+<td>Hedef işletim sisteminin kısa adı (Linux, Windows, Darwin)</td>
+</tr>
+<tr>
+<td><code>CMAKE_INSTALL_PREFIX</code></td>
+<td>install() komutunun dosyaları kuracağı kök dizin yolu</td>
+</tr>
+<tr>
+<td><code>CMAKE_MODULE_PATH</code></td>
+<td>CMake'in ek modülleri (.cmake) arayacağı özel klasör yolları</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Derleme Yöntem 1</label><label for="__tabbed_1_2">Derleme Yöntem 2</label><label for="__tabbed_1_3">Derleme Yöntem 3</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="err">mkdir</span><span class="w"> </span><span class="err">build</span><span class="w">  </span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="err">cd</span><span class="w"> </span><span class="err">build</span><span class="w">  </span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="err">cmake</span><span class="w"> </span><span class="err">..</span><span class="w">  </span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="err">make</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="err">cmake</span><span class="w"> </span><span class="err">-S</span><span class="w"> </span><span class="err">.</span><span class="w"> </span><span class="err">-B</span><span class="w"> </span><span class="err">build</span><span class="w">  </span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="err">cd</span><span class="w"> </span><span class="err">build</span><span class="w">  </span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="err">make</span><span class="w"> </span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="err">cmake</span><span class="w"> </span><span class="err">-B</span><span class="w"> </span><span class="err">build</span><span class="w">  </span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="err">cmake</span><span class="w"> </span><span class="err">--build</span><span class="w"> </span><span class="err">build</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Altbilgi" >
+        
+          
+          <a href="../design_pattern/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: Design Pattern">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Önceki
+              </span>
+              <div class="md-ellipsis">
+                Design Pattern
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../c/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: C">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sonraki
+              </span>
+              <div class="md-ellipsis">
+                C
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.linked", "content.code.select", "content.code.wrap", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>

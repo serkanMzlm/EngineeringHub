@@ -1,0 +1,886 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Teknik dokümantasyon">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>STM32 Programlama Notları - Dokümantasyon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stm32-programlama-notlar" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href="../../.." title="Dokümantasyon" class="md-header__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dokümantasyon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              STM32 Programlama Notları
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label=""  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label=""  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Sekmeler" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/design_pattern/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Dokümantasyon" class="md-nav__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    Dokümantasyon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../programming/design_pattern/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gerekli-dokumanlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gerekli Dökümanlar
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bus
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stm32cubeide-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32CubeIDE Debug
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="STM32CubeIDE Debug">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#itm-tabanl-printf-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      ITM Tabanlı printf Debug
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#register" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      RCC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mco-microcontroller-clock-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCO (Microcontroller Clock Output)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hsi-high-speed-internal" class="md-nav__link">
+    <span class="md-ellipsis">
+      HSI (High Speed Internal)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hse-high-speed-external" class="md-nav__link">
+    <span class="md-ellipsis">
+      HSE (High Speed External)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vektor-tablosu-nedir" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vektör Tablosu Nedir?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-gcc-inline-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM GCC Inline Assembly
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#struct-hizalamas-ve-padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Struct Hizalaması ve Padding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpio-baslatma-ve-kullanm" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPIO Başlatma ve Kullanımı
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stm32cubeide" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32CubeIDE
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="stm32-programlama-notlar">STM32 Programlama Notları<a class="headerlink" href="#stm32-programlama-notlar" title="Permanent link">&para;</a></h1>
+<h2 id="gerekli-dokumanlar">Gerekli Dökümanlar<a class="headerlink" href="#gerekli-dokumanlar" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Reference Manual</strong></li>
+<li><strong>Technical Reference Manual</strong><ul>
+<li><strong>RCC (Reset and Clock Control):</strong> Clock mimarisini anlatır</li>
+</ul>
+</li>
+<li><strong>Datasheet:</strong><ul>
+<li><strong>Memory Mapping:</strong> MCU’nun Flash, RAM ve peripheral register’larının adres uzayında hangi başlangıç adreslerinde ve hangi aralıklarda konumlandığını gösteren bölümdür.</li>
+<li><strong>Alternate Function Mapping:</strong> Pinlerin hangi alternatif işlevleri desteklediğini gösterir.</li>
+<li><strong>Block Diagram:</strong> MCU içindeki birimlerin birbirine fiziksel bağlantılarını görsel olarak sunar.</li>
+<li><strong>Bus Matrix:</strong> MCU'nun verinin nereden nereye, hangi yollarla, ne hızda ve nasıl aktığını sistem seviyesinde tanımlar</li>
+</ul>
+</li>
+<li><strong>Cortex-M4 Devices Generic User Guide</strong><ul>
+<li><strong>Interrupt Program Status Register:</strong> İşlemcinin hangi interrupt veya exception içinde çalıştığını nasıl tespit edeceğini öğretir.Exception numaraları, handler bağlamı ve interrupt akışının yazılım tarafından nasıl okunacağını açıklar.</li>
+<li><strong>General Data Processing Instructions:</strong> ARM çekirdeğinde aritmetik, mantıksal ve veri taşıma işlemlerinin assembly seviyesinde nasıl yapıldığını öğretir. <strong>ADD, SUB, MOV, AND, ORR</strong> gibi talimatların çalışma mantığı ve etkiledikleri bayraklar bu bölümde açıklanır.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Generic User Guide</th>
+<th>Technical Reference Manual (TRM)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tür</td>
+<td>Kullanım Kılavuzu</td>
+<td>Teknik Spesifikasyon</td>
+</tr>
+<tr>
+<td>Hedef</td>
+<td>"How to use?"</td>
+<td>"How it works?"</td>
+</tr>
+<tr>
+<td>Odağı</td>
+<td>Yazılım Geliştirme</td>
+<td>Donanım Tasarımı</td>
+</tr>
+<tr>
+<td>Seviye</td>
+<td>Üst seviye, pratik</td>
+<td>Düşük seviye, detaylı</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bus">Bus<a class="headerlink" href="#bus" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>I-Bus (Instruction Bus / ICODE):</strong> CPU’nun Flash / Instruction memory’den komutları (instruction) almak için kullandığı veri yoludur.<ul>
+<li>CPU’nun çalıştıracağı komutları almak için kullandığı veri yoludur.</li>
+<li>Genellikle Flash memory’ye bağlıdır.</li>
+<li>CPU her clock’ta instruction fetch yaptığı için sürekli aktiftir.</li>
+</ul>
+</li>
+<li><strong>D-Bus (Data Bus / DCODE):</strong> CPU’nun RAM ve peripheral register’larından veri okuma/yazma işlemleri için kullandığı veri yoludur.<ul>
+<li>CPU’nun RAM veya peripheral register’larına veri okuma/yazma yaptığı veri yoludur.</li>
+<li>Load (LDR) ve Store (STR) talimatları bu yolu kullanır.</li>
+<li>Stack erişimleri (push/pop) de bu bus üzerindendir.</li>
+</ul>
+</li>
+<li><strong>S-Bus (System Bus):</strong> DMA, debug birimleri ve diğer sistem bileşenlerinin bellek ve peripheral’lara erişimini sağlayan ortak veri yoludur.<ul>
+<li>DMA, Debug (SWD/SWV)</li>
+<li>Peripheral bus köprüleri bu bus üzerinden çalışır.</li>
+</ul>
+</li>
+</ul>
+<pre class="mermaid"><code>graph LR
+  A[Flash] --&gt; |I-Bus| B{CPU};
+  B --&gt; |D-Bus| C[RAM];
+  B --&gt; |S-Bus| D[DMA / Debug / Peripherals];</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<ul>
+<li>I-Bus komutları, D-Bus CPU verilerini, S-Bus ise sistem bileşenlerinin bellek erişimini taşır; amaç paralellik ve performanstır.</li>
+<li>I-Bus → Komutlar ve salt-okunur içerik</li>
+<li>D-Bus → Değişken veri (RAM, stack, heap)</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>STM32 tabanlı embedded sistemlerde const anahtar kelimesi, bir verinin bellekte nereye yerleştirileceğini, hangi bus üzerinden erişileceğini ve çalışma zamanı davranışını doğrudan belirler.
+- <code>const char</code> Veri Flash memory içerisinde, genellikle .rodata (read-only data) bölümüne yerleştirilir. CPU bu veriye Instruction Bus (I-Bus) üzerinden erişir. RAM tüketimi yoktur.
+- <code>char</code> Veri RAM içerisine yerleştirilir (.data veya .bss bölgesi). CPU erişimi Data Bus (D-Bus) üzerinden gerçekleştirilir.</p>
+</div>
+<h2 id="stm32cubeide-debug">STM32CubeIDE Debug<a class="headerlink" href="#stm32cubeide-debug" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Breakpoint (Yazılım Kırılma Noktası):</strong> Belirli bir kod satırında programın durdurulmasını sağlar.</li>
+<li><strong>Watchpoint (Data Watchpoint):</strong> Belirli bir değişken veya bellek adresi okunduğunda/yazıldığında CPU’yu durdurur.</li>
+<li><strong>Step Debug Komutları:</strong> <ul>
+<li><strong>Step Into:</strong> Fonksiyonun içine girer.</li>
+<li><strong>Step Over:</strong> Fonksiyonu tek adımda geçer.</li>
+<li><strong>Step Return (Step Out):</strong> Mevcut fonksiyondan çıkar.</li>
+</ul>
+</li>
+<li><strong>Variables View:</strong> Geçerli scope’taki local, global ve static değişkenleri otomatik gösterir.</li>
+<li><strong>Expressions View:</strong> Kullanıcı tarafından manuel tanımlanan değişken ve ifadeleri izler.</li>
+<li><strong>Registers View:</strong> CPU register’larını (R0–R15, SP, LR, PC, xPSR) gösterir.</li>
+<li><strong>Memory View:</strong> Belirli bir bellek adresinin içeriğini ham (raw) olarak gösterir.</li>
+<li><strong>Disassembly View:</strong> C kodunun karşılık geldiği assembly talimatlarını gösterir.</li>
+<li><strong>Live Expressions / Live Variables:</strong> Program çalışırken (halt etmeden) değişkenleri izleme imkânı sunar. </li>
+<li><strong>Fault Analysis (HardFault / UsageFault):</strong> Stack frame, Register durumu, Fault status register’ları incelenebilir.</li>
+<li><strong>SWV / ITM Trace (Varsa):</strong> Gerçek zamanlı veri ve log akışı sağlar. </li>
+<li><strong>SFR (Special Function Registers) Window:</strong> Bu pencereler, STM32 üzerinde yazılımın bellek, register ve yürütme durumunun farklı seviyelerde gözlemlenmesini sağlar.</li>
+</ul>
+<h3 id="itm-tabanl-printf-debug">ITM Tabanlı printf Debug<a class="headerlink" href="#itm-tabanl-printf-debug" title="Permanent link">&para;</a></h3>
+<p><code>ITM_SendChar</code> fonksiyonu, <code>printf</code> çağrılarının libc seviyesinde kullandığı <code>_write</code> syscall’ini donanıma bağlamak amacıyla <strong>syscalls.c</strong> dosyasına eklenir. Bu yapı sayesinde standart çıktı, UART kullanmadan SWD/ITM hattı üzerinden debug arayüzüne yönlendirilir. (Bu yöntem, Cortex-M3 ve üzeri çekirdeklerde desteklenen ITM altyapısını kullanır ve debug sırasında minimum runtime overhead ile loglama imkânı sağlar)</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">syscalls.c</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cp">#define DEMCR           (*((volatile uint32_t*)0xE000EDFC))</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="cp">#define ITM_STIMULUS0   (*((volatile uint32_t*)0xE0000000))</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="cp">#define ITM_TCR         (*((volatile uint32_t*)0xE0000E00))</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ITM_SendChar</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="n">DEMCR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">24</span><span class="p">);</span><span class="w">        </span><span class="c1">// TRCENA enable</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="n">ITM_TCR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">              </span><span class="c1">// ITM Stimulus Port 0 enable</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">ITM_STIMULUS0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="n">ITM_STIMULUS0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ch</span><span class="p">;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="p">}</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">_write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="p">{</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">file</span><span class="p">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">DataIdx</span><span class="p">;</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">DataIdx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">DataIdx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="n">DataIdx</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="c1">// __io_putchar(*ptr++);</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">    </span><span class="n">ITM_SendChar</span><span class="p">(</span><span class="o">*</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><strong>Debug Configurations → ST-Link GDB Server</strong><ul>
+<li>Interface: SWD</li>
+<li>SN: (Hedef cihaza ait seri numarası)</li>
+<li>Serial Wire Viewer (SWV): Enable edilir</li>
+</ul>
+</li>
+<li><strong>SWV ITM Data Console’un Açılması</strong><ul>
+<li><strong>Window → Show View → SWV → SWV ITM Data Console</strong> seçilir.</li>
+<li>Sağ üstte yer alan Configure Trace butonu ile trace ayarları yapılır.</li>
+<li>ITM Port 0 seçilir. (Port 0’ın seçilme nedeni, yazılım tarafında verinin <code>ITM_STIMULUS0</code> üzerinden, yani ITM’nin 0 numaralı stimulus portundan gönderilmesidir.)</li>
+<li>Ayarlar tamamlandıktan sonra Start Trace butonuna basılarak izleme başlatılır.</li>
+</ul>
+</li>
+</ul>
+<p>Bu işlemler sonucunda, uygulama içerisindeki <code>printf</code> çıktıları SWD/ITM hattı üzerinden gerçek zamanlı olarak SWV ITM Data Console ekranında görüntülenir. (printf son kısmında <code>\n</code> kullanılmalıdır.)</p>
+<div class="admonition example">
+<p class="admonition-title">Not</p>
+<p>Alt kısımda yer alan görsel, SWV ITM Data Console ekranını göstermektedir; sağ üstteki ilk buton Configure Trace, ikinci buton ise Start Trace işlevini yerine getirir.
+<img alt="mcu" src="../../../assets/img/embedded/swd.png" />   </p>
+</div>
+<h2 id="register">Register<a class="headerlink" href="#register" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Debug Modunda -&gt; <strong>Window → Show View → Registers</strong>, debug sırasında CPU’nun o anki donanımsal durumunu doğrudan görmenizi sağlar.</li>
+<li><strong>R0–R3:</strong> Fonksiyonlara gönderilen parametrelerin ve fonksiyonlardan dönen sonuçların taşınması için standart olarak kullanılan, aynı zamanda bir kesme (interrupt) meydana geldiğinde donanım tarafından otomatik olarak korunarak stack’e kaydedilen, bu sayede program akışının bozulmasını önleyen en kritik ve en sık kullanılan register’lardır.</li>
+<li><strong>R4–R11:</strong> Fonksiyonların veya algoritmaların daha uzun süre boyunca ihtiyaç duyduğu ara değerleri tutmak için kullanılan, içerikleri fonksiyonlar arasında rastgele değişmemesi gereken ve bu yüzden kullanılan fonksiyon tarafından korunması beklenen, görece daha “kalıcı” çalışma register’larıdır.</li>
+<li><strong>R12 (IP – Intra-Procedure Register):</strong> Çoğunlukla derleyici tarafından fonksiyon çağrıları sırasında veya karmaşık işlemlerde kısa ömürlü geçici değerleri tutmak amacıyla kullanılan, yazılımcının doğrudan anlam yüklemesinin beklenmediği ve daha çok derleyicinin iç düzenini kolaylaştıran yardımcı bir register’dır.</li>
+<li><strong>SP (Stack Pointer):</strong> Stack’in tepe adresini gösteren ve fonksiyon çağrıları ile kesmelerin güvenli şekilde çalışmasını sağlayan hayati bir register’dır; Cortex-M mimarisinde stack aşağı doğru büyür, interrupt’lar her zaman MSP’yi kullanırken uygulama kodları PSP üzerinden çalışabilir ve bu çift stack yapısı sistemin hem kararlı hem de güvenli olmasını sağlar.</li>
+<li><strong>xPSR (Program Status Register):</strong> İşlemcinin o anki çalışma durumunu özetleyen ve üç farklı bölümden oluşan temel bir register’dır; APSR yapılan işlemlerin sonucunu ve karşılaştırma bilgilerini tutarken, IPSR işlemcinin bir kesme içinde olup olmadığını gösterir ve EPSR ise işlemcinin komutları hangi çalışma biçiminde yürüttüğünü belirleyerek sistemin doğru ve güvenli şekilde çalışmasını sağlar.</li>
+<li><strong>PC (Program Counter):</strong> İşlemcinin her an hangi komutu çalıştıracağını belirleyen, program akışının kalbi sayılabilecek register’dır; normalde komutlar sırayla ilerledikçe artar, dallanma ve fonksiyon çağrılarıyla kontrollü biçimde değiştirilir ve kesmeler sırasında stack üzerinden korunarak programın kaldığı yerden güvenli şekilde devam etmesini sağlar</li>
+<li><strong>LR (Link Register):</strong> Fonksiyon çağrıları sırasında programın geri döneceği adresi saklayan ve böylece kod akışının doğru yerden devam etmesini sağlayan kritik bir register’dır; normal fonksiyonlarda gerçek bir geri dönüş adresi tutarken, interrupt durumlarında özel kodlanmış değerler alarak işlemcinin hangi moda ve hangi stack yapısına döneceğini belirler.</li>
+</ul>
+<h2 id="rcc">RCC<a class="headerlink" href="#rcc" title="Permanent link">&para;</a></h2>
+<p>Modern mikrodenetleyici mimarilerinde çevre birimlerinin (peripheral) kullanımı, yalnızca ilgili register’lara değer yazmakla sınırlı değildir. STM32 ailesinde bir peripheral’ın aktif olarak çalışabilmesi için önce saatinin (peripheral clock) açılması zorunludur. Bu yaklaşım, performanstan çok güç verimliliğini ve sistem kontrolünü merkeze alan bir tasarım tercihidir.</p>
+<p>Mikrodenetleyici reset veya power-on sonrası başlatıldığında, hemen hemen tüm peripheral clock’lar kapalı durumdadır. Bunun nedeni basittir: kullanılmayan donanım bloklarının clock alması, gereksiz güç tüketimine yol açar. Bu nedenle STM32, yazılımcıyı bilinçli olmaya zorlar; “kullanacaksan aç, işin bitince kapat” yaklaşımı benimsenmiştir.</p>
+<p>Bu clock yönetimi, STM32 mimarisinde RCC (Reset and Clock Control) adı verilen sistem peripheral’ı üzerinden yapılır. RCC, mikrodenetleyicinin kalbi sayılabilecek bir bloktur ve AHB, APB, memory domain gibi tüm clock alanlarının kontrolünden sorumludur.</p>
+<p>Bir peripheral’ın register’larına yazılan değerlerin etkili olabilmesi için, o peripheral’ın clock alıyor olması gerekir. Aksi halde, yazılım doğru olsa bile donanım bu konfigürasyonu yok sayar. Bu durum, özellikle düşük seviyeli (register-level) programlama yapanlar için kritik bir farkındalıktır.</p>
+<p>Örneğin ADC peripheral’ı ele alındığında, ADC’nin kontrol register’larından biri olan CR1 üzerinde bir bit set edilmek istenebilir. Register adresi doğru hesaplanmış, pointer doğru tanımlanmış ve ilgili bit set edilmiş olsa bile, ADC clock’u RCC üzerinden açılmamışsa bu değişiklik donanımda karşılık bulmaz. Debug sırasında SFR (Special Function Register) penceresinde bitin hâlâ sıfır olduğu açıkça görülür.</p>
+<h2 id="mco-microcontroller-clock-output">MCO (Microcontroller Clock Output)<a class="headerlink" href="#mco-microcontroller-clock-output" title="Permanent link">&para;</a></h2>
+<p>MCO, STM32 mikrodenetleyicilerinde dahili saat sinyalini dışarıya çıkarmak için kullanılan bir pin özelliğidir. Mikrodenetleyicinin iç saat kaynaklarından birini seçerek bu sinyali bir GPIO pininden dış dünyaya sağlar.</p>
+<p>STM32 mikrodenetleyicilerde MCO1 ve MCO2 olmak üzere iki adet clock output sinyali bulunur. Bunlar doğrudan fiziksel pinler değil, mikrodenetleyici içindeki sinyallerdir. Yazılım yoluyla seçilen bu sinyaller, uygun GPIO pinlerine yönlendirilerek dışarı alınır.</p>
+<ul>
+<li>Sistem saat sinyalini ölçmek için</li>
+<li>PLL çıkışını doğrulamak için</li>
+<li>Saat kaynaklarının stabilitesini test etmek</li>
+<li>Diğer mikrokontrolörleri senkronize etmek</li>
+<li>Harici ADC/DAC'ler için saat sinyali sağlamak</li>
+<li>Communication cihazlarına (Ethernet, USB) saat sağlamak</li>
+</ul>
+<h2 id="hsi-high-speed-internal">HSI (High Speed Internal)<a class="headerlink" href="#hsi-high-speed-internal" title="Permanent link">&para;</a></h2>
+<p>Mikrodenetleyici içinde yer alan dahili RC osilatördür. Harici bileşen gerektirmeden sistem saat kaynağı sağlar. Başlatma süresi kısa ve maliyeti düşüktür; ancak frekans doğruluğu ve sıcaklık kararlılığı sınırlıdır. Genellikle genel amaçlı MCU çalışması, düşük maliyetli uygulamalar ve yüksek hassasiyet gerektirmeyen haberleşme senaryolarında kullanılır.</p>
+<h2 id="hse-high-speed-external">HSE (High Speed External)<a class="headerlink" href="#hse-high-speed-external" title="Permanent link">&para;</a></h2>
+<p>Mikrodenetleyici dışına bağlanan kristal veya harici osilatör tabanlı saat kaynağıdır. Yüksek frekans doğruluğu, düşük jitter ve uzun vadeli kararlılık sunar. USB, Ethernet, CAN, RF ve hassas zamanlama gerektiren uygulamalarda tercih edilir. Harici bileşen gereksinimi ve daha uzun başlatma süresi dezavantajlarıdır.</p>
+<h2 id="vektor-tablosu-nedir">Vektör Tablosu Nedir?<a class="headerlink" href="#vektor-tablosu-nedir" title="Permanent link">&para;</a></h2>
+<p>Vektör tablosu, işlemcinin içine yüklediğimiz kodun en başında yer alan bir adres listesidir. Bu tablo, "Eğer şu olay (kesme/hata) gerçekleşirse, bellekteki şu adrese git ve oradaki kodu çalıştır" diyen bir rehberdir.
+- <strong>Tanım:</strong> Vektör tablosu, aslında bir adresler tablosudur.
+- <strong>İçerik:</strong> Bu tabloda "Exception Handler" (İstisna İşleyicileri) ve "Interrupt Handler" (Kesme İşleyicileri) dediğimiz özel fonksiyonların bellek adresleri tutulur.
+- <strong>Kapsam:</strong> Cortex-M4 mimarisinde (STM32F407 gibi) genellikle 15 sistem istisnası ve 240'a kadar harici kesme (interrupt) bulunur.
+- <strong>Position (Konum/IRQ Numarası):</strong> NVIC (Kesme Denetleyicisi) açısından kesmenin numarasıdır. Sistem istisnalarının (Reset, NMI vb.) konumları sabittir, üretici (ST) bunları değiştiremez çünkü ARM tasarımıdır.
+- <strong>Priority (Öncelik):</strong> Hangi olayın daha önemli olduğunu belirler. Reset (-3), NMI (-2) ve HardFault (-1) en yüksek önceliğe sahiptir ve sabittir (fixed). Diğerleri yazılımla değiştirilebilir (settable).
+- <strong>Address (Adres):</strong> En önemli kısımdır. İşlemci bir kesme aldığında, o kesmeye ait fonksiyonun kodunun bellekte nerede olduğunu bu sütundaki adrese bakarak anlar.</p>
+<h2 id="arm-gcc-inline-assembly">ARM GCC Inline Assembly<a class="headerlink" href="#arm-gcc-inline-assembly" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Inline assembly, C/C++ kodu içinde <code>asm</code> veya <code>__asm__</code> anahtar kelimesi ile doğrudan assembly (işlemci komutu) yazılmasıdır.</li>
+<li><code>volatile</code> "Bu kod yan etkilidir, sakın optimize etme" anlamına gelir.<ul>
+<li>Derleyicinin optimizasyonu devre dışı bırakır</li>
+<li>Belleğe veya donanım register’larına yazılan değişkenlerin her erişimde gerçekten okunmasını sağlar.</li>
+<li><strong>Kesme (ISR)</strong> veya <strong>donanım etkileşimleri</strong> sonucu değişebilecek veriler için zorunludur.  </li>
+</ul>
+</li>
+<li><strong>LDR (Load Register)</strong>, ARM mimarisinde RAM’de bulunan bir veriyi alıp CPU register’ına yükleyen assembly talimatıdır</li>
+<li><strong>STR (Store Register)</strong>, CPU register’ında bulunan bir veriyi RAM’e yazan assembly talimatıdır.</li>
+<li><strong>ADD</strong>, Register’lar arasında toplama yapar.</li>
+<li><strong>MOV (Move)</strong>, bir register’a doğrudan bir değeri veya başka bir register’ın içeriğini kopyalar.</li>
+<li><strong>[] (Bracket kullanımı)</strong>, register’ın bir adres tuttuğunu ve bu adresin işaret ettiği RAM içeriğine erişileceğini ifade eder.</li>
+<li><strong>= (Literal / Pseudo-instruction)</strong>, assembly seviyesinde sabit bir değerin veya adresin bir register’a yüklenmesini sağlayan derleyici yardımcısıdır.</li>
+</ul>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">volatile</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">timer_ticks</span><span class="p">;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">add_numbers</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="kr">__asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;LDR R1, =#0x2001000&quot;</span><span class="p">);</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">    </span><span class="kr">__asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;LDR R2, =#0x2001004&quot;</span><span class="p">);</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="kr">__asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;LDR R0, [R1]&quot;</span><span class="p">);</span><span class="w">       </span><span class="c1">// [] bellekte adreste bulunan değeri getirmek için kullanılır</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="kr">__asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;LDR R1, [R2]&quot;</span><span class="p">);</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="kr">__asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;ADD R0, R0, R1&quot;</span><span class="p">);</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="kr">__asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;STR R0, [R2]&quot;</span><span class="p">);</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>Daha fazla bilgi için <strong>“Cortex‑M4 Devices Generic User Guide”</strong> içindeki <strong>“The Cortex‑M4 Instruction Set”</strong> bölümüne bakın.</p>
+</div>
+<h2 id="struct-hizalamas-ve-padding">Struct Hizalaması ve Padding<a class="headerlink" href="#struct-hizalamas-ve-padding" title="Permanent link">&para;</a></h2>
+<ul>
+<li>C’de struct’lar, içindeki en büyük veri tipinin hizalanma gereksinimine göre <code>padding</code> ekler.  Bellek düzenini sıkı kontrolü için kullanılır</li>
+</ul>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="cp">#pragma pack(push, 1)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1 byte</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="n">b</span><span class="p">;</span><span class="w">   </span><span class="c1">// 4 byte</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="p">}</span><span class="w"> </span><span class="n">PackedStruct</span><span class="p">;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="cp">#pragma pack(pop)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="p">}</span><span class="w"> </span><span class="n">PackedStruct</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="gpio-baslatma-ve-kullanm">GPIO Başlatma ve Kullanımı<a class="headerlink" href="#gpio-baslatma-ve-kullanm" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Clock Aktifleştirme İlgili GPIO portunun saatini açın: <code>RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN;</code></li>
+<li>Pin Modu ve Özellikleri <code>GPIOx-&gt;MODER</code>, <code>OTYPER</code>, <code>OSPEEDR</code>, <code>PUPDR</code> register’larını kullanarak:</li>
+</ul>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1">// PA5</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">MODER</span><span class="w">   </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">MODER</span><span class="w">   </span><span class="o">|=</span><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span><span class="w">       </span><span class="c1">// 01 = output</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">OTYPER</span><span class="w">  </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">           </span><span class="c1">// 0 = push‑pull</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">OSPEEDR</span><span class="w"> </span><span class="o">|=</span><span class="w">  </span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span><span class="w">       </span><span class="c1">// 11 = high speed</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">PUPDR</span><span class="w">   </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span><span class="w">       </span><span class="c1">// 00 = no pull‑up/down</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">output</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">ODR</span><span class="w"> </span><span class="o">|=</span><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">  </span><span class="c1">// PA5 = HIGH</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">ODR</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">  </span><span class="c1">// PA5 = LOW</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Input</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">IDR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">))</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="stm32cubeide">STM32CubeIDE<a class="headerlink" href="#stm32cubeide" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>Ctrl + O</code>     : Açık dosyada fonksiyon ve sembolleri listeler</li>
+<li><code>Ctrl + Space</code> : Kod tamamlama (auto‑complete)</li>
+<li><strong>Kod Optimizasyonu (STM32CubeIDE):</strong> <code>Project &gt; C/C++ Build &gt; Optimization Level</code> ile derleyici optimizasyon seviyesini belirler.</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Not</p>
+<p>Yüksek optimizasyon <strong>kod boyutunu azaltır</strong>, ancak bazen <strong>kritik kod parçalarını kaldırabilir</strong>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.linked", "content.code.select", "content.code.wrap", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>
