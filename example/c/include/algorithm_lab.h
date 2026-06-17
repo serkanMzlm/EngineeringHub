@@ -1,95 +1,33 @@
-#pragma once 
+#ifndef ALGORITHM_LAB_H
+#define ALGORITHM_LAB_H
 
 #define MAX_BITS 32
 
-/*
- * ARMSTRONG NUMBER:
- * n basamaklı sayının her basamağının n'inci kuvvetleri 
- * toplamı sayıya eşitse.
- */
-int isArmstrongNumber(int number);
+/* --- Number Theory --- */
+int  isArmstrongNumber(int n);
+int  isPalindrome(int n);
+int  reverseNumber(int n);
+void decimalToBinary(int n);
 
-/*
- * PALINDROME NUMBER:
- * Ters çevrildiğinde aynı kalan sayı.
- */
-int isPalindrome(int number);
+/* --- Factorial --- */
+int  factorial(int n);
+void printFactorial(int n);
 
-/*
- * REVERSE NUMBER:
- * Sayıyı ters çevirir.
- */
-int reverseNumber(int number);
+/* --- Fibonacci --- */
+void fibonacci(int n);
+void fibonacciRecursion(int n);
 
-/*
- * DECIMAL TO BINARY:
- * Sayıyı ikili tabana çevirir.
- */
-void decimalToBinary(int number);
+/* --- Search --- */
+int sequentialSearch(const int *arr, int size, int target);
+int binarySearch(const int *arr, int left, int right, int target);
 
-/*
- * FACTORIAL:
- * Sayının faktöriyelini hesaplar.
- */
-int factorial(int number);
+/* --- Sort --- */
+void bubbleSort(int *arr, int n);
+void selectionSort(int *arr, int n);
+void insertionSort(int *arr, int n);
 
-/*
- * PRINT FACTORIAL:
- * Sayının faktöriyelini yazdırır.
- */
-void printFactorial(int number);
+/* --- Swap --- */
+void swapTemp(int *a, int *b);
+void swapXOR(int *a, int *b);
 
-/*
- * FIBONACCI (ITERATIVE):
- * O(n) time complexity, O(1) space complexity.
- * Embedded ve real-time sistemlerde tercih edilir.
- * Sayıları sırayla ekrana basar.
- */
-void fibonacci(int number);
-
-/*
- * FIBONACCI (RECURSIVE):
- * Recursive helper + wrapper pattern ile implement edilmiştir.
- * Stack kullanımı vardır, iteratif versiyona göre daha maliyetlidir.
- * Eğitim ve algoritma gösterimi için uygundur.
- */
-void fibonacciRecursion(int number);
-
-
-/*
- * SEQUENTIAL SEARCH:
- * O(n) time complexity.
- * Unsorted array üzerinde çalışır.
- * İlk eşleşen index’i döndürür, bulunamazsa -1.
- */
-int sequentialSearch(int arr[], int size, int search);
-
-/*
- * BINARY SEARCH:
- * O(log n) time complexity.
- * SADECE sorted array üzerinde çalışır.
- * Bulunamazsa -1 döndürür.
- *
- * NOTE:
- * Precondition: arr must be sorted (ascending).
- */
-int binarySearch(int arr[], int left, int right, int search);
-
-/*
- * ARITHMETIC SWAP (RISKY APPROACH)
- *
- * NOT:
- * Bu yöntem integer overflow riski taşır.
- * Özellikle embedded / high-range integer sistemlerde
- * undefined behavior oluşturabilir.
- *
- * Genellikle production kodda önerilmez.
- */
-void swapWithArithmetic(int *lhs, int *rhs);
-
-/*
- * SAFE SWAP (TEMP VARIABLE)
- * En güvenli ve en yaygın kullanılan yöntemdir.
- * Compiler optimizasyonları zaten bunu optimize eder.
- */
-void swapWithTemp(int *lhs, int *rhs);
+#endif /* ALGORITHM_LAB_H */

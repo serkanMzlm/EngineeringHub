@@ -1,74 +1,341 @@
-mainmenu "Simple C Project Configuration"
+# ==============================================================================
+# Kconfig — C Learning Project Build Configuration
+#
+# Bu dosya iki amaca hizmet eder:
+#   1. Projenin hangi modüllerini derleyeceğini belirler
+#   2. Kconfig'in desteklediği tüm keyword türlerini örnek gösterir
+#
+# Kconfig keyword referansı:
+#   bool      → y/n (etkin/devre dışı)
+#   tristate  → y/m/n (etkin/modül/devre dışı) — Linux kernel modül sistemi
+#   int       → tam sayı değer
+#   hex       → onaltılık değer
+#   string    → metin değer
+#   choice    → birbirini dışlayan seçenekler grubu
+#   menu      → görsel gruplama (alt menü açar)
+#   comment   → menü içinde başlık/açıklama satırı (seçilemeyen bilgi)
+#   depends on → koşullu görünürlük (bağımlılık)
+#   select    → otomatik seçim (ters bağımlılık)
+#   default   → varsayılan değer
+#   range     → int/hex için min-max sınırı
+#   if/endif  → blok seviyesinde koşullu dahil etme
+#   help      → kullanıcıya gösterilen açıklama metni
+# ==============================================================================
 
-menu "General"
-    config SYSTEM_NAME
-        string "System Name"
-        default "example_system"
+# mainmenu: menuconfig aracında gösterilen ana pencere başlığı
+mainmenu "C Learning Project Configuration"
+
+# ==============================================================================
+# BUILD CONFIGURATION
+# Projenin temel kimlik ve derleme ayarları
+# ==============================================================================
+
+menu "Build Configuration"
+
+    # string: serbest metin değer — çift tırnak içinde varsayılan verilir
+    config PROJECT_NAME
+        string "Project Name"
+        default "c_learning_project"
         help
-            This option sets the name of the system.
+            Sets the project identifier.
+            This value can be exposed to C code via config.h as a string macro.
 
+    # string: versiyon etiketi — semantic versioning formatında
+    config PROJECT_VERSION
+        string "Project Version"
+        default "1.0.0"
+        help
+            Project version in semantic versioning format.
+            Example: 1.0.0, 2.1.3-beta
+
+    # bool: en temel Kconfig tipi — sadece y ya da n alır
     config DEBUG
-        bool "Enable Debug"
+        bool "Enable Debug Mode"
         default n
         help
-            Enable this option to include debug information in the build.
+            When enabled, adds -g -O0 compiler flags.
+            Produces larger binaries with no optimization.
+            Required for sanitizer options below.
+
 endmenu
 
-menu "Connection"  
-    comment "UART configuration options"
-    config ENABLE_UART
-        bool "Enable UART"
+# ==============================================================================
+# MODULES
+# Hangi C kaynak modüllerinin derleneceğini kontrol eder
+#
+# tristate değerleri:
+#   y → doğrudan binary'e dahil edilir (built-in)
+#   m → ayrı nesne dosyası olarak derlenir (module) — gelecek kullanım için
+#   n → derlenmez, build dışında kalır
+# ==============================================================================
+
+menu "Modules"
+
+    # comment: seçilemeyen bilgi/başlık satırı — menü içi gruplama için kullanılır
+    comment "Core Modules"
+
+    # tristate: y/m/n sunar — select ile ters bağımlılık örneği
+    # select: bu sembol aktifleşince STDIO_COMMON otomatik olarak y yapılır
+    config MODULE_STDIO
+        tristate "stdio_fundamentals — I/O, strings, pointers, bitwise"
+        default y
+        select STDIO_COMMON
+        help
+            Covers printf/scanf formatting, string operations,
+            pointer arithmetic, union memory overlay,
+            bitwise operations and function pointers.
+
+    # select tarafından otomatik seçilen gizli sembol
+    # Prompt verilmediği için menuconfig'de kullanıcıya görünmez
+    # Sadece MODULE_STDIO tarafından aktifleştirilir
+    config STDIO_COMMON
+        bool
+        default n
+        help
+            Common layer automatically selected by MODULE_STDIO.
+            Cannot be changed directly by the user.
+
+    config MODULE_ALGORITHM
+        tristate "algorithm_lab — search, sort, recursive algorithms"
         default y
         help
-            Enable this option to include UART support in the build.
-    
-    config UART_BAUD_RATE
-        int "UART Baud Rate"
-        default 115200
-        depends on ENABLE_UART
-        help
-            Set the baud rate for UART communication.
-endmenu
+            Covers binary search, bubble sort, fibonacci, factorial,
+            Armstrong number, palindrome check and swap variants.
 
-menu "Mavlink Settings"
-    config ENABLE_MAVLINK
-        bool "Enable Mavlink"
+    config MODULE_DYNAMIC_MEMORY
+        tristate "dynamic_memory — malloc / calloc / realloc / free"
+        default y
+        help
+            Covers heap allocation patterns, realloc scenarios,
+            struct heap usage and dangling pointer risks.
+
+    comment "Advanced Modules"
+
+    config MODULE_FILE_OPS
+        tristate "file_operations — binary and text file I/O"
+        default m
+        help
+            Covers fopen/fclose/fread/fwrite, binary DB format,
+            text file parsing and struct serialization.
+
+    # depends on: bağlı olduğu sembol aktif değilse bu seçenek menuconfig'de görünmez
+    config FILE_OPS_BINARY_ONLY
+        bool "Only build binary DB operations (skip text file)"
         default n
+        depends on MODULE_FILE_OPS
         help
-            Enable this option to include Mavlink support in the build.
+            When enabled, text file read/write functions are excluded.
+            Only binary DB operations are compiled.
 
-    config MAVLINK_SYSTEM_ID
-        int "Mavlink System ID"
-        default 1
-        depends on ENABLE_MAVLINK
-        default 1
-        range 0 255
+    config MODULE_NETWORK
+        tristate "system_network_ip_reader — popen / pipe / IP parsing"
+        default m
         help
-            Set the system ID for Mavlink communication.
+            Covers popen() system command execution,
+            stdout pipe reading and IP address parsing.
+            Linux only — requires ifconfig in PATH.
+
+    # depends on: üst sembol seçili değilse bu seçenek görünmez
+    config NETWORK_VERBOSE
+        bool "Enable verbose pipe output"
+        default n
+        depends on MODULE_NETWORK
+        help
+            Prints additional debug information during IP reading.
+            Logs each system command and pipe step.
+
 endmenu
 
-menu "Log Backend"
+# ==============================================================================
+# COMPILER OPTIONS
+# Optimizasyon seviyesi ve güvenlik araçları
+# ==============================================================================
+
+menu "Compiler Options"
+
+    # choice/endchoice: aynı anda sadece bir seçenek aktif olabilir
+    # Birbirini dışlayan seçenekler için kullanılır
     choice
-        prompt "Select logging backend"
-        default LOG_UART
-    config LOG_NONE
-        bool "No Logging"
-    config LOG_UART
-        bool "UART Logging"
-    config LOG_FILE
-        bool "File Logging"
+        prompt "Optimization Level"
+        # Koşullu default: DEBUG aktifse O0, değilse O2 varsayılan olur
+        default OPT_NONE if DEBUG
+        default OPT_O2
+
+        config OPT_NONE
+            bool "No optimization (-O0)"
+            help
+                No optimization. Recommended for debug builds.
+
+        config OPT_O1
+            bool "Basic optimization (-O1)"
+            help
+                Basic optimizations enabled.
+                Balances compile time and code size.
+
+        config OPT_O2
+            bool "Standard optimization (-O2)"
+            help
+                Standard optimization for production builds.
+
+        config OPT_O3
+            bool "Aggressive optimization (-O3)"
+            help
+                Maximum optimization. May increase binary size significantly.
+                Use with caution on embedded targets.
+
     endchoice
+
+    # bool: sanitizer seçenekleri — depends on ile DEBUG'a bağlı
+    config ENABLE_ASAN
+        bool "Enable AddressSanitizer (-fsanitize=address)"
+        default n
+        depends on DEBUG
+        help
+            Detects heap/stack buffer overflows and use-after-free errors
+            at runtime. Only available with Debug builds.
+
+    config ENABLE_UBSAN
+        bool "Enable UndefinedBehaviorSanitizer (-fsanitize=undefined)"
+        default n
+        depends on DEBUG
+        help
+            Reports integer overflow, null pointer dereference
+            and other undefined behavior at runtime.
+
+    # int: tam sayı değer — range ile geçerli sınırlar belirlenir
+    config MAX_STACK_SIZE_KB
+        int "Max Stack Size (KB)"
+        default 64
+        range 8 512
+        help
+            Maximum stack size allocated for the program in kilobytes.
+            Used as a reference value to evaluate stack overflow risk
+            in recursive functions.
+
+    # hex: onaltılık değer — adres, maske, flag gibi değerler için tercih edilir
+    config MEMORY_BASE_ADDRESS
+        hex "Memory Base Address"
+        default 0x08000000
+        range 0x00000000 0xFFFFFFFF
+        help
+            Start address where the program is loaded in memory.
+            On embedded targets, must match the linker script configuration.
+            In this project, serves as a documentation reference.
+
 endmenu
 
-menu "Drivers"
-    config ENABLE_SENSOR
-        bool "Enable Sensor Driver"
-        default y
-            select SENSOR_COMMON
+# ==============================================================================
+# DEBUG & LOGGING
+# Log seviyesi ve çıktı kanalı ayarları
+# ==============================================================================
 
-    config SENSOR_COMMON
-        bool "Sensor Common Layer"
-        default n
+menu "Debug & Logging"
+
+    # bool: genel loglama anahtarı — kapalıysa tüm alt seçenekler gizlenir
+    config ENABLE_LOGGING
+        bool "Enable Logging"
+        default y
         help
-            This option is selected automatically when enabling the sensor driver.
+            When disabled, all log macros (ERROR, WARN, DEBUG, INFO)
+            are excluded at compile time.
+
+    # choice: log seviyesi — depends on ile ENABLE_LOGGING'e bağlı
+    # ENABLE_LOGGING kapalıysa bu choice bloğu menuconfig'de görünmez
+    choice
+        prompt "Log Level"
+        default LOG_LEVEL_INFO
+        depends on ENABLE_LOGGING
+
+        config LOG_LEVEL_ERROR
+            bool "ERROR only"
+            help
+                Only critical error messages are displayed.
+
+        config LOG_LEVEL_WARN
+            bool "WARN and above"
+            help
+                Warning and error messages are displayed.
+
+        config LOG_LEVEL_INFO
+            bool "INFO and above"
+            help
+                Info, warning and error messages are displayed.
+                Recommended level for production builds.
+
+        config LOG_LEVEL_DEBUG
+            bool "DEBUG and above (verbose)"
+            help
+                All log messages are displayed.
+                Recommended for development builds.
+
+    endchoice
+
+    # hex: bit maskesi — her bit bir log kanalını temsil eder
+    # Bu pattern gömülü sistemlerde yaygın kullanılır
+    config LOG_CHANNEL_MASK
+        hex "Log Channel Mask"
+        default 0xFF
+        range 0x00 0xFF
+        depends on ENABLE_LOGGING
+        help
+            Each bit represents one log channel:
+              Bit 0 (0x01) → STDIO module logs
+              Bit 1 (0x02) → ALGORITHM module logs
+              Bit 2 (0x04) → MEMORY module logs
+              Bit 3 (0x08) → FILE module logs
+              Bit 4 (0x10) → NETWORK module logs
+              0xFF         → All channels enabled
+              0x00         → All channels disabled
+
+endmenu
+
+# ==============================================================================
+# PLATFORM INFO
+# Salt okunur platform bilgileri ve koşullu bloklar
+#
+# if/endif: birden fazla sembolü blok olarak koşullu dahil eder
+# depends on farkı: depends on sembol bazlıdır, if/endif blok bazlıdır
+# ==============================================================================
+
+menu "Platform Info"
+
+    # string: sabit platform tanımlayıcı
+    config TARGET_PLATFORM
+        string "Target Platform"
+        default "linux-x86_64"
+        help
+            Build target platform identifier.
+            Passed to C code via config.h as a string macro.
+
+    comment "Network module is supported on Linux only"
+
+    # if/endif: MODULE_NETWORK aktifse bu blok Kconfig'e dahil edilir
+    # depends on'dan farkı: tek bir sembol yerine bir bloğu sarar
+    if MODULE_NETWORK
+
+        config NETWORK_PLATFORM_CHECK
+            bool "Enable platform compatibility check at runtime"
+            default y
+            help
+                Checks for /proc/net/if_inet6 before calling popen().
+                Ensures graceful exit on non-Linux platforms.
+
+        comment "ifconfig must be available in PATH"
+
+    endif
+
+    # if/endif: DEBUG aktifse ek geliştirici seçenekleri görünür
+    if DEBUG
+
+        comment "Developer options — Debug build only"
+
+        config SHOW_BUILD_TIMESTAMP
+            bool "Embed build timestamp into binary"
+            default n
+            help
+                Embeds compile-time timestamp using __DATE__ and __TIME__ macros.
+                Not recommended for production builds.
+
+    endif
+
 endmenu

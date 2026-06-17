@@ -1,39 +1,66 @@
 
 #
-# General
+# Build Configuration
 #
-CONFIG_SYSTEM_NAME="example_system"
+CONFIG_PROJECT_NAME="c_learning_project"
+CONFIG_PROJECT_VERSION="1.0.0"
 # CONFIG_DEBUG is not set
-# end of General
+# end of Build Configuration
 
 #
-# Connection
+# Modules
 #
 
 #
-# UART configuration options
+# Core Modules
 #
-CONFIG_ENABLE_UART=y
-CONFIG_UART_BAUD_RATE=115200
-# end of Connection
+CONFIG_MODULE_STDIO=y
+CONFIG_STDIO_COMMON=y
+CONFIG_MODULE_ALGORITHM=y
+CONFIG_MODULE_DYNAMIC_MEMORY=y
 
 #
-# Mavlink Settings
+# Advanced Modules
 #
-# CONFIG_ENABLE_MAVLINK is not set
-# end of Mavlink Settings
+CONFIG_MODULE_FILE_OPS=y
+# CONFIG_FILE_OPS_BINARY_ONLY is not set
+CONFIG_MODULE_NETWORK=y
+# CONFIG_NETWORK_VERBOSE is not set
+# end of Modules
 
 #
-# Log Backend
+# Compiler Options
 #
-# CONFIG_LOG_NONE is not set
-CONFIG_LOG_UART=y
-# CONFIG_LOG_FILE is not set
-# end of Log Backend
+# CONFIG_OPT_NONE is not set
+# CONFIG_OPT_O1 is not set
+CONFIG_OPT_O2=y
+# CONFIG_OPT_O3 is not set
+CONFIG_MAX_STACK_SIZE_KB=64
+CONFIG_MEMORY_BASE_ADDRESS=0x08000000
+# end of Compiler Options
 
 #
-# Drivers
+# Debug & Logging
 #
-CONFIG_ENABLE_SENSOR=y
-CONFIG_SENSOR_COMMON=y
-# end of Drivers
+CONFIG_ENABLE_LOGGING=y
+# CONFIG_LOG_LEVEL_ERROR is not set
+# CONFIG_LOG_LEVEL_WARN is not set
+CONFIG_LOG_LEVEL_INFO=y
+# CONFIG_LOG_LEVEL_DEBUG is not set
+CONFIG_LOG_CHANNEL_MASK=0xFF
+# end of Debug & Logging
+
+#
+# Platform Info
+#
+CONFIG_TARGET_PLATFORM="linux-x86_64"
+
+#
+# Network module is supported on Linux only
+#
+CONFIG_NETWORK_PLATFORM_CHECK=y
+
+#
+# ifconfig must be available in PATH
+#
+# end of Platform Info
