@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#systemctl-dosyalar" class="md-skip">
+        <a href="#servisler-ve-daemon-yonetimi" class="md-skip">
           Ana içeriğe geç
         </a>
       
@@ -299,6 +299,28 @@
     
     
       <li class="md-tabs__item">
+        <a href="../../communication/ipc/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Communication
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../../robotics/ros2/" class="md-tabs__link">
           
   
@@ -446,6 +468,10 @@
   
     
     
+      
+        
+      
+        
       
         
       
@@ -690,6 +716,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -722,6 +750,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -730,9 +760,60 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#systemctl-dosyalar" class="md-nav__link">
+  <a href="#systemd-unit-turleri" class="md-nav__link">
     <span class="md-ellipsis">
-      systemctl Dosyaları
+      Systemd Unit Türleri
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-dosyas-yaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Dosyası Yapısı
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Dosyası Yapısı">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-bolumu" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Unit] Bölümü
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-bolumu" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Service] Bölümü
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-bolumu" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Install] Bölümü
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gercek-ornekler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gerçek Örnekler
     </span>
   </a>
   
@@ -745,13 +826,22 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="systemctl Komutları">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#journalctl-log-yonetimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      journalctl — Log Yönetimi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="journalctl — Log Yönetimi">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#birim-unit-turleri" class="md-nav__link">
+  <a href="#journald-yaplandrmas" class="md-nav__link">
     <span class="md-ellipsis">
-      Birim (Unit) Türleri
+      journald Yapılandırması
     </span>
   </a>
   
@@ -759,6 +849,24 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cron-vs-systemd-timer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cron vs systemd Timer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ortak-sistem-servisleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ortak Sistem Servisleri
+    </span>
+  </a>
   
 </li>
       
@@ -839,6 +947,8 @@
       
         
       
+        
+      
     
     
     
@@ -865,6 +975,60 @@
   
   <span class="md-ellipsis">
     AI
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../communication/ipc/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Communication
     
   </span>
   
@@ -1007,6 +1171,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1015,9 +1181,60 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#systemctl-dosyalar" class="md-nav__link">
+  <a href="#systemd-unit-turleri" class="md-nav__link">
     <span class="md-ellipsis">
-      systemctl Dosyaları
+      Systemd Unit Türleri
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-dosyas-yaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Dosyası Yapısı
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Dosyası Yapısı">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-bolumu" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Unit] Bölümü
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-bolumu" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Service] Bölümü
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-bolumu" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Install] Bölümü
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gercek-ornekler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gerçek Örnekler
     </span>
   </a>
   
@@ -1030,13 +1247,22 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="systemctl Komutları">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#journalctl-log-yonetimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      journalctl — Log Yönetimi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="journalctl — Log Yönetimi">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#birim-unit-turleri" class="md-nav__link">
+  <a href="#journald-yaplandrmas" class="md-nav__link">
     <span class="md-ellipsis">
-      Birim (Unit) Türleri
+      journald Yapılandırması
     </span>
   </a>
   
@@ -1044,6 +1270,24 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cron-vs-systemd-timer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cron vs systemd Timer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ortak-sistem-servisleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ortak Sistem Servisleri
+    </span>
+  </a>
   
 </li>
       
@@ -1063,25 +1307,103 @@
 
 
 
-  <h1>Services & Daemons</h1>
+<h1 id="servisler-ve-daemon-yonetimi">Servisler ve Daemon Yönetimi<a class="headerlink" href="#servisler-ve-daemon-yonetimi" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Genel Bakış</p>
+<p><code>systemd</code>, modern Linux dağıtımlarında PID 1 olarak çalışan sistem ve servis yöneticisidir. Paralel başlatma, bağımlılık grafiği, merkezi log (journald) ve gelişmiş servis denetimi sağlar. Bu bölüm systemd, systemctl ve journalctl araçlarını kapsar.</p>
+</div>
+<pre class="mermaid"><code>graph TD
+    BIOS[BIOS / UEFI] --&gt; GRUB[GRUB2\nBootloader]
+    GRUB --&gt; KERNEL[Linux Kernel\n+ initramfs]
+    KERNEL --&gt; SYSTEMD[systemd\nPID = 1]
+    SYSTEMD --&gt; DEF[default.target]
+    DEF --&gt; MULTI[multi-user.target]
+    DEF --&gt; GRAPHICAL[graphical.target]
+    MULTI --&gt; NET[network.target]
+    MULTI --&gt; SSH[sshd.service]
+    MULTI --&gt; CRON[cron.service]
+    GRAPHICAL --&gt; DISP[display-manager.service]
 
-<h2 id="systemctl-dosyalar"><strong>systemctl Dosyaları</strong><a class="headerlink" href="#systemctl-dosyalar" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Systemd, modern Linux dağıtımlarında “init” sisteminin yerini alan bir sistem ve hizmet yöneticisidir.</li>
-<li>Amaçları:<ul>
-<li>Paralel başlatma ile açılış süresini kısaltmak.</li>
-<li>Bağımlılık grafiği kullanarak servisler arası doğru sırayı garantilemek.</li>
-<li>Journald ile merkezi günlük kaydı (log) tutmak.</li>
-<li>Socket, D-Bus, timer, mount ve daha pek çok birimi yönetmek.
--Genel Konumlar</li>
-<li>Sistem geneli: <code>/etc/systemd/system/</code></li>
-<li>Dağıtım birincil: <code>/lib/systemd/system/</code> veya <code>/usr/lib/systemd/system/</code></li>
-<li>Kullanıcı bazlı: <code>~/.config/systemd/user/</code></li>
-</ul>
-</li>
-<li>
-<p>Her <code>.service</code> dosyası üç ana başlığa sahiptir:
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+    style SYSTEMD fill:#BBDEFB
+    style DEF fill:#C8E6C9</code></pre>
+<hr />
+<h2 id="systemd-unit-turleri">Systemd Unit Türleri<a class="headerlink" href="#systemd-unit-turleri" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Uzantı</th>
+<th>Tür</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>.service</code></td>
+<td>Service</td>
+<td>Arka plan hizmetleri (daemon)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.target</code></td>
+<td>Target</td>
+<td>Unit grupları; run level yerine geçer</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.socket</code></td>
+<td>Socket</td>
+<td>Socket-activated servisler</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.timer</code></td>
+<td>Timer</td>
+<td>Zamanlanmış görevler (cron alternatifi)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.mount</code></td>
+<td>Mount</td>
+<td>Dosya sistemi otomatik mount</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.path</code></td>
+<td>Path</td>
+<td>Dosya/dizin değişikliklerini tetikleyici</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.slice</code></td>
+<td>Slice</td>
+<td>Cgroups kaynak sınırı grubu</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Unit dosyaları konumları:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Konum</th>
+<th>Kapsam</th>
+<th style="text-align: center;">Öncelik</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/etc/systemd/system/</code></td>
+<td>Sistem geneli (admin değişikliği)</td>
+<td style="text-align: center;">Yüksek</td>
+</tr>
+<tr>
+<td><code>/usr/lib/systemd/system/</code></td>
+<td>Dağıtım paketleri</td>
+<td style="text-align: center;">Orta</td>
+</tr>
+<tr>
+<td><code>~/.config/systemd/user/</code></td>
+<td>Kullanıcı bazlı</td>
+<td style="text-align: center;">—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="service-dosyas-yaps">Service Dosyası Yapısı<a class="headerlink" href="#service-dosyas-yaps" title="Permanent link">&para;</a></h2>
+<div class="language-ini highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">/etc/systemd/system/my-app.service</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
@@ -1096,60 +1418,168 @@
 <span class="normal"><a href="#__codelineno-0-13">13</a></span>
 <span class="normal"><a href="#__codelineno-0-14">14</a></span>
 <span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>[Unit]
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>Description=Kısa ve öz açıklama
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>After=network.target
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>Wants=postgresql.service
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>[Service]
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>Type=simple
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>ExecStart=/usr/bin/my-daemon --option
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>ExecReload=/bin/kill -HUP $MAINPID
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>Restart=on-failure
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>RestartSec=5s
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>User=myuser
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>Environment=ENV_VAR=value
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>[Install]
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>WantedBy=multi-user.target
-</span></code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p><code>[Unit]</code></p>
-<ul>
-<li><strong>Description:</strong> Hizmetin ne yaptığını özetler.</li>
-<li><strong>After / Before:</strong> Başlama sırasını ayarlar. Örneğin <strong>After=network.target → ağ</strong> hazır olmadan başlamaz.</li>
-<li><strong>Wants / Requires:</strong> Zayıf / güçlü bağımlılık ilişkileri kurar.</li>
-</ul>
-</li>
-<li>
-<p><code>[Service]</code></p>
-<ul>
-<li><strong>Type:</strong> Başlatma davranışını belirler.<ul>
-<li><strong>simple (default):</strong> ExecStart arka planda ayrılmadan çalışır.</li>
-<li><strong>forking:</strong> Daemon arka plana fork ettiğinde kabul edilir.</li>
-<li><strong>oneshot:</strong> Tek seferlik kısa işler için.</li>
-<li><code>notify, dbus, idle vb.</code> gelişmiş tipler de var.</li>
-</ul>
-</li>
-<li><strong>ExecStart, ExecReload, ExecStop:</strong> Başlatma, yeniden yükleme ve durdurma komutları.</li>
-<li><strong>Restart:</strong> Yeniden başlatma koşulları (no, on-success, on-failure, always vb.).</li>
-<li><strong>RestartSec:</strong> Yeniden başlatma öncesi bekleme süresi.</li>
-<li><strong>User / Group:</strong> Hizmeti hangi kullanıcı/grup altında çalıştıracağını belirler.</li>
-<li><strong>Environment:</strong> Çevresel değişkenleri tanımlar.</li>
-<li><strong>WorkingDirectory:</strong> Çalışma dizinini ayarlar.</li>
-</ul>
-</li>
-<li>
-<p><code>[Install]</code></p>
-<ul>
-<li><strong>WantedBy:</strong> Hangi target’a “enable” edildiğinde ekleneceğini tanımlar. Örneğin <code>multi-user.target → systemctl enable my.service ile /etc/systemd/system/multi-user.target.wants/my.service</code> bağlantısı oluşturulur.</li>
-<li><strong>RequiredBy:</strong> Zorunlu alt birim ilişkisi oluşturur</li>
-</ul>
-</li>
-</ul>
-<h2 id="systemctl-komutlar"><strong>systemctl Komutları</strong><a class="headerlink" href="#systemctl-komutlar" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">[Unit]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">My Application Service</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="na">Documentation</span><span class="o">=</span><span class="s">https://example.com/docs</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="na">After</span><span class="o">=</span><span class="s">network.target postgresql.service</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="na">Wants</span><span class="o">=</span><span class="s">postgresql.service</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="na">Conflicts</span><span class="o">=</span><span class="s">conflicting.service</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">[Service]</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="na">User</span><span class="o">=</span><span class="s">appuser</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="na">Group</span><span class="o">=</span><span class="s">appgroup</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/opt/myapp</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/python3 /opt/myapp/main.py</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="na">ExecReload</span><span class="o">=</span><span class="s">/bin/kill -HUP $MAINPID</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="na">ExecStop</span><span class="o">=</span><span class="s">/bin/kill -SIGTERM $MAINPID</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">5s</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="na">TimeoutStopSec</span><span class="o">=</span><span class="s">30s</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="c1"># Ortam değişkenleri</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="na">Environment</span><span class="o">=</span><span class="s">ENV=production</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="na">EnvironmentFile</span><span class="o">=</span><span class="s">/etc/myapp/env</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="c1"># Kaynak sınırları</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">65536</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="na">MemoryMax</span><span class="o">=</span><span class="s">512M</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="k">[Install]</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="unit-bolumu">[Unit] Bölümü<a class="headerlink" href="#unit-bolumu" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Direktif</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Description</code></td>
+<td>İnsan okunabilir kısa açıklama</td>
+</tr>
+<tr>
+<td><code>After</code></td>
+<td>Başlama sırasını belirler; belirtilen unit'ten sonra başlar</td>
+</tr>
+<tr>
+<td><code>Before</code></td>
+<td>Belirtilen unit'ten önce başlar</td>
+</tr>
+<tr>
+<td><code>Wants</code></td>
+<td>Zayıf bağımlılık; bağımlı unit başlamasa da devam eder</td>
+</tr>
+<tr>
+<td><code>Requires</code></td>
+<td>Güçlü bağımlılık; bağımlı başlamazsa bu da başlamaz</td>
+</tr>
+<tr>
+<td><code>Conflicts</code></td>
+<td>Çakışan unit; biri başlayınca diğeri durur</td>
+</tr>
+</tbody>
+</table>
+<h3 id="service-bolumu">[Service] Bölümü<a class="headerlink" href="#service-bolumu" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Direktif</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Type=simple</code></td>
+<td>ExecStart fork etmeden çalışır (varsayılan)</td>
+</tr>
+<tr>
+<td><code>Type=forking</code></td>
+<td>Daemon arka plana fork ettiğinde kabul edilir</td>
+</tr>
+<tr>
+<td><code>Type=oneshot</code></td>
+<td>Tek seferlik kısa işler</td>
+</tr>
+<tr>
+<td><code>Type=notify</code></td>
+<td>Daemon sd_notify() ile hazır sinyali gönderir</td>
+</tr>
+<tr>
+<td><code>Restart=no</code></td>
+<td>Yeniden başlatma yok</td>
+</tr>
+<tr>
+<td><code>Restart=on-failure</code></td>
+<td>Başarısız çıkışta yeniden başlat</td>
+</tr>
+<tr>
+<td><code>Restart=always</code></td>
+<td>Her zaman yeniden başlat</td>
+</tr>
+<tr>
+<td><code>User</code></td>
+<td>Hangi kullanıcı altında çalışacağı</td>
+</tr>
+<tr>
+<td><code>Environment</code></td>
+<td>Ortam değişkeni</td>
+</tr>
+<tr>
+<td><code>EnvironmentFile</code></td>
+<td>Dosyadan ortam değişkeni yükle</td>
+</tr>
+<tr>
+<td><code>WorkingDirectory</code></td>
+<td>Çalışma dizini</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-bolumu">[Install] Bölümü<a class="headerlink" href="#install-bolumu" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Direktif</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WantedBy=multi-user.target</code></td>
+<td><code>systemctl enable</code> ile bu target'a bağlanır</td>
+</tr>
+<tr>
+<td><code>RequiredBy</code></td>
+<td>Zorunlu bağımlılık olarak bağlanır</td>
+</tr>
+<tr>
+<td><code>Also</code></td>
+<td>Bu unit enable edildiğinde başka unit de enable et</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="gercek-ornekler">Gerçek Örnekler<a class="headerlink" href="#gercek-ornekler" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">ROS2 Servisi</label><label for="__tabbed_1_2">Python Web Servisi</label><label for="__tabbed_1_3">Periyodik Görev (Timer)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
@@ -1163,31 +1593,25 @@
 <span class="normal"><a href="#__codelineno-1-12">12</a></span>
 <span class="normal"><a href="#__codelineno-1-13">13</a></span>
 <span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w">   </span>my.service<span class="w">   </span><span class="c1"># Başlatır</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w">    </span>my.service<span class="w">   </span><span class="c1"># Durdurur</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>my.service<span class="w">   </span><span class="c1"># Yeniden başlatır</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w">  </span>my.service<span class="w">   </span><span class="c1"># Durum bilgisini gösterir</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w">  </span>my.service<span class="w">   </span><span class="c1"># Boot’ta otomatik başlayacak şekilde işaretler</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>my.service<span class="w">   </span><span class="c1"># Artık otomatik başlamaz</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>my.service<span class="w">  </span><span class="c1"># Etkin mi diye kontrol eder</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload<span class="w"> </span><span class="c1"># Yeni veya güncellenmiş birim dosyalarını tanıtmak</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all<span class="w"> </span><span class="c1"># Tüm birimleri listeler</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--type<span class="o">=</span>target<span class="w">  </span><span class="c1"># Sadece target’ları gör</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="c1"># Sistemi kapat / yeniden başlat / uyku moduna al</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>poweroff
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>reboot
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">suspend</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>hibernate
+<span class="normal"><a href="#__codelineno-1-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">[Unit]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">ROS 2 Startup Service</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="k">[Service]</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="na">User</span><span class="o">=</span><span class="s">rosuser</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="na">Environment</span><span class="o">=</span><span class="s">HOME=/home/rosuser</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/bin/sleep 5</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/home/rosuser/start_ros2.sh</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">10s</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="k">[Install]</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
 </span></code></pre></div></td></tr></table></div>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+</div>
+<div class="tabbed-block">
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
@@ -1200,69 +1624,308 @@
 <span class="normal"><a href="#__codelineno-2-11">11</a></span>
 <span class="normal"><a href="#__codelineno-2-12">12</a></span>
 <span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>[Unit]
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>Description=ROS 2 Startup Service
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>After=network.target
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">[Unit]</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">FastAPI Application</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>[Service]
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>Type=simple
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>User=rosuser
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>Environment=HOME=/home/rosuser
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>ExecStart=/home/rosuser/start_ros2.sh
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>Restart=on-failure
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>RestartSec=10s
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a>[Install]
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a>WantedBy=multi-user.target
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="k">[Service]</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="na">User</span><span class="o">=</span><span class="s">webuser</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/opt/api</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="na">EnvironmentFile</span><span class="o">=</span><span class="s">/opt/api/.env</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/opt/api/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">3s</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="na">StandardOutput</span><span class="o">=</span><span class="s">journal</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="na">StandardError</span><span class="o">=</span><span class="s">journal</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="k">[Install]</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
 </span></code></pre></div></td></tr></table></div>
-<ul>
-<li>Bu dosyayı <code>/etc/systemd/system/ros2-start.service</code> olarak kaydedin.</li>
-</ul>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+</div>
+<div class="tabbed-block">
+<div class="language-ini highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">backup.timer</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
 <span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w">  </span>ros2-start.service
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w">   </span>ros2-start.service
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span>
+<span class="normal"><a href="#__codelineno-3-8">8</a></span>
+<span class="normal"><a href="#__codelineno-3-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">[Unit]</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">Daily Backup Timer</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="k">[Timer]</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="na">OnCalendar</span><span class="o">=</span><span class="s">*-*-* 02:00:00</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="na">Persistent</span><span class="o">=</span><span class="s">true</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="k">[Install]</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">timers.target</span>
 </span></code></pre></div></td></tr></table></div>
-<h3 id="birim-unit-turleri">Birim (Unit) Türleri<a class="headerlink" href="#birim-unit-turleri" title="Permanent link">&para;</a></h3>
+<div class="language-ini highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">backup.service</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">[Unit]</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">Daily Backup Service</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">[Service]</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/backup.sh</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>backup.timer
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>systemctl<span class="w"> </span>list-timers
+</span></code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="systemctl-komutlar">systemctl Komutları<a class="headerlink" href="#systemctl-komutlar" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span>
+<span class="normal"><a href="#__codelineno-6-21">21</a></span>
+<span class="normal"><a href="#__codelineno-6-22">22</a></span>
+<span class="normal"><a href="#__codelineno-6-23">23</a></span>
+<span class="normal"><a href="#__codelineno-6-24">24</a></span>
+<span class="normal"><a href="#__codelineno-6-25">25</a></span>
+<span class="normal"><a href="#__codelineno-6-26">26</a></span>
+<span class="normal"><a href="#__codelineno-6-27">27</a></span>
+<span class="normal"><a href="#__codelineno-6-28">28</a></span>
+<span class="normal"><a href="#__codelineno-6-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Servis kontrolü</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w">   </span>my.service
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w">    </span>my.service
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>my.service
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w">  </span>my.service<span class="w">     </span><span class="c1"># Yapılandırmayı yeniden yükle (fork yok)</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w">  </span>my.service
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="c1"># Otomatik başlatma</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w">  </span>my.service<span class="w">     </span><span class="c1"># Boot&#39;ta başlat</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>my.service<span class="w">     </span><span class="c1"># Boot&#39;ta başlatma</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>my.service<span class="w">  </span><span class="c1"># Enable + hemen başlat</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>my.service
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w">  </span>my.service
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14"></a>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="c1"># Unit listesi</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--type<span class="o">=</span>service<span class="w"> </span>--state<span class="o">=</span>running
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--type<span class="o">=</span>target
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a>systemctl<span class="w"> </span>list-timers
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20"></a>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="c1"># Birim yenileme</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload<span class="w">           </span><span class="c1"># Değişen unit dosyalarını tanı</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23"></a>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24"></a><span class="c1"># Sistem geneli</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>poweroff
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>reboot
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">suspend</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>hibernate
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>rescue<span class="w">                  </span><span class="c1"># Kurtarma moduna geç</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="journalctl-log-yonetimi">journalctl — Log Yönetimi<a class="headerlink" href="#journalctl-log-yonetimi" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    SVC[Service / Kernel] --&gt;|stdout/stderr| JOURNAL[journald\n/run/log/journal]
+    JOURNAL --&gt;|journalctl| USER[Kullanıcı]
+    JOURNAL --&gt;|kalıcı| DISK[/var/log/journal]</code></pre>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span>
+<span class="normal"><a href="#__codelineno-7-21">21</a></span>
+<span class="normal"><a href="#__codelineno-7-22">22</a></span>
+<span class="normal"><a href="#__codelineno-7-23">23</a></span>
+<span class="normal"><a href="#__codelineno-7-24">24</a></span>
+<span class="normal"><a href="#__codelineno-7-25">25</a></span>
+<span class="normal"><a href="#__codelineno-7-26">26</a></span>
+<span class="normal"><a href="#__codelineno-7-27">27</a></span>
+<span class="normal"><a href="#__codelineno-7-28">28</a></span>
+<span class="normal"><a href="#__codelineno-7-29">29</a></span>
+<span class="normal"><a href="#__codelineno-7-30">30</a></span>
+<span class="normal"><a href="#__codelineno-7-31">31</a></span>
+<span class="normal"><a href="#__codelineno-7-32">32</a></span>
+<span class="normal"><a href="#__codelineno-7-33">33</a></span>
+<span class="normal"><a href="#__codelineno-7-34">34</a></span>
+<span class="normal"><a href="#__codelineno-7-35">35</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1"># Temel kullanım</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>journalctl<span class="w">                          </span><span class="c1"># Tüm loglar</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>journalctl<span class="w"> </span>-b<span class="w">                       </span><span class="c1"># Son boot&#39;tan itibaren</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-1<span class="w">                    </span><span class="c1"># Bir önceki boot</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>journalctl<span class="w"> </span>-f<span class="w">                       </span><span class="c1"># Canlı takip (tail -f)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="c1"># Servis filtreleme</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>sshd
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>sshd<span class="w"> </span>-f<span class="w">               </span><span class="c1"># SSH loglarını canlı izle</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>nginx<span class="w"> </span>--since<span class="w"> </span>today
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="c1"># Zaman filtresi</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a>journalctl<span class="w"> </span>--since<span class="w"> </span><span class="s2">&quot;2024-01-01 08:00:00&quot;</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a>journalctl<span class="w"> </span>--until<span class="w"> </span><span class="s2">&quot;2024-01-02&quot;</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a>journalctl<span class="w"> </span>--since<span class="w"> </span><span class="s2">&quot;1 hour ago&quot;</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="c1"># Öncelik filtresi</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a>journalctl<span class="w"> </span>-p<span class="w"> </span>err<span class="w">                   </span><span class="c1"># Sadece hata ve üzeri</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19"></a>journalctl<span class="w"> </span>-p<span class="w"> </span>warning<span class="w">               </span><span class="c1"># Uyarı ve üzeri</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a><span class="c1"># debug(7) info(6) notice(5) warning(4) err(3) crit(2) alert(1) emerg(0)</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a><span class="c1"># Çıktı formatı</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a>journalctl<span class="w"> </span>-o<span class="w"> </span>json-pretty<span class="w">           </span><span class="c1"># JSON formatı</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a>journalctl<span class="w"> </span>-o<span class="w"> </span>short-precise<span class="w">         </span><span class="c1"># Mikrosaniye hassasiyetiyle</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a>journalctl<span class="w"> </span>--no-pager<span class="w">               </span><span class="c1"># Sayfalama olmadan</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26"></a>journalctl<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w">                    </span><span class="c1"># Son 50 satır</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27"></a>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28"></a><span class="c1"># Kernel mesajları</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29"></a>journalctl<span class="w"> </span>-k<span class="w">                       </span><span class="c1"># Kernel logları</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w">                    </span><span class="c1"># Bu boot&#39;taki kernel logları</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31"></a>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32"></a><span class="c1"># Disk kullanımı ve temizlik</span>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33"></a>journalctl<span class="w"> </span>--disk-usage
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>--vacuum-size<span class="o">=</span>500M<span class="w">  </span><span class="c1"># 500 MB&#39;dan fazlasını sil</span>
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>--vacuum-time<span class="o">=</span>30d<span class="w">   </span><span class="c1"># 30 günden eskiyi sil</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="journald-yaplandrmas">journald Yapılandırması<a class="headerlink" href="#journald-yaplandrmas" title="Permanent link">&para;</a></h3>
+<div class="language-ini highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">/etc/systemd/journald.conf</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">[Journal]</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="na">Storage</span><span class="o">=</span><span class="s">persistent</span><span class="w">           </span><span class="c1"># Logları disk&#39;e yaz (auto/volatile/persistent)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="na">Compress</span><span class="o">=</span><span class="s">yes</span><span class="w">                 </span><span class="c1"># Sıkıştır</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="na">SystemMaxUse</span><span class="o">=</span><span class="s">500M</span><span class="w">            </span><span class="c1"># Maksimum disk alanı</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="na">SystemKeepFree</span><span class="o">=</span><span class="s">200M</span><span class="w">          </span><span class="c1"># Minimum boş alan bırak</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="na">MaxRetentionSec</span><span class="o">=</span><span class="s">1month</span><span class="w">       </span><span class="c1"># En uzun saklama süresi</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="na">ForwardToSyslog</span><span class="o">=</span><span class="s">no</span><span class="w">           </span><span class="c1"># /var/log/syslog&#39;a da yönlendir</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="cron-vs-systemd-timer">Cron vs systemd Timer<a class="headerlink" href="#cron-vs-systemd-timer" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Tip</th>
-<th>Uzantı</th>
-<th>Ne İşe Yarar?</th>
+<th>Özellik</th>
+<th style="text-align: center;">cron</th>
+<th style="text-align: center;">systemd timer</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Service</td>
-<td>.service</td>
-<td>Arka plan hizmetlerini (daemon) tanımlar.</td>
+<td>Başarısız job retry</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
 </tr>
 <tr>
-<td>Target</td>
-<td>.target</td>
-<td>Çeşitli birimleri gruplar, run level yerine geçer.</td>
+<td>Log (journald)</td>
+<td style="text-align: center;">✗ (mail)</td>
+<td style="text-align: center;">✓</td>
 </tr>
 <tr>
-<td>Socket</td>
-<td>.socket</td>
-<td>Socket-activated servisler tanımlar.</td>
+<td>Boot'ta kaçırılan job</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓ (Persistent=true)</td>
 </tr>
 <tr>
-<td>Timer</td>
-<td>.timer</td>
-<td>Zamanlanmış görevler (cron alternatifi).</td>
+<td>Bağımlılık yönetimi</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
 </tr>
 <tr>
-<td>Mount</td>
-<td>.mount</td>
-<td>Dosya sistemleri otomatik monteler.</td>
+<td>Kolaylık</td>
+<td style="text-align: center;">Yüksek</td>
+<td style="text-align: center;">Orta</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Cron Hâlâ Geçerli</p>
+<p>Basit zamanlama gereksinimleri için <code>crontab -e</code> hızlıdır. Retry, logging veya servis bağımlılığı gerektiren kritik görevler için systemd timer tercih edin.</p>
+</div>
+<hr />
+<h2 id="ortak-sistem-servisleri">Ortak Sistem Servisleri<a class="headerlink" href="#ortak-sistem-servisleri" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Servis</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sshd</code></td>
+<td>SSH sunucusu</td>
 </tr>
 <tr>
-<td>Path</td>
-<td>.path</td>
-<td>Dosya/dizin değişikliklerini tetikleyici yapar.</td>
+<td><code>NetworkManager</code></td>
+<td>Ağ yönetimi</td>
+</tr>
+<tr>
+<td><code>cron</code> / <code>crond</code></td>
+<td>Zamanlanmış görevler</td>
+</tr>
+<tr>
+<td><code>rsyslog</code></td>
+<td>Syslog daemon</td>
+</tr>
+<tr>
+<td><code>udev</code></td>
+<td>Aygıt olaylarını yönetir</td>
+</tr>
+<tr>
+<td><code>dbus</code></td>
+<td>Süreçler arası mesajlaşma (IPC)</td>
+</tr>
+<tr>
+<td><code>avahi-daemon</code></td>
+<td>mDNS/DNS-SD yerel ağ keşfi</td>
+</tr>
+<tr>
+<td><code>bluetooth</code></td>
+<td>Bluetooth yönetimi</td>
+</tr>
+<tr>
+<td><code>cups</code></td>
+<td>Yazıcı yönetimi</td>
+</tr>
+<tr>
+<td><code>snapd</code></td>
+<td>Snap paket yöneticisi</td>
 </tr>
 </tbody>
 </table>

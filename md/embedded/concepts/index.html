@@ -14,7 +14,7 @@
         <link rel="prev" href="../../programming/qt/">
       
       
-        <link rel="next" href="../stm/">
+        <link rel="next" href="../protocols/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#terimler" class="md-skip">
+        <a href="#gomulu-sistem-kavramlar" class="md-skip">
           Ana içeriğe geç
         </a>
       
@@ -299,6 +299,28 @@
     
     
       <li class="md-tabs__item">
+        <a href="../../communication/ipc/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Communication
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../../robotics/ros2/" class="md-tabs__link">
           
   
@@ -455,6 +477,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -509,6 +535,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -541,12 +569,23 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       İçindekiler
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cpu-mpu-mcu" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPU — MPU — MCU
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#terimler" class="md-nav__link">
@@ -558,45 +597,42 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cpu-mpu-mcu" class="md-nav__link">
+  <a href="#bellek-mimarisi" class="md-nav__link">
     <span class="md-ellipsis">
-      CPU - MPU - MCU
+      Bellek Mimarisi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bellek Mimarisi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stack-bellegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack Belleği
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#aapcs" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#heap-bellegi" class="md-nav__link">
     <span class="md-ellipsis">
-      AAPCS
+      Heap Belleği
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#memory" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#bit-banding" class="md-nav__link">
+  <a href="#aapcs-arm-procedure-call-standard" class="md-nav__link">
     <span class="md-ellipsis">
-      Bit-Banding
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#access-levels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Access Levels
+      AAPCS (ARM Procedure Call Standard)
     </span>
   </a>
   
@@ -612,27 +648,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rcc-hsi-hse" class="md-nav__link">
+  <a href="#rcc-hsi-hse-pll" class="md-nav__link">
     <span class="md-ellipsis">
-      RCC - HSI - HSE
+      RCC — HSI — HSE — PLL
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ahb-apb" class="md-nav__link">
+  <a href="#ahb-apb-bus-mimarisi" class="md-nav__link">
     <span class="md-ellipsis">
-      AHB - APB
+      AHB — APB Bus Mimarisi
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#burst-transfer" class="md-nav__link">
+  <a href="#bit-banding" class="md-nav__link">
     <span class="md-ellipsis">
-      Burst Transfer
+      Bit-Banding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erisim-seviyeleri-ve-modlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erişim Seviyeleri ve Modlar
     </span>
   </a>
   
@@ -648,29 +693,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#svc-supervisor-call" class="md-nav__link">
+  <a href="#svc-supervisor-call-ve-debug-arayuzleri" class="md-nav__link">
     <span class="md-ellipsis">
-      SVC (Supervisor Call)
+      SVC (Supervisor Call) ve Debug Arayüzleri
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SVC (Supervisor Call) ve Debug Arayüzleri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#svc" class="md-nav__link">
+    <span class="md-ellipsis">
+      SVC
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#swd-serial-wire-debug" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#swd-vs-jtag" class="md-nav__link">
     <span class="md-ellipsis">
-      SWD (Serial Wire Debug)
+      SWD vs JTAG
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#jtag-joint-test-action-group" class="md-nav__link">
-    <span class="md-ellipsis">
-      JTAG (Joint Test Action Group)
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -684,9 +735,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gpio-nibble" class="md-nav__link">
+  <a href="#gpio-nibble-bit-islemleri" class="md-nav__link">
     <span class="md-ellipsis">
-      GPIO - Nibble
+      GPIO — Nibble — Bit İşlemleri
     </span>
   </a>
   
@@ -717,12 +768,58 @@
   
   
     <li class="md-nav__item">
+      <a href="../protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Communication Protocols
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rtos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RTOS (FreeRTOS)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stm/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    STM Notes
+    STM32
     
   </span>
   
@@ -745,7 +842,7 @@
   
   
   <span class="md-ellipsis">
-    AVR Notes
+    AVR
     
   </span>
   
@@ -844,6 +941,8 @@
       
         
       
+        
+      
     
     
     
@@ -870,6 +969,60 @@
   
   <span class="md-ellipsis">
     AI
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../communication/ipc/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Communication
     
   </span>
   
@@ -1012,12 +1165,23 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       İçindekiler
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cpu-mpu-mcu" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPU — MPU — MCU
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#terimler" class="md-nav__link">
@@ -1029,45 +1193,42 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cpu-mpu-mcu" class="md-nav__link">
+  <a href="#bellek-mimarisi" class="md-nav__link">
     <span class="md-ellipsis">
-      CPU - MPU - MCU
+      Bellek Mimarisi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bellek Mimarisi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stack-bellegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack Belleği
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#aapcs" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#heap-bellegi" class="md-nav__link">
     <span class="md-ellipsis">
-      AAPCS
+      Heap Belleği
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#memory" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#bit-banding" class="md-nav__link">
+  <a href="#aapcs-arm-procedure-call-standard" class="md-nav__link">
     <span class="md-ellipsis">
-      Bit-Banding
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#access-levels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Access Levels
+      AAPCS (ARM Procedure Call Standard)
     </span>
   </a>
   
@@ -1083,27 +1244,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rcc-hsi-hse" class="md-nav__link">
+  <a href="#rcc-hsi-hse-pll" class="md-nav__link">
     <span class="md-ellipsis">
-      RCC - HSI - HSE
+      RCC — HSI — HSE — PLL
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ahb-apb" class="md-nav__link">
+  <a href="#ahb-apb-bus-mimarisi" class="md-nav__link">
     <span class="md-ellipsis">
-      AHB - APB
+      AHB — APB Bus Mimarisi
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#burst-transfer" class="md-nav__link">
+  <a href="#bit-banding" class="md-nav__link">
     <span class="md-ellipsis">
-      Burst Transfer
+      Bit-Banding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erisim-seviyeleri-ve-modlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erişim Seviyeleri ve Modlar
     </span>
   </a>
   
@@ -1119,29 +1289,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#svc-supervisor-call" class="md-nav__link">
+  <a href="#svc-supervisor-call-ve-debug-arayuzleri" class="md-nav__link">
     <span class="md-ellipsis">
-      SVC (Supervisor Call)
+      SVC (Supervisor Call) ve Debug Arayüzleri
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SVC (Supervisor Call) ve Debug Arayüzleri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#svc" class="md-nav__link">
+    <span class="md-ellipsis">
+      SVC
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#swd-serial-wire-debug" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#swd-vs-jtag" class="md-nav__link">
     <span class="md-ellipsis">
-      SWD (Serial Wire Debug)
+      SWD vs JTAG
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#jtag-joint-test-action-group" class="md-nav__link">
-    <span class="md-ellipsis">
-      JTAG (Joint Test Action Group)
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1155,9 +1331,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gpio-nibble" class="md-nav__link">
+  <a href="#gpio-nibble-bit-islemleri" class="md-nav__link">
     <span class="md-ellipsis">
-      GPIO - Nibble
+      GPIO — Nibble — Bit İşlemleri
     </span>
   </a>
   
@@ -1188,466 +1364,651 @@
 
 
 
-  <h1>Concepts</h1>
-
+<h1 id="gomulu-sistem-kavramlar">Gömülü Sistem Kavramları<a class="headerlink" href="#gomulu-sistem-kavramlar" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Genel Bakış</p>
+<p>Gömülü sistemler, belirli bir donanıma ve göreve özel, genellikle gerçek zamanlı kısıtlarla çalışan bilgisayar sistemleridir. Bu bölüm, ARM Cortex-M tabanlı mikrodenetleyicilerde bilinmesi gereken temel mimari ve donanım kavramlarını kapsar.</p>
+</div>
 <p><img alt="mcu" src="../../../assets/img/embedded/cpu_mpu_mcu.png" /></p>
-<h2 id="terimler">Terimler<a class="headerlink" href="#terimler" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Peripheral:</strong> CPU çekirdeğinin dışında kalan ve donanımsal bir iş yapan tüm modüllerdir. (GPIO, TIMER, USART / UART, SPI, I2C, ADC, DMA, USB vs.)</li>
-<li><strong>ALU (Arithmetic Logic Unit):</strong> Aritmetik (toplama, çıkarma, çarpma vb.) ve mantıksal (AND, OR, XOR vb.) işlemleri gerçekleştirir.</li>
-<li><strong>CU (Control Unit):</strong> Komutları sırayla okur, çözümler ve diğer donanım birimlerini yönlendiren kontrol sinyallerini üretir. Sistem bileşenleri arasında senkronizasyon sağlar.</li>
-<li><strong>Register:</strong> Çok hızlı, küçük kapasiteli geçici depolama birimleridir.</li>
-<li><strong>callee-saved:</strong> Bir fonksiyon bu register’ları kullanıyorsa, işi bitince eski haline geri getirme olayıdır.</li>
-<li><strong>FPU (Floating Point Unit):</strong> Kayan noktalı (float/double) işlemleri CPU yerine donanım üzerinde gerçekleştirerek işlemciyi rahatlatır; FPU yoksa veya devre dışıysa bu hesaplamalar yazılımsal olarak CPU’ya bindirilir, FPU aktif olduğunda ise aynı işlemler donanım seviyesinde yürütülür.</li>
-<li><strong>T Bit:</strong> İşlemcinin komutları hangi dilde çalıştıracağını belirleyen hayati bir kontrol bitidir; Cortex-M mimarisinde yalnızca Thumb komutları desteklendiği için bu bit her zaman 1 olmak zorundadır ve yanlış bir adresleme veya hatalı fonksiyon çağrısı sonucu <strong>T bit’in 0</strong> durumuna düşmesi, işlemcinin geçersiz bir yürütme durumuna girmesine ve doğrudan <code>HardFault</code> oluşmasına neden olur.<ul>
-<li>LSB = 1 → Thumb Modu (Tüm komutların 16 bit uzunluğunda olması)</li>
-<li>LSB = 0 → ARM Modu (Tüm komutların 32 bit uzunluğunda olması)</li>
-</ul>
-</li>
-<li><strong>PLL (Phase Locked Loop):</strong>Giriş olarak verilen düşük frekanslı ve kararlı bir clock kaynağını (örn. kristal veya internal RC) referans alarak, bunu çarpan ve bölücüler yardımıyla daha yüksek ve sistem gereksinimlerine uygun frekanslara dönüştüren dahili saat üretim birimidir. Sistem clock’unun, bus clock’larının ve peripheral clock’larının performans gereksinimlerine göre ölçeklenmesini sağlar. Yanlış PLL konfigürasyonu, zamanlama hatalarına, çevre birimlerinin çalışmamasına veya sistem kararsızlığına yol açabilir.</li>
-</ul>
-<h2 id="cpu-mpu-mcu">CPU - MPU - MCU<a class="headerlink" href="#cpu-mpu-mcu" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>CPU (Central Processing Unit) - Processor</strong>, bir sistemde komutları alan, yorumlayan ve yürüten merkezi işlem birimidir. Bilgisayarlarda, <strong>mikroişlemcilerde (MPU)</strong> ve <strong>mikrodenetleyicilerde (MCU)</strong> temel bileşen olarak yer alır. Program akışını yönetir, hesaplamaları gerçekleştirir ve sistemin genel çalışma düzenini koordine eder.</li>
-<li><strong>MPU (Microprocessor Unit)</strong>, temel olarak yalnızca işlemci çekirdeğini içeren bir bileşendir. Bellek ve çevresel birimler harici olarak bağlanır. Yüksek işlem gücü ve esnek yapı sunar.<ul>
-<li>Harici RAM, ROM/Flash ve çevresel birimlere (GPIO, UART, SPI vb.) ihtiyaç duyar.</li>
-<li>Genellikle MMU (Memory Management Unit) içerir.</li>
-<li>Linux gibi işletim sistemlerini çalıştırabilir.</li>
-<li>PC’ler, sunucular ve embedded Linux tabanlı sistemlerde yaygın olarak kullanılır.</li>
-</ul>
-</li>
-<li><strong>MCU (Microcontroller Unit)</strong>, tek bir entegre çipte işlemci çekirdeği + bellek + çevre birimleri (GPIO, timer, ADC, UART, I²C, SPI vb.) barındıran tam donanımlı gömülü sistem bileşenidir.<ul>
-<li><strong>Dahili Bellek:</strong> Flash/ROM (Program kodu depolama), SRAM (Veri ve stack alanı)</li>
-<li><strong>Çevresel Birimler:</strong> GPIO, ADC, Timers/Counter, UART, SPI, I²C, CAN, USB vb. </li>
-<li><strong>Avantajları:</strong> Düşük maliyet, düşük güç tüketimi, tek kartta tüm bileşenler.</li>
-</ul>
-</li>
-</ul>
+<hr />
+<h2 id="cpu-mpu-mcu">CPU — MPU — MCU<a class="headerlink" href="#cpu-mpu-mcu" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    subgraph MCU["MCU (Microcontroller)"]
+        direction TB
+        CORE[CPU Core\nALU + CU + Register] --- MEM[Flash / SRAM]
+        CORE --- PER[Peripherals\nGPIO / UART / SPI / ADC / Timer]
+        CORE --- INT[Interrupt Controller\nNVIC]
+    end
+
+    subgraph MPU_["MPU (Microprocessor)"]
+        direction TB
+        CPU2[CPU Core] --- EXT_MEM[Harici RAM/ROM]
+        CPU2 --- MMU[MMU]
+        CPU2 --- EXT_PER[Harici Peripheral]
+    end
+
+    style MCU fill:#E3F2FD,stroke:#2196F3
+    style MPU_ fill:#E8F5E9,stroke:#4CAF50</code></pre>
 <table>
 <thead>
 <tr>
 <th>Özellik</th>
-<th>MPU</th>
-<th>MCU</th>
+<th style="text-align: center;">CPU</th>
+<th style="text-align: center;">MPU</th>
+<th style="text-align: center;">MCU</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>İşlemci</td>
-<td>Var (yalnızca çekirdek)</td>
-<td>Var (çekirdek + çevresel birimler)</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
 </tr>
 <tr>
-<td>Bellek</td>
-<td>Harici RAM/ROM</td>
-<td>Dahili Flash + SRAM</td>
+<td>Dahili Bellek</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓ (Flash + SRAM)</td>
 </tr>
 <tr>
-<td>Çevresel Birimler</td>
-<td>Harici eklentilerle sağlanır</td>
-<td>Dahili UART, GPIO, ADC, timer vb. modüller</td>
+<td>Dahili Peripheral</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>MMU</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗ (genellikle MPU)</td>
+</tr>
+<tr>
+<td>İşletim Sistemi</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">Linux vb.</td>
+<td style="text-align: center;">Bare-metal / RTOS</td>
 </tr>
 <tr>
 <td>Kullanım Alanı</td>
-<td>PC, sunucu, yüksek performans</td>
-<td>Gömülü sistem, IoT, otomotiv, endüstri</td>
+<td style="text-align: center;">Hesaplama</td>
+<td style="text-align: center;">PC, SBC</td>
+<td style="text-align: center;">IoT, gömülü, otomotiv</td>
 </tr>
 </tbody>
 </table>
-<h2 id="aapcs">AAPCS<a class="headerlink" href="#aapcs" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">CPU vs MCU</p>
 <ul>
-<li><strong>AAPCS (ARM Architecture Procedure Call Standard)</strong>, ARM mimarisinde fonksiyon çağrı sözleşmesini tanımlar. Amaçlar:<ul>
-<li><strong>Parametre İletimi:</strong> İlk dört parametre <code>r0–r3</code> register’larında, fazlası stack taşınır.</li>
-<li><strong>Geri Dönüş Adresi:</strong> <code>lr</code> (link register) içinde saklanır.</li>
-<li><strong>Yığın Düzeni:</strong> Yeni çerçevede önce geri dönüş adresi, sonra yerel register kurtarma alanı, en altta yerel değişkenler yer alır.</li>
-<li><strong>Kayıt Koru:</strong> Callee‑saved (<code>r4–r11</code>) ve Caller‑saved (<code>r0–r3, r12, lr</code>) register’lar ayrıştırılır.</li>
+<li><strong>MCU:</strong> Tek çipte CPU + Flash + SRAM + peripheral. Düşük maliyet, düşük güç. STM32, AVR, PIC.</li>
+<li><strong>MPU:</strong> Sadece işlemci çekirdeği; bellek ve periferaller harici. Raspberry Pi (BCM2837), i.MX8.</li>
 </ul>
-</li>
-<li>Bu standart, farklı derleyiciler ve kütüphaneler arasında uyum ve taşınabilirlik sağlar.</li>
-</ul>
-<h2 id="memory">Memory<a class="headerlink" href="#memory" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>Stack Memory:</strong> Fonksiyon çağrıldığında bellek ayrılır, fonksiyon bittiğinde otomatik olarak geri verilir.</p>
-<ul>
-<li><strong>Yerel Değişkenler:</strong> Fonksiyonlara ait yerel değişkenler ve dönüş adresleri stack üzerinde tutulur.</li>
-<li><strong>Yapı:</strong> Her fonksiyon çağrısı için ayrı bir <em>stack frame</em> oluşturulur.</li>
-<li><strong>Sınır:</strong> Boyutu sınırlıdır; kontrolsüz kullanım <em>stack overflow</em> hatasına yol açabilir.</li>
-</ul>
-</li>
-<li>
-<p><strong>Heap Memory:</strong>  Bellek, çalışma zamanı sırasında <code>malloc</code>, <code>calloc</code>, <code>new</code> gibi fonksiyonlarla ayrılır.</p>
-<ul>
-<li><strong>Yaşam Süresi:</strong> Açıkça serbest bırakılana (<code>free</code>, <code>delete</code>) kadar bellekte kalır.</li>
-<li><strong>Kullanım Alanı:</strong> Boyutu önceden bilinmeyen veri yapıları ve uzun ömürlü nesneler için kullanılır.</li>
-<li><strong>Risk:</strong> Yanlış yönetim bellek sızıntılarına (<em>memory leak</em>) ve parçalanmaya (<em>fragmentation</em>) neden olabilir.</li>
-</ul>
-</li>
-<li>
-<p>ARM Cortex‑M işlemcide iki ayrı stack kullanılır:</p>
-<ul>
-<li><strong>MSP (Main Stack Pointer):</strong> Sistem başlangıcında yığını MSP yönetir.</li>
-<li><strong>PSP (Process Stack Pointer):</strong> OS/RTOS kullanıldığında, her thread kendi PSP yığınına sahip olabilir.</li>
-</ul>
-</li>
-</ul>
-<div class="admonition example">
-<p class="admonition-title">Bilgi</p>
+</div>
+<hr />
+<h2 id="terimler">Terimler<a class="headerlink" href="#terimler" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>İşaretçi</th>
+<th>Terim</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ALU</strong></td>
+<td>Aritmetik (toplama, çıkarma) ve mantıksal (AND, OR, XOR) işlemler</td>
+</tr>
+<tr>
+<td><strong>CU (Control Unit)</strong></td>
+<td>Komutları sırayla okur, çözümler, kontrol sinyalleri üretir</td>
+</tr>
+<tr>
+<td><strong>Register</strong></td>
+<td>CPU içindeki çok hızlı, küçük kapasiteli geçici depolama</td>
+</tr>
+<tr>
+<td><strong>Peripheral</strong></td>
+<td>CPU çekirdeği dışında donanımsal iş yapan modüller (GPIO, UART, ADC…)</td>
+</tr>
+<tr>
+<td><strong>FPU</strong></td>
+<td>Kayan nokta işlemlerini yazılım yerine donanımda yapar</td>
+</tr>
+<tr>
+<td><strong>T Bit</strong></td>
+<td>İşlemcinin hangi komut setini çalıştırdığını belirler (ARM/Thumb)</td>
+</tr>
+<tr>
+<td><strong>PLL</strong></td>
+<td>Düşük frekanslı giriş sinyalini çarparak yüksek frekans üretir</td>
+</tr>
+<tr>
+<td><strong>Callee-saved</strong></td>
+<td>Fonksiyon kullanılan register'ları işi bitince eski haline getirir (R4–R11)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">T Bit — HardFault Sebebi</p>
+<p>Cortex-M mimarisinde T Bit <strong>her zaman 1</strong> olmalıdır (Thumb modu). Yanlış adresleme veya hatalı fonksiyon işaretçisi T Bit'i 0'a düşürür → <code>HardFault</code>. LSB = 1 → Thumb, LSB = 0 → ARM (Cortex-M'de desteklenmez).</p>
+</div>
+<hr />
+<h2 id="bellek-mimarisi">Bellek Mimarisi<a class="headerlink" href="#bellek-mimarisi" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TD
+    subgraph "ARM Cortex-M Adres Uzayı (4 GB)"
+        direction TB
+        F["0x0000_0000 – 0x1FFF_FFFF\nCode (Flash)"]
+        S["0x2000_0000 – 0x3FFF_FFFF\nSRAM"]
+        P["0x4000_0000 – 0x5FFF_FFFF\nPeripheral Register"]
+        R["0xE000_0000 – 0xE00F_FFFF\nSystem (NVIC, SysTick, ITM)"]
+    end
+    F --&gt; S --&gt; P --&gt; R
+    style F  fill:#BBDEFB
+    style S  fill:#C8E6C9
+    style P  fill:#FFE0B2
+    style R  fill:#EDE7F6</code></pre>
+<h3 id="stack-bellegi">Stack Belleği<a class="headerlink" href="#stack-bellegi" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pointer</th>
 <th>Kullanım Alanı</th>
 <th>Mod</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>MSP</td>
-<td>Kesme servis rutinleri ve sistem başlatma</td>
-<td>Privileged (kernel)</td>
+<td><strong>MSP</strong> (Main Stack Pointer)</td>
+<td>Kesme (ISR) ve sistem başlatma</td>
+<td>Privileged</td>
 </tr>
 <tr>
-<td>PSP</td>
-<td>Uygulama kodu ve thread işlemleri</td>
+<td><strong>PSP</strong> (Process Stack Pointer)</td>
+<td>RTOS thread'leri; her task kendi PSP'sine sahip</td>
 <td>Thread (user)</td>
 </tr>
 </tbody>
 </table>
 <div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// PSP kullanımı örneği (CMSIS)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">__set_PSP</span><span class="p">(</span><span class="mh">0x20002000</span><span class="p">);</span><span class="w">       </span><span class="c1">// PSP başlangıç adresini ayarla</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">__set_CONTROL</span><span class="p">(</span><span class="n">__get_CONTROL</span><span class="p">()</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// CONTROL register’da SPSEL bit’i = 1 (PSP seç)</span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cm">/* PSP kullanımı (CMSIS) */</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">__set_PSP</span><span class="p">(</span><span class="mh">0x20002000</span><span class="p">);</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">__set_CONTROL</span><span class="p">(</span><span class="n">__get_CONTROL</span><span class="p">()</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">  </span><span class="cm">/* SPSEL = 1 → PSP seç */</span>
 </span></code></pre></div></td></tr></table></div>
+<h3 id="heap-bellegi">Heap Belleği<a class="headerlink" href="#heap-bellegi" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Gömülü Sistemlerde Heap Kullanımı</p>
+<p><code>malloc</code>/<code>free</code> çağrıları deterministik değildir ve bellek parçalanmasına (fragmentation) yol açabilir. Kritik güvenlik sistemlerinde ve sıkı gerçek zamanlı uygulamalarda heap kullanımından kaçınılır; statik tampon ve memory pool tercih edilir.</p>
 </div>
-<h2 id="bit-banding">Bit-Banding<a class="headerlink" href="#bit-banding" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Bit‑Banding</strong>, belirli bellek bölgesindeki her biti ayrı bir adrese eşler. Böylece tek adımla tek bir biti set/clear edebilirsiniz:</li>
-<li>Memory Region: 0x20000000–0x200FFFFF</li>
-<li>Alias Region: 0x22000000–0x23FFFFFF</li>
-<li>Hesaplama Formülü: <code>alias_addr = alias_base + (byte_offset × 32) + (bit_number × 4)</code></li>
-</ul>
+<hr />
+<h2 id="aapcs-arm-procedure-call-standard">AAPCS (ARM Procedure Call Standard)<a class="headerlink" href="#aapcs-arm-procedure-call-standard" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    A["Çağıran (Caller)"] --&gt;|"R0–R3\nParametreler"| B["Çağrılan (Callee)"]
+    B --&gt;|"R0 (–R1)\nDönüş Değeri"| A
+    A --&gt;|"Stack\n5. param ve sonrası"| B</code></pre>
 <table>
 <thead>
 <tr>
-<th>Register</th>
-<th>Açıklama</th>
+<th>Register Grubu</th>
+<th>Roller</th>
+<th>Kim Korur?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ODR</td>
-<td>Output Data Register (çıkış verisi)</td>
+<td>R0 – R3</td>
+<td>Parametre + dönüş değeri</td>
+<td>Caller-saved (caller korumalı)</td>
 </tr>
 <tr>
-<td>IDR</td>
-<td>Input Data Register (giriş verisi)</td>
+<td>R4 – R11</td>
+<td>Genel amaçlı uzun ömürlü</td>
+<td>Callee-saved (callee korumalı)</td>
 </tr>
 <tr>
-<td>BSRR</td>
-<td>Bit Set/Reset Register (set ve reset için)</td>
+<td>R12 (IP)</td>
+<td>Geçici / derleyici ara değeri</td>
+<td>Caller-saved</td>
 </tr>
 <tr>
-<td>BRR</td>
-<td>Bit Reset Register (sadece reset için)</td>
+<td>SP (R13)</td>
+<td>Stack pointer</td>
+<td>Otomatik</td>
+</tr>
+<tr>
+<td>LR (R14)</td>
+<td>Geri dönüş adresi</td>
+<td>Caller-saved</td>
+</tr>
+<tr>
+<td>PC (R15)</td>
+<td>Program counter</td>
+<td>Otomatik</td>
 </tr>
 </tbody>
 </table>
-<h2 id="access-levels">Access Levels<a class="headerlink" href="#access-levels" title="Permanent link">&para;</a></h2>
-<p>Gömülü sistemlerde erişim seviyeleri, kodun hangi modda çalıştığını ve hangi kaynaklara erişebileceğini belirler</p>
-<table>
-<thead>
-<tr>
-<th>Mod</th>
-<th>Açıklama</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Handler Mode</td>
-<td>Kesme ve istisna işleyicilerinin (ISR) çalıştığı, her zaman ayrıcalıklı modu.</td>
-</tr>
-<tr>
-<td>Thread/User Mode</td>
-<td>Normal uygulama kodunun çalıştığı mod; ister ayrıcalıklı, ister kısıtlı olabilir.</td>
-</tr>
-<tr>
-<td>PAL (Privileged Access)</td>
-<td>Tüm sistem kaynaklarına tam erişime izin verir (örn. donanım kontrolü).</td>
-</tr>
-<tr>
-<td>NPAL (Non‑Privileged)</td>
-<td>Korunan belleğe ve kritik birimlere erişimi sınırlandırır.</td>
-</tr>
-</tbody>
-</table>
+<hr />
 <h2 id="nvic-nested-vectored-interrupt-controller">NVIC (Nested Vectored Interrupt Controller)<a class="headerlink" href="#nvic-nested-vectored-interrupt-controller" title="Permanent link">&para;</a></h2>
-<p>ARM Cortex‑M mikrodenetleyicilerinde kesme yönetimini üstlenen donanım modülüdür:</p>
-<ul>
-<li><strong>Vectored Interrupts:</strong> Her kesme kaynağı için önceden tanımlı vektör tablosu (ISR adresleri).</li>
-<li><strong>Öncelik Seviyeleri:</strong> 0 (en yüksek) → 255 (en düşük) arası öncelik atayarak, kritik kesmelere öncelik verebilirsiniz.</li>
-<li><strong>Nesting (İç İçe Kesme):</strong> Daha yüksek öncelikli kesme, daha düşük öncelikli bir ISR çalışırken bile tetiklenip işlenebilir.</li>
-<li><strong>Enable/Disable:</strong> İstediğiniz kesmeyi <code>NVIC_EnableIRQ(IRQn)</code> ve <code>NVIC_DisableIRQ(IRQn)</code> ile kontrol edebilirsiniz.</li>
-</ul>
-<h2 id="rcc-hsi-hse">RCC - HSI - HSE<a class="headerlink" href="#rcc-hsi-hse" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>RCC (Reset and Clock Control)</strong>, mikrodenetleyicideki tüm modüllere saat (clock) sinyallerini sağlayan ve donanım-software sıfırlama (reset) işlemlerini yöneten merkezi bir birimdir.<ul>
-<li><strong>Saat Kaynak Seçimi:</strong> Dahili osilatör (HSI), harici kristal (HSE) veya PLL (Phase‑Locked Loop) kullanımı</li>
-<li><code>AHB, APB1/APB2</code> gibi bus’lar için bölme (prescaler) değerlerini ayarlar</li>
-<li><strong>PLL</strong> parametreleriyle sistem saat hızını (SYSCLK) optimize eder</li>
-<li><strong>Güç Tüketimi:</strong> Düşük güçlü modlar için clock gating (kullanılmayan modülleri durdurma)</li>
-<li>Sistem reset’i, güç reset’i, bağımsız watchdog reset’i gibi kaynakları kontrol eder</li>
-<li>Her modülün reset bit’ini (örneğin <code>RCC_APB1RSTR</code>) yazarak o çevresel birimi yeniden başlatır</li>
-</ul>
-</li>
-<li><strong>HSI (High-Speed Internal) Oscillator:</strong> MCU içinde entegre edilmiştir (Dahili osilatör).<ul>
-<li><strong>Frekans:</strong> STM32 modellerine göre genellikle 8 MHz veya 16 MHz.</li>
-<li><strong>Avantaj:</strong> Harici kristal gerekmez, hızlı başlar ve düşük güç tüketir.</li>
-<li><strong>Dezavantaj:</strong> Doğruluğu <code>±1 %</code> civarında; hassas zamanlama gerektiren protokoller için ideal değil.</li>
-</ul>
-</li>
-<li><strong>HSE (High-Speed External) Oscillator:</strong> Harici kristal veya dış saat sinyali kullanır.<ul>
-<li><strong>Desteklenen frekans:</strong> 4 MHz – 25 MHz</li>
-<li><strong>Avantaj:</strong> Çok daha kararlı ve doğru saat kaynağı.</li>
-<li><strong>Kullanım:</strong> USB, CAN, SDIO, yüksek hızlı UART gibi hassas zamanlama gerektiren iletişimler.</li>
-</ul>
-</li>
-</ul>
-<h2 id="ahb-apb">AHB - APB<a class="headerlink" href="#ahb-apb" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>AHB (Advanced High-performance Bus):</strong>, ARM AMBA (Advanced Microcontroller Bus Architecture) ailesinin yüksek hızlı veri yolu katmanıdır. Özellikleri:</p>
-<ul>
-<li><strong>Yüksek Bant Genişliği:</strong> Burst transfer desteği sayesinde ardışık veri bloklarını kesintisiz taşır.</li>
-<li><strong>Düşük Gecikme:</strong> Pipeline mimarisiyle her döngüde bir transfer başlatılabilir.</li>
-<li><strong>Multi‑Master Desteği:</strong> Birden fazla bus master (ör. DMA, CPU) arasında arbitraj yaparak kontrolü paylaşır.</li>
-<li><strong>Ana işlemci (CPU)</strong> ve <strong>DMA</strong> birimi doğrudan AHB’ye bağlıdır.</li>
-<li><strong>Sistem bellekleri</strong> (SRAM/Flash) ve sabit bellek arayüzleri genellikle AHB üzerinden erişilir.</li>
-</ul>
-</li>
-<li>
-<p><strong>APB (Advanced Peripheral Bus):</strong>, AMBA ailesinin düşük hızlı çevre birimleri için tasarlanmış basitleştirilmiş veri yoludur:</p>
-<ul>
-<li><strong>Düşük Karmaşıklık:</strong> Tek döngülü, pipelineless tasarım; aracılar (bridges) üzerinden AHB’ye bağlanır.</li>
-<li><strong>Düşük Güç Tüketimi:</strong> Çevresel birimleri gerektikçe uyandıracak şekilde çalışır.</li>
-<li><strong>Tipik Kullanım:</strong> UART, SPI, I²C, Timer’lar gibi düşük hızlı algılayıcı ve kontrol modülleri APB üzerinde yer alır.</li>
-</ul>
-</li>
-</ul>
+<p>ARM Cortex-M kesme yönetim donanımıdır.</p>
 <table>
 <thead>
 <tr>
-<th>Özelikler</th>
-<th><strong>AHP</strong></th>
-<th><strong>APB</strong></th>
+<th>Özellik</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vectored</strong></td>
+<td>Her kesme için vektör tablosunda önceden tanımlı ISR adresi</td>
+</tr>
+<tr>
+<td><strong>Nested</strong></td>
+<td>Yüksek öncelikli kesme, düşük öncelikli ISR'ı kesebilir</td>
+</tr>
+<tr>
+<td><strong>Öncelik</strong></td>
+<td>0 (en yüksek) → 255 (en düşük); sayı küçüldükçe öncelik artar</td>
+</tr>
+<tr>
+<td><strong>Enable/Disable</strong></td>
+<td><code>NVIC_EnableIRQ(IRQn)</code> / <code>NVIC_DisableIRQ(IRQn)</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Sabit Öncelikli İstisnalar</p>
+<p>Reset (-3), NMI (-2), HardFault (-1) sabittir ve değiştirilemez; diğer kesmelerin önceliği yazılımla ayarlanabilir.</p>
+</div>
+<hr />
+<h2 id="rcc-hsi-hse-pll">RCC — HSI — HSE — PLL<a class="headerlink" href="#rcc-hsi-hse-pll" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    HSI[HSI\n8/16 MHz\nDahili RC] --&gt; MUX{Clock Mux}
+    HSE[HSE\n4–25 MHz\nHarici Kristal] --&gt; PLL --&gt; MUX
+    HSE --&gt; MUX
+    MUX --&gt; SYSCLK[SYSCLK]
+    SYSCLK --&gt; |AHB Prescaler| AHB[AHB Bus]
+    AHB --&gt; |APB1 Prescaler| APB1[APB1 Bus\n≤42 MHz]
+    AHB --&gt; |APB2 Prescaler| APB2[APB2 Bus\n≤84 MHz]
+
+    style HSI fill:#FFF9C4
+    style HSE fill:#DCEDC8
+    style PLL fill:#BBDEFB
+    style SYSCLK fill:#F8BBD0</code></pre>
+<table>
+<thead>
+<tr>
+<th>Kaynak</th>
+<th>Tip</th>
+<th style="text-align: center;">Doğruluk</th>
+<th>Kullanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HSI</strong></td>
+<td>Dahili RC</td>
+<td style="text-align: center;">±1 %</td>
+<td>Hızlı başlatma, genel amaçlı</td>
+</tr>
+<tr>
+<td><strong>HSE</strong></td>
+<td>Harici kristal</td>
+<td style="text-align: center;">&lt; 100 ppm</td>
+<td>USB, CAN, hassas UART</td>
+</tr>
+<tr>
+<td><strong>LSI</strong></td>
+<td>Dahili RC, 32 kHz</td>
+<td style="text-align: center;">Düşük</td>
+<td>IWDG, RTC (düşük hassasiyet)</td>
+</tr>
+<tr>
+<td><strong>LSE</strong></td>
+<td>Harici 32.768 kHz</td>
+<td style="text-align: center;">Çok yüksek</td>
+<td>RTC (yüksek hassasiyet)</td>
+</tr>
+<tr>
+<td><strong>PLL</strong></td>
+<td>HSI/HSE tabanlı çarpan</td>
+<td style="text-align: center;">HSE kadar</td>
+<td>Yüksek sistem frekansı</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ahb-apb-bus-mimarisi">AHB — APB Bus Mimarisi<a class="headerlink" href="#ahb-apb-bus-mimarisi" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TD
+    CPU[CPU\nCortex-M4] --&gt;|I-Bus| FLASH[Flash Memory]
+    CPU --&gt;|D-Bus| SRAM[SRAM]
+    CPU --&gt;|S-Bus| AHB[AHB Matrix]
+    DMA[DMA] --&gt; AHB
+    AHB --&gt;|Bridge| APB1[APB1\nUART, SPI, I2C, TIM2-7]
+    AHB --&gt;|Bridge| APB2[APB2\nADC, TIM1, SPI1, USART1]
+    AHB --&gt; GPIO[GPIO]
+    AHB --&gt; USB[USB OTG]</code></pre>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th style="text-align: center;">AHB</th>
+<th style="text-align: center;">APB</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Hız</td>
-<td>Yüksek hızda veri iletimi</td>
-<td>Düşük hızda veri iletimi</td>
-</tr>
-<tr>
-<td>Veri Transferi</td>
-<td>Burst transfer, pipelining, yüksek hız</td>
-<td>Tek veri transferi, basit iletişim</td>
-</tr>
-<tr>
-<td>Yapı</td>
-<td>Karmaşık, daha fazla donanım gereksinimi</td>
-<td>Basit, düşük maliyetli</td>
+<td style="text-align: center;">Yüksek (burst, pipeline)</td>
+<td style="text-align: center;">Düşük (basit, pipelinesız)</td>
 </tr>
 <tr>
 <td>Gecikme</td>
-<td>Düşük gecikme</td>
-<td>Yüksek gecikme</td>
+<td style="text-align: center;">Düşük</td>
+<td style="text-align: center;">Yüksek</td>
 </tr>
 <tr>
-<td>Uygulama Alanları</td>
-<td>CPU, DMA, bellek arayüzleri, büyük veri transferi</td>
-<td>Çevre birimleri (UART, I2C, GPIO, Timer vb.) ile iletişim</td>
+<td>Karmaşıklık</td>
+<td style="text-align: center;">Yüksek</td>
+<td style="text-align: center;">Düşük</td>
 </tr>
 <tr>
-<td>Bağlantı Tipi</td>
-<td>Master/slave yapısı, daha karmaşık bağlantılar</td>
-<td>Basit veri iletimi ve bağlantılar</td>
+<td>Güç</td>
+<td style="text-align: center;">Yüksek</td>
+<td style="text-align: center;">Düşük</td>
 </tr>
 <tr>
-<td>Güç Tüketimi</td>
-<td>Yüksek güç tüketimi</td>
-<td>Düşük güç tüketimi</td>
+<td>Tipik bağlılar</td>
+<td style="text-align: center;">CPU, DMA, GPIO, USB</td>
+<td style="text-align: center;">UART, SPI, I2C, Timer</td>
 </tr>
 </tbody>
 </table>
-<h2 id="burst-transfer">Burst Transfer<a class="headerlink" href="#burst-transfer" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Yüksek hızlı veri yollarında ardışık ve blok halinde veri iletimi sağlayan yöntemdir:</li>
-<li><strong>Blok İletimi:</strong> Birçok küçük hatta tek tek veri yerine, büyük bir veri bloğu peş peşe aktarılır.</li>
-<li><strong>Verimlilik:</strong> Her küçük veri paketi için ayrı başlatma/durdurma/idare işlemi yapılmaz; başlatma/durdurma maliyeti tek seferde ödenir.</li>
-<li><strong>Düşük Gecikme:</strong> Pipeline desteğiyle, her clock döngüsünde yeni bir veri kelimesi transfer edilebilir.</li>
-<li><strong>Yüksek Bant Genişliği:</strong> Burst modunda, topyekûn aktarım hızında ciddi artış sağlar.</li>
-</ul>
-<h2 id="isr-interrupt-service-routine">ISR (Interrupt Service Routine)<a class="headerlink" href="#isr-interrupt-service-routine" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>interrupt</strong> oluştuğunda otomatik olarak çağrılan kesme işleyici fonksiyonudur. Ana program akışı duraklar, <strong>ISR</strong> çalışır, sonra ana programa döner.</li>
-<li>CPU <strong>LR</strong> (link register) içerisine dönüş adresini kaydeder</li>
-<li>Kesme kaynağı bayrağını temizleyip (ör. <code>EXTI-&gt;PR |= …</code>) ilgili işlemi yapar</li>
-<li><strong>R0–R12</strong> → Genel amaçlı register’lar</li>
-<li><strong>SP</strong> (Stack Pointer) → Geçici veri ve ISR dönüş adresi</li>
-<li><strong>LR</strong> (Link Register) → ISR öncesi dönüş adresi</li>
-<li><strong>PC</strong> (Program Counter) → Bir sonraki yürütülecek komut</li>
-</ul>
-<h2 id="svc-supervisor-call">SVC (Supervisor Call)<a class="headerlink" href="#svc-supervisor-call" title="Permanent link">&para;</a></h2>
-<p>Yazılım kesmesi (<code>svc</code>) aracılığıyla kullanıcı uygulamasından çekirdek veya RTOS hizmetlerine (ör. bellek ayırma, görev oluşturma) erişim sağlar.</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nf">SVC</span><span class="w"> </span><span class="mi">#5</span><span class="w">    </span><span class="c1">; SVC numarası 5 ile çekirdek çağrısı</span>
-</span></code></pre></div></td></tr></table></div>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">__ASM</span><span class="p">(</span><span class="s">&quot;svc 5&quot;</span><span class="p">);</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="swd-serial-wire-debug">SWD (Serial Wire Debug)<a class="headerlink" href="#swd-serial-wire-debug" title="Permanent link">&para;</a></h2>
-<ul>
-<li>ARM Cortex‑M programlama ve hata ayıklama amacıyla kullanılan, az (2) pinli (SWDIO, SWCLK) ve düşük overhead’li bir debug arayüzüdür.</li>
-<li><strong>Düşük pin sayısı</strong> ile JTAG’a göre avantajlı</li>
-<li>Gerçek zamanlı bellek okuma/yazma, register izleme</li>
-<li><strong>SWO</strong> (Serial Wire Output) ile trace mesajlarını aktarır</li>
-</ul>
-<h2 id="jtag-joint-test-action-group">JTAG (Joint Test Action Group)<a class="headerlink" href="#jtag-joint-test-action-group" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Elektronik bileşenlerin test ve hata ayıklama standardıdır:</li>
-<li>4 - 5 pinli protokol (TCK, TMS, TDI, TDO, TRST)</li>
-<li>Boundary‑scan test, IC programlama, çekirdek debug</li>
-<li>SWD’ın alt kümesi olarak bazı ARM çekirdeklerinde desteklenir</li>
-<li>JTAG, çoklu cihaz desteği ve <strong>boundary-scan</strong> gibi üretim odaklı yetenekler sunduğu için vardır; SWD ise ARM mikrodenetleyicilerde aynı debug işlevlerini daha az pinle sağlamak amacıyla geliştirilmiş bir alternatiftir</li>
-</ul>
+<hr />
+<h2 id="bit-banding">Bit-Banding<a class="headerlink" href="#bit-banding" title="Permanent link">&para;</a></h2>
+<p>Belirli bir bellek bölgesindeki her bit için ayrı alias adresi üretir; RMW (Read-Modify-Write) döngüsünü atomik tek yazıya indirir.</p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th><strong>JTAG</strong></th>
-<th><strong>SWD</strong></th>
+<th>Bölge</th>
+<th style="text-align: center;">Gerçek Adres</th>
+<th style="text-align: center;">Alias Başlangıcı</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Pin Sayısı</strong></td>
-<td>5-6 pin</td>
-<td>2 pin</td>
+<td>SRAM</td>
+<td style="text-align: center;">0x2000_0000 – 0x200F_FFFF</td>
+<td style="text-align: center;">0x2200_0000</td>
 </tr>
 <tr>
-<td><strong>Temel Pinler</strong></td>
-<td>TDI, TDO, TMS, TCK, TRST (opsiyonel)</td>
-<td>SWDIO, SWCLK</td>
+<td>Peripheral</td>
+<td style="text-align: center;">0x4000_0000 – 0x400F_FFFF</td>
+<td style="text-align: center;">0x4200_0000</td>
+</tr>
+</tbody>
+</table>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cm">/* Alias adresi hesabı */</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="cp">#define BB_ADDR(base, byte_off, bit) \</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="cp">    ((base##_BB) + (byte_off)*32 + (bit)*4)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="cm">/* GPIOA ODR bit 5 = Alias adresi üzerinden atomic set */</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="o">*</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="kt">uint32_t</span><span class="o">*</span><span class="p">)</span><span class="n">BB_ADDR</span><span class="p">(</span><span class="n">PERIPH</span><span class="p">,</span><span class="w"> </span><span class="mh">0x40020014</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0x40000000</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Cortex-M7 ve Sonrası</p>
+<p>Bit-Banding Cortex-M0/M0+/M3/M4/M4F'te desteklenir. Cortex-M7 ve M23/M33'te kaldırılmıştır; yerini atomik <code>LDREX/STREX</code> ve C11 <code>_Atomic</code> almaktadır.</p>
+</div>
+<hr />
+<h2 id="erisim-seviyeleri-ve-modlar">Erişim Seviyeleri ve Modlar<a class="headerlink" href="#erisim-seviyeleri-ve-modlar" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Thread_Privileged : Reset
+    Thread_Privileged --&gt; Thread_Unprivileged : CONTROL.nPRIV = 1
+    Thread_Unprivileged --&gt; Thread_Privileged : SVC (Supervisor Call)
+    Thread_Privileged --&gt; Handler_Mode : Interrupt / Exception
+    Thread_Unprivileged --&gt; Handler_Mode : Interrupt / Exception
+    Handler_Mode --&gt; Thread_Privileged : EXC_RETURN</code></pre>
+<table>
+<thead>
+<tr>
+<th>Mod</th>
+<th style="text-align: center;">Erişim</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Handler Mode</strong></td>
+<td style="text-align: center;">Privileged (zorunlu)</td>
+<td>ISR ve exception handler'lar</td>
 </tr>
 <tr>
-<td><strong>Zincirleme Desteği</strong></td>
-<td>Var, birden fazla cihazı zincirleme olarak bağlayabilir</td>
-<td>Yok, her cihaz için ayrı bağlantı gereklidir</td>
+<td><strong>Thread — Privileged</strong></td>
+<td style="text-align: center;">Tam erişim</td>
+<td>Kernel kodu, RTOS kodu</td>
 </tr>
 <tr>
-<td><strong>Hız ve Performans</strong></td>
-<td>Daha fazla veri iletimi, daha yüksek hız, ancak karmaşık sistemlerde yavaş olabilir</td>
-<td>Daha hızlı veri iletimi, düşük pin sayısı ile daha hızlı sonuç alabilirsiniz</td>
+<td><strong>Thread — Unprivileged</strong></td>
+<td style="text-align: center;">Kısıtlı</td>
+<td>Kullanıcı uygulama kodu (MPU korumalı)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="isr-interrupt-service-routine">ISR (Interrupt Service Routine)<a class="headerlink" href="#isr-interrupt-service-routine" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant MAIN as Ana Program
+    participant HW as Donanım
+    participant NVIC as NVIC
+    participant ISR as ISR
+
+    MAIN-&gt;&gt;MAIN: Normal çalışma
+    HW-&gt;&gt;NVIC: Kesme sinyali
+    NVIC-&gt;&gt;MAIN: Durdur, R0-R3 + LR stack'e kaydedilir
+    NVIC-&gt;&gt;ISR: PC → ISR adresine atla
+    ISR-&gt;&gt;ISR: Bayrağı temizle, işle
+    ISR-&gt;&gt;MAIN: EXC_RETURN → Kaldığı yerden devam</code></pre>
+<div class="admonition danger">
+<p class="admonition-title">ISR Tasarım Kuralları</p>
+<ul>
+<li>ISR mümkün olduğunca <strong>kısa</strong> tutulmalı; ağır işler ana döngüye veya RTOS task'ına bırakılmalı.</li>
+<li>ISR içinde <code>while()</code> veya bloklu bekleme <strong>kesinlikle yasak</strong>.</li>
+<li>Kesme bayrağı temizlenmezse ISR sürekli tetiklenir (interrupt storm).</li>
+<li>ISR ile paylaşılan veriler <code>volatile</code> ile işaretlenmelidir.</li>
+</ul>
+</div>
+<hr />
+<h2 id="svc-supervisor-call-ve-debug-arayuzleri">SVC (Supervisor Call) ve Debug Arayüzleri<a class="headerlink" href="#svc-supervisor-call-ve-debug-arayuzleri" title="Permanent link">&para;</a></h2>
+<h3 id="svc">SVC<a class="headerlink" href="#svc" title="Permanent link">&para;</a></h3>
+<p>Kullanıcı kodundan kernel/RTOS servislerine güvenli geçiş yöntemi:</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">__ASM</span><span class="p">(</span><span class="s">&quot;svc 5&quot;</span><span class="p">);</span><span class="w">   </span><span class="cm">/* SVC #5 ile kernel çağrısı */</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="swd-vs-jtag">SWD vs JTAG<a class="headerlink" href="#swd-vs-jtag" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th style="text-align: center;">JTAG</th>
+<th style="text-align: center;">SWD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pin sayısı</td>
+<td style="text-align: center;">4–5</td>
+<td style="text-align: center;">2 (SWDIO, SWCLK)</td>
 </tr>
 <tr>
-<td><strong>Karmaşıklık</strong></td>
-<td>Daha karmaşık, çok sayıda pin ve yapılandırma gerektirir</td>
-<td>Daha basit, düşük pin sayısı ve yapılandırma gerektirir</td>
+<td>Zincirleme</td>
+<td style="text-align: center;">✓ (daisy-chain)</td>
+<td style="text-align: center;">✗</td>
 </tr>
 <tr>
-<td><strong>Kullanım Alanları</strong></td>
-<td>Daha büyük ve karmaşık sistemler, FPGA'lar, bellekler, CPU'lar</td>
-<td>ARM Cortex-M mikrodenetleyiciler, düşük pinli yapılar</td>
+<td>ARM Cortex-M</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓ (tercih edilen)</td>
 </tr>
 <tr>
-<td><strong>Debugging Yeteneği</strong></td>
-<td>Kapsamlı debugging, register işlemleri ve sistem izleme</td>
-<td>Temel debugging, register okuma/yazma, programlama</td>
+<td>Trace çıkışı</td>
+<td style="text-align: center;">✓ (ETM)</td>
+<td style="text-align: center;">✓ (SWO)</td>
 </tr>
 <tr>
-<td><strong>Zamanlayıcı Desteği</strong></td>
-<td>Yüksek hızda test ve iletişim gerektiren sistemler için uygundur</td>
-<td>Düşük pin sayısı ile hızlı hata ayıklama sağlar</td>
-</tr>
-<tr>
-<td><strong>Enerji Tüketimi</strong></td>
-<td>Daha fazla enerji tüketebilir, daha fazla pin kullanıldığı için</td>
-<td>Daha az enerji tüketir, çünkü sadece 2 pin kullanılır</td>
-</tr>
-<tr>
-<td><strong>Karmaşık Sistemler İçin Uygunluk</strong></td>
-<td>Yüksek hızda ve karmaşık sistemlerde kullanılır</td>
-<td>Daha basit ve düşük pin sayısına sahip sistemler için uygundur</td>
+<td>Kullanım</td>
+<td style="text-align: center;">FPGA, üretim testi</td>
+<td style="text-align: center;">MCU debug</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="admonition-title">Not</p>
-<p>OpenOCD (Open On-Chip Debugger), mikrodenetleyici ve SoC’lere JTAG/SWD üzerinden programlama ve hata ayıklama yapılmasını sağlayan açık kaynaklı bir debug sunucusudur.</p>
+<p class="admonition-title">OpenOCD</p>
+<p>OpenOCD (Open On-Chip Debugger), JTAG/SWD üzerinden mikrodenetleyici programlama ve debug yapılmasını sağlayan açık kaynaklı debug sunucusudur. GDB ile birlikte <code>arm-none-eabi-gdb</code> + OpenOCD + ST-Link/J-Link üçlüsü tipik geliştirme ortamını oluşturur.</p>
 </div>
+<hr />
 <h2 id="itm-instrumentation-trace-macrocell">ITM (Instrumentation Trace Macrocell)<a class="headerlink" href="#itm-instrumentation-trace-macrocell" title="Permanent link">&para;</a></h2>
-<ul>
-<li>ITM, ARM Cortex‑M tabanlı mikrodenetleyicilerde yerleşik olarak bulunan, <strong>gerçek zamanlı izleme</strong> ve <strong>hata ayıklama</strong> altyapısıdır:</li>
-<li><strong>Gerçek Zamanlı İzleme:</strong> Kodunuzun akışını, fonksiyon çağrılarını veya değişken değerlerini canlı olarak “trace” edebilirsiniz.</li>
-<li><strong>Düşük Gecikme:</strong> <code>SWO</code> (Serial Wire Output) pininden taşan veriyi, sistem performansını etkilemeden aktarır.</li>
-<li><strong>Performans Analizi:</strong> Zaman damgalı etiketler (timestamps) sayesinde hangi kod bloğunun ne kadar sürdüğünü ölçebilir, darboğazları hızla tespit edebilirsiniz.</li>
-<li><strong>Özelleştirilebilir Paketler:</strong> Hem ARM tarafından tanımlı standart trace paketlerini hem de kendi veri formatlarınızı kullanabilirsiniz.</li>
-<li>Zamanlama hatalarını keşfetme</li>
-<li>Döngü sayımlarını ve iş parçacıkları arasındaki geçişleri izleme</li>
-<li>Kalıcı log alınamayan gerçek zamanlı sistemlerde debug</li>
-</ul>
+<p>ARM Cortex-M3 ve üzeri çekirdeklerde bulunan, <strong>UART kullanmadan</strong> SWO pini üzerinden gerçek zamanlı log ve trace gönderme altyapısı.</p>
+<pre class="mermaid"><code>graph LR
+    SW[printf / ITM_SendChar] --&gt; ITM[ITM Stimulus Port 0]
+    ITM --&gt; SWO[SWO Pin]
+    SWO --&gt; ST_LINK[ST-Link / Debug Probe]
+    ST_LINK --&gt; IDE[SWV ITM Data Console\nSTM32CubeIDE]</code></pre>
 <div class="admonition note">
-<p class="admonition-title">Not</p>
-<p>Cortex-M0/M0+/M1/M2 çekirdekleri düşük alan ve maliyet odaklı tasarlandığı için CoreSight debug altyapısını (ITM, DWT, ETM) içermez; Cortex-M3 ve sonrası ise ileri seviye debug ve izleme (trace) gereksinimleri nedeniyle ITM’ye geçmiştir.</p>
+<p class="admonition-title">Cortex-M0/M0+/M1 ITM Yoktur</p>
+<p>Bu çekirdekler alan ve maliyet odaklı tasarlandığından CoreSight debug altyapısı (ITM, DWT, ETM) içermez. M3 ve sonrasında kullanılabilir.</p>
 </div>
-<h2 id="gpio-nibble">GPIO  - Nibble<a class="headerlink" href="#gpio-nibble" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Mikrodenetleyici veya işlemci üzerinde bulunan; dijital giriş (input) veya dijital çıkış (output) olarak yapılandırılabilen, donanım seviyesinde kontrol edilen genel amaçlı pinlerdir.</li>
-<li>4 bitten oluşan bir veri birimidir → 0000–1111 (hex’de 0–F)<ul>
-<li><strong>MSB (Most Significant Bit)</strong> en soldaki bittir</li>
-<li><strong>LSB (Least Significant Bit)</strong> en sağdaki bittir.</li>
-</ul>
-</li>
-<li><code>&amp;</code> Bitwise And, <code>|</code> Bitwise Or, <code>^</code> Bitwise XOR</li>
-<li><code>~</code> Bitwise NOT, <code>&lt;&lt;</code> Bitwise Shift Left, <code>&gt;&gt;</code> Bitwise Shift Right</li>
-</ul>
-<h2 id="cross-compiler">Cross Compiler<a class="headerlink" href="#cross-compiler" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Bir x86 veya macOS/Windows gibi “geliştirme host” makinenizde çalışıp, farklı bir “hedef” platform (ör. ARM Cortex‑M) için derlenmiş kod üreten derleyicidir. En yaygın örnek:</li>
-</ul>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<hr />
+<h2 id="gpio-nibble-bit-islemleri">GPIO — Nibble — Bit İşlemleri<a class="headerlink" href="#gpio-nibble-bit-islemleri" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Terim</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nibble</strong></td>
+<td>4 bit; 0x0–0xF arası hex değer</td>
+</tr>
+<tr>
+<td><strong>MSB</strong></td>
+<td>Most Significant Bit — en soldaki bit</td>
+</tr>
+<tr>
+<td><strong>LSB</strong></td>
+<td>Least Significant Bit — en sağdaki bit</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Operatör</th>
+<th>İşlem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;</code></td>
+<td>Bitwise AND — bit maskeleme için</td>
+</tr>
+<tr>
+<td><code>\|</code></td>
+<td>Bitwise OR — bit set için</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>Bitwise XOR — bit toggle için</td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>Bitwise NOT — tüm bitleri çevirir</td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>Bit sola kaydır</td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Bit sağa kaydır</td>
+</tr>
+</tbody>
+</table>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
 <span class="normal"><a href="#__codelineno-3-2">2</a></span>
 <span class="normal"><a href="#__codelineno-3-3">3</a></span>
 <span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>arm-none-eabi-gcc
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>│   │    │      └─ gcc (GNU Compiler Collection)
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>│   │    └─ eabi (Embedded Application Binary Interface)
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>│   └─ none (OS yok: bare‑metal)
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>└─ arm (ARM mimarisi)
+<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cm">/* Set, Clear, Toggle kalıpları */</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">REG</span><span class="w"> </span><span class="o">|=</span><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">);</span><span class="w">    </span><span class="cm">/* Bit N&#39;yi SET et         */</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">REG</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">);</span><span class="w">    </span><span class="cm">/* Bit N&#39;yi CLEAR et       */</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="n">REG</span><span class="w"> </span><span class="o">^=</span><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">);</span><span class="w">    </span><span class="cm">/* Bit N&#39;yi TOGGLE et      */</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">bit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">REG</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Bit N&#39;yi oku           */</span>
 </span></code></pre></div></td></tr></table></div>
-<ul>
-<li>Çıktı Dosya Biçimleri<ul>
-<li><strong>ELF (.elf):</strong> Çalıştırılabilir, simge tablosu ve debug bilgisi içerir. (Linux/Unix standardı)</li>
-<li><strong>HEX (.hex):</strong> Intel HEX formatı; her satırda adres + byte dizisi ASCII olarak saklanır. Mikrodenetleyici bootloader’larına uygundur.</li>
-<li><strong>BIN (.bin):</strong> Saf makine kodu; hiçbir meta‑veri içermez, doğrudan belleğe veya flash’a yazılır.</li>
-</ul>
-</li>
-<li><strong>Tipik Derleme Akışı</strong><ul>
-<li><code>arm-none-eabi-gcc -c main.c -o main.o</code> → Derleme</li>
-<li><code>arm-none-eabi-ld main.o -T linker_script.ld -o firmware.elf</code> → Bağlama</li>
-<li><code>arm-none-eabi-objcopy -O ihex firmware.elf firmware.hex</code> → HEX’e dönüştürme</li>
-<li><code>arm-none-eabi-objcopy -O binary firmware.elf firmware.bin</code> → BIN’e dönüştürme</li>
-</ul>
-</li>
-</ul>
+<hr />
+<h2 id="cross-compiler">Cross Compiler<a class="headerlink" href="#cross-compiler" title="Permanent link">&para;</a></h2>
+<p>Geliştirme ortamında (x86/macOS/Windows) çalışıp hedef mimari (ARM Cortex-M) için kod üreten derleyici.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>arm-none-eabi-gcc
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>│   │    │      └─ gcc (GNU Compiler Collection)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>│   │    └─ eabi (Embedded Application Binary Interface)
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>│   └─ none (İşletim sistemi yok — bare-metal)
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>└─ arm (ARM mimarisi)
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Çıktı Formatı</th>
+<th style="text-align: center;">Uzantı</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ELF</td>
+<td style="text-align: center;"><code>.elf</code></td>
+<td>Debug bilgisi + sembol tablosu; GDB ile kullanılır</td>
+</tr>
+<tr>
+<td>Intel HEX</td>
+<td style="text-align: center;"><code>.hex</code></td>
+<td>ASCII kodlu; bootloader ile flashing</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td style="text-align: center;"><code>.bin</code></td>
+<td>Saf makine kodu; doğrudan flash adresine yazılır</td>
+</tr>
+</tbody>
+</table>
 <pre class="mermaid"><code>graph LR
-  A[main.c] --&gt; |Preprocessor| B{main.i};
-  B --&gt; |Parser| C[Code generator];
-  C --&gt; D[main.s];
-  D --&gt; |Assembler| E[main.o];
-  E --&gt; |Linker| F[Debug File .elf];
-  F --&gt; |Objcopy Tool| H["(.bin)"]
-  G["Other Lib (.a)"] --&gt; |Linker| F["Debug File (.elf)"];</code></pre>
+    A[main.c] --&gt;|Preprocessor| B[main.i]
+    B --&gt;|Parser + Codegen| C[main.s]
+    C --&gt;|Assembler| D[main.o]
+    LIB[stdlib.a\nCustom Lib] --&gt; E
+    D --&gt;|Linker LD Script| E[firmware.elf]
+    E --&gt;|objcopy| F[firmware.hex]
+    E --&gt;|objcopy| G[firmware.bin]
+    style E fill:#BBDEFB
+    style F fill:#C8E6C9
+    style G fill:#FFE0B2</code></pre>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>arm-none-eabi-gcc<span class="w">   </span>-mcpu<span class="o">=</span>cortex-m4<span class="w"> </span>-mthumb<span class="w"> </span>-c<span class="w"> </span>main.c<span class="w"> </span>-o<span class="w"> </span>main.o
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>arm-none-eabi-ld<span class="w">    </span>main.o<span class="w"> </span>-T<span class="w"> </span>linker.ld<span class="w"> </span>-o<span class="w"> </span>firmware.elf
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>arm-none-eabi-objcopy<span class="w"> </span>-O<span class="w"> </span>ihex<span class="w">   </span>firmware.elf<span class="w"> </span>firmware.hex
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>arm-none-eabi-objcopy<span class="w"> </span>-O<span class="w"> </span>binary<span class="w"> </span>firmware.elf<span class="w"> </span>firmware.bin
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>arm-none-eabi-size<span class="w">  </span>firmware.elf<span class="w">   </span><span class="c1"># Flash ve RAM kullanımı</span>
+</span></code></pre></div></td></tr></table></div>
 
 
 
@@ -1700,13 +2061,13 @@
         
         
           
-          <a href="../stm/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: STM Notes">
+          <a href="../protocols/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: Communication Protocols">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Sonraki
               </span>
               <div class="md-ellipsis">
-                STM Notes
+                Communication Protocols
               </div>
             </div>
             <div class="md-footer__button md-icon">

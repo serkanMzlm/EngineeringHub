@@ -22,7 +22,7 @@
     
     
       
-        <title>AVR Notes - Dokümantasyon</title>
+        <title>AVR - Dokümantasyon</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#avr" class="md-skip">
+        <a href="#avr-mikrodenetleyici" class="md-skip">
           Ana içeriğe geç
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AVR Notes
+              AVR
             
           </span>
         </div>
@@ -299,6 +299,28 @@
     
     
       <li class="md-tabs__item">
+        <a href="../../communication/ipc/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Communication
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../../robotics/ros2/" class="md-tabs__link">
           
   
@@ -455,6 +477,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -526,12 +552,58 @@
   
   
     <li class="md-nav__item">
+      <a href="../protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Communication Protocols
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rtos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RTOS (FreeRTOS)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stm/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    STM Notes
+    STM32
     
   </span>
   
@@ -563,7 +635,7 @@
   
   
   <span class="md-ellipsis">
-    AVR Notes
+    AVR
     
   </span>
   
@@ -576,7 +648,7 @@
   
   
   <span class="md-ellipsis">
-    AVR Notes
+    AVR
     
   </span>
   
@@ -608,14 +680,56 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#isr-interrupt-service-routine" class="md-nav__link">
+  <a href="#register-adresleri" class="md-nav__link">
     <span class="md-ellipsis">
-      ISR – Interrupt Service Routine
+      Register Adresleri
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ISR – Interrupt Service Routine">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ornek-led-surme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Örnek: LED Sürme
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Örnek: LED Sürme">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buton-debounce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Buton Debounce
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isr-interrupt-service-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      ISR — Interrupt Service Routine
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ISR — Interrupt Service Routine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ds-kesme-int0-int1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dış Kesme (INT0 / INT1)
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#pin-change-interrupt-pcint" class="md-nav__link">
@@ -626,10 +740,61 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#timercounter" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timer-counter" class="md-nav__link">
     <span class="md-ellipsis">
-      Timer/Counter:
+      Timer / Counter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Timer / Counter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#timer-tipleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Timer Tipleri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calsma-modlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Çalışma Modları
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctc-modu-frekans-hesab" class="md-nav__link">
+    <span class="md-ellipsis">
+      CTC Modu — Frekans Hesabı
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prescaler-secimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prescaler Seçimi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      PWM
     </span>
   </a>
   
@@ -637,6 +802,33 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adc-analog-digital-converter" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADC (Analog-Digital Converter)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usart-serial-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      USART (Serial Communication)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guc-yonetimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Güç Yönetimi
+    </span>
+  </a>
   
 </li>
       
@@ -737,6 +929,8 @@
       
         
       
+        
+      
     
     
     
@@ -763,6 +957,60 @@
   
   <span class="md-ellipsis">
     AI
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../communication/ipc/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Communication
     
   </span>
   
@@ -924,14 +1172,56 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#isr-interrupt-service-routine" class="md-nav__link">
+  <a href="#register-adresleri" class="md-nav__link">
     <span class="md-ellipsis">
-      ISR – Interrupt Service Routine
+      Register Adresleri
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ISR – Interrupt Service Routine">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ornek-led-surme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Örnek: LED Sürme
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Örnek: LED Sürme">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buton-debounce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Buton Debounce
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isr-interrupt-service-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      ISR — Interrupt Service Routine
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ISR — Interrupt Service Routine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ds-kesme-int0-int1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dış Kesme (INT0 / INT1)
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#pin-change-interrupt-pcint" class="md-nav__link">
@@ -942,10 +1232,61 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#timercounter" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timer-counter" class="md-nav__link">
     <span class="md-ellipsis">
-      Timer/Counter:
+      Timer / Counter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Timer / Counter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#timer-tipleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Timer Tipleri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calsma-modlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Çalışma Modları
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctc-modu-frekans-hesab" class="md-nav__link">
+    <span class="md-ellipsis">
+      CTC Modu — Frekans Hesabı
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prescaler-secimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prescaler Seçimi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      PWM
     </span>
   </a>
   
@@ -953,6 +1294,33 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adc-analog-digital-converter" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADC (Analog-Digital Converter)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usart-serial-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      USART (Serial Communication)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guc-yonetimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Güç Yönetimi
+    </span>
+  </a>
   
 </li>
       
@@ -972,41 +1340,87 @@
 
 
 
-<h1 id="avr">AVR<a class="headerlink" href="#avr" title="Permanent link">&para;</a></h1>
-<h3 id="gpio-kontrolu">GPIO Kontrolü<a class="headerlink" href="#gpio-kontrolu" title="Permanent link">&para;</a></h3>
+<h1 id="avr-mikrodenetleyici">AVR Mikrodenetleyici<a class="headerlink" href="#avr-mikrodenetleyici" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Genel Bakış</p>
+<p>AVR, Microchip (eski Atmel) tarafından üretilen 8-bit RISC mikrodenetleyici ailesidir. Harvard mimarisi, tek döngülü komut yürütme ve zengin I/O yapısıyla gömülü sistemlerde öğrenme ve üretim amacıyla yaygın kullanılır. Tipik temsilciler: ATmega328P (Arduino Uno), ATmega2560 (Arduino Mega), ATtiny85.</p>
+</div>
 <p><img alt="pinout" src="../../../assets/img/embedded/pinout.png" /></p>
-<ul>
-<li><strong>Data Direction Register:</strong> DDRx register’ı, ilgili port pinlerinin giriş (0) mi yoksa çıkış (1) mi olduğunu belirler. (DDRB, DDRC, DDRD...)</li>
-<li><strong>Port Output Register:</strong> <code>PORTx</code> register’ı, çıkış modundaki pinlere <strong>HIGH (1)</strong> veya <strong>LOW (0)</strong> çıkış seviyesini atar.</li>
-<li>PINx register’ı, o porta bağlı pinlerin <strong>INPUT</strong> durumunda okunan dijital seviyesini <strong>(HIGH/LOW)</strong> yansıtır.<ul>
-<li>AVR’de: <code>PINB</code>, <code>PINC</code>, <code>PIND</code> gibi isimlerle kullanılır.</li>
-<li><strong>Pull‑Up ve Pull‑Down:</strong> Arduino kartlarında dahili pull‑up dirençleri vardır; bu sayede unconnected pinler HIGH seviyede sabitlenir. Eğer dahili pull‑up’u devre dışı bırakmak isterseniz, MCUCR’daki PUD bitini 1 yapabilirsiniz: <code>MCUCR |= (1 &lt;&lt; PUD);  // Pull‑Up Disable</code></li>
-</ul>
-</li>
-<li>En temiz yöntem, bit kaydırma (1 &lt;&lt; bit_no) ve mantıksal operatörler kullanmaktır:</li>
-<li><code>|=</code> ve <code>&amp;=</code> kullanımı, diğer pin değerlerini koruyarak yalnızca istediğiniz biti değiştirir.</li>
-</ul>
-<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">PORTD DDRD Kontol</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">DDRD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b00000001</span><span class="p">;</span><span class="w">   </span><span class="c1">// aynı: DDRD = 0x01;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">DDRD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span><span class="w">         </span><span class="c1">// 0b11111111 tüm pinler</span>
+<hr />
+<h2 id="gpio-kontrolu">GPIO Kontrolü<a class="headerlink" href="#gpio-kontrolu" title="Permanent link">&para;</a></h2>
+<p>AVR'de her port üç register ile kontrol edilir:</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>İşlevi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DDRx</code></td>
+<td>Data Direction Register — 0: Giriş, 1: Çıkış</td>
+</tr>
+<tr>
+<td><code>PORTx</code></td>
+<td>Output Register — çıkış seviyesi veya pull-up kontrolü</td>
+</tr>
+<tr>
+<td><code>PINx</code></td>
+<td>Input Register — pinin anlık dijital seviyesini okur</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph LR
+    DDRx --&gt;|0 = Input| PIN_IN[Pin Giriş\nPINx ile oku]
+    DDRx --&gt;|1 = Output| PIN_OUT[Pin Çıkış\nPORTx ile sür]
+    PIN_IN -.-&gt;|PORTx=1| PU[Dahili Pull-Up\nAktif]</code></pre>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cm">/* Temel kalıplar */</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">DDRD</span><span class="w"> </span><span class="o">|=</span><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">    </span><span class="cm">/* PD5 → Çıkış */</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">DDRD</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w">    </span><span class="cm">/* PD3 → Giriş */</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">|=</span><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">   </span><span class="cm">/* PD5 = HIGH (5V) */</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">   </span><span class="cm">/* PD5 = LOW  (0V) */</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">^=</span><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">   </span><span class="cm">/* PD5 = Toggle */</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="cm">/* Giriş okuma */</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">durum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">PIND</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="cm">/* PD3 bit oku */</span>
 </span></code></pre></div></td></tr></table></div>
-<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">PORTD PORT Kontol</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<div class="admonition tip">
+<p class="admonition-title">Pull-Up Aktifleştirme</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
 <span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">DDRD</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x01</span><span class="p">;</span><span class="w">        </span><span class="c1">// D0 pinini OUTPUT yap</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x01</span><span class="p">;</span><span class="w">        </span><span class="c1">// D0 pinini HIGH (5V)</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span><span class="w">        </span><span class="c1">// 0b11111111 tüm pinler</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00</span><span class="p">;</span><span class="w">        </span><span class="c1">// 0b00000000</span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">DDRD</span><span class="w">  </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w">  </span><span class="cm">/* PD3 giriş */</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">|=</span><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w">  </span><span class="cm">/* PD3 pull-up açık */</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="cm">/* Tüm pull-up&#39;ları devre dışı bırak: */</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">MCUCR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PUD</span><span class="p">);</span>
 </span></code></pre></div></td></tr></table></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">uint8_t Kullanımı</p>
+<p>AVR 8-bit mimarisinde <code>int</code> yerine <code>uint8_t</code>, <code>uint16_t</code> gibi sabit genişlikli tipler kullanılmalıdır. <code>int</code>, host derleyiciye göre 16 veya 32 bit olabilir; bu gömülü sistemlerde beklenmedik davranışa yol açar.</p>
+</div>
+<hr />
+<h2 id="register-adresleri">Register Adresleri<a class="headerlink" href="#register-adresleri" title="Permanent link">&para;</a></h2>
+<p>AVR portları, belleğe eşlenmiş (memory-mapped) I/O register'larıdır. <code>DDRD</code> adresi <code>0x2A</code>'dır:</p>
 <div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PORTD0</span><span class="p">);</span><span class="w">  </span><span class="c1">// D0 pinini HIGH yapar (diğer pinler etkilenmez)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PORTD0</span><span class="p">);</span><span class="w"> </span><span class="c1">// D0 pinini LOW yapar (diğer pinler etkilenmez)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">PORTD</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PORTD0</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PORTD1</span><span class="p">);</span><span class="w"> </span><span class="c1">// D0 ve D1 pinlerini HIGH yapar</span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="cp">#define myDDRD *((volatile uint8_t*)0x2A)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">myDDRD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span><span class="w">  </span><span class="cm">/* Tüm PORTD pinleri çıkış */</span>
 </span></code></pre></div></td></tr></table></div>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<p><img alt="data" src="../../../assets/img/embedded/data.png" /></p>
+<hr />
+<h2 id="ornek-led-surme">Örnek: LED Sürme<a class="headerlink" href="#ornek-led-surme" title="Permanent link">&para;</a></h2>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">LED Chase (PORTD)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
@@ -1026,65 +1440,56 @@
 <span class="normal"><a href="#__codelineno-3-18">18</a></span>
 <span class="normal"><a href="#__codelineno-3-19">19</a></span>
 <span class="normal"><a href="#__codelineno-3-20">20</a></span>
-<span class="normal"><a href="#__codelineno-3-21">21</a></span>
-<span class="normal"><a href="#__codelineno-3-22">22</a></span>
-<span class="normal"><a href="#__codelineno-3-23">23</a></span>
-<span class="normal"><a href="#__codelineno-3-24">24</a></span>
-<span class="normal"><a href="#__codelineno-3-25">25</a></span>
-<span class="normal"><a href="#__codelineno-3-26">26</a></span>
-<span class="normal"><a href="#__codelineno-3-27">27</a></span>
-<span class="normal"><a href="#__codelineno-3-28">28</a></span>
-<span class="normal"><a href="#__codelineno-3-29">29</a></span>
-<span class="normal"><a href="#__codelineno-3-30">30</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">DDRD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span><span class="w">   </span><span class="c1">// Tüm PORTD pinlerini OUTPUT olarak ayarla</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Sırayla LED’i yak</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">        </span><span class="n">PORTD</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">        </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Sırayla LED’i söndür</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">        </span><span class="n">PORTD</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">        </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Alternatif olarak XOR ile toggle:</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">        </span><span class="n">PORTD</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">        </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="p">}</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="c1">// Veri okuma </span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="kt">bool</span><span class="w"> </span><span class="n">button_press</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PINB</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PORTB0</span><span class="p">);</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="c1">// Debouncing (Titreşim Giderme)</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PINB</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PORTB0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">     </span><span class="c1">// Butona basıldıysa</span>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">    </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span><span class="w">              </span><span class="c1">// 50 ms bekle</span>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PINB</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PORTB0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Hala basılı mı?</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">        </span><span class="c1">// Geçerli basış</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;util/delay.h&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="n">DDRD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Tüm PORTD çıkış */</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">        </span><span class="cm">/* Sırayla yak */</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">            </span><span class="n">PORTD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">            </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">        </span><span class="cm">/* Sırayla söndür */</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">            </span><span class="n">PORTD</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">            </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="buton-debounce">Buton Debounce<a class="headerlink" href="#buton-debounce" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cm">/* Yazılımsal debouncing — titreşim giderme */</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PB0</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w">    </span><span class="cm">/* Aktif-LOW buton basıldı mı? */</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span><span class="w">              </span><span class="cm">/* Titreşim bekle */</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PB0</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* Hala basılı mı? */</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">        </span><span class="cm">/* Geçerli basış işle */</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
 <div class="admonition note">
-<p class="admonition-title">Not</p>
-<p><code>int</code> gibi bilgisayarın sistemine göre değişen boyutların kullanımı bazı durumlarda değişik alanlar kapladığından sorun yartabilir bu yüzden platform bağımsız olması için her sistemde aynı bellek alanı genişliği tutan birimlerin kullanımı daha güvenlidir. <code>uint8_t</code> ,<code>uint16_t</code> ….</p>
+<p class="admonition-title">Aktif-HIGH vs Aktif-LOW</p>
+<p>Pull-up direnci ile bağlı butona <strong>basılmadığında</strong> pin HIGH, basıldığında LOW'dur (aktif-LOW). Bu nedenle okuma <code>!(PINB &amp; (1 &lt;&lt; PB0))</code> şeklinde ters mantıkla yapılır.</p>
 </div>
-<ul>
-<li><strong>DDRD</strong> ve <strong>PORTD</strong> bellek adresleri üzerinden doğrudan erişilen <strong>I/O</strong> register’larıdır. olarak <strong>DDRD</strong> bellek alanı <code>0x2A</code> bu kısıma erişip bu kısımda değişiklikler yapıp pinlerin durumları belirlenebilir.</li>
-</ul>
-<p><img alt="data" src="../../../assets/img/embedded/data.png" /></p>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cp">#define myDDRD *((uint8_t*)0x2A) </span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="isr-interrupt-service-routine">ISR – Interrupt Service Routine<a class="headerlink" href="#isr-interrupt-service-routine" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>SREG</strong> içindeki I biti (<code>sei()</code>) set edilirse ve bir kesme kaynağı tetiklenirse, ilgili <strong>ISR()</strong> fonksiyonu çalışır.</li>
-<li>Kesmenin işlenebilmesi için:<ul>
-<li><strong>Global interrupt</strong> (sei()) açık olmalı.</li>
-<li>İlgili <strong>Mask Register’da</strong> (ör. <strong>EIMSK</strong>) o kesme kaynağı izinli olmalı.</li>
-</ul>
-</li>
-</ul>
+<hr />
+<h2 id="isr-interrupt-service-routine">ISR — Interrupt Service Routine<a class="headerlink" href="#isr-interrupt-service-routine" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    SREG_I[SREG I-bit\nsei / cli] --&gt; GLOBAL[Global Interrupt Enable]
+    MASK[EIMSK\nMask Register] --&gt; INT_EN[Kaynak Etkin]
+    GLOBAL &amp; INT_EN --&gt; ISR_TRIGGER[ISR Tetiklendi]
+    ISR_TRIGGER --&gt; ISR_FUNC[ISR Vect Fonksiyonu]
+    ISR_FUNC --&gt; RETURN[Ana Programa Dön]</code></pre>
+<h3 id="ds-kesme-int0-int1">Dış Kesme (INT0 / INT1)<a class="headerlink" href="#ds-kesme-int0-int1" title="Permanent link">&para;</a></h3>
 <div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Dış Kesme INT0</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
@@ -1098,24 +1503,20 @@
 <span class="normal"><a href="#__codelineno-5-11">11</a></span>
 <span class="normal"><a href="#__codelineno-5-12">12</a></span>
 <span class="normal"><a href="#__codelineno-5-13">13</a></span>
-<span class="normal"><a href="#__codelineno-5-14">14</a></span>
-<span class="normal"><a href="#__codelineno-5-15">15</a></span>
-<span class="normal"><a href="#__codelineno-5-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">    </span><span class="n">EIMSK</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">INT0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1. INT0 maskesini aç (EIMSK)</span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/interrupt.h&gt;</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span><span class="c1">// 2. Kesme tetikleme konfigürasyonu (EICRA: düşük/rising seçimi)</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="n">EICRA</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ISC01</span><span class="p">);</span><span class="w">  </span><span class="c1">// ISC01=1, ISC00=0 → fall edge</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="n">sei</span><span class="p">();</span><span class="w"> </span><span class="c1">// 3. Global interrupt aç</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="p">}</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="c1">// INT0 kesmesi gerçekleşince burası çalışır</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="n">ISR</span><span class="p">(</span><span class="n">INT0_vect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">    </span><span class="c1">// Kesme işleme kodu</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="p">}</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="n">EIMSK</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">INT0</span><span class="p">);</span><span class="w">          </span><span class="cm">/* INT0 maskesini aç */</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="n">EICRA</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ISC01</span><span class="p">);</span><span class="w">         </span><span class="cm">/* ISC01=1, ISC00=0 → Düşen kenar */</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="n">sei</span><span class="p">();</span><span class="w">                          </span><span class="cm">/* Global interrupt aç */</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* Ana döngü */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="p">}</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="n">ISR</span><span class="p">(</span><span class="n">INT0_vect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span><span class="cm">/* INT0 kesmesi gerçekleşince çalışır */</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">    </span><span class="n">PORTB</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PB5</span><span class="p">);</span><span class="w">           </span><span class="cm">/* LED toggle */</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
 <table>
 <thead>
@@ -1126,118 +1527,425 @@
 </thead>
 <tbody>
 <tr>
-<td>EIMSK</td>
-<td>External Interrupt Mask Register</td>
+<td><code>SREG (I-bit)</code></td>
+<td>Global interrupt enable; <code>sei()</code> / <code>cli()</code></td>
 </tr>
 <tr>
-<td>EICRA</td>
-<td>External Interrupt Control Register A</td>
+<td><code>EIMSK</code></td>
+<td>External Interrupt Mask (INT0, INT1 etkinleştir)</td>
 </tr>
 <tr>
-<td>EIFR</td>
-<td>External Interrupt Flag Register</td>
+<td><code>EICRA</code></td>
+<td>INT0/INT1 tetikleme kenarı (yükselen/düşen/değişim)</td>
 </tr>
 <tr>
-<td>MCUCR</td>
-<td>MCU Control Register (örn. PUD bit’i)</td>
+<td><code>EIFR</code></td>
+<td>External Interrupt Flag (bayrağı temizle)</td>
 </tr>
 <tr>
-<td>SREG</td>
-<td>Status Register (I biti = global interrupt)</td>
+<td><code>MCUCR</code></td>
+<td>MCU Control (PUD — pull-up disable)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">EICRA Değeri</th>
+<th style="text-align: center;">INT0 Tetiklenme</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">ISC01=0, ISC00=0</td>
+<td style="text-align: center;">Düşük seviye</td>
+</tr>
+<tr>
+<td style="text-align: center;">ISC01=0, ISC00=1</td>
+<td style="text-align: center;">Herhangi değişim</td>
+</tr>
+<tr>
+<td style="text-align: center;">ISC01=1, ISC00=0</td>
+<td style="text-align: center;">Düşen kenar</td>
+</tr>
+<tr>
+<td style="text-align: center;">ISC01=1, ISC00=1</td>
+<td style="text-align: center;">Yükselen kenar</td>
 </tr>
 </tbody>
 </table>
 <h3 id="pin-change-interrupt-pcint">Pin Change Interrupt (PCINT)<a class="headerlink" href="#pin-change-interrupt-pcint" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>PCICR</strong> register’ı ile belirli portlardaki pin değişim kesmelerini etkinleştirirsiniz.</li>
-<li><strong>PCMSKx</strong> (Pin Change Mask) ile hangi pinlerin izleceğini seçersiniz.</li>
-</ul>
-<h3 id="timercounter">Timer/Counter:<a class="headerlink" href="#timercounter" title="Permanent link">&para;</a></h3>
-<ul>
-<li>AVR mikrodenetleyicilerde üç temel timer vardır:</li>
-</ul>
+<p>Herhangi bir pine bağlı değişimi yakalamak için; INT0/INT1'den farklı olarak kenar seçimi yoktur — her değişimde tetiklenir.</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">PCICR</span><span class="w">  </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PCIE0</span><span class="p">);</span><span class="w">   </span><span class="cm">/* PCINT[7:0] → Port B izle */</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="n">PCMSK0</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PCINT0</span><span class="p">);</span><span class="w">  </span><span class="cm">/* PB0&#39;ı izle */</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="n">sei</span><span class="p">();</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="n">ISR</span><span class="p">(</span><span class="n">PCINT0_vect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">    </span><span class="cm">/* PB0 değişti — hangi kenar olduğunu IDR ile tespit et */</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="timer-counter">Timer / Counter<a class="headerlink" href="#timer-counter" title="Permanent link">&para;</a></h2>
+<h3 id="timer-tipleri">Timer Tipleri<a class="headerlink" href="#timer-tipleri" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Timer</th>
-<th>Bit Genişliği</th>
-<th>Maks Sayaç Değeri</th>
+<th style="text-align: center;">Bit</th>
+<th style="text-align: center;">Maksimum</th>
+<th>Özellikler</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Timer0</td>
-<td>8 bit</td>
-<td>255</td>
+<td style="text-align: center;">8-bit</td>
+<td style="text-align: center;">255</td>
+<td>PWM, millis(), delay() için kullanılır</td>
 </tr>
 <tr>
 <td>Timer1</td>
-<td>16 bit</td>
-<td>65535</td>
+<td style="text-align: center;">16-bit</td>
+<td style="text-align: center;">65535</td>
+<td>Yüksek çözünürlüklü zamanlama, servo</td>
 </tr>
 <tr>
 <td>Timer2</td>
-<td>8 bit</td>
-<td>255</td>
+<td style="text-align: center;">8-bit</td>
+<td style="text-align: center;">255</td>
+<td>Asenkron (32.768 kHz) RTC için</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>
-<p><strong>CPU Frekansı ve Zaman Adımı:</strong> </p>
-<ul>
-<li>Arduino Uno’da <code>F_CPU = 16 MHz → 1 döngü = 1 / 16 000 000 s ≈ 0.0625 μs</code></li>
-<li>Timer sayaç adımı = Prescaler’a bağlı olarak CPU döngü süresinin katları olur.</li>
-</ul>
-</li>
-<li>
-<p><strong>Basit Delay Hesabı:</strong> </p>
-<ul>
-<li><strong>CTC (Clear Timer on Compare)</strong> modunda, belirli bir gecikme için “compare match” değeri hesaplanır <code>OCRn = (DesiredDelay_s / TickTime_s) - 1</code></li>
-<li>TickTime_s = Prescaler × (1 / F_CPU)</li>
-<li>Örnek: 10 ms gecikme, prescaler = 64:</li>
-</ul>
-</li>
-</ul>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">TickTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mo">000</span><span class="w"> </span><span class="mo">000</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">μs</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="n">OCRn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">0.010</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="n">e</span><span class="err">‑</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="err">≈</span><span class="w"> </span><span class="mi">2499</span>
+<h3 id="calsma-modlar">Çalışma Modları<a class="headerlink" href="#calsma-modlar" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mod</th>
+<th style="text-align: center;">WGM Bitleri</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal</td>
+<td style="text-align: center;">0</td>
+<td>0 → MAX → 0 sayar; TOP = 0xFF/0xFFFF</td>
+</tr>
+<tr>
+<td>CTC</td>
+<td style="text-align: center;">2</td>
+<td>OCR değerinde sıfırlanır (frekans üretimi)</td>
+</tr>
+<tr>
+<td>Fast PWM</td>
+<td style="text-align: center;">3</td>
+<td>Hızlı tek-eğim PWM</td>
+</tr>
+<tr>
+<td>Phase Correct PWM</td>
+<td style="text-align: center;">1</td>
+<td>Çift-eğim; daha düzgün PWM</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ctc-modu-frekans-hesab">CTC Modu — Frekans Hesabı<a class="headerlink" href="#ctc-modu-frekans-hesab" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>F_OUT = F_CPU / (2 × Prescaler × (OCRnA + 1))
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>Örnek: F_CPU=16MHz, Prescaler=64, 10 ms kesme:
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>OCRnA = (16_000_000 / (64 × 1000)) - 1 = 249
 </span></code></pre></div></td></tr></table></div>
-<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">CTC Mode Örneği (Timer1)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-7-10">10</a></span>
-<span class="normal"><a href="#__codelineno-7-11">11</a></span>
-<span class="normal"><a href="#__codelineno-7-12">12</a></span>
-<span class="normal"><a href="#__codelineno-7-13">13</a></span>
-<span class="normal"><a href="#__codelineno-7-14">14</a></span>
-<span class="normal"><a href="#__codelineno-7-15">15</a></span>
-<span class="normal"><a href="#__codelineno-7-16">16</a></span>
-<span class="normal"><a href="#__codelineno-7-17">17</a></span>
-<span class="normal"><a href="#__codelineno-7-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">timer1_ctc_init</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ocr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">    </span><span class="n">TCCR1B</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">WGM12</span><span class="p">);</span><span class="w">         </span><span class="c1">// CTC modu</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">    </span><span class="n">OCR1A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ocr</span><span class="p">;</span><span class="w">                    </span><span class="c1">// Compare değeri</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="n">TCCR1B</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">CS11</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">CS10</span><span class="p">);</span><span class="w"> </span><span class="c1">// Prescaler = 64</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">    </span><span class="n">TIMSK1</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">OCIE1A</span><span class="p">);</span><span class="w">        </span><span class="c1">// Compare A kesmesini aç</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">    </span><span class="n">sei</span><span class="p">();</span><span class="w">                          </span><span class="c1">// Global interrupt</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="p">}</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="n">ISR</span><span class="p">(</span><span class="n">TIMER1_COMPA_vect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">    </span><span class="c1">// 1 ms veya belirlediğiniz sürede burada çalışır</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="p">}</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="w">    </span><span class="c1">// Yaklaşık 1 ms için</span>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ocr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">16e6</span><span class="o">/</span><span class="mi">64</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span>
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="w">    </span><span class="n">timer1_ctc_init</span><span class="p">(</span><span class="n">ocr</span><span class="p">);</span>
-</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="p">}</span>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Timer1 CTC — 1 ms Kesme</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span>
+<span class="normal"><a href="#__codelineno-8-21">21</a></span>
+<span class="normal"><a href="#__codelineno-8-22">22</a></span>
+<span class="normal"><a href="#__codelineno-8-23">23</a></span>
+<span class="normal"><a href="#__codelineno-8-24">24</a></span>
+<span class="normal"><a href="#__codelineno-8-25">25</a></span>
+<span class="normal"><a href="#__codelineno-8-26">26</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/interrupt.h&gt;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="k">volatile</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ms_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="kt">void</span><span class="w"> </span><span class="nf">timer1_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="n">TCCR1B</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">WGM12</span><span class="p">);</span><span class="w">              </span><span class="cm">/* CTC modu */</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="n">OCR1A</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">16000000UL</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="cm">/* 1 ms = 249 */</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">    </span><span class="n">TCCR1B</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">CS11</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">CS10</span><span class="p">);</span><span class="w"> </span><span class="cm">/* Prescaler = 64 */</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">    </span><span class="n">TIMSK1</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">OCIE1A</span><span class="p">);</span><span class="w">             </span><span class="cm">/* Compare A kesmesi */</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">    </span><span class="n">sei</span><span class="p">();</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="p">}</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="n">ISR</span><span class="p">(</span><span class="n">TIMER1_COMPA_vect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">    </span><span class="n">ms_ticks</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="p">}</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17"></a>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19"></a><span class="w">    </span><span class="n">timer1_init</span><span class="p">();</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ms_ticks</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">500</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22"></a><span class="w">            </span><span class="n">ms_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23"></a><span class="w">            </span><span class="n">PORTB</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PB5</span><span class="p">);</span><span class="w">  </span><span class="cm">/* 500 ms&#39;de bir LED toggle */</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="prescaler-secimi">Prescaler Seçimi<a class="headerlink" href="#prescaler-secimi" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">CS12</th>
+<th style="text-align: center;">CS11</th>
+<th style="text-align: center;">CS10</th>
+<th style="text-align: center;">Prescaler</th>
+<th style="text-align: center;">Timer0/1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Clock/1</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">Clock/8</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">Clock/64</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">Clock/256</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">Clock/1024</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pwm">PWM<a class="headerlink" href="#pwm" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span>
+<span class="normal"><a href="#__codelineno-9-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="cm">/* Timer0 Fast PWM — PD6 (OC0A) */</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="n">DDRD</span><span class="w">  </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PD6</span><span class="p">);</span><span class="w">           </span><span class="cm">/* OC0A pini çıkış */</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="n">TCCR0A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">COM0A1</span><span class="p">)</span><span class="w">         </span><span class="cm">/* Non-inverting */</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">WGM01</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">WGM00</span><span class="p">);</span><span class="w"> </span><span class="cm">/* Fast PWM */</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="n">TCCR0B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">CS01</span><span class="p">);</span><span class="w">          </span><span class="cm">/* Prescaler = 8 */</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="n">OCR0A</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w">                  </span><span class="cm">/* %50 duty cycle (0–255) */</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">PWM Çözünürlüğü</p>
+<p>8-bit Timer: 256 adım → %0.39 duty cycle çözünürlüğü.
+16-bit Timer1: 65536 adım → çok daha hassas servo kontrol.</p>
+</div>
+<hr />
+<h2 id="adc-analog-digital-converter">ADC (Analog-Digital Converter)<a class="headerlink" href="#adc-analog-digital-converter" title="Permanent link">&para;</a></h2>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span>
+<span class="normal"><a href="#__codelineno-10-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">adc_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">    </span><span class="n">ADMUX</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">REFS0</span><span class="p">);</span><span class="w">       </span><span class="cm">/* AVcc referans, ADC0 seçili */</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">    </span><span class="n">ADCSRA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADEN</span><span class="p">)</span><span class="w">         </span><span class="cm">/* ADC enable */</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADPS2</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADPS1</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADPS0</span><span class="p">);</span><span class="w"> </span><span class="cm">/* /128 prescaler */</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="p">}</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="kt">uint16_t</span><span class="w"> </span><span class="nf">adc_read</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">kanal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">    </span><span class="n">ADMUX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ADMUX</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xF0</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">kanal</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x0F</span><span class="p">);</span><span class="w">  </span><span class="cm">/* Kanal seç */</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">    </span><span class="n">ADCSRA</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADSC</span><span class="p">);</span><span class="w">                     </span><span class="cm">/* Dönüşüm başlat */</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">ADCSRA</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADSC</span><span class="p">));</span><span class="w">              </span><span class="cm">/* Tamamlanmasını bekle */</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ADC</span><span class="p">;</span><span class="w">                                 </span><span class="cm">/* 10-bit sonuç */</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="p">}</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">    </span><span class="n">adc_init</span><span class="p">();</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">deger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adc_read</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w">   </span><span class="cm">/* ADC0 (PC0) — 0..1023 */</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="w">    </span><span class="cm">/* Gerilim = deger * (5.0 / 1024) */</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="usart-serial-communication">USART (Serial Communication)<a class="headerlink" href="#usart-serial-communication" title="Permanent link">&para;</a></h2>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span>
+<span class="normal"><a href="#__codelineno-11-16">16</a></span>
+<span class="normal"><a href="#__codelineno-11-17">17</a></span>
+<span class="normal"><a href="#__codelineno-11-18">18</a></span>
+<span class="normal"><a href="#__codelineno-11-19">19</a></span>
+<span class="normal"><a href="#__codelineno-11-20">20</a></span>
+<span class="normal"><a href="#__codelineno-11-21">21</a></span>
+<span class="normal"><a href="#__codelineno-11-22">22</a></span>
+<span class="normal"><a href="#__codelineno-11-23">23</a></span>
+<span class="normal"><a href="#__codelineno-11-24">24</a></span>
+<span class="normal"><a href="#__codelineno-11-25">25</a></span>
+<span class="normal"><a href="#__codelineno-11-26">26</a></span>
+<span class="normal"><a href="#__codelineno-11-27">27</a></span>
+<span class="normal"><a href="#__codelineno-11-28">28</a></span>
+<span class="normal"><a href="#__codelineno-11-29">29</a></span>
+<span class="normal"><a href="#__codelineno-11-30">30</a></span>
+<span class="normal"><a href="#__codelineno-11-31">31</a></span>
+<span class="normal"><a href="#__codelineno-11-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="cp">#define BAUD 9600</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="cp">#define UBRR_VAL ((F_CPU / (16UL * BAUD)) - 1)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">usart_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">    </span><span class="n">UBRR0H</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UBRR_VAL</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">    </span><span class="n">UBRR0L</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">UBRR_VAL</span><span class="p">;</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">    </span><span class="n">UCSR0B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">TXEN0</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">RXEN0</span><span class="p">);</span><span class="w">   </span><span class="cm">/* TX + RX aktif */</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">    </span><span class="n">UCSR0C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">UCSZ01</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">UCSZ00</span><span class="p">);</span><span class="w"> </span><span class="cm">/* 8-bit, 1 stop, no parity */</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="p">}</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="kt">void</span><span class="w"> </span><span class="nf">usart_send</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">veri</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">UCSR0A</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">UDRE0</span><span class="p">)));</span><span class="w">  </span><span class="cm">/* Buffer boşalana dek bekle */</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">    </span><span class="n">UDR0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">veri</span><span class="p">;</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="p">}</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">usart_recv</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">UCSR0A</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">RXC0</span><span class="p">)));</span><span class="w">   </span><span class="cm">/* Veri gelene dek bekle */</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">UDR0</span><span class="p">;</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a><span class="p">}</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="cm">/* printf yönlendirme */</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="kt">int</span><span class="w"> </span><span class="nf">uart_putchar</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a><span class="w">    </span><span class="n">usart_send</span><span class="p">((</span><span class="kt">uint8_t</span><span class="p">)</span><span class="n">c</span><span class="p">);</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a><span class="p">}</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26"></a><span class="kt">FILE</span><span class="w"> </span><span class="n">uart_stdout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FDEV_SETUP_STREAM</span><span class="p">(</span><span class="n">uart_putchar</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">_FDEV_SETUP_WRITE</span><span class="p">);</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27"></a>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29"></a><span class="w">    </span><span class="n">usart_init</span><span class="p">();</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30"></a><span class="w">    </span><span class="n">stdout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">uart_stdout</span><span class="p">;</span>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Merhaba AVR!</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="guc-yonetimi">Güç Yönetimi<a class="headerlink" href="#guc-yonetimi" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Uyku Modu</th>
+<th style="text-align: center;">CPU</th>
+<th style="text-align: center;">I/O Clk</th>
+<th style="text-align: center;">Timer</th>
+<th style="text-align: center;">ADC</th>
+<th>Uyandıran</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td>Her kesme</td>
+</tr>
+<tr>
+<td>ADC Noise Reduction</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+<td>ADC tamamlama</td>
+</tr>
+<tr>
+<td>Power-Save</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">Timer2</td>
+<td style="text-align: center;">✗</td>
+<td>Async Timer2, TWINT</td>
+</tr>
+<tr>
+<td>Power-Down</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td>Sadece INT, Watchdog, TWI addr</td>
+</tr>
+</tbody>
+</table>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/sleep.h&gt;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="n">set_sleep_mode</span><span class="p">(</span><span class="n">SLEEP_MODE_IDLE</span><span class="p">);</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="n">sleep_enable</span><span class="p">();</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="n">sleep_cpu</span><span class="p">();</span><span class="w">          </span><span class="cm">/* Uyku */</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="n">sleep_disable</span><span class="p">();</span><span class="w">      </span><span class="cm">/* Kesme sonrası uyandı */</span>
 </span></code></pre></div></td></tr></table></div>
 
 
@@ -1274,7 +1982,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Altbilgi" >
         
           
-          <a href="../stm/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: STM Notes">
+          <a href="../stm/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: STM32">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1284,7 +1992,7 @@
                 Önceki
               </span>
               <div class="md-ellipsis">
-                STM Notes
+                STM32
               </div>
             </div>
           </a>

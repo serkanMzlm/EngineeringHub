@@ -1,0 +1,2480 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Teknik dokümantasyon">
+      
+      
+      
+      
+        <link rel="prev" href="../concepts/">
+      
+      
+        <link rel="next" href="../rtos/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Communication Protocols - Dokümantasyon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#haberlesme-protokolleri" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href="../../.." title="Dokümantasyon" class="md-header__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dokümantasyon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Communication Protocols
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label=""  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label=""  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Sekmeler" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/design_pattern/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../concepts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Embedded
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../linux/basics/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai/fundamentals/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../communication/ipc/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Communication
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../robotics/ros2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Robotics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../devops/git/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DevOps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Dokümantasyon" class="md-nav__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    Dokümantasyon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../programming/design_pattern/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Embedded
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Embedded
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Communication Protocols
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Communication Protocols
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uart-usart" class="md-nav__link">
+    <span class="md-ellipsis">
+      UART / USART
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UART / USART">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cerceve-yaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Çerçeve Yapısı
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#baud-rate-hesab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Baud Rate Hesabı
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stm32-usart-ornegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32 USART Örneği
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-serial-peripheral-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI (Serial Peripheral Interface)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SPI (Serial Peripheral Interface)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sinyal-acklamalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sinyal Açıklamaları
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spi-modlar-cpol-ve-cpha" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI Modları (CPOL ve CPHA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stm32-spi-ornegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32 SPI Örneği
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i2c-inter-integrated-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      I²C (Inter-Integrated Circuit)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I²C (Inter-Integrated Circuit)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bus-durumlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bus Durumları
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hz-modlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hız Modları
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stm32-i2c-ornegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32 I²C Örneği
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-vs-i2c-karslastrmas" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI vs I²C Karşılaştırması
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-bus-controller-area-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      CAN Bus (Controller Area Network)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CAN Bus (Controller Area Network)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-cerceve-yaps-standard-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      CAN Çerçeve Yapısı (Standard Frame)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csmaca-bus-arbitrasyonu" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSMA/CA — Bus Arbitrasyonu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-hz-ve-mesafe" class="md-nav__link">
+    <span class="md-ellipsis">
+      CAN Hız ve Mesafe
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stm32-can-ornegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32 CAN Örneği
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-hata-yonetimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      CAN Hata Yönetimi
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usb-ksa-ozet" class="md-nav__link">
+    <span class="md-ellipsis">
+      USB (Kısa Özet)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protokol-secim-rehberi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protokol Seçim Rehberi
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rtos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RTOS (FreeRTOS)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    STM32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../avr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AVR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../linux/basics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Linux
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ai/fundamentals/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    AI
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../communication/ipc/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Communication
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../robotics/ros2/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Robotics
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../devops/git/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    DevOps
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uart-usart" class="md-nav__link">
+    <span class="md-ellipsis">
+      UART / USART
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UART / USART">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cerceve-yaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Çerçeve Yapısı
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#baud-rate-hesab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Baud Rate Hesabı
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stm32-usart-ornegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32 USART Örneği
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-serial-peripheral-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI (Serial Peripheral Interface)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SPI (Serial Peripheral Interface)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sinyal-acklamalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sinyal Açıklamaları
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spi-modlar-cpol-ve-cpha" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI Modları (CPOL ve CPHA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stm32-spi-ornegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32 SPI Örneği
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i2c-inter-integrated-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      I²C (Inter-Integrated Circuit)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I²C (Inter-Integrated Circuit)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bus-durumlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bus Durumları
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hz-modlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hız Modları
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stm32-i2c-ornegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32 I²C Örneği
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-vs-i2c-karslastrmas" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI vs I²C Karşılaştırması
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-bus-controller-area-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      CAN Bus (Controller Area Network)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CAN Bus (Controller Area Network)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-cerceve-yaps-standard-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      CAN Çerçeve Yapısı (Standard Frame)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csmaca-bus-arbitrasyonu" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSMA/CA — Bus Arbitrasyonu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-hz-ve-mesafe" class="md-nav__link">
+    <span class="md-ellipsis">
+      CAN Hız ve Mesafe
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stm32-can-ornegi" class="md-nav__link">
+    <span class="md-ellipsis">
+      STM32 CAN Örneği
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-hata-yonetimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      CAN Hata Yönetimi
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usb-ksa-ozet" class="md-nav__link">
+    <span class="md-ellipsis">
+      USB (Kısa Özet)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protokol-secim-rehberi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protokol Seçim Rehberi
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="haberlesme-protokolleri">Haberleşme Protokolleri<a class="headerlink" href="#haberlesme-protokolleri" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Genel Bakış</p>
+<p>Gömülü sistemlerde sensörler, aktüatörler ve işlemciler arası haberleşme için standart seri protokoller kullanılır. Her protokolün fiziksel katman, timing ve hata yönetimi açısından kendine özgü özellikleri vardır. Bu bölüm UART, SPI, I²C ve CAN protokollerini kapsar.</p>
+</div>
+<pre class="mermaid"><code>graph LR
+    subgraph "Kısa Mesafe"
+        UART[UART\nAsenkron\n2 tel] 
+        SPI[SPI\nSenkron\n4 tel]
+        I2C[I2C\nSenkron\n2 tel\nÇok cihaz]
+    end
+    subgraph "Araç İçi Ağ"
+        CAN[CAN Bus\nDiferansiyel\n2 tel\nÇok master]
+    end
+    subgraph "Yüksek Hız"
+        USB[USB\nDiferamsiyel\n4 tel]
+        ETH[Ethernet\nDiferamsiyel]
+    end</code></pre>
+<hr />
+<h2 id="uart-usart">UART / USART<a class="headerlink" href="#uart-usart" title="Permanent link">&para;</a></h2>
+<p><strong>Universal Asynchronous Receiver-Transmitter</strong> — ortak clock olmaksızın asenkron seri iletişim.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant TX as TX (Gönderen)
+    participant RX as RX (Alan)
+
+    Note over TX,RX: Idle → HIGH (1)
+    TX-&gt;&gt;RX: Start Bit (LOW)
+    TX-&gt;&gt;RX: D0 (LSB)
+    TX-&gt;&gt;RX: D1
+    TX-&gt;&gt;RX: ...
+    TX-&gt;&gt;RX: D7 (MSB)
+    TX-&gt;&gt;RX: Parity (İsteğe bağlı)
+    TX-&gt;&gt;RX: Stop Bit(lar) (HIGH)
+    Note over TX,RX: Sonraki Frame veya Idle</code></pre>
+<h3 id="cerceve-yaps">Çerçeve Yapısı<a class="headerlink" href="#cerceve-yaps" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Alan</th>
+<th style="text-align: center;">Genişlik</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Bit</td>
+<td style="text-align: center;">1 bit</td>
+<td>LOW — frame başlangıcı</td>
+</tr>
+<tr>
+<td>Veri</td>
+<td style="text-align: center;">5–9 bit</td>
+<td>LSB önce; genellikle 8-bit</td>
+</tr>
+<tr>
+<td>Parity</td>
+<td style="text-align: center;">0–1 bit</td>
+<td>None / Even / Odd</td>
+</tr>
+<tr>
+<td>Stop Bit</td>
+<td style="text-align: center;">1–2 bit</td>
+<td>HIGH — frame sonu</td>
+</tr>
+</tbody>
+</table>
+<h3 id="baud-rate-hesab">Baud Rate Hesabı<a class="headerlink" href="#baud-rate-hesab" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>UBRR = (F_CPU / (16 × Baud)) - 1          // Normal hız
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>UBRR = (F_CPU / (8 × Baud)) - 1           // 2× hız (U2X=1)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>F_CPU=16 MHz, Baud=9600:
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>UBRR = (16_000_000 / (16 × 9600)) - 1 = 103
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Baud Rate Hatası</p>
+<p>Yaygın F_CPU değerlerinde tam baud rate çıkmaz; %2'nin üzerindeki hata iletişim bozulmasına neden olur. 11.0592 MHz kristal, popüler baud rate'lerin sıfır hatayla üretilmesini sağlar.</p>
+</div>
+<h3 id="stm32-usart-ornegi">STM32 USART Örneği<a class="headerlink" href="#stm32-usart-ornegi" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">STM32 USART2 Başlatma</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cm">/* USART2: PA2=TX, PA3=RX — APB1&#39;de */</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">RCC</span><span class="o">-&gt;</span><span class="n">APB1ENR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">RCC_APB1ENR_USART2EN</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">RCC</span><span class="o">-&gt;</span><span class="n">AHB1ENR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">RCC_AHB1ENR_GPIOAEN</span><span class="p">;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="cm">/* PA2/PA3 → AF7 (USART2) */</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">MODER</span><span class="w">  </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">6</span><span class="p">);</span><span class="w">   </span><span class="cm">/* Alternate Function */</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">AFR</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span><span class="w"> </span><span class="cm">/* AF7 */</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="n">USART2</span><span class="o">-&gt;</span><span class="n">BRR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42000000</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">115200</span><span class="p">;</span><span class="w">  </span><span class="cm">/* APB1=42MHz, Baud=115200 */</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="n">USART2</span><span class="o">-&gt;</span><span class="n">CR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">USART_CR1_TE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">USART_CR1_RE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">USART_CR1_UE</span><span class="p">;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="cm">/* Gönder */</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="kt">void</span><span class="w"> </span><span class="nf">usart2_send</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">USART2</span><span class="o">-&gt;</span><span class="n">SR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">USART_SR_TXE</span><span class="p">));</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">    </span><span class="n">USART2</span><span class="o">-&gt;</span><span class="n">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ch</span><span class="p">;</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="p">}</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="cm">/* Al */</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">usart2_recv</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">USART2</span><span class="o">-&gt;</span><span class="n">SR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">USART_SR_RXNE</span><span class="p">));</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">USART2</span><span class="o">-&gt;</span><span class="n">DR</span><span class="p">;</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Topoloji</td>
+<td>Point-to-Point</td>
+</tr>
+<tr>
+<td>Kablo</td>
+<td>TX→RX, RX→TX (çapraz)</td>
+</tr>
+<tr>
+<td>Clock</td>
+<td>Ortak referans yok — sadece baud rate eşleşmeli</td>
+</tr>
+<tr>
+<td>Hız</td>
+<td>115.2 kbps (tipik) → 10+ Mbps (bazı USART)</td>
+</tr>
+<tr>
+<td>Mesafe</td>
+<td>~15 m (RS-232 seviye dönüştürücüyle)</td>
+</tr>
+<tr>
+<td>Veri yönü</td>
+<td>Full-duplex (TX + RX eş zamanlı)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="spi-serial-peripheral-interface">SPI (Serial Peripheral Interface)<a class="headerlink" href="#spi-serial-peripheral-interface" title="Permanent link">&para;</a></h2>
+<p>Senkron, full-duplex, tek-master çok-slave seri protokol.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "SPI Master"
+        MOSI_M[MOSI]
+        MISO_M[MISO]
+        SCK_M[SCK]
+        CS1[CS1]
+        CS2[CS2]
+    end
+    subgraph "Slave 1"
+        MOSI_S1[MOSI]
+        MISO_S1[MISO]
+        SCK_S1[SCK]
+        SS_S1[SS/CS]
+    end
+    subgraph "Slave 2"
+        MOSI_S2[MOSI]
+        MISO_S2[MISO]
+        SCK_S2[SCK]
+        SS_S2[SS/CS]
+    end
+
+    MOSI_M --&gt; MOSI_S1
+    MOSI_M --&gt; MOSI_S2
+    MISO_S1 --&gt; MISO_M
+    MISO_S2 --&gt; MISO_M
+    SCK_M --&gt; SCK_S1
+    SCK_M --&gt; SCK_S2
+    CS1 --&gt; SS_S1
+    CS2 --&gt; SS_S2</code></pre>
+<h3 id="sinyal-acklamalar">Sinyal Açıklamaları<a class="headerlink" href="#sinyal-acklamalar" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th style="text-align: center;">Yön</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MOSI</strong></td>
+<td style="text-align: center;">Master→Slave</td>
+<td>Master Out Slave In</td>
+</tr>
+<tr>
+<td><strong>MISO</strong></td>
+<td style="text-align: center;">Slave→Master</td>
+<td>Master In Slave Out</td>
+</tr>
+<tr>
+<td><strong>SCK</strong> (SCLK)</td>
+<td style="text-align: center;">Master→Slave</td>
+<td>Clock — master üretir</td>
+</tr>
+<tr>
+<td><strong>CS</strong> (SS, NSS)</td>
+<td style="text-align: center;">Master→Slave</td>
+<td>Chip Select — LOW=aktif</td>
+</tr>
+</tbody>
+</table>
+<h3 id="spi-modlar-cpol-ve-cpha">SPI Modları (CPOL ve CPHA)<a class="headerlink" href="#spi-modlar-cpol-ve-cpha" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Mod</th>
+<th style="text-align: center;">CPOL</th>
+<th style="text-align: center;">CPHA</th>
+<th style="text-align: center;">Clock Boşta</th>
+<th style="text-align: center;">Örnekleme Kenarı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">LOW</td>
+<td style="text-align: center;">Yükselen</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">LOW</td>
+<td style="text-align: center;">Düşen</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">HIGH</td>
+<td style="text-align: center;">Düşen</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">HIGH</td>
+<td style="text-align: center;">Yükselen</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Mod Seçimi</p>
+<p>Slave cihazın datasheet'inde CPOL/CPHA veya SPI Mode 0–3 belirtilir. En yaygın kullanılan Mod 0 ve Mod 3'tür.</p>
+</div>
+<h3 id="stm32-spi-ornegi">STM32 SPI Örneği<a class="headerlink" href="#stm32-spi-ornegi" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">STM32 SPI1 — Polling</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="cm">/* SPI1: PA5=SCK, PA6=MISO, PA7=MOSI */</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">RCC</span><span class="o">-&gt;</span><span class="n">APB2ENR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">RCC_APB2ENR_SPI1EN</span><span class="p">;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">RCC</span><span class="o">-&gt;</span><span class="n">AHB1ENR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">RCC_AHB1ENR_GPIOAEN</span><span class="p">;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="cm">/* PA5/PA6/PA7 → AF5 */</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">MODER</span><span class="w">  </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">&lt;&lt;</span><span class="mi">10</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="mi">2</span><span class="o">&lt;&lt;</span><span class="mi">12</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="mi">2</span><span class="o">&lt;&lt;</span><span class="mi">14</span><span class="p">);</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">AFR</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="mi">5</span><span class="o">&lt;&lt;</span><span class="mi">24</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="mi">5</span><span class="o">&lt;&lt;</span><span class="mi">28</span><span class="p">);</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="cm">/* CS → PA4, GPIO çıkış */</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">MODER</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">BSRR</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">  </span><span class="cm">/* CS HIGH (deaktif) */</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="n">SPI1</span><span class="o">-&gt;</span><span class="n">CR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_CR1_MSTR</span><span class="w">          </span><span class="cm">/* Master */</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="n">SPI_CR1_BR_1</span><span class="w">          </span><span class="cm">/* fPCLK/8 */</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="n">SPI_CR1_SSM</span><span class="w">           </span><span class="cm">/* Software NSS */</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="n">SPI_CR1_SSI</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="n">SPI_CR1_SPE</span><span class="p">;</span><span class="w">          </span><span class="cm">/* SPI enable */</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">spi_transfer</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">veri</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">SPI1</span><span class="o">-&gt;</span><span class="n">SR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">SPI_SR_TXE</span><span class="p">));</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="w">    </span><span class="n">SPI1</span><span class="o">-&gt;</span><span class="n">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">veri</span><span class="p">;</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">SPI1</span><span class="o">-&gt;</span><span class="n">SR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">SPI_SR_RXNE</span><span class="p">));</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SPI1</span><span class="o">-&gt;</span><span class="n">DR</span><span class="p">;</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="p">}</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="cm">/* Kullanım */</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">BSRR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="p">));</span><span class="w">   </span><span class="cm">/* CS LOW */</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cevap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spi_transfer</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">);</span><span class="w"> </span><span class="cm">/* ID oku */</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="n">GPIOA</span><span class="o">-&gt;</span><span class="n">BSRR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">           </span><span class="cm">/* CS HIGH */</span>
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Topoloji</td>
+<td>Master + N Slave (ayrı CS hattı her birine)</td>
+</tr>
+<tr>
+<td>Hız</td>
+<td>10–100 Mbps</td>
+</tr>
+<tr>
+<td>Veri yönü</td>
+<td>Full-duplex (eş zamanlı MOSI+MISO)</td>
+</tr>
+<tr>
+<td>Pin sayısı</td>
+<td>3 + N (N = slave sayısı, CS başına 1)</td>
+</tr>
+<tr>
+<td>Hata tespiti</td>
+<td>Yok (uygulama katmanında yapılmalı)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="i2c-inter-integrated-circuit">I²C (Inter-Integrated Circuit)<a class="headerlink" href="#i2c-inter-integrated-circuit" title="Permanent link">&para;</a></h2>
+<p>İki tel (SDA + SCL) ile çok-master, çok-slave senkron protokol. Her slave'in benzersiz 7 veya 10-bit adresi vardır.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant M as Master
+    participant S as Slave (Addr 0x68)
+
+    M-&gt;&gt;S: START Condition
+    M-&gt;&gt;S: Slave Adresi (7-bit) + W bit (0)
+    S-&gt;&gt;M: ACK
+    M-&gt;&gt;S: Register Adresi (0x3B)
+    S-&gt;&gt;M: ACK
+    M-&gt;&gt;S: REPEATED START
+    M-&gt;&gt;S: Slave Adresi + R bit (1)
+    S-&gt;&gt;M: ACK
+    S-&gt;&gt;M: Data Byte 0
+    M-&gt;&gt;S: ACK
+    S-&gt;&gt;M: Data Byte 1
+    M-&gt;&gt;S: NACK (Son byte)
+    M-&gt;&gt;S: STOP Condition</code></pre>
+<h3 id="bus-durumlar">Bus Durumları<a class="headerlink" href="#bus-durumlar" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Durum</th>
+<th style="text-align: center;">SDA</th>
+<th style="text-align: center;">SCL</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle</td>
+<td style="text-align: center;">HIGH</td>
+<td style="text-align: center;">HIGH</td>
+<td>Açık (open-drain pull-up)</td>
+</tr>
+<tr>
+<td><strong>START</strong></td>
+<td style="text-align: center;">HIGH → LOW</td>
+<td style="text-align: center;">HIGH</td>
+<td>Yeni transfer başlıyor</td>
+</tr>
+<tr>
+<td>Veri</td>
+<td style="text-align: center;">Geçerli bit</td>
+<td style="text-align: center;">↑ pulse</td>
+<td>SCL HIGH iken SDA sabit</td>
+</tr>
+<tr>
+<td><strong>STOP</strong></td>
+<td style="text-align: center;">LOW → HIGH</td>
+<td style="text-align: center;">HIGH</td>
+<td>Transfer sonu</td>
+</tr>
+<tr>
+<td><strong>R-START</strong></td>
+<td style="text-align: center;">HIGH → LOW</td>
+<td style="text-align: center;">HIGH</td>
+<td>STOP olmadan yeni transfer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hz-modlar">Hız Modları<a class="headerlink" href="#hz-modlar" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mod</th>
+<th style="text-align: center;">Hız</th>
+<th>Kullanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard</td>
+<td style="text-align: center;">100 kHz</td>
+<td>Genel amaçlı</td>
+</tr>
+<tr>
+<td>Fast</td>
+<td style="text-align: center;">400 kHz</td>
+<td>Yaygın sensörler</td>
+</tr>
+<tr>
+<td>Fast Plus</td>
+<td style="text-align: center;">1 MHz</td>
+<td>Yüksek hızlı sensörler</td>
+</tr>
+<tr>
+<td>High-Speed</td>
+<td style="text-align: center;">3.4 MHz</td>
+<td>Özel donanım</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stm32-i2c-ornegi">STM32 I²C Örneği<a class="headerlink" href="#stm32-i2c-ornegi" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">STM32 I2C1 — HAL ile MPU6050 okuma</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cm">/* HAL kullanımı (tercih edilen) */</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stm32f4xx_hal.h&quot;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="k">extern</span><span class="w"> </span><span class="n">I2C_HandleTypeDef</span><span class="w"> </span><span class="n">hi2c1</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="cp">#define MPU6050_ADDR (0x68 &lt;&lt; 1)   </span><span class="cm">/* HAL 8-bit adres kullanır */</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="cm">/* Yazma */</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x6B</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00</span><span class="p">;</span><span class="w">   </span><span class="cm">/* PWR_MGMT_1 = 0 */</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="n">HAL_I2C_Master_Transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hi2c1</span><span class="p">,</span><span class="w"> </span><span class="n">MPU6050_ADDR</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">[]){</span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">},</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="cm">/* Okuma */</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">veri</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">reg_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x3B</span><span class="p">;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="n">HAL_I2C_Master_Transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hi2c1</span><span class="p">,</span><span class="w"> </span><span class="n">MPU6050_ADDR</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">reg_start</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="n">HAL_I2C_Master_Receive</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">hi2c1</span><span class="p">,</span><span class="w"> </span><span class="n">MPU6050_ADDR</span><span class="p">,</span><span class="w"> </span><span class="n">veri</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Register Seviyesi I2C — STM32F4</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">i2c1_write</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="cm">/* START */</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">CR1</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">I2C_CR1_START</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">SR1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2C_SR1_SB</span><span class="p">));</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="cm">/* Slave adres + Write */</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">addr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">SR1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2C_SR1_ADDR</span><span class="p">));</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">SR2</span><span class="p">;</span><span class="w">  </span><span class="cm">/* SR2 okuyarak ADDR temizle */</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">    </span><span class="cm">/* Register adresi */</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">    </span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reg</span><span class="p">;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">SR1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2C_SR1_TXE</span><span class="p">));</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">    </span><span class="cm">/* Veri */</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">    </span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">SR1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2C_SR1_BTF</span><span class="p">));</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">    </span><span class="cm">/* STOP */</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">    </span><span class="n">I2C1</span><span class="o">-&gt;</span><span class="n">CR1</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">I2C_CR1_STOP</span><span class="p">;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition danger">
+<p class="admonition-title">I²C Pull-Up Direnci</p>
+<p>SDA ve SCL hatları open-drain; her zaman pull-up direnci şart. Düşük hız (100 kHz) için 10 kΩ, yüksek hız için 2.2 kΩ–4.7 kΩ tipik değerlerdir. Pull-up olmadan bus asla HIGH'a gidemez → iletişim imkânsız.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">I²C Adres Tarama</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cm">/* Tüm adreslere START + Adres gönder; ACK gelirse cihaz var */</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">addr</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w"> </span><span class="n">addr</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_I2C_IsDeviceReady</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hi2c1</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">HAL_OK</span><span class="p">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Cihaz bulundu: 0x%02X</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Topoloji</td>
+<td>Multi-master, multi-slave</td>
+</tr>
+<tr>
+<td>Kablo</td>
+<td>SDA + SCL (2 tel + GND + VCC)</td>
+</tr>
+<tr>
+<td>Adres</td>
+<td>7-bit (128 cihaz) veya 10-bit</td>
+</tr>
+<tr>
+<td>Hız</td>
+<td>100 kHz – 3.4 MHz</td>
+</tr>
+<tr>
+<td>Hata tespiti</td>
+<td>ACK/NACK mekanizması</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="spi-vs-i2c-karslastrmas">SPI vs I²C Karşılaştırması<a class="headerlink" href="#spi-vs-i2c-karslastrmas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th style="text-align: center;">SPI</th>
+<th style="text-align: center;">I²C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tel sayısı</td>
+<td style="text-align: center;">4+</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td>Hız</td>
+<td style="text-align: center;">≥10 Mbps</td>
+<td style="text-align: center;">≤3.4 Mbps</td>
+</tr>
+<tr>
+<td>Mesafe</td>
+<td style="text-align: center;">Kısa (PCB içi)</td>
+<td style="text-align: center;">Kısa (PCB içi)</td>
+</tr>
+<tr>
+<td>Multi-slave</td>
+<td style="text-align: center;">CS başına 1 pin</td>
+<td style="text-align: center;">Adres sistemi</td>
+</tr>
+<tr>
+<td>Full-duplex</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗ (half-duplex)</td>
+</tr>
+<tr>
+<td>Donanım karmaşıklığı</td>
+<td style="text-align: center;">Düşük</td>
+<td style="text-align: center;">Orta (pull-up, arbitration)</td>
+</tr>
+<tr>
+<td>Hata tespiti</td>
+<td style="text-align: center;">Yok</td>
+<td style="text-align: center;">ACK/NACK</td>
+</tr>
+<tr>
+<td>Tipik cihazlar</td>
+<td style="text-align: center;">Flash, Display, DAC, ADC</td>
+<td style="text-align: center;">Sensörler, EEPROM, RTC</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="can-bus-controller-area-network">CAN Bus (Controller Area Network)<a class="headerlink" href="#can-bus-controller-area-network" title="Permanent link">&para;</a></h2>
+<p>Araç içi ve endüstriyel sistemlerde yüksek güvenilirlikli, çok-master, diferansiyel seri ağ protokolü.</p>
+<pre class="mermaid"><code>graph LR
+    ECU1[ECU 1\nMotor] --- BUS[(CAN_H\nCAN_L)]
+    ECU2[ECU 2\nFren] --- BUS
+    ECU3[ECU 3\nGösterge] --- BUS
+    ECU4[ECU 4\nABS] --- BUS
+    BUS --- R1[120Ω\nTerminator]
+    BUS --- R2[120Ω\nTerminator]</code></pre>
+<h3 id="can-cerceve-yaps-standard-frame">CAN Çerçeve Yapısı (Standard Frame)<a class="headerlink" href="#can-cerceve-yaps-standard-frame" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>| SOF | ID[10:0] | RTR | IDE | r0 | DLC[3:0] | Data[0:7 bytes] | CRC | ACK | EOF |
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Alan</th>
+<th style="text-align: center;">Bit</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SOF</td>
+<td style="text-align: center;">1</td>
+<td>Start of Frame — dominant (0)</td>
+</tr>
+<tr>
+<td>Identifier (ID)</td>
+<td style="text-align: center;">11 (veya 29)</td>
+<td>Mesaj kimliği <strong>ve önceliği</strong></td>
+</tr>
+<tr>
+<td>RTR</td>
+<td style="text-align: center;">1</td>
+<td>Remote Transmission Request</td>
+</tr>
+<tr>
+<td>DLC</td>
+<td style="text-align: center;">4</td>
+<td>Data Length Code (0–8 byte)</td>
+</tr>
+<tr>
+<td>Data</td>
+<td style="text-align: center;">0–64 bit</td>
+<td>Veri</td>
+</tr>
+<tr>
+<td>CRC</td>
+<td style="text-align: center;">15+1</td>
+<td>Hata tespiti</td>
+</tr>
+<tr>
+<td>ACK</td>
+<td style="text-align: center;">2</td>
+<td>Herhangi bir alıcı dominant çeker</td>
+</tr>
+<tr>
+<td>EOF</td>
+<td style="text-align: center;">7</td>
+<td>End of Frame</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">ID = Öncelik</p>
+<p>CAN'da ID hem mesajı tanımlar hem de bus arbitrasyonunda önceliği belirler. <strong>Düşük ID → Yüksek öncelik.</strong> ID=0 en yüksek önceliklidir.</p>
+</div>
+<h3 id="csmaca-bus-arbitrasyonu">CSMA/CA — Bus Arbitrasyonu<a class="headerlink" href="#csmaca-bus-arbitrasyonu" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant A as ECU A (ID=100)
+    participant B as ECU B (ID=200)
+    participant BUS as CAN Bus
+
+    A-&gt;&gt;BUS: Göndermeye çalışıyor (ID=100)
+    B-&gt;&gt;BUS: Göndermeye çalışıyor (ID=200)
+    Note over BUS: ID bit-by-bit karşılaştırılır
+    Note over BUS: ID=100 kazanır (daha düşük)
+    BUS-&gt;&gt;A: A gönderir
+    BUS--&gt;&gt;B: B bekler (bus meşgul)</code></pre>
+<h3 id="can-hz-ve-mesafe">CAN Hız ve Mesafe<a class="headerlink" href="#can-hz-ve-mesafe" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Hız</th>
+<th style="text-align: center;">Maksimum Mesafe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1 Mbps</td>
+<td style="text-align: center;">40 m</td>
+</tr>
+<tr>
+<td style="text-align: center;">500 kbps</td>
+<td style="text-align: center;">100 m</td>
+</tr>
+<tr>
+<td style="text-align: center;">250 kbps</td>
+<td style="text-align: center;">250 m</td>
+</tr>
+<tr>
+<td style="text-align: center;">125 kbps</td>
+<td style="text-align: center;">500 m</td>
+</tr>
+<tr>
+<td style="text-align: center;">10 kbps</td>
+<td style="text-align: center;">6000 m</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stm32-can-ornegi">STM32 CAN Örneği<a class="headerlink" href="#stm32-can-ornegi" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">STM32 bxCAN — Mesaj Gönder</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span>
+<span class="normal"><a href="#__codelineno-7-21">21</a></span>
+<span class="normal"><a href="#__codelineno-7-22">22</a></span>
+<span class="normal"><a href="#__codelineno-7-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">CAN_TxHeaderTypeDef</span><span class="w"> </span><span class="n">txHeader</span><span class="p">;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">txData</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="mh">0x03</span><span class="p">,</span><span class="w"> </span><span class="mh">0x04</span><span class="p">};</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="kt">uint32_t</span><span class="w"> </span><span class="n">txMailbox</span><span class="p">;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="n">txHeader</span><span class="p">.</span><span class="n">StdId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x123</span><span class="p">;</span><span class="w">          </span><span class="cm">/* 11-bit ID */</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="n">txHeader</span><span class="p">.</span><span class="n">IDE</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">CAN_ID_STD</span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="n">txHeader</span><span class="p">.</span><span class="n">RTR</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">CAN_RTR_DATA</span><span class="p">;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="n">txHeader</span><span class="p">.</span><span class="n">DLC</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">              </span><span class="cm">/* 4 byte veri */</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="n">HAL_CAN_AddTxMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hcan1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">txHeader</span><span class="p">,</span><span class="w"> </span><span class="n">txData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">txMailbox</span><span class="p">);</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="cm">/* Filtre — sadece ID=0x123 mesajları kabul et */</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="n">CAN_FilterTypeDef</span><span class="w"> </span><span class="n">filtre</span><span class="p">;</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="n">filtre</span><span class="p">.</span><span class="n">FilterIdHigh</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mh">0x123</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="n">filtre</span><span class="p">.</span><span class="n">FilterIdLow</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="n">filtre</span><span class="p">.</span><span class="n">FilterMaskIdHigh</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mh">0x7FF</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">  </span><span class="cm">/* Tam eşleşme */</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="n">filtre</span><span class="p">.</span><span class="n">FilterMaskIdLow</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="n">filtre</span><span class="p">.</span><span class="n">FilterBank</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="n">filtre</span><span class="p">.</span><span class="n">FilterMode</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="n">CAN_FILTERMODE_IDMASK</span><span class="p">;</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a><span class="n">filtre</span><span class="p">.</span><span class="n">FilterScale</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="n">CAN_FILTERSCALE_32BIT</span><span class="p">;</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a><span class="n">filtre</span><span class="p">.</span><span class="n">FilterActivation</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">ENABLE</span><span class="p">;</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a><span class="n">filtre</span><span class="p">.</span><span class="n">SlaveStartFilterBank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">14</span><span class="p">;</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a><span class="n">HAL_CAN_ConfigFilter</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hcan1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">filtre</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="can-hata-yonetimi">CAN Hata Yönetimi<a class="headerlink" href="#can-hata-yonetimi" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Hata</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bit Error</td>
+<td>Gönderilen bit != okunan bit</td>
+</tr>
+<tr>
+<td>Stuff Error</td>
+<td>5 ardışık aynı bit → Stuffing kuralı ihlali</td>
+</tr>
+<tr>
+<td>CRC Error</td>
+<td>CRC uyuşmazlığı</td>
+</tr>
+<tr>
+<td>Form Error</td>
+<td>Sabit alanlar yanlış (EOF, ACK)</td>
+</tr>
+<tr>
+<td>ACK Error</td>
+<td>Hiç kimse ACK çekmedi</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>stateDiagram-v2
+    Error_Active --&gt; Error_Passive : TEC veya REC &gt; 127
+    Error_Passive --&gt; Error_Active : TEC ve REC &lt; 128
+    Error_Passive --&gt; Bus_Off : TEC &gt; 255
+    Bus_Off --&gt; Error_Active : 128 × 11 recessive bit</code></pre>
+<div class="admonition danger">
+<p class="admonition-title">Bus-Off Durumu</p>
+<p>Hata sayacı (TEC &gt; 255) limitini aşarsa node bus'tan kendini çıkarır. Otomotiv sistemlerinde Bus-Off kurtarma yazılımla yönetilmeli ve watchdog ile izlenmelidir.</p>
+</div>
+<hr />
+<h2 id="usb-ksa-ozet">USB (Kısa Özet)<a class="headerlink" href="#usb-ksa-ozet" title="Permanent link">&para;</a></h2>
+<p>USB, PC ve gömülü cihazlar arasında yüksek hızlı, hot-pluggable haberleşme sağlar.</p>
+<table>
+<thead>
+<tr>
+<th>Standart</th>
+<th style="text-align: center;">Hız</th>
+<th>Kullanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USB 1.1 FS</td>
+<td style="text-align: center;">12 Mbps</td>
+<td>HID (klavye, fare)</td>
+</tr>
+<tr>
+<td>USB 2.0 HS</td>
+<td style="text-align: center;">480 Mbps</td>
+<td>Mass Storage, CDC</td>
+</tr>
+<tr>
+<td>USB 3.0</td>
+<td style="text-align: center;">5 Gbps</td>
+<td>Kamera, yüksek bant genişliği</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Cihaz Sınıfı</th>
+<th style="text-align: center;">Kısaltma</th>
+<th>Örnek</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Communication Device</td>
+<td style="text-align: center;">CDC</td>
+<td>Virtual COM Port</td>
+</tr>
+<tr>
+<td>Human Interface Device</td>
+<td style="text-align: center;">HID</td>
+<td>Klavye, fare, gamepad</td>
+</tr>
+<tr>
+<td>Mass Storage</td>
+<td style="text-align: center;">MSC</td>
+<td>USB bellek</td>
+</tr>
+<tr>
+<td>Device Firmware Upgrade</td>
+<td style="text-align: center;">DFU</td>
+<td>Bootloader</td>
+</tr>
+<tr>
+<td>Vendor Specific</td>
+<td style="text-align: center;">—</td>
+<td>Özel protokoller</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">STM32 USB CDC — Virtual COM Port</p>
+<p>STM32CubeMX'te USB_OTG_FS → Device → CDC seçilir; otomatik üretilen <code>usbd_cdc_if.c</code> içindeki <code>CDC_Transmit_FS()</code> ile veri gönderilebilir. PC'de sürücü gerekmez — standart COM port olarak görünür.</p>
+</div>
+<hr />
+<h2 id="protokol-secim-rehberi">Protokol Seçim Rehberi<a class="headerlink" href="#protokol-secim-rehberi" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Gereksinim</th>
+<th style="text-align: center;">Önerilen Protokol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tek cihaz, yüksek hız, tam-çift</td>
+<td style="text-align: center;">SPI</td>
+</tr>
+<tr>
+<td>Çok cihaz, az pin, düşük-orta hız</td>
+<td style="text-align: center;">I²C</td>
+</tr>
+<tr>
+<td>Basit seri debug / PC haberleşmesi</td>
+<td style="text-align: center;">UART</td>
+</tr>
+<tr>
+<td>Araç içi ağ, yüksek güvenilirlik</td>
+<td style="text-align: center;">CAN</td>
+</tr>
+<tr>
+<td>PC bağlantısı, plug-and-play</td>
+<td style="text-align: center;">USB</td>
+</tr>
+<tr>
+<td>10 Mbps+ endüstriyel Ethernet</td>
+<td style="text-align: center;">Ethernet</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Altbilgi" >
+        
+          
+          <a href="../concepts/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: Concepts">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Önceki
+              </span>
+              <div class="md-ellipsis">
+                Concepts
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../rtos/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: RTOS (FreeRTOS)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sonraki
+              </span>
+              <div class="md-ellipsis">
+                RTOS (FreeRTOS)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.linked", "content.code.select", "content.code.wrap", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>
