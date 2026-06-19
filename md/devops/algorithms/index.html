@@ -1,0 +1,2921 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Teknik dokümantasyon">
+      
+      
+      
+      
+        <link rel="prev" href="../gstreamer/">
+      
+      
+        <link rel="next" href="../vim/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Algorithms - Dokümantasyon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#algoritmalar" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href="../../.." title="Dokümantasyon" class="md-header__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dokümantasyon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Algorithms
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label=""  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label=""  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Sekmeler" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/design_pattern/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../embedded/concepts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Embedded
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../linux/basics/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai/fundamentals/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../communication/ipc/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Communication
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../robotics/ros2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Robotics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../git/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DevOps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Dokümantasyon" class="md-nav__button md-logo" aria-label="Dokümantasyon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 4 16 6.41v.18L18.41 9H22v2h-4.41L16 9.41V12h-1a2 2 0 0 1-2-2V7.5H9.86c-.09.37-.24.72-.44 1.05L15.18 19H20a2 2 0 0 1 2 2v1H2v-1a2 2 0 0 1 2-2h6.61l-4.69-8.5a4.006 4.006 0 0 1-3.81-3A4 4 0 0 1 5 2.63c2.13-.55 4.31.73 4.86 2.87H13V3a2 2 0 0 1 2-2h1v2.59L17.59 2H22v2zM6 4.5a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg>
+
+    </a>
+    Dokümantasyon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../programming/design_pattern/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../embedded/concepts/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Embedded
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../linux/basics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Linux
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ai/fundamentals/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    AI
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../communication/ipc/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Communication
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../robotics/ros2/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Robotics
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    DevOps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            DevOps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gstreamer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GStreamer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Algorithms
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Algorithms
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#optical-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optical Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optical Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sparse-vs-dense-optik-aks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sparse vs Dense Optik Akış
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vio-visual-inertial-odometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      VIO — Visual Inertial Odometry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VIO — Visual Inertial Odometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vo-ile-vio-arasndaki-fark" class="md-nav__link">
+    <span class="md-ellipsis">
+      VO ile VIO Arasındaki Fark
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vonun-sorunlar-neden-imu-eklenir" class="md-nav__link">
+    <span class="md-ellipsis">
+      VO'nun Sorunları — Neden IMU Eklenir?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sistem-mimarisi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sistem Mimarisi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-ckan-vio-sistemleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Öne Çıkan VIO Sistemleri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stereo-kamera-avantaj-ve-dezavantajlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stereo Kamera: Avantaj ve Dezavantajlar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stereo Kamera: Avantaj ve Dezavantajlar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avantajlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Avantajlar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dezavantajlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dezavantajlar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mono-vs-stereo-karslastrmas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mono vs Stereo Karşılaştırması
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graf-algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graf Algoritmaları
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Graf Algoritmaları">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bfs-genislik-oncelikli-arama" class="md-nav__link">
+    <span class="md-ellipsis">
+      BFS — Genişlik Öncelikli Arama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-derinlik-oncelikli-arama" class="md-nav__link">
+    <span class="md-ellipsis">
+      DFS — Derinlik Öncelikli Arama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dijkstra" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dijkstra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bellman-ford" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bellman-Ford
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floyd-warshall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Floyd-Warshall
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-a-star" class="md-nav__link">
+    <span class="md-ellipsis">
+      A* (A-Star)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sralama-algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sıralama Algoritmaları
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sıralama Algoritmaları">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bubble-sort-kabarck-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bubble Sort — Kabarcık Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-sort-secme-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection Sort — Seçme Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertion-sort-ekleme-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insertion Sort — Ekleme Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-sort-birlestirme-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merge Sort — Birleştirme Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-sort-hzl-sralama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Sort — Hızlı Sıralama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heap-sort-ygn-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Heap Sort — Yığın Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#karslastrma-tablosu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Karşılaştırma Tablosu
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arama-algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arama Algoritmaları
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arama Algoritmaları">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-search-dogrusal-arama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linear Search — Doğrusal Arama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-search-ikili-arama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Search — İkili Arama
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solid-prensipleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      SOLID Prensipleri
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SOLID Prensipleri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s-single-responsibility-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      S — Single Responsibility Principle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-openclosed-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      O — Open/Closed Principle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l-liskov-substitution-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      L — Liskov Substitution Principle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-interface-segregation-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      I — Interface Segregation Principle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-dependency-inversion-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      D — Dependency Inversion Principle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#optical-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optical Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optical Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sparse-vs-dense-optik-aks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sparse vs Dense Optik Akış
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vio-visual-inertial-odometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      VIO — Visual Inertial Odometry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VIO — Visual Inertial Odometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vo-ile-vio-arasndaki-fark" class="md-nav__link">
+    <span class="md-ellipsis">
+      VO ile VIO Arasındaki Fark
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vonun-sorunlar-neden-imu-eklenir" class="md-nav__link">
+    <span class="md-ellipsis">
+      VO'nun Sorunları — Neden IMU Eklenir?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sistem-mimarisi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sistem Mimarisi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-ckan-vio-sistemleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Öne Çıkan VIO Sistemleri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stereo-kamera-avantaj-ve-dezavantajlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stereo Kamera: Avantaj ve Dezavantajlar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stereo Kamera: Avantaj ve Dezavantajlar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avantajlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Avantajlar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dezavantajlar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dezavantajlar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mono-vs-stereo-karslastrmas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mono vs Stereo Karşılaştırması
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graf-algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graf Algoritmaları
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Graf Algoritmaları">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bfs-genislik-oncelikli-arama" class="md-nav__link">
+    <span class="md-ellipsis">
+      BFS — Genişlik Öncelikli Arama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-derinlik-oncelikli-arama" class="md-nav__link">
+    <span class="md-ellipsis">
+      DFS — Derinlik Öncelikli Arama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dijkstra" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dijkstra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bellman-ford" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bellman-Ford
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floyd-warshall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Floyd-Warshall
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-a-star" class="md-nav__link">
+    <span class="md-ellipsis">
+      A* (A-Star)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sralama-algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sıralama Algoritmaları
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sıralama Algoritmaları">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bubble-sort-kabarck-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bubble Sort — Kabarcık Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-sort-secme-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection Sort — Seçme Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertion-sort-ekleme-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insertion Sort — Ekleme Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-sort-birlestirme-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merge Sort — Birleştirme Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-sort-hzl-sralama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Sort — Hızlı Sıralama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heap-sort-ygn-sralamas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Heap Sort — Yığın Sıralaması
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#karslastrma-tablosu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Karşılaştırma Tablosu
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arama-algoritmalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arama Algoritmaları
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arama Algoritmaları">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-search-dogrusal-arama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linear Search — Doğrusal Arama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-search-ikili-arama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Search — İkili Arama
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solid-prensipleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      SOLID Prensipleri
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SOLID Prensipleri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s-single-responsibility-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      S — Single Responsibility Principle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-openclosed-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      O — Open/Closed Principle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l-liskov-substitution-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      L — Liskov Substitution Principle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-interface-segregation-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      I — Interface Segregation Principle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-dependency-inversion-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      D — Dependency Inversion Principle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="algoritmalar">Algoritmalar<a class="headerlink" href="#algoritmalar" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Genel Bakış</p>
+<p>Bu sayfa algoritmaların <strong>nasıl çalıştığını</strong> ve <strong>neden tercih edildiğini</strong> açıklar. Kod değil mantık odaklıdır: her algoritmanın arka planını, zaman/mekan karmaşıklığını ve hangi problem tipine uygun olduğunu anlayabilmek için kaleme alınmıştır.</p>
+</div>
+<hr />
+<h2 id="optical-flow">Optical Flow<a class="headerlink" href="#optical-flow" title="Permanent link">&para;</a></h2>
+<p>Optik akış, bir video karesindeki piksel veya özellik noktalarının bir sonraki kareye göre nasıl hareket ettiğini tahmin eder. Temelde iki hipoteze dayanır:</p>
+<ol>
+<li><strong>Parlaklık sabiti:</strong> Bir nesnenin üzerindeki pikselin parlaklığı kısa sürede değişmez.</li>
+<li><strong>Küçük hareket:</strong> Nesneler kareler arasında yalnızca küçük miktarda hareket eder.</li>
+</ol>
+<p>Bu iki hipotezden <strong>optik akış kısıtı</strong> denklemi türetilir. Ancak bu denklem tek başına yeterli değildir (iki bilinmeyene karşı bir denklem — "aperture problemi"). Farklı yöntemler bu eksik bilgiyi farklı şekillerde tamamlar.</p>
+<h3 id="sparse-vs-dense-optik-aks">Sparse vs Dense Optik Akış<a class="headerlink" href="#sparse-vs-dense-optik-aks" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    subgraph SPARSE["Seyrek — Lucas-Kanade"]
+        SP1[Köşe noktaları seç\nShiomasi-Tomasi] --&gt; SP2[Her nokta için\nküçük pencere karşılaştır]
+        SP2 --&gt; SP3[Hız vektörü\nhesapla]
+    end
+    subgraph DENSE["Yoğun — Horn-Schunck / Farneback"]
+        DN1[Tüm pikseller] --&gt; DN2[Global düzgünlük\nkısıtı ekle]
+        DN2 --&gt; DN3[Her piksel için\nhız alanı]
+    end</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: center;">Lucas-Kanade (Seyrek)</th>
+<th style="text-align: center;">Horn-Schunck / Farneback (Yoğun)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hesaplama</td>
+<td style="text-align: center;">Hızlı</td>
+<td style="text-align: center;">Yavaş</td>
+</tr>
+<tr>
+<td>Çıktı</td>
+<td style="text-align: center;">Seçili noktalarda vektörler</td>
+<td style="text-align: center;">Tüm piksellerde vektör alanı</td>
+</tr>
+<tr>
+<td>Gürültüye dayanıklılık</td>
+<td style="text-align: center;">İyi (pencere ortalaması)</td>
+<td style="text-align: center;">Orta</td>
+</tr>
+<tr>
+<td>Kullanım</td>
+<td style="text-align: center;">VIO, feature tracking</td>
+<td style="text-align: center;">Segmentasyon, arka plan çıkarma</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lucas-Kanade'nin zayıflığı:</strong> Büyük hareketlerde başarısız olur. Çözüm: görüntü piramidi kullanmak — önce küçük çözünürlükte kaba hareket, sonra orijinal boyutta hassas hareket hesaplanır.</p>
+<div class="admonition tip">
+<p class="admonition-title">Robotik ve VIO'da Kullanımı</p>
+<p>VIO sistemlerinde kamera çerçeveleri arasındaki özellik noktaları Lucas-Kanade ile takip edilir. Bu takip edilen noktaların 3D hareketi, IMU verileriyle birleştirilerek robot konumu hesaplanır.</p>
+</div>
+<hr />
+<h2 id="vio-visual-inertial-odometry">VIO — Visual Inertial Odometry<a class="headerlink" href="#vio-visual-inertial-odometry" title="Permanent link">&para;</a></h2>
+<h3 id="vo-ile-vio-arasndaki-fark">VO ile VIO Arasındaki Fark<a class="headerlink" href="#vo-ile-vio-arasndaki-fark" title="Permanent link">&para;</a></h3>
+<p><strong>VO (Visual Odometry):</strong> Yalnızca kamera kullanarak robotun veya aracın hareketini tahmin eder. Ardışık görüntüler arasındaki özellik noktalarının değişimi, kameranın ne kadar hareket ettiğini ve döndüğünü verir.</p>
+<p><strong>VIO (Visual Inertial Odometry):</strong> Kamera + IMU (İvmeölçer + Jiroskop) birlikteliği. İki sensörün zayıf yönleri birbirini tamamlar.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph VO["VO — Sadece Kamera"]
+        CAM[Kamera\nGörüntü] --&gt; FEAT[Özellik Noktası\nEşleştirme]
+        FEAT --&gt; POSE[Göreli Konum\nTahmini]
+    end
+    subgraph VIO["VIO — Kamera + IMU"]
+        CAM2[Kamera] --&gt; FUSION[Füzyon\nEKF / Faktör Grafı]
+        IMU[IMU\nİvme + Açısal Hız] --&gt; PREINT[IMU Ön Entegrasyon]
+        PREINT --&gt; FUSION
+        FUSION --&gt; POSE2[Konum + Hız\n+ IMU Bias Tahmini]
+    end</code></pre>
+<h3 id="vonun-sorunlar-neden-imu-eklenir">VO'nun Sorunları — Neden IMU Eklenir?<a class="headerlink" href="#vonun-sorunlar-neden-imu-eklenir" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Sorun</th>
+<th style="text-align: center;">VO'da Durum</th>
+<th style="text-align: center;">VIO'da Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ölçek belirsizliği</strong></td>
+<td style="text-align: center;">Mono kamerada gerçek ölçek bilinemez — 1m mi, 10m mi?</td>
+<td style="text-align: center;">IMU gerçek ivmeyi ölçer, ölçeği kurtarır</td>
+</tr>
+<tr>
+<td><strong>Hızlı hareket / bulanıklık</strong></td>
+<td style="text-align: center;">Görüntü takibi başarısız olur</td>
+<td style="text-align: center;">IMU yüksek frekanslı (200-1000 Hz) köprü kurar</td>
+</tr>
+<tr>
+<td><strong>Karanlık / doku yok</strong></td>
+<td style="text-align: center;">Özellik bulunamaz, takip durur</td>
+<td style="text-align: center;">IMU kısa süre devralır</td>
+</tr>
+<tr>
+<td><strong>Drift (kayma)</strong></td>
+<td style="text-align: center;">Hata birikir, uzun sürede konum kayar</td>
+<td style="text-align: center;">IMU preintegrasyon kısa vadeli kesinlik sağlar</td>
+</tr>
+<tr>
+<td><strong>Başlangıç</strong></td>
+<td style="text-align: center;">Statik başlamak zorunda değil</td>
+<td style="text-align: center;">IMU oryantasyon referansı sağlar (yerçekimi vektörü)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>IMU'nun kendi sorunu:</strong> Bias (sürüklenme) — ivmeölçer ve jiroskop sıfır girdisinde bile yavaşça kayar. Bu nedenle VIO sistemi hem robotu konumlandırır hem de IMU bias'ını sürekli tahmin eder.</p>
+<h3 id="sistem-mimarisi">Sistem Mimarisi<a class="headerlink" href="#sistem-mimarisi" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    subgraph SENSORS["Sensörler"]
+        CAM[Kamera\n30-60 Hz]
+        IMU[IMU\n200-1000 Hz]
+    end
+    subgraph FRONTEND["Ön Yüz\nFast &amp; Lightweight"]
+        FE1[Özellik Tespiti\nORB / FAST]
+        FE2[Optik Akış Takibi\nLucas-Kanade]
+        FE3[IMU Ön Entegrasyon\nKareler Arası]
+    end
+    subgraph BACKEND["Arka Yüz\nOptimizasyon"]
+        BE1[Faktör Grafı\nnon-linear LS]
+        BE2[Keyframe Seçimi]
+        BE3[Marjinalizasyon\nEski bilgiyi özetle]
+    end
+
+    CAM --&gt; FE1 --&gt; FE2
+    IMU --&gt; FE3
+    FE2 &amp; FE3 --&gt; BE1 --&gt; BE2 --&gt; BE3</code></pre>
+<h3 id="one-ckan-vio-sistemleri">Öne Çıkan VIO Sistemleri<a class="headerlink" href="#one-ckan-vio-sistemleri" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Sistem</th>
+<th style="text-align: center;">Kamera Tipi</th>
+<th style="text-align: center;">Algoritma</th>
+<th style="text-align: center;">Açık Kaynak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MSCKF</strong></td>
+<td style="text-align: center;">Mono / Stereo</td>
+<td style="text-align: center;">EKF tabanlı</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td><strong>VINS-Mono</strong></td>
+<td style="text-align: center;">Mono</td>
+<td style="text-align: center;">Kayma pencere optimizasyonu</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td><strong>VINS-Fusion</strong></td>
+<td style="text-align: center;">Stereo / RGB-D</td>
+<td style="text-align: center;">Grafik optimizasyonu</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td><strong>ORB-SLAM3</strong></td>
+<td style="text-align: center;">Mono / Stereo / RGB-D</td>
+<td style="text-align: center;">Faktör grafı + harita</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td><strong>Basalt</strong></td>
+<td style="text-align: center;">Stereo</td>
+<td style="text-align: center;">Non-linear optimizer</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td><strong>OpenVINS</strong></td>
+<td style="text-align: center;">Mono / Stereo</td>
+<td style="text-align: center;">MSCKF bazlı</td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="stereo-kamera-avantaj-ve-dezavantajlar">Stereo Kamera: Avantaj ve Dezavantajlar<a class="headerlink" href="#stereo-kamera-avantaj-ve-dezavantajlar" title="Permanent link">&para;</a></h3>
+<p>Stereo kamera, sabit bir bazlık (baseline) mesafesiyle yerleştirilmiş iki kameradan oluşur. Sol ve sağ görüntüler arasındaki <strong>disparity</strong> (piksel kayması) doğrudan derinlik hesabına dönüştürülür.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph STEREO["Stereo Kamera"]
+        L[Sol Kamera] -- bazlık b --&gt; R[Sağ Kamera]
+        L &amp; R --&gt; DISP[Disparity Haritası\nher piksel için]
+        DISP --&gt; DEPTH["Derinlik = f·b / d\nf: odak, d: disparity"]
+    end</code></pre>
+<h4 id="avantajlar">Avantajlar<a class="headerlink" href="#avantajlar" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Avantaj</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mutlak ölçek</strong></td>
+<td>Bazlık mesafesi bilindiğinden derinlik gerçek metrik birimdedir; IMU'ya ihtiyaç kalmadan ölçek belirsizliği yoktur</td>
+</tr>
+<tr>
+<td><strong>Hızlı başlatma</strong></td>
+<td>Sistem ilk kareden itibaren doğru ölçekli çalışır; mono sistemlerde "ölçek başlatma" süreci (IMU ile hareket gerektirir) yoktur</td>
+</tr>
+<tr>
+<td><strong>Statik başlama</strong></td>
+<td>Robot hareket etmeden bile derinlik elde edilir; IMU ile başlatma için genellikle hareket gerekirken stereo'da bu şart yoktur</td>
+</tr>
+<tr>
+<td><strong>Derinlik yoğunluğu</strong></td>
+<td>Disparity haritası tüm pikseller için derinlik üretir; LIDAR'a kıyasla daha yoğun nokta bulutu</td>
+</tr>
+<tr>
+<td><strong>IMU bağımsızlık</strong></td>
+<td>Mono+IMU sistemlerde IMU bozulursa sistem çöker; stereo kendi başına çalışmaya devam edebilir</td>
+</tr>
+<tr>
+<td><strong>Gece / Tekstür yok</strong></td>
+<td>Aktif ışıkla (stereo + projektör) veya IR stereo ile çalışabilir</td>
+</tr>
+</tbody>
+</table>
+<h4 id="dezavantajlar">Dezavantajlar<a class="headerlink" href="#dezavantajlar" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Dezavantaj</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ağır kalibrasyon</strong></td>
+<td>İki kameranın birbirine göreli konumu (ekstrinsik) hassas ve stabil olmalı; titreşim veya ısıl genleşme kalibrasyonu bozar</td>
+</tr>
+<tr>
+<td><strong>Bazlık-menzil dengesi</strong></td>
+<td>Kısa bazlık → yakın nesnelerde iyi, uzakta kötü. Uzun bazlık → tam tersi. Sabit bazlık her mesafeye optimal değil</td>
+</tr>
+<tr>
+<td><strong>Stereo eşleştirme maliyeti</strong></td>
+<td>Disparity hesaplaması CPU/GPU yoğun; SGBM, BM gibi algoritmalar gerçek zamanlı çalıştırmak donanım gerektirir</td>
+</tr>
+<tr>
+<td><strong>Boyut ve ağırlık</strong></td>
+<td>Mono kameraya göre daha büyük, daha ağır; küçük drone'larda sorun</td>
+</tr>
+<tr>
+<td><strong>Tekstürsüz yüzey</strong></td>
+<td>Düz duvar, boş koridor gibi yerlerde disparity hesaplanamaz; aktif ışık (Intel RealSense yapılandırmalı IR) gerekebilir</td>
+</tr>
+<tr>
+<td><strong>Epipolar rectification</strong></td>
+<td>Görüntüler her kullanımda düzeltilmeli (rectify); kalibrasyon kayması gerçek zamanlı tespiti zorlaştırır</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mono-vs-stereo-karslastrmas">Mono vs Stereo Karşılaştırması<a class="headerlink" href="#mono-vs-stereo-karslastrmas" title="Permanent link">&para;</a></h4>
+<pre class="mermaid"><code>graph TD
+    Q1{Ölçek kesinliği\nkritik mi?} --&gt;|Evet| Q2{IMU mevcut mu?}
+    Q1 --&gt;|Hayır / Göreli OK| MONO[Mono Kamera\nhafif, ucuz]
+    Q2 --&gt;|Evet| Q3{Düşük gecikme mi?}
+    Q2 --&gt;|Hayır| STEREO[Stereo Kamera\nölçek + derinlik]
+    Q3 --&gt;|Evet, kısa başlatma| STEREO
+    Q3 --&gt;|Orta gecikme OK| MONO_IMU[Mono + IMU\nVINS-Mono tarzı]</code></pre>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th style="text-align: center;">Mono</th>
+<th style="text-align: center;">Mono+IMU</th>
+<th style="text-align: center;">Stereo</th>
+<th style="text-align: center;">Stereo+IMU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ölçek</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓ (başlatma sonrası)</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Derinlik</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">Kısmi</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Kalibrasyon karmaşıklığı</td>
+<td style="text-align: center;">Kolay</td>
+<td style="text-align: center;">Orta</td>
+<td style="text-align: center;">Orta</td>
+<td style="text-align: center;"><strong>Zor</strong></td>
+</tr>
+<tr>
+<td>Boyut</td>
+<td style="text-align: center;">Küçük</td>
+<td style="text-align: center;">Küçük</td>
+<td style="text-align: center;">Orta</td>
+<td style="text-align: center;">Orta</td>
+</tr>
+<tr>
+<td>Hesaplama</td>
+<td style="text-align: center;">Düşük</td>
+<td style="text-align: center;">Orta</td>
+<td style="text-align: center;"><strong>Yüksek</strong></td>
+<td style="text-align: center;"><strong>Yüksek</strong></td>
+</tr>
+<tr>
+<td>Sağlamlık</td>
+<td style="text-align: center;">Düşük</td>
+<td style="text-align: center;">Orta</td>
+<td style="text-align: center;">İyi</td>
+<td style="text-align: center;"><strong>En iyi</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Pratik Öneri</p>
+<p>Kapalı alan navigasyonu + metrik konum gerekliyse → <strong>Stereo + IMU</strong> (ORB-SLAM3 stereo-inertial).<br />
+Ağırlık kritikse (küçük drone) → <strong>Mono + IMU</strong> (VINS-Mono, OpenVINS).<br />
+Derinlik sensörü olarak (arm, obstacle avoidance) → <strong>Stereo</strong> veya <strong>RGB-D</strong>.</p>
+</div>
+<hr />
+<h2 id="graf-algoritmalar">Graf Algoritmaları<a class="headerlink" href="#graf-algoritmalar" title="Permanent link">&para;</a></h2>
+<h3 id="bfs-genislik-oncelikli-arama">BFS — Genişlik Öncelikli Arama<a class="headerlink" href="#bfs-genislik-oncelikli-arama" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Başlangıç düğümünden katman katman dışa doğru genişler. Önce tüm komşular ziyaret edilir, sonra komşuların komşuları. <strong>Kuyruk (FIFO)</strong> veri yapısıyla çalışır.</p>
+<pre class="mermaid"><code>graph TD
+    A((A)) --&gt; B((B))
+    A --&gt; C((C))
+    B --&gt; D((D))
+    B --&gt; E((E))
+    C --&gt; F((F))
+
+    style A fill:#FFD700
+    style B fill:#90EE90
+    style C fill:#90EE90
+    style D fill:#87CEEB
+    style E fill:#87CEEB
+    style F fill:#87CEEB</code></pre>
+<p>Ziyaret sırası: A → B → C → D → E → F (seviye seviye)</p>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zaman Karmaşıklığı</td>
+<td>O(V + E)</td>
+</tr>
+<tr>
+<td>Alan Karmaşıklığı</td>
+<td>O(V) — kuyruktaki düğümler</td>
+</tr>
+<tr>
+<td>En kısa yol (ağırlıksız)</td>
+<td>✓ Garanti</td>
+</tr>
+<tr>
+<td>Döngü tespiti</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ne zaman kullanılır?</strong>
+- Ağırlıksız grafta iki düğüm arasındaki en kısa yol
+- Katman/seviye bazlı analiz (sosyal ağda 2. derece arkadaşlar)
+- Web crawler'lar (bağlantı seviyesine göre tara)</p>
+<hr />
+<h3 id="dfs-derinlik-oncelikli-arama">DFS — Derinlik Öncelikli Arama<a class="headerlink" href="#dfs-derinlik-oncelikli-arama" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Bir yolu sonuna kadar takip eder, çıkmaz sokağa gelince geri döner ve başka bir yol dener. <strong>Yığın (LIFO)</strong> veya özyineleme ile çalışır.</p>
+<pre class="mermaid"><code>graph TD
+    A((A)) --&gt; B((B))
+    A --&gt; C((C))
+    B --&gt; D((D))
+    B --&gt; E((E))
+    C --&gt; F((F))</code></pre>
+<p>Ziyaret sırası: A → B → D → E → C → F (dala gir, bitince geri dön)</p>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zaman Karmaşıklığı</td>
+<td>O(V + E)</td>
+</tr>
+<tr>
+<td>Alan Karmaşıklığı</td>
+<td>O(V) — özyineleme yığını</td>
+</tr>
+<tr>
+<td>En kısa yol</td>
+<td>✗ Garanti etmez</td>
+</tr>
+<tr>
+<td>Döngü tespiti</td>
+<td>✓ (geri kenar tespiti)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ne zaman kullanılır?</strong>
+- Topolojik sıralama (bağımlılık çözümü — paket yöneticileri)
+- Bağlantılı bileşen bulma
+- Labirent çözme
+- Döngü tespiti</p>
+<div class="admonition note">
+<p class="admonition-title">BFS vs DFS Seçim Kuralı</p>
+<p>Hedefe <strong>en kısa yol</strong> arıyorsan → <strong>BFS</strong>.<br />
+Tüm olasılıkları <strong>derinlemesine keşfet</strong> veya <strong>topolojik sıralama</strong> gerekiyorsa → <strong>DFS</strong>.</p>
+</div>
+<hr />
+<h3 id="dijkstra">Dijkstra<a class="headerlink" href="#dijkstra" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Negatif olmayan ağırlıklı grafta tek kaynaktan en kısa yolları bulur. Her adımda henüz işlenmemiş düğümler arasından <strong>en düşük maliyetli</strong> olanı seçer (greedy). Öncelik kuyruğu (min-heap) kullanır.</p>
+<pre class="mermaid"><code>graph LR
+    A((A)) --&gt;|4| B((B))
+    A --&gt;|1| C((C))
+    C --&gt;|2| B
+    B --&gt;|5| D((D))
+    C --&gt;|8| D</code></pre>
+<p>A'dan D'ye en kısa yol: A→C→B→D (1+2+5=8), A→C→D değil (1+8=9)</p>
+<p><strong>Çalışma prensibi:</strong>
+1. Başlangıç düğümü mesafe=0, diğerleri sonsuz
+2. Min-heap'ten en küçük mesafeli düğümü çıkar
+3. Komşuların mesafelerini güncelle (relaxation)
+4. Heap'e tekrar ekle
+5. Tüm düğümler işlenene kadar devam et</p>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zaman Karmaşıklığı</td>
+<td>O((V + E) log V) — min-heap ile</td>
+</tr>
+<tr>
+<td>Negatif kenar</td>
+<td>✗ Desteklemez</td>
+</tr>
+<tr>
+<td>Negatif döngü</td>
+<td>✗ Tespit edemez</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ne zaman kullanılır?</strong>
+- GPS yol bulma (haritalar)
+- Ağ yönlendirme (OSPF protokolü)
+- Robotik yol planlaması (maliyet haritaları)</p>
+<hr />
+<h3 id="bellman-ford">Bellman-Ford<a class="headerlink" href="#bellman-ford" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Dijkstra'nın yapamadığı şeyi yapar: <strong>negatif ağırlıklı kenarları</strong> işler ve <strong>negatif döngü</strong> tespit eder. Her kenarı V-1 kez gevşetir (relaxation). Dinamik programlama yaklaşımı.</p>
+<p><strong>Çalışma prensibi:</strong>
+1. Başlangıç mesafe=0, diğerleri sonsuz
+2. Tüm kenarlar üzerinden V-1 kez geçerek mesafeleri güncelle
+3. V. geçişte hâlâ güncelleme olursa → negatif döngü var</p>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zaman Karmaşıklığı</td>
+<td>O(V · E)</td>
+</tr>
+<tr>
+<td>Negatif kenar</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Negatif döngü tespiti</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Dijkstra'dan yavaş mı?</td>
+<td>Evet (genellikle)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ne zaman kullanılır?</strong>
+- Negatif ağırlıklar içeren graflarda
+- Finans: arbitraj fırsatı tespiti (negatif döngü = para kazanma döngüsü)
+- Ağ protokollerinde (RIP — Routing Information Protocol)</p>
+<hr />
+<h3 id="floyd-warshall">Floyd-Warshall<a class="headerlink" href="#floyd-warshall" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Grafttaki <strong>tüm çiftler arasındaki</strong> en kısa yolları tek seferde hesaplar. Her düğümü potansiyel ara nokta olarak dener. Dinamik programlama.</p>
+<p><strong>Temel fikir:</strong> <code>dist[i][j]</code> = i'den j'ye en kısa yol. k. düğümü ara nokta olarak ekleyerek güncelle:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zaman Karmaşıklığı</td>
+<td>O(V³)</td>
+</tr>
+<tr>
+<td>Alan Karmaşıklığı</td>
+<td>O(V²) — matris</td>
+</tr>
+<tr>
+<td>Negatif kenar</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Negatif döngü tespiti</td>
+<td>✓ (köşegen eksi olursa)</td>
+</tr>
+<tr>
+<td>Tek kaynak mı?</td>
+<td>✗ Tüm çiftler</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ne zaman kullanılır?</strong>
+- Graf küçük ve tüm çiftler arası mesafe gerekiyorsa
+- Ağ gecikmesi matrisi hesaplama
+- Erişilebilirlik analizi (hangi düğümler birbirine ulaşabilir?)</p>
+<hr />
+<h3 id="a-a-star">A* (A-Star)<a class="headerlink" href="#a-a-star" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Dijkstra + heuristik (tahmini mesafe). Her düğüm için gerçek maliyet <code>g(n)</code> ile hedefe tahmini mesafe <code>h(n)</code> toplanarak <code>f(n) = g(n) + h(n)</code> hesaplanır. Heuristik akıllıca yönlendirme sağlar.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph DIJKSTRA["Dijkstra — Her yöne eşit arar"]
+        D1((Start)) --&gt; D2((...))
+        D2 --&gt; D3((...))
+        D2 --&gt; D4((...))
+        D3 --&gt; D5((Goal))
+        D4 --&gt; D6((...))
+    end
+    subgraph ASTAR["A* — Hedefe doğru yönelir"]
+        A1((Start)) --&gt; A2((...))
+        A2 --&gt; A3((Goal))
+    end</code></pre>
+<p><strong>Heuristik Kriterleri:</strong>
+- <strong>Kabul edilebilir (admissible):</strong> Gerçek maliyeti hiçbir zaman aşmaz → A* optimal çözüm garantisi verir
+- Yaygın heuristikler: Manhattan mesafesi (ızgara), Öklid mesafesi (açık alan)</p>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th style="text-align: center;">Dijkstra</th>
+<th style="text-align: center;">A*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimal</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓ (kabul edilebilir h ile)</td>
+</tr>
+<tr>
+<td>Hız</td>
+<td style="text-align: center;">Orta</td>
+<td style="text-align: center;">Daha hızlı (hedef yönlü)</td>
+</tr>
+<tr>
+<td>Heuristik</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Kullanım</td>
+<td style="text-align: center;">Genel graf</td>
+<td style="text-align: center;">Uzamsal yol bulma</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ne zaman kullanılır?</strong>
+- Robot navigasyonu (ROS Nav2 / costmap)
+- Oyun yapay zekası (karakter yol bulma)
+- GPS navigasyonu (coğrafi heuristik ile)</p>
+<div class="admonition tip">
+<p class="admonition-title">Kısa Karşılaştırma</p>
+<table>
+<thead>
+<tr>
+<th>Algoritma</th>
+<th style="text-align: center;">Negatif Kenar</th>
+<th style="text-align: center;">Tüm Çiftler</th>
+<th style="text-align: center;">Heuristik</th>
+<th style="text-align: center;">Karmaşıklık</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BFS</td>
+<td style="text-align: center;">✗ (ağırlıksız)</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">O(V+E)</td>
+</tr>
+<tr>
+<td>Dijkstra</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">O((V+E)logV)</td>
+</tr>
+<tr>
+<td>Bellman-Ford</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">O(VE)</td>
+</tr>
+<tr>
+<td>Floyd-Warshall</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">O(V³)</td>
+</tr>
+<tr>
+<td>A*</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">O(E log V)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="sralama-algoritmalar">Sıralama Algoritmaları<a class="headerlink" href="#sralama-algoritmalar" title="Permanent link">&para;</a></h2>
+<h3 id="bubble-sort-kabarck-sralamas">Bubble Sort — Kabarcık Sıralaması<a class="headerlink" href="#bubble-sort-kabarck-sralamas" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Komşu iki elemanı karşılaştırır, yanlış sıradaysa yer değiştirir. Her geçişte en büyük eleman sona "kabarcık gibi" yükselir. Saf kuvvet yöntemi.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>[5, 3, 8, 1] → [3, 5, 1, 8] → [3, 1, 5, 8] → [1, 3, 5, 8]
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>En iyi</td>
+<td>O(n) — zaten sıralıysa (erken çıkış ile)</td>
+</tr>
+<tr>
+<td>Ortalama / En kötü</td>
+<td>O(n²)</td>
+</tr>
+<tr>
+<td>Bellek</td>
+<td>O(1) — yerinde</td>
+</tr>
+<tr>
+<td>Kararlı (Stable)</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kullanım:</strong> Eğitim amaçlı. Gerçek sistemlerde kullanılmaz.</p>
+<hr />
+<h3 id="selection-sort-secme-sralamas">Selection Sort — Seçme Sıralaması<a class="headerlink" href="#selection-sort-secme-sralamas" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Her geçişte dizinin sıralanmamış kısmından <strong>en küçük elemanı</strong> bulur ve başa taşır. Bubble'dan farkı: swap sayısı azdır (en fazla n-1 swap).</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>[5, 3, 8, 1] → min=1 → [1, 3, 8, 5] → min=3 → [1, 3, 8, 5] → ...
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Her durumda</td>
+<td>O(n²) — erken çıkış yok</td>
+</tr>
+<tr>
+<td>Bellek</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Kararlı</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kullanım:</strong> Bellek yazma işlemi pahalıysa (flash bellek gibi) — swap sayısı minimumdur.</p>
+<hr />
+<h3 id="insertion-sort-ekleme-sralamas">Insertion Sort — Ekleme Sıralaması<a class="headerlink" href="#insertion-sort-ekleme-sralamas" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Kart oyunundaki gibi — sıralanmış kısma yeni elemanı doğru yerine ekler. Sıralı kısım solda büyür.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>[5, 3, 8, 1]
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>→ [3, 5, 8, 1]   (3&#39;ü doğru yere koy)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>→ [3, 5, 8, 1]   (8 zaten doğru yerde)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>→ [1, 3, 5, 8]   (1&#39;i en başa ekle)
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>En iyi</td>
+<td>O(n) — neredeyse sıralıysa</td>
+</tr>
+<tr>
+<td>En kötü</td>
+<td>O(n²)</td>
+</tr>
+<tr>
+<td>Bellek</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Kararlı</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Online</td>
+<td>✓ Veri geldikçe sıralayabilir</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kullanım:</strong> Küçük veri (n &lt; 20) veya neredeyse sıralı veri için pratik. Birçok hibrit algoritma (TimSort) küçük parçalarda insertion sort kullanır.</p>
+<hr />
+<h3 id="merge-sort-birlestirme-sralamas">Merge Sort — Birleştirme Sıralaması<a class="headerlink" href="#merge-sort-birlestirme-sralamas" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Böl-ve-yönet. Diziyi ikiye böler, her yarıyı özyinelemeli olarak sıralar, sonra iki sıralı yarıyı birleştirir.</p>
+<pre class="mermaid"><code>graph TD
+    A["[5, 3, 8, 1]"] --&gt; B["[5, 3]"]
+    A --&gt; C["[8, 1]"]
+    B --&gt; D["[5]"]
+    B --&gt; E["[3]"]
+    C --&gt; F["[8]"]
+    C --&gt; G["[1]"]
+    D &amp; E --&gt; H["[3, 5]"]
+    F &amp; G --&gt; I["[1, 8]"]
+    H &amp; I --&gt; J["[1, 3, 5, 8]"]</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Her durumda</td>
+<td>O(n log n)</td>
+</tr>
+<tr>
+<td>Bellek</td>
+<td>O(n) — ek dizi gerektirir</td>
+</tr>
+<tr>
+<td>Kararlı</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kullanım:</strong> Bağlı listeler için ideal (eleman kopyalamadan birleştirilir). Büyük veri kümelerinde garantili O(n log n). Dış sıralama (disk üzerindeki veriler).</p>
+<hr />
+<h3 id="quick-sort-hzl-sralama">Quick Sort — Hızlı Sıralama<a class="headerlink" href="#quick-sort-hzl-sralama" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Bir <strong>pivot</strong> seçer, pivot'tan küçükleri sola, büyükleri sağa taşır (partition). Sonra her iki tarafı özyinelemeli sıralar.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>[5, 3, 8, 1]  → pivot=5
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>→ [3, 1 | 5 | 8]   (soldakiler &lt; 5, sağdakiler &gt; 5)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>→ [1, 3 | 5 | 8]   (sol kısmı sırala)
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>→ [1, 3, 5, 8]
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ortalama</td>
+<td>O(n log n)</td>
+</tr>
+<tr>
+<td>En kötü</td>
+<td>O(n²) — pivot her seferinde min/max seçilirse</td>
+</tr>
+<tr>
+<td>Bellek</td>
+<td>O(log n) — özyineleme yığını</td>
+</tr>
+<tr>
+<td>Kararlı</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Neden hızlı?</strong> Bellek erişim örüntüsü cache'e dosttur (in-place, yerel erişim). Merge sort'un aksine ek bellek gerektirmez.</p>
+<p><strong>Pivot seçimi kritik:</strong> Rastgele pivot veya "median of three" yöntemi en kötü durum olasılığını azaltır.</p>
+<p><strong>Kullanım:</strong> Genel amaçlı sıralama için pratikte en hızlı. C++'ın <code>std::sort</code>, Java'nın <code>Arrays.sort(int[])</code> temelde introsort kullanır — quicksort bazlı.</p>
+<hr />
+<h3 id="heap-sort-ygn-sralamas">Heap Sort — Yığın Sıralaması<a class="headerlink" href="#heap-sort-ygn-sralamas" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Önce diziyi <strong>max-heap</strong> (her ebeveyn çocuklarından büyük) yapısına dönüştürür. Ardından heap'in kökünü (maksimum) sondan başa yerleştirir ve heap'i yeniden düzenler.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>Heap oluştur: [5, 3, 8, 1] → [8, 3, 5, 1]
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>Max çıkar: [8] → [1, 3, 5] → heapify → [5, 3, 1]
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>Max çıkar: [8, 5] → [1, 3] → [3, 1]
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>...
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>Sonuç: [1, 3, 5, 8]
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Her durumda</td>
+<td>O(n log n)</td>
+</tr>
+<tr>
+<td>Bellek</td>
+<td>O(1) — yerinde</td>
+</tr>
+<tr>
+<td>Kararlı</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quicksort ile farkı:</strong> En kötü durumda bile O(n log n) garantisi verir, yerinde çalışır. Ancak cache performansı quicksort'tan zayıf (heap erişimi sıçramalı).</p>
+<p><strong>Kullanım:</strong> Bellek kısıtlı ve worst-case garantisi gereken durumlar.</p>
+<hr />
+<h3 id="karslastrma-tablosu">Karşılaştırma Tablosu<a class="headerlink" href="#karslastrma-tablosu" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Algoritma</th>
+<th style="text-align: center;">En İyi</th>
+<th style="text-align: center;">Ortalama</th>
+<th style="text-align: center;">En Kötü</th>
+<th style="text-align: center;">Bellek</th>
+<th style="text-align: center;">Kararlı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bubble Sort</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n²)</td>
+<td style="text-align: center;">O(n²)</td>
+<td style="text-align: center;">O(1)</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Selection Sort</td>
+<td style="text-align: center;">O(n²)</td>
+<td style="text-align: center;">O(n²)</td>
+<td style="text-align: center;">O(n²)</td>
+<td style="text-align: center;">O(1)</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td>Insertion Sort</td>
+<td style="text-align: center;"><strong>O(n)</strong></td>
+<td style="text-align: center;">O(n²)</td>
+<td style="text-align: center;">O(n²)</td>
+<td style="text-align: center;">O(1)</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Merge Sort</td>
+<td style="text-align: center;">O(n log n)</td>
+<td style="text-align: center;">O(n log n)</td>
+<td style="text-align: center;">O(n log n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Quick Sort</td>
+<td style="text-align: center;">O(n log n)</td>
+<td style="text-align: center;"><strong>O(n log n)</strong></td>
+<td style="text-align: center;">O(n²)</td>
+<td style="text-align: center;">O(log n)</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td>Heap Sort</td>
+<td style="text-align: center;">O(n log n)</td>
+<td style="text-align: center;">O(n log n)</td>
+<td style="text-align: center;">O(n log n)</td>
+<td style="text-align: center;"><strong>O(1)</strong></td>
+<td style="text-align: center;">✗</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Pratikte Ne Kullanılır?</p>
+<ul>
+<li>Küçük veri (n &lt; 20) → <strong>Insertion Sort</strong></li>
+<li>Genel amaç → <strong>Quick Sort</strong> (stdlib default)</li>
+<li>Kararlılık şart → <strong>Merge Sort</strong> veya <strong>TimSort</strong> (Python default)</li>
+<li>Bellek kısıtlı + worst-case garanti → <strong>Heap Sort</strong></li>
+<li>Neredeyse sıralı → <strong>Insertion Sort</strong></li>
+</ul>
+</div>
+<hr />
+<h2 id="arama-algoritmalar">Arama Algoritmaları<a class="headerlink" href="#arama-algoritmalar" title="Permanent link">&para;</a></h2>
+<h3 id="linear-search-dogrusal-arama">Linear Search — Doğrusal Arama<a class="headerlink" href="#linear-search-dogrusal-arama" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> Dizinin başından sonuna kadar teker teker her elemana bakılır. Bulunan ilk eşleşmede durur.</p>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zaman Karmaşıklığı</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Sıralanmış gerekir mi?</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Kullanım</td>
+<td>Küçük / sırasız listeler</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ne zaman?</strong> Veri küçükse, sıralanmamışsa veya yalnızca bir kez aranacaksa. Sıralama maliyeti aramanın faydası aştığında tercih edilir.</p>
+<hr />
+<h3 id="binary-search-ikili-arama">Binary Search — İkili Arama<a class="headerlink" href="#binary-search-ikili-arama" title="Permanent link">&para;</a></h3>
+<p><strong>Mantık:</strong> <strong>Sıralanmış</strong> dizide orta elemana bakılır. Aranan değer ortadan küçükse sol yarıya, büyükse sağ yarıya odaklanılır. Her adımda arama alanı <strong>ikiye bölünür</strong>.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>Dizi: [1, 3, 5, 8, 12, 17, 23]  Aranan: 12
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>Adım 1: mid=8  → 12 &gt; 8, sağa bak  →  [12, 17, 23]
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>Adım 2: mid=17 → 12 &lt; 17, sola bak →  [12]
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>Adım 3: mid=12 → Bulundu!
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zaman Karmaşıklığı</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Sıralanmış gerekir mi?</td>
+<td>✓ Şart</td>
+</tr>
+<tr>
+<td>Kullanım</td>
+<td>Büyük sıralı diziler</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kritik nokta:</strong> Sıralama maliyeti O(n log n), arama O(log n). Eğer veri nadiren değişiyor ve sık aranıyorsa sıralama maliyeti amortize edilir.</p>
+<p><strong>Ne zaman?</strong> Veritabanı indeksleri, kelime sözlükleri, sıralı sensor değerleri içinde eşik bulma.</p>
+<hr />
+<h2 id="solid-prensipleri">SOLID Prensipleri<a class="headerlink" href="#solid-prensipleri" title="Permanent link">&para;</a></h2>
+<p>Nesne yönelimli tasarımın 5 temel prensibi. Bakımı kolay, esnek, test edilebilir kod yazmanın kılavuzudur.</p>
+<pre class="mermaid"><code>graph TD
+    SOLID --&gt; S[S — Single Responsibility\nBir sınıfın tek bir değişme sebebi olmalı]
+    SOLID --&gt; O[O — Open/Closed\nGenişlemeye açık, değişime kapalı]
+    SOLID --&gt; L[L — Liskov Substitution\nAlt sınıf üst sınıfın yerine geçebilmeli]
+    SOLID --&gt; I[I — Interface Segregation\nKullanılmayan metod zorlanmamalı]
+    SOLID --&gt; D[D — Dependency Inversion\nSoyutlamaya bağlı ol, somuta değil]</code></pre>
+<h3 id="s-single-responsibility-principle">S — Single Responsibility Principle<a class="headerlink" href="#s-single-responsibility-principle" title="Permanent link">&para;</a></h3>
+<p>Bir sınıfın veya modülün <strong>yalnızca bir değişme sebebi</strong> olmalıdır. Bir sınıf hem veri çekiyorsa hem de formatlamaya karar veriyorsa ikisi ayrılmalıdır.</p>
+<p><strong>İhlal:</strong> <code>UserService</code> sınıfı hem kullanıcı doğrulama, hem veritabanı kaydı hem de e-posta gönderimi yapıyor.<br />
+<strong>Doğru:</strong> <code>AuthService</code>, <code>UserRepository</code>, <code>EmailService</code> ayrı sınıflar.</p>
+<p><strong>Neden?</strong> Bir gereksinim değiştiğinde (e-posta formatı) yalnızca o sınıf değişmeli, başka sınıflar etkilenmemeli.</p>
+<hr />
+<h3 id="o-openclosed-principle">O — Open/Closed Principle<a class="headerlink" href="#o-openclosed-principle" title="Permanent link">&para;</a></h3>
+<p>Sınıflar <strong>yeni özellik eklemek için açık</strong>, <strong>mevcut kodu değiştirmek için kapalı</strong> olmalıdır. Yeni davranış eklemek için mevcut sınıfı düzenlemek yerine <strong>genişletilir</strong> (miras veya kompozisyon).</p>
+<p><strong>İhlal:</strong> <code>if shape == "circle" elif shape == "square"</code> — yeni şekil ekleyince mevcut kod değişir.<br />
+<strong>Doğru:</strong> Her şekil <code>area()</code> arayüzünü uygular; yeni şekil eklenince mevcut kod dokunulmaz.</p>
+<p><strong>Neden?</strong> Test edilmiş koda dokunmak yeni hata riski yaratır.</p>
+<hr />
+<h3 id="l-liskov-substitution-principle">L — Liskov Substitution Principle<a class="headerlink" href="#l-liskov-substitution-principle" title="Permanent link">&para;</a></h3>
+<p>Bir üst sınıf nesnesi, <strong>alt sınıf nesnesiyle yer değiştirilebilmeli</strong> ve program doğru çalışmaya devam etmeli.</p>
+<p><strong>İhlal:</strong> <code>Rectangle.setWidth()</code> var, <code>Square(Rectangle)</code> bunu override eder ama yüksekliği de değiştirir. <code>Rectangle</code> bekleyen kod bozulur.<br />
+<strong>Doğru:</strong> <code>Square</code> ve <code>Rectangle</code> ortak arayüzden türetilmeli ama birbirinden değil.</p>
+<p><strong>Neden?</strong> Kalıtım "is-a" ilişkisi sadece sözdizimsel değil, davranışsal da olmalı.</p>
+<hr />
+<h3 id="i-interface-segregation-principle">I — Interface Segregation Principle<a class="headerlink" href="#i-interface-segregation-principle" title="Permanent link">&para;</a></h3>
+<p>Sınıflar <strong>kullanmadıkları metodları</strong> içeren arayüzleri uygulamak zorunda bırakılmamalıdır. Büyük arayüzler küçük, odaklı arayüzlere bölünmeli.</p>
+<p><strong>İhlal:</strong> <code>IAnimal</code> arayüzü <code>fly()</code>, <code>swim()</code>, <code>run()</code> metodları içeriyor. Köpek <code>fly()</code> uygulamak zorunda kalıyor.<br />
+<strong>Doğru:</strong> <code>IFlyable</code>, <code>ISwimmable</code>, <code>IRunnable</code> ayrı arayüzler. Her hayvan ilgili olanları uygular.</p>
+<p><strong>Neden?</strong> Gereksiz bağımlılık, "fat interface" değiştiğinde ilgisiz sınıfları da yeniden derlemeye zorlar.</p>
+<hr />
+<h3 id="d-dependency-inversion-principle">D — Dependency Inversion Principle<a class="headerlink" href="#d-dependency-inversion-principle" title="Permanent link">&para;</a></h3>
+<p>Üst seviye modüller alt seviye modüllere <strong>doğrudan bağlı olmamalı</strong>; her ikisi de <strong>soyutlamaya</strong> (arayüz/abstract) bağlı olmalıdır.</p>
+<p><strong>İhlal:</strong> <code>OrderService</code> içinde <code>new MySQLDatabase()</code> — MySQL'den PostgreSQL'e geçmek için <code>OrderService</code> kodu değişmeli.<br />
+<strong>Doğru:</strong> <code>OrderService</code> bir <code>IDatabase</code> arayüzüne bağlı. <code>MySQLDatabase</code> ve <code>PostgreSQLDatabase</code> bu arayüzü uygular. Bağımlılık enjeksiyonu ile geçiş kolaydır.</p>
+<p><strong>Neden?</strong> Test sırasında gerçek veritabanı yerine <code>MockDatabase</code> enjekte edebilirsiniz. Bağımlılıklar tersine döner — üst seviye modüller altyapıyı dikte eder, altyapı üst seviyeye hizmet eder.</p>
+<table>
+<thead>
+<tr>
+<th>Prensip</th>
+<th>Kısa Kural</th>
+<th>İhlal İşareti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SRP</td>
+<td>Bir sebep, bir sınıf</td>
+<td>"Ve ayrıca" şeklinde açıklanan sınıf</td>
+</tr>
+<tr>
+<td>OCP</td>
+<td>Ekle, değiştirme</td>
+<td>Her özellik eklemede mevcut kod düzenleniyor</td>
+</tr>
+<tr>
+<td>LSP</td>
+<td>Alt sınıf üstle değişebilir</td>
+<td>Override sonrası <code>NotImplementedException</code></td>
+</tr>
+<tr>
+<td>ISP</td>
+<td>Küçük, odaklı arayüzler</td>
+<td><code>pass</code> veya boş metod implementasyonları</td>
+</tr>
+<tr>
+<td>DIP</td>
+<td>Somuta değil soyuta bağlan</td>
+<td><code>new ConcreteClass()</code> bağımlılıklar içinde</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Altbilgi" >
+        
+          
+          <a href="../gstreamer/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: GStreamer">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Önceki
+              </span>
+              <div class="md-ellipsis">
+                GStreamer
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../vim/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: Vim">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sonraki
+              </span>
+              <div class="md-ellipsis">
+                Vim
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.tabs.linked", "content.code.select", "content.code.wrap", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>

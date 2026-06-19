@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../tools/">
+        <link rel="prev" href="../neural_networks/">
       
       
-        <link rel="next" href="../../communication/ipc/">
+        <link rel="next" href="../tools/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Image processing - Dokümantasyon</title>
+        <title>Görüntü İşleme - Dokümantasyon</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#image-processing" class="md-skip">
+        <a href="#goruntu-isleme" class="md-skip">
           Ana içeriğe geç
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Image processing
+              Görüntü İşleme
             
           </span>
         </div>
@@ -605,6 +605,8 @@
       
         
       
+        
+      
     
     
     
@@ -658,7 +660,7 @@
   
   
   <span class="md-ellipsis">
-    Fundamentals
+    Temel Kavramlar
     
   </span>
   
@@ -681,7 +683,7 @@
   
   
   <span class="md-ellipsis">
-    Machine Learning Workflow
+    ML İş Akışı
     
   </span>
   
@@ -699,12 +701,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/" class="md-nav__link">
+      <a href="../neural_networks/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Tools
+    Sinir Ağları ve Derin Öğrenme
     
   </span>
   
@@ -731,18 +733,256 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Görüntü İşleme
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Image processing
+    Görüntü İşleme
     
   </span>
   
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dijital-goruntu-temelleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dijital Görüntü Temelleri
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dijital Görüntü Temelleri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#piksel-ve-kanal-yaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Piksel ve Kanal Yapısı
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renk-uzaylar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Renk Uzayları
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geometrik-donusumler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometrik Dönüşümler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtreleme-ve-gurultu-azaltma" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtreleme ve Gürültü Azaltma
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esikleme-thresholding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Eşikleme (Thresholding)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#morfolojik-islemler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morfolojik İşlemler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kenar-tespiti-edge-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kenar Tespiti (Edge Detection)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kontur-tespiti-ve-sekil-analizi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kontur Tespiti ve Şekil Analizi
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#histogram-islemleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histogram İşlemleri
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ozellik-tespiti-feature-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Özellik Tespiti (Feature Detection)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sablon-eslestirme-template-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Şablon Eşleştirme (Template Matching)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentasyon-watershed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentasyon — Watershed
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kamera-kalibrasyonu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kamera Kalibrasyonu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nesne-tespiti-derin-ogrenme-ile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nesne Tespiti — Derin Öğrenme ile
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nesne Tespiti — Derin Öğrenme ile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yolov8-ile-modern-kullanm" class="md-nav__link">
+    <span class="md-ellipsis">
+      YOLOv8 ile Modern Kullanım
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opencv-dnn-ile-yolo" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenCV DNN ile YOLO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optik-aks-optical-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optik Akış (Optical Flow)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goruntu-isleme-hzl-basvuru" class="md-nav__link">
+    <span class="md-ellipsis">
+      Görüntü İşleme Hızlı Başvuru
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Araçlar ve Kütüphaneler
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -822,6 +1062,8 @@
       
         
       
+        
+      
     
     
     
@@ -871,6 +1113,10 @@
   
     
     
+      
+        
+      
+        
       
         
       
@@ -939,6 +1185,197 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dijital-goruntu-temelleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dijital Görüntü Temelleri
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dijital Görüntü Temelleri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#piksel-ve-kanal-yaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Piksel ve Kanal Yapısı
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renk-uzaylar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Renk Uzayları
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geometrik-donusumler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometrik Dönüşümler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtreleme-ve-gurultu-azaltma" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtreleme ve Gürültü Azaltma
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esikleme-thresholding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Eşikleme (Thresholding)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#morfolojik-islemler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morfolojik İşlemler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kenar-tespiti-edge-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kenar Tespiti (Edge Detection)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kontur-tespiti-ve-sekil-analizi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kontur Tespiti ve Şekil Analizi
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#histogram-islemleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histogram İşlemleri
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ozellik-tespiti-feature-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Özellik Tespiti (Feature Detection)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sablon-eslestirme-template-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Şablon Eşleştirme (Template Matching)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentasyon-watershed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentasyon — Watershed
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kamera-kalibrasyonu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kamera Kalibrasyonu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nesne-tespiti-derin-ogrenme-ile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nesne Tespiti — Derin Öğrenme ile
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nesne Tespiti — Derin Öğrenme ile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yolov8-ile-modern-kullanm" class="md-nav__link">
+    <span class="md-ellipsis">
+      YOLOv8 ile Modern Kullanım
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opencv-dnn-ile-yolo" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenCV DNN ile YOLO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optik-aks-optical-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optik Akış (Optical Flow)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goruntu-isleme-hzl-basvuru" class="md-nav__link">
+    <span class="md-ellipsis">
+      Görüntü İşleme Hızlı Başvuru
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -953,7 +1390,929 @@
 
 
 
-<h1 id="image-processing">Image processing<a class="headerlink" href="#image-processing" title="Permanent link">&para;</a></h1>
+<h1 id="goruntu-isleme">Görüntü İşleme<a class="headerlink" href="#goruntu-isleme" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Genel Bakış</p>
+<p>Görüntü işleme, dijital görüntüler üzerinde matematiksel işlemler uygulayarak bilgi çıkarmayı, görüntüyü iyileştirmeyi veya analiz etmeyi kapsar. OpenCV, Python'da fiili standart kütüphanedir. Bu sayfa; temel kavramlardan nesne tespitine uzanan kapsamlı bir rehberdir.</p>
+</div>
+<pre class="mermaid"><code>graph TD
+    IMG[Ham Görüntü] --&gt; PRE[Ön İşleme\nNoise, Resize, Color]
+    PRE --&gt; FILT[Filtreleme\nBlur, Sharpen, Edge]
+    FILT --&gt; SEG[Segmentasyon\nThreshold, Contour]
+    SEG --&gt; FEAT[Özellik Çıkarımı\nKeypoint, Descriptor]
+    FEAT --&gt; DET[Tespit / Tanıma\nClassify, Detect, Track]</code></pre>
+<hr />
+<h2 id="dijital-goruntu-temelleri">Dijital Görüntü Temelleri<a class="headerlink" href="#dijital-goruntu-temelleri" title="Permanent link">&para;</a></h2>
+<h3 id="piksel-ve-kanal-yaps">Piksel ve Kanal Yapısı<a class="headerlink" href="#piksel-ve-kanal-yaps" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    subgraph RGB["Renkli Görüntü (HxWx3)"]
+        B[Mavi Kanal\nH×W]
+        G[Yeşil Kanal\nH×W]
+        R[Kırmızı Kanal\nH×W]
+    end
+    subgraph GRAY["Gri Tonlamalı (HxWx1)"]
+        GR[Yoğunluk\nH×W]
+    end</code></pre>
+<table>
+<thead>
+<tr>
+<th>Kavram</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Piksel</strong></td>
+<td>Görüntünün en küçük birimi; renk/yoğunluk değeri taşır</td>
+</tr>
+<tr>
+<td><strong>Kanal</strong></td>
+<td>Bir renk bileşeni (R, G, B veya H, S, V)</td>
+</tr>
+<tr>
+<td><strong>Bit Derinliği</strong></td>
+<td>uint8: 0–255; float32: 0.0–1.0; uint16: 0–65535</td>
+</tr>
+<tr>
+<td><strong>Çözünürlük</strong></td>
+<td>Genişlik × Yükseklik piksel sayısı</td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Temel Görüntü Bilgisi</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">)</span>            <span class="c1"># BGR formatında okur (!)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Boyut: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>             <span class="c1"># (yükseklik, genişlik, kanal)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tip: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>               <span class="c1"># uint8</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Min/Max: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="c1"># Piksel erişimi</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="n">pixel</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span>        <span class="c1"># (y=100, x=200) pikselinin BGR değeri</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="n">roi</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">:</span><span class="mi">300</span><span class="p">]</span>   <span class="c1"># Bölge erişimi [y_start:y_end, x_start:x_end]</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="renk-uzaylar">Renk Uzayları<a class="headerlink" href="#renk-uzaylar" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Renk Uzayı</th>
+<th style="text-align: center;">Kanallar</th>
+<th>Kullanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>BGR</strong></td>
+<td style="text-align: center;">Blue, Green, Red</td>
+<td>OpenCV varsayılanı</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>RGB</strong></td>
+<td style="text-align: center;">Red, Green, Blue</td>
+<td>PIL/Matplotlib/PyTorch</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>HSV</strong></td>
+<td style="text-align: center;">Hue, Saturation, Value</td>
+<td>Renk tabanlı segmentasyon</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>LAB</strong></td>
+<td style="text-align: center;">Luminance, A<em>, B</em></td>
+<td>Renk karşılaştırma, transferi</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Grayscale</strong></td>
+<td style="text-align: center;">Yoğunluk</td>
+<td>Kenar, yoğunluk işlemleri</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>YCrCb</strong></td>
+<td style="text-align: center;">Luminance, Cr, Cb</td>
+<td>JPEG sıkıştırma, ten tonu</td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Renk Dönüşümleri</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">img_rgb</span>  <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>     <span class="c1"># matplotlib için</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">gray</span>     <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">hsv</span>      <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">lab</span>      <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2LAB</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="c1"># HSV ile renk maskesi — sarı rengi seç</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="n">lower_yellow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="n">upper_yellow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">30</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="n">mask</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">hsv</span><span class="p">,</span> <span class="n">lower_yellow</span><span class="p">,</span> <span class="n">upper_yellow</span><span class="p">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_and</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">HSV ile Renk Segmentasyonu</p>
+<p>HSV renk uzayında Hue (H) rengin kendisini, Saturation (S) doygunluğunu, Value (V) parlaklığını temsil eder. Işık koşullarından bağımsız renk tespiti için BGR'den çok daha uygun.</p>
+</div>
+<hr />
+<h2 id="geometrik-donusumler">Geometrik Dönüşümler<a class="headerlink" href="#geometrik-donusumler" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Yeniden Boyutlandırma ve Döndürme</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Yeniden boyutlandırma</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">resized</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">))</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">resized_ratio</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">fx</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># %50 küçült</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1"># Enterpolasyon: INTER_NEAREST hızlı, INTER_CUBIC kaliteli büyütme</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="n">resized_hq</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">720</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_CUBIC</span><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">w</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">h</span> <span class="o">//</span> <span class="mi">2</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="c1"># Döndürme</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="n">M_rot</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getRotationMatrix2D</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="n">rotated</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">M_rot</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="c1"># Flip</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="n">flipped_h</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># Yatay ayna</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="n">flipped_v</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>    <span class="c1"># Dikey ayna</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="c1"># Perspektif düzeltme (dörtgen → dikdörtgen)</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="n">src_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span> <span class="p">[</span><span class="mi">420</span><span class="p">,</span> <span class="mi">350</span><span class="p">],</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">370</span><span class="p">]])</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="n">dst_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>    <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>  <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">]])</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="n">M_persp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getPerspectiveTransform</span><span class="p">(</span><span class="n">src_pts</span><span class="p">,</span> <span class="n">dst_pts</span><span class="p">)</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="n">warped</span>  <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpPerspective</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">M_persp</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">))</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="filtreleme-ve-gurultu-azaltma">Filtreleme ve Gürültü Azaltma<a class="headerlink" href="#filtreleme-ve-gurultu-azaltma" title="Permanent link">&para;</a></h2>
+<p>Filtreler, piksel değerini komşuluğunun ağırlıklı ortalamasıyla değiştiren konvolüsyon çekirdeği uygular.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Filtreleme</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Gaussian Blur — doğal görüntü gürültüsü</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">blurred</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">sigmaX</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c1"># Median Blur — tuz-biber (salt-pepper) gürültüsü</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">median</span>    <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">medianBlur</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="c1"># Bilateral Filter — kenarları koruyarak gürültü azaltma</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="n">bilateral</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bilateralFilter</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sigmaColor</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">sigmaSpace</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="c1"># Keskinleştirme kernel&#39;i</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="n">sharpen_kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a>                            <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a>                            <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]])</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="n">sharpened</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">filter2D</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ddepth</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">sharpen_kernel</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Filtre</th>
+<th>Kullanım</th>
+<th style="text-align: center;">Hız</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gaussian</td>
+<td>Genel gürültü, bulanıklaştırma</td>
+<td style="text-align: center;">Hızlı</td>
+</tr>
+<tr>
+<td>Median</td>
+<td>Tuz-biber gürültüsü</td>
+<td style="text-align: center;">Orta</td>
+</tr>
+<tr>
+<td>Bilateral</td>
+<td>Kenar koruyarak bulanıklaştırma</td>
+<td style="text-align: center;">Yavaş</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="esikleme-thresholding">Eşikleme (Thresholding)<a class="headerlink" href="#esikleme-thresholding" title="Permanent link">&para;</a></h2>
+<p>Görüntüyü ön plan (1) ve arka plan (0) olarak ikiye ayırır.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Eşikleme Yöntemleri</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="c1"># Global Binary</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="n">_</span><span class="p">,</span> <span class="n">binary</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="c1"># Otsu — otomatik eşik (bimodal histogram için ideal)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="n">_</span><span class="p">,</span> <span class="n">otsu</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="c1"># Adaptif — yerel parlaklık değişimleri için (ışık tutarsızlığı)</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="n">adaptive</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a>    <span class="n">gray</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a>    <span class="n">cv2</span><span class="o">.</span><span class="n">ADAPTIVE_THRESH_GAUSSIAN_C</span><span class="p">,</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a>    <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">,</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a>    <span class="n">blockSize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>   <span class="c1"># Komşuluk boyutu (tek sayı)</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a>    <span class="n">C</span><span class="o">=</span><span class="mi">2</span>             <span class="c1"># Çıkartılan sabit</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">Hangi Eşik?</p>
+<ul>
+<li>Eşit aydınlatma → <strong>Otsu</strong></li>
+<li>Düzensiz aydınlatma (gölge, spotlight) → <strong>Adaptive Gaussian</strong></li>
+<li>Bilinen sabit eşik → <strong>Global Binary</strong></li>
+</ul>
+</div>
+<hr />
+<h2 id="morfolojik-islemler">Morfolojik İşlemler<a class="headerlink" href="#morfolojik-islemler" title="Permanent link">&para;</a></h2>
+<p>İkili görüntülerdeki şekilleri yapısal eleman (kernel) kullanarak değiştiren temel işlemlerdir.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Morfolojik İşlemler</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="n">eroded</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">erode</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>            <span class="c1"># Küçültür, gürültü temizler</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="n">dilated</span>  <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>            <span class="c1"># Büyütür, boşluk doldurur</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="n">opened</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_OPEN</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>   <span class="c1"># Erode + Dilate — gürültü at</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="n">closed</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_CLOSE</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>  <span class="c1"># Dilate + Erode — delik kapat</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="n">gradient</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_GRADIENT</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span> <span class="c1"># Kenar</span>
+</span></code></pre></div></td></tr></table></div>
+<pre class="mermaid"><code>graph LR
+    BIN[İkili Görüntü] --&gt; ERODE[Erode\nGürültü temizle]
+    BIN --&gt; DILATE[Dilate\nBoşluk doldur]
+    ERODE --&gt; OPEN[Open\nNesne şekli koru]
+    DILATE --&gt; CLOSE[Close\nDelik kapat]
+    ERODE &amp; DILATE --&gt; GRAD[Gradient\nKenar çıkar]</code></pre>
+<hr />
+<h2 id="kenar-tespiti-edge-detection">Kenar Tespiti (Edge Detection)<a class="headerlink" href="#kenar-tespiti-edge-detection" title="Permanent link">&para;</a></h2>
+<p>Kenarlar, yoğunluğun hızlı değiştiği piksellerdir. Nesne sınırlarını ve şekilleri temsil eder.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Kenar Tespiti</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="c1"># Canny — en yaygın; Gaussian + Sobel + çift eşik içerir</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="n">edges</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">threshold1</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">threshold2</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="c1"># Otomatik Canny eşiği (Otsu tabanlı)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="n">blur</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="n">v</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">blur</span><span class="p">)</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="n">edges_auto</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">blur</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.67</span><span class="o">*</span><span class="n">v</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mf">1.33</span><span class="o">*</span><span class="n">v</span><span class="p">)))</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="c1"># Sobel — yönsel kenar; gradyan büyüklüğü</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="n">sobel_x</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="n">sobel_y</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="n">sobel_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">magnitude</span><span class="p">(</span><span class="n">sobel_x</span><span class="p">,</span> <span class="n">sobel_y</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Dedektör</th>
+<th style="text-align: center;">Gürültü Duyarlılığı</th>
+<th>Kullanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Canny</strong></td>
+<td style="text-align: center;">Düşük (Gaussian dahil)</td>
+<td>Genel amaçlı (en iyi)</td>
+</tr>
+<tr>
+<td><strong>Sobel</strong></td>
+<td style="text-align: center;">Orta</td>
+<td>Gradyan yönü gerektiğinde</td>
+</tr>
+<tr>
+<td><strong>Laplacian</strong></td>
+<td style="text-align: center;">Yüksek</td>
+<td>Blob tespiti</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="kontur-tespiti-ve-sekil-analizi">Kontur Tespiti ve Şekil Analizi<a class="headerlink" href="#kontur-tespiti-ve-sekil-analizi" title="Permanent link">&para;</a></h2>
+<p>Konturlar, aynı yoğunluğa sahip sürekli piksel eğrileridir.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Kontur İşlemleri</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span>
+<span class="normal"><a href="#__codelineno-7-21">21</a></span>
+<span class="normal"><a href="#__codelineno-7-22">22</a></span>
+<span class="normal"><a href="#__codelineno-7-23">23</a></span>
+<span class="normal"><a href="#__codelineno-7-24">24</a></span>
+<span class="normal"><a href="#__codelineno-7-25">25</a></span>
+<span class="normal"><a href="#__codelineno-7-26">26</a></span>
+<span class="normal"><a href="#__codelineno-7-27">27</a></span>
+<span class="normal"><a href="#__codelineno-7-28">28</a></span>
+<span class="normal"><a href="#__codelineno-7-29">29</a></span>
+<span class="normal"><a href="#__codelineno-7-30">30</a></span>
+<span class="normal"><a href="#__codelineno-7-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="n">_</span><span class="p">,</span> <span class="n">binary</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="n">contours</span><span class="p">,</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>    <span class="n">binary</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_SIMPLE</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="p">)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="n">contours</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">contours</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="n">output</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="k">for</span> <span class="n">cnt</span> <span class="ow">in</span> <span class="n">contours</span><span class="p">:</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>    <span class="n">area</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a>    <span class="k">if</span> <span class="n">area</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="p">:</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a>        <span class="k">continue</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a>    <span class="c1"># Sınırlayıcı dikdörtgen</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a>    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19"></a>    <span class="c1"># Merkez (moment tabanlı)</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a>    <span class="n">M</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">moments</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a>    <span class="k">if</span> <span class="n">M</span><span class="p">[</span><span class="s1">&#39;m00&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a>        <span class="n">cx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="s1">&#39;m10&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">M</span><span class="p">[</span><span class="s1">&#39;m00&#39;</span><span class="p">])</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a>        <span class="n">cy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="s1">&#39;m01&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">M</span><span class="p">[</span><span class="s1">&#39;m00&#39;</span><span class="p">])</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a>        <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26"></a>    <span class="c1"># Şekil yaklaşımı</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27"></a>    <span class="n">perimeter</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">arcLength</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28"></a>    <span class="n">approx</span>    <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">approxPolyDP</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">perimeter</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">approx</span><span class="p">)</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30"></a>    <span class="n">label</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Üçgen&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Dörtgen&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s2">&quot;Daire&quot;</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">-gen&quot;</span><span class="p">)</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31"></a>    <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Kontur Özellikleri</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">cnt</span> <span class="o">=</span> <span class="n">contours</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="n">area</span>         <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="n">perimeter</span>    <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">arcLength</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="n">circularity</span>  <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>   <span class="c1"># 1.0 = daire</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span>  <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="n">aspect_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="n">extent</span>       <span class="o">=</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>                           <span class="c1"># Doluluk oranı</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="n">hull</span>         <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convexHull</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="n">solidity</span>     <span class="o">=</span> <span class="n">area</span> <span class="o">/</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">hull</span><span class="p">)</span>             <span class="c1"># 1.0 = dışbükey</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="histogram-islemleri">Histogram İşlemleri<a class="headerlink" href="#histogram-islemleri" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Histogram ve Eşitleme</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="c1"># Histogram hesapla</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="n">hist</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">gray</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">])</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="c1"># Histogram Eşitleme — düşük kontrast görüntü iyileştirme</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="n">equalized</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">equalizeHist</span><span class="p">(</span><span class="n">gray</span><span class="p">)</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="c1"># CLAHE — Sınırlandırılmış Adaptif HE (daha doğal sonuç)</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="n">clahe</span>      <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">createCLAHE</span><span class="p">(</span><span class="n">clipLimit</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">tileGridSize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="n">clahe_gray</span> <span class="o">=</span> <span class="n">clahe</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">gray</span><span class="p">)</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="c1"># Renkli görüntüde CLAHE (V kanalına uygula)</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="n">hsv</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="n">hsv</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">clahe</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">hsv</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">])</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="n">img_clahe</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">hsv</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_HSV2BGR</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="ozellik-tespiti-feature-detection">Özellik Tespiti (Feature Detection)<a class="headerlink" href="#ozellik-tespiti-feature-detection" title="Permanent link">&para;</a></h2>
+<p>Görüntüdeki tekrarlanabilir, tanınabilir noktaları (keypoint) ve tanımlayıcılarını (descriptor) çıkarır.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">ORB — Hızlı ve Patent-free</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="n">orb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ORB_create</span><span class="p">(</span><span class="n">nfeatures</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="n">kp</span><span class="p">,</span> <span class="n">des</span> <span class="o">=</span> <span class="n">orb</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="c1"># İki görüntü eşleştirme</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="n">orb2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ORB_create</span><span class="p">(</span><span class="n">nfeatures</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="n">kp2</span><span class="p">,</span> <span class="n">des2</span> <span class="o">=</span> <span class="n">orb2</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">gray2</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="n">bf</span>      <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">BFMatcher</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">NORM_HAMMING</span><span class="p">,</span> <span class="n">crossCheck</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="n">matches</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">des</span><span class="p">,</span> <span class="n">des2</span><span class="p">)</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="n">matches</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">distance</span><span class="p">)</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="n">img_matches</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawMatches</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">kp</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">kp2</span><span class="p">,</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">30</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a>                              <span class="n">flags</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">SIFT + FLANN (daha hassas)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="n">sift</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SIFT_create</span><span class="p">(</span><span class="n">nfeatures</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="n">kp</span><span class="p">,</span> <span class="n">des</span> <span class="o">=</span> <span class="n">sift</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="n">flann</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FlannBasedMatcher</span><span class="p">({</span><span class="s1">&#39;algorithm&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;trees&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;checks&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">})</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="n">matches</span> <span class="o">=</span> <span class="n">flann</span><span class="o">.</span><span class="n">knnMatch</span><span class="p">(</span><span class="n">des</span><span class="p">,</span> <span class="n">des2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="n">good</span>    <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">matches</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">distance</span> <span class="o">&lt;</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">n</span><span class="o">.</span><span class="n">distance</span><span class="p">]</span>  <span class="c1"># Lowe&#39;s ratio test</span>
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Dedektör</th>
+<th style="text-align: center;">Hız</th>
+<th style="text-align: center;">Ölçek Değişmez</th>
+<th style="text-align: center;">Patent</th>
+<th>Kullanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ORB</strong></td>
+<td style="text-align: center;">Hızlı</td>
+<td style="text-align: center;">Kısmen</td>
+<td style="text-align: center;">Açık</td>
+<td>Gerçek zamanlı</td>
+</tr>
+<tr>
+<td><strong>SIFT</strong></td>
+<td style="text-align: center;">Yavaş</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">Açık (2020+)</td>
+<td>Hassas eşleştirme</td>
+</tr>
+<tr>
+<td><strong>AKAZE</strong></td>
+<td style="text-align: center;">Orta</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">Açık</td>
+<td>SLAM</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sablon-eslestirme-template-matching">Şablon Eşleştirme (Template Matching)<a class="headerlink" href="#sablon-eslestirme-template-matching" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Template Matching</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="n">template</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;template.png&quot;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="n">th</span><span class="p">,</span> <span class="n">tw</span>   <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">matchTemplate</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TM_CCOEFF_NORMED</span><span class="p">)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">min_loc</span><span class="p">,</span> <span class="n">max_loc</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">minMaxLoc</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="c1"># Tüm eşleşmeleri bul (threshold üstü)</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="n">locations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">result</span> <span class="o">&gt;=</span> <span class="mf">0.8</span><span class="p">)</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">locations</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a>    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">tw</span><span class="p">,</span> <span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">th</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="segmentasyon-watershed">Segmentasyon — Watershed<a class="headerlink" href="#segmentasyon-watershed" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Watershed Algoritması</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-13-10">10</a></span>
+<span class="normal"><a href="#__codelineno-13-11">11</a></span>
+<span class="normal"><a href="#__codelineno-13-12">12</a></span>
+<span class="normal"><a href="#__codelineno-13-13">13</a></span>
+<span class="normal"><a href="#__codelineno-13-14">14</a></span>
+<span class="normal"><a href="#__codelineno-13-15">15</a></span>
+<span class="normal"><a href="#__codelineno-13-16">16</a></span>
+<span class="normal"><a href="#__codelineno-13-17">17</a></span>
+<span class="normal"><a href="#__codelineno-13-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="n">_</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY_INV</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span><span class="p">)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="n">kernel</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="n">opening</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_OPEN</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="n">sure_bg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">opening</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="n">dist_transform</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">distanceTransform</span><span class="p">(</span><span class="n">opening</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">DIST_L2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="n">_</span><span class="p">,</span> <span class="n">sure_fg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">dist_transform</span><span class="p">,</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">dist_transform</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="n">sure_fg</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="n">sure_fg</span><span class="p">)</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a><span class="n">unknown</span>    <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">sure_bg</span><span class="p">,</span> <span class="n">sure_fg</span><span class="p">)</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="n">_</span><span class="p">,</span> <span class="n">markers</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">connectedComponents</span><span class="p">(</span><span class="n">sure_fg</span><span class="p">)</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14"></a><span class="n">markers</span>    <span class="o">=</span> <span class="n">markers</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15"></a><span class="n">markers</span><span class="p">[</span><span class="n">unknown</span> <span class="o">==</span> <span class="mi">255</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16"></a>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17"></a><span class="n">markers</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">watershed</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">markers</span><span class="p">)</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18"></a><span class="n">img</span><span class="p">[</span><span class="n">markers</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>   <span class="c1"># Sınırları kırmızıyla işaretle</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="kamera-kalibrasyonu">Kamera Kalibrasyonu<a class="headerlink" href="#kamera-kalibrasyonu" title="Permanent link">&para;</a></h2>
+<p>Kamera lensi geometrik bozulma (distortion) üretir. Kalibrasyon, bu bozulmayı düzeltmek için intrinsic ve distortion parametrelerini hesaplar.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Satranç Tahtası ile Kalibrasyon</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span>
+<span class="normal"><a href="#__codelineno-14-15">15</a></span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span>
+<span class="normal"><a href="#__codelineno-14-17">17</a></span>
+<span class="normal"><a href="#__codelineno-14-18">18</a></span>
+<span class="normal"><a href="#__codelineno-14-19">19</a></span>
+<span class="normal"><a href="#__codelineno-14-20">20</a></span>
+<span class="normal"><a href="#__codelineno-14-21">21</a></span>
+<span class="normal"><a href="#__codelineno-14-22">22</a></span>
+<span class="normal"><a href="#__codelineno-14-23">23</a></span>
+<span class="normal"><a href="#__codelineno-14-24">24</a></span>
+<span class="normal"><a href="#__codelineno-14-25">25</a></span>
+<span class="normal"><a href="#__codelineno-14-26">26</a></span>
+<span class="normal"><a href="#__codelineno-14-27">27</a></span>
+<span class="normal"><a href="#__codelineno-14-28">28</a></span>
+<span class="normal"><a href="#__codelineno-14-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="n">CHESSBOARD</span> <span class="o">=</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="n">objp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">CHESSBOARD</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHESSBOARD</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="n">objp</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">CHESSBOARD</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">:</span><span class="n">CHESSBOARD</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="n">obj_points</span><span class="p">,</span> <span class="n">img_points</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;calib_images/*.jpg&#39;</span><span class="p">):</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a>    <span class="n">img</span>  <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a>    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a>    <span class="n">ret</span><span class="p">,</span> <span class="n">corners</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findChessboardCorners</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">CHESSBOARD</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a>        <span class="k">continue</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a>    <span class="n">criteria</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_EPS</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_MAX_ITER</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a>    <span class="n">corners2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cornerSubPix</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">corners</span><span class="p">,</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">criteria</span><span class="p">)</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17"></a>    <span class="n">obj_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objp</span><span class="p">)</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18"></a>    <span class="n">img_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corners2</span><span class="p">)</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19"></a>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20"></a><span class="n">ret</span><span class="p">,</span> <span class="n">camera_matrix</span><span class="p">,</span> <span class="n">dist_coeffs</span><span class="p">,</span> <span class="n">rvecs</span><span class="p">,</span> <span class="n">tvecs</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calibrateCamera</span><span class="p">(</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21"></a>    <span class="n">obj_points</span><span class="p">,</span> <span class="n">img_points</span><span class="p">,</span> <span class="n">gray</span><span class="o">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22"></a><span class="p">)</span>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMS hata: </span><span class="si">{</span><span class="n">ret</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   <span class="c1"># &lt; 1.0 iyi</span>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24"></a>
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25"></a><span class="c1"># Bozulmayı düzelt</span>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26"></a><span class="n">undistorted</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">undistort</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">camera_matrix</span><span class="p">,</span> <span class="n">dist_coeffs</span><span class="p">)</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27"></a>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28"></a><span class="c1"># Kaydet</span>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29"></a><span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="s1">&#39;calibration.npz&#39;</span><span class="p">,</span> <span class="n">camera_matrix</span><span class="o">=</span><span class="n">camera_matrix</span><span class="p">,</span> <span class="n">dist_coeffs</span><span class="o">=</span><span class="n">dist_coeffs</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<pre class="mermaid"><code>graph LR
+    CALIB[Kalibrasyon\nGörüntüleri] --&gt; FIND[Köşe Noktaları\nfindChessboardCorners]
+    FIND --&gt; CAL[calibrateCamera\nK, D, R, T]
+    CAL --&gt; UNDIST[undistort\nDüzeltilmiş Görüntü]
+    CAL --&gt; POSE[solvePnP\nPoz Tahmini]</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">İyi Kalibrasyon İçin</p>
+<ul>
+<li>En az 15–20 farklı açı ve mesafeden kare kullanın</li>
+<li>RMS hata &lt; 0.5 mükemmel, &lt; 1.0 yeterli</li>
+<li>Kalibrasyonu farklı ışık koşullarında tekrarlayın</li>
+</ul>
+</div>
+<hr />
+<h2 id="nesne-tespiti-derin-ogrenme-ile">Nesne Tespiti — Derin Öğrenme ile<a class="headerlink" href="#nesne-tespiti-derin-ogrenme-ile" title="Permanent link">&para;</a></h2>
+<h3 id="yolov8-ile-modern-kullanm">YOLOv8 ile Modern Kullanım<a class="headerlink" href="#yolov8-ile-modern-kullanm" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Ultralytics YOLOv8</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span>
+<span class="normal"><a href="#__codelineno-15-14">14</a></span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span>
+<span class="normal"><a href="#__codelineno-15-16">16</a></span>
+<span class="normal"><a href="#__codelineno-15-17">17</a></span>
+<span class="normal"><a href="#__codelineno-15-18">18</a></span>
+<span class="normal"><a href="#__codelineno-15-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ultralytics</span><span class="w"> </span><span class="kn">import</span> <span class="n">YOLO</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">YOLO</span><span class="p">(</span><span class="s2">&quot;yolov8n.pt&quot;</span><span class="p">)</span>   <span class="c1"># nano: hız odaklı; yolov8l.pt: doğruluk odaklı</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="c1"># Tek görüntü</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">iou</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a>    <span class="k">for</span> <span class="n">box</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">boxes</span><span class="p">:</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a>        <span class="bp">cls</span>  <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">cls</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a>        <span class="n">conf</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a>        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">xyxy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">conf</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> @ [</span><span class="si">{</span><span class="n">x1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">y1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">x2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">y2</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a>    <span class="n">r</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output.jpg&quot;</span><span class="p">)</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="c1"># Webcam akışı</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">conf</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># 0 = webcam</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17"></a>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18"></a><span class="c1"># Fine-tune</span>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19"></a><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;dataset.yaml&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">imgsz</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="opencv-dnn-ile-yolo">OpenCV DNN ile YOLO<a class="headerlink" href="#opencv-dnn-ile-yolo" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">OpenCV DNN</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span>
+<span class="normal"><a href="#__codelineno-16-11">11</a></span>
+<span class="normal"><a href="#__codelineno-16-12">12</a></span>
+<span class="normal"><a href="#__codelineno-16-13">13</a></span>
+<span class="normal"><a href="#__codelineno-16-14">14</a></span>
+<span class="normal"><a href="#__codelineno-16-15">15</a></span>
+<span class="normal"><a href="#__codelineno-16-16">16</a></span>
+<span class="normal"><a href="#__codelineno-16-17">17</a></span>
+<span class="normal"><a href="#__codelineno-16-18">18</a></span>
+<span class="normal"><a href="#__codelineno-16-19">19</a></span>
+<span class="normal"><a href="#__codelineno-16-20">20</a></span>
+<span class="normal"><a href="#__codelineno-16-21">21</a></span>
+<span class="normal"><a href="#__codelineno-16-22">22</a></span>
+<span class="normal"><a href="#__codelineno-16-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="n">net</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">readNet</span><span class="p">(</span><span class="s2">&quot;yolov4.weights&quot;</span><span class="p">,</span> <span class="s2">&quot;yolov4.cfg&quot;</span><span class="p">)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="n">net</span><span class="o">.</span><span class="n">setPreferableBackend</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">DNN_BACKEND_CUDA</span><span class="p">)</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="n">net</span><span class="o">.</span><span class="n">setPreferableTarget</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">DNN_TARGET_CUDA</span><span class="p">)</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="n">blob</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">blobFromImage</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="p">(</span><span class="mi">416</span><span class="p">,</span> <span class="mi">416</span><span class="p">),</span> <span class="n">swapRB</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="n">net</span><span class="o">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">getUnconnectedOutLayersNames</span><span class="p">())</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="n">boxes</span><span class="p">,</span> <span class="n">confs</span><span class="p">,</span> <span class="n">class_ids</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a>    <span class="k">for</span> <span class="n">det</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a>        <span class="n">scores</span> <span class="o">=</span> <span class="n">det</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15"></a>        <span class="bp">cls</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16"></a>        <span class="n">conf</span>   <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17"></a>        <span class="k">if</span> <span class="n">conf</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18"></a>            <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">bw</span><span class="p">,</span> <span class="n">bh</span> <span class="o">=</span> <span class="p">(</span><span class="n">det</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">*</span> <span class="p">[</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19"></a>            <span class="n">boxes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">cx</span> <span class="o">-</span> <span class="n">bw</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="n">bh</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">bw</span><span class="p">,</span> <span class="n">bh</span><span class="p">])</span>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20"></a>            <span class="n">confs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">conf</span><span class="p">))</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21"></a>            <span class="n">class_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22"></a>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23"></a><span class="n">indices</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">NMSBoxes</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">confs</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="optik-aks-optical-flow">Optik Akış (Optical Flow)<a class="headerlink" href="#optik-aks-optical-flow" title="Permanent link">&para;</a></h2>
+<p>Ardışık kare çiftleri arasındaki piksel hareketini hesaplar.</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Lucas-Kanade Optik Akış</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-17-10">10</a></span>
+<span class="normal"><a href="#__codelineno-17-11">11</a></span>
+<span class="normal"><a href="#__codelineno-17-12">12</a></span>
+<span class="normal"><a href="#__codelineno-17-13">13</a></span>
+<span class="normal"><a href="#__codelineno-17-14">14</a></span>
+<span class="normal"><a href="#__codelineno-17-15">15</a></span>
+<span class="normal"><a href="#__codelineno-17-16">16</a></span>
+<span class="normal"><a href="#__codelineno-17-17">17</a></span>
+<span class="normal"><a href="#__codelineno-17-18">18</a></span>
+<span class="normal"><a href="#__codelineno-17-19">19</a></span>
+<span class="normal"><a href="#__codelineno-17-20">20</a></span>
+<span class="normal"><a href="#__codelineno-17-21">21</a></span>
+<span class="normal"><a href="#__codelineno-17-22">22</a></span>
+<span class="normal"><a href="#__codelineno-17-23">23</a></span>
+<span class="normal"><a href="#__codelineno-17-24">24</a></span>
+<span class="normal"><a href="#__codelineno-17-25">25</a></span>
+<span class="normal"><a href="#__codelineno-17-26">26</a></span>
+<span class="normal"><a href="#__codelineno-17-27">27</a></span>
+<span class="normal"><a href="#__codelineno-17-28">28</a></span>
+<span class="normal"><a href="#__codelineno-17-29">29</a></span>
+<span class="normal"><a href="#__codelineno-17-30">30</a></span>
+<span class="normal"><a href="#__codelineno-17-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="n">cap</span>       <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s2">&quot;video.mp4&quot;</span><span class="p">)</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="n">ret</span><span class="p">,</span> <span class="n">old</span>  <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="n">old_gray</span>  <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="n">p0</span>        <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">goodFeaturesToTrack</span><span class="p">(</span><span class="n">old_gray</span><span class="p">,</span> <span class="n">maxCorners</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a>                                     <span class="n">qualityLevel</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">minDistance</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="n">lk_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">winSize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">maxLevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7"></a>                 <span class="n">criteria</span><span class="o">=</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_EPS</span> <span class="o">|</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_COUNT</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">))</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">old</span><span class="p">)</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11"></a>    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13"></a>        <span class="k">break</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14"></a>    <span class="n">frame_gray</span>      <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15"></a>    <span class="n">p1</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">_</span>       <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcOpticalFlowPyrLK</span><span class="p">(</span><span class="n">old_gray</span><span class="p">,</span> <span class="n">frame_gray</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">lk_params</span><span class="p">)</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16"></a>    <span class="n">good_new</span>        <span class="o">=</span> <span class="n">p1</span><span class="p">[</span><span class="n">st</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17"></a>    <span class="n">good_old</span>        <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="n">st</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18"></a>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19"></a>    <span class="k">for</span> <span class="n">new</span><span class="p">,</span> <span class="n">old_pt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">good_new</span><span class="p">,</span> <span class="n">good_old</span><span class="p">):</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20"></a>        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21"></a>        <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">old_pt</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22"></a>        <span class="n">mask</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23"></a>        <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24"></a>
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25"></a>    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Akış&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">mask</span><span class="p">))</span>
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26"></a>    <span class="n">old_gray</span> <span class="o">=</span> <span class="n">frame_gray</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27"></a>    <span class="n">p0</span>       <span class="o">=</span> <span class="n">good_new</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28"></a>    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29"></a>        <span class="k">break</span>
+</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30"></a><span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</span><span id="__span-17-31"><a id="__codelineno-17-31" name="__codelineno-17-31"></a><span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="goruntu-isleme-hzl-basvuru">Görüntü İşleme Hızlı Başvuru<a class="headerlink" href="#goruntu-isleme-hzl-basvuru" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Amaç</th>
+<th>Fonksiyon</th>
+<th>Not</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oku / Yaz</td>
+<td><code>cv2.imread</code>, <code>cv2.imwrite</code></td>
+<td>BGR formatı</td>
+</tr>
+<tr>
+<td>Boyutlandır</td>
+<td><code>cv2.resize</code></td>
+<td><code>INTER_CUBIC</code> büyütme için</td>
+</tr>
+<tr>
+<td>Renk dönüşümü</td>
+<td><code>cv2.cvtColor</code></td>
+<td>BGR→HSV tespiti için</td>
+</tr>
+<tr>
+<td>Bulanıklaştır</td>
+<td><code>cv2.GaussianBlur</code></td>
+<td>Gürültü öncesi</td>
+</tr>
+<tr>
+<td>Kenar</td>
+<td><code>cv2.Canny</code></td>
+<td>Otomatik: <code>0.67/1.33 × median</code></td>
+</tr>
+<tr>
+<td>Eşik</td>
+<td><code>cv2.threshold + OTSU</code></td>
+<td>Eşit aydınlatmada</td>
+</tr>
+<tr>
+<td>Adaptif Eşik</td>
+<td><code>cv2.adaptiveThreshold</code></td>
+<td>Düzensiz ışıkta</td>
+</tr>
+<tr>
+<td>Morfoloji</td>
+<td><code>cv2.morphologyEx</code></td>
+<td>OPEN gürültü, CLOSE delik</td>
+</tr>
+<tr>
+<td>Kontur</td>
+<td><code>cv2.findContours</code></td>
+<td>İkili görüntü gerekli</td>
+</tr>
+<tr>
+<td>Özellik</td>
+<td><code>cv2.ORB_create</code></td>
+<td>Gerçek zamanlı eşleştirme</td>
+</tr>
+<tr>
+<td>Nesne Tespiti</td>
+<td><code>YOLO("yolov8n.pt")</code></td>
+<td>Modern standart</td>
+</tr>
+<tr>
+<td>Kalibrasyon</td>
+<td><code>cv2.calibrateCamera</code></td>
+<td>Satranç tahtası ile</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -989,7 +2348,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Altbilgi" >
         
           
-          <a href="../tools/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: Tools">
+          <a href="../neural_networks/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: Sinir Ağları ve Derin Öğrenme">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -999,20 +2358,20 @@
                 Önceki
               </span>
               <div class="md-ellipsis">
-                Tools
+                Sinir Ağları ve Derin Öğrenme
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../communication/ipc/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: IPC">
+          <a href="../tools/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: Araçlar ve Kütüphaneler">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Sonraki
               </span>
               <div class="md-ellipsis">
-                IPC
+                Araçlar ve Kütüphaneler
               </div>
             </div>
             <div class="md-footer__button md-icon">

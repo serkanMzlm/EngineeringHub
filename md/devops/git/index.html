@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../../robotics/gazebo/">
+        <link rel="prev" href="../../robotics/control/">
       
       
         <link rel="next" href="../docker/">
@@ -603,6 +603,8 @@
       
         
       
+        
+      
     
     
     
@@ -711,6 +713,8 @@
       
         
       
+        
+      
     
     
     
@@ -762,6 +766,10 @@
   
     
     
+      
+        
+      
+        
       
         
       
@@ -867,9 +875,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#git-yaplandrma-config" class="md-nav__link">
+  <a href="#yaplandrma-config" class="md-nav__link">
     <span class="md-ellipsis">
-      Git Yapılandırma (Config)
+      Yapılandırma (Config)
     </span>
   </a>
   
@@ -885,18 +893,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#durum-kontrolu-gitignore" class="md-nav__link">
+  <a href="#durum-ve-gitignore" class="md-nav__link">
     <span class="md-ellipsis">
-      Durum Kontrolü &amp; .gitignore
+      Durum ve .gitignore
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#staging-sahneleme-commit" class="md-nav__link">
+  <a href="#staging-ve-commit" class="md-nav__link">
     <span class="md-ellipsis">
-      Staging (Sahneleme) &amp; Commit
+      Staging ve Commit
     </span>
   </a>
   
@@ -921,9 +929,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#birlestirme-merge-rebase" class="md-nav__link">
+  <a href="#merge-ve-rebase" class="md-nav__link">
     <span class="md-ellipsis">
-      Birleştirme (Merge) &amp; Rebase
+      Merge ve Rebase
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stash-degisiklikleri-gecici-sakla" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stash — Değişiklikleri Geçici Sakla
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cherry-pick-tek-commit-tas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cherry-pick — Tek Commit Taşı
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reset-ve-revert" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reset ve Revert
     </span>
   </a>
   
@@ -933,6 +968,15 @@
   <a href="#log-ve-inceleme" class="md-nav__link">
     <span class="md-ellipsis">
       Log ve İnceleme
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bisect-hatay-ikili-aramayla-bul" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bisect — Hatayı İkili Aramayla Bul
     </span>
   </a>
   
@@ -957,18 +1001,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#farkllk-inceleme-diff" class="md-nav__link">
+  <a href="#gecici-dosya-izleme-haric-tutma" class="md-nav__link">
     <span class="md-ellipsis">
-      Farklılık İnceleme (Diff)
+      Geçici Dosya İzleme Hariç Tutma
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#fork-edilmis-depoyu-senkronize-etme" class="md-nav__link">
+  <a href="#fork-edilmis-repoyu-senkronize-etme" class="md-nav__link">
     <span class="md-ellipsis">
-      Fork Edilmiş Depoyu Senkronize Etme
+      Fork Edilmiş Repoyu Senkronize Etme
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gecmisten-buyuk-dosyalar-temizleme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geçmişten Büyük Dosyaları Temizleme
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-stratejileri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branching Stratejileri
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hzl-basvuru" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hızlı Başvuru
     </span>
   </a>
   
@@ -1029,6 +1100,52 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Algorithms
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1063,9 +1180,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#git-yaplandrma-config" class="md-nav__link">
+  <a href="#yaplandrma-config" class="md-nav__link">
     <span class="md-ellipsis">
-      Git Yapılandırma (Config)
+      Yapılandırma (Config)
     </span>
   </a>
   
@@ -1081,18 +1198,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#durum-kontrolu-gitignore" class="md-nav__link">
+  <a href="#durum-ve-gitignore" class="md-nav__link">
     <span class="md-ellipsis">
-      Durum Kontrolü &amp; .gitignore
+      Durum ve .gitignore
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#staging-sahneleme-commit" class="md-nav__link">
+  <a href="#staging-ve-commit" class="md-nav__link">
     <span class="md-ellipsis">
-      Staging (Sahneleme) &amp; Commit
+      Staging ve Commit
     </span>
   </a>
   
@@ -1117,9 +1234,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#birlestirme-merge-rebase" class="md-nav__link">
+  <a href="#merge-ve-rebase" class="md-nav__link">
     <span class="md-ellipsis">
-      Birleştirme (Merge) &amp; Rebase
+      Merge ve Rebase
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stash-degisiklikleri-gecici-sakla" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stash — Değişiklikleri Geçici Sakla
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cherry-pick-tek-commit-tas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cherry-pick — Tek Commit Taşı
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reset-ve-revert" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reset ve Revert
     </span>
   </a>
   
@@ -1129,6 +1273,15 @@
   <a href="#log-ve-inceleme" class="md-nav__link">
     <span class="md-ellipsis">
       Log ve İnceleme
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bisect-hatay-ikili-aramayla-bul" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bisect — Hatayı İkili Aramayla Bul
     </span>
   </a>
   
@@ -1153,18 +1306,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#farkllk-inceleme-diff" class="md-nav__link">
+  <a href="#gecici-dosya-izleme-haric-tutma" class="md-nav__link">
     <span class="md-ellipsis">
-      Farklılık İnceleme (Diff)
+      Geçici Dosya İzleme Hariç Tutma
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#fork-edilmis-depoyu-senkronize-etme" class="md-nav__link">
+  <a href="#fork-edilmis-repoyu-senkronize-etme" class="md-nav__link">
     <span class="md-ellipsis">
-      Fork Edilmiş Depoyu Senkronize Etme
+      Fork Edilmiş Repoyu Senkronize Etme
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gecmisten-buyuk-dosyalar-temizleme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geçmişten Büyük Dosyaları Temizleme
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-stratejileri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branching Stratejileri
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hzl-basvuru" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hızlı Başvuru
     </span>
   </a>
   
@@ -1188,195 +1368,103 @@
 
 <h1 id="git">Git<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
 <pre class="mermaid"><code>graph LR
-  A[Working Directory] --&gt;|git add| B{Staging Area};
-  B --&gt;|git commit| C[Local Repo];
-  C --&gt; |git push| D[Remote Repo];
-  D --&gt; |git pull| C;
-  D --&gt; |git fetch| C;
-  D --&gt; |git clone| C;
-  C --&gt;|git checout| A;
-  C --&gt;|git merge| A;</code></pre>
-<h2 id="git-yaplandrma-config">Git Yapılandırma (Config)<a class="headerlink" href="#git-yaplandrma-config" title="Permanent link">&para;</a></h2>
+    WD[Working Directory] --&gt;|git add| SA{Staging Area}
+    SA --&gt;|git commit| LR[Local Repo]
+    LR --&gt;|git push| RR[Remote Repo]
+    RR --&gt;|git pull| LR
+    RR --&gt;|git fetch| LR
+    RR --&gt;|git clone| LR
+    LR --&gt;|git checkout| WD
+    LR --&gt;|git merge| WD</code></pre>
+<hr />
+<h2 id="yaplandrma-config">Yapılandırma (Config)<a class="headerlink" href="#yaplandrma-config" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>--local</code>→ Mevcut repo içindeki <strong>.git/config</strong></li>
-<li><code>--global</code> → Kullanıcının <strong>~/.gitconfig</strong></li>
-<li><code>--system</code> → Sistem geneli <strong>/etc/gitconfig</strong></li>
+<li><code>--local</code> → Mevcut repo: <code>.git/config</code></li>
+<li><code>--global</code> → Kullanıcı: <code>~/.gitconfig</code></li>
+<li><code>--system</code> → Sistem: <code>/etc/gitconfig</code></li>
 </ul>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Kullanıcı bilgisi</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w">   </span><span class="s2">&quot;Serkan&quot;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w">  </span><span class="s2">&quot;serkanmazlum@gmail.com&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1"># Varsayılan editör</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.editor<span class="w"> </span>vim
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="c1"># Tüm projelerde uygulanacak ignore dosyası</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.excludesfile<span class="w"> </span>~/.gitignore_global
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="c1"># Ayarları listele</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>git<span class="w"> </span>config<span class="w"> </span>--list
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>git<span class="w"> </span>--version<span class="w">        </span><span class="c1"># Sistemde kurulu olan sürümü gösterir.</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>git<span class="w"> </span><span class="nb">help</span><span class="w"> </span>--all<span class="w">       </span><span class="c1"># Git için bütün komutları gösterir.</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>git<span class="w"> </span><span class="o">[</span>command<span class="o">]</span><span class="w"> </span>--help<span class="w"> </span><span class="c1"># Belirli bir komut hakkında bilgi verir.</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w">  </span><span class="s2">&quot;Serkan&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;serkanmazlum@gmail.com&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.editor<span class="w"> </span>vim
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.excludesfile<span class="w"> </span>~/.gitignore_global
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>git<span class="w"> </span>config<span class="w"> </span>--list
 </span></code></pre></div></td></tr></table></div>
+<hr />
 <h2 id="depo-olusturma-ve-klonlama">Depo Oluşturma ve Klonlama<a class="headerlink" href="#depo-olusturma-ve-klonlama" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span>
-<span class="normal"><a href="#__codelineno-1-6">6</a></span>
-<span class="normal"><a href="#__codelineno-1-7">7</a></span>
-<span class="normal"><a href="#__codelineno-1-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Yeni repo başlatma</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>git<span class="w"> </span>init
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="c1"># Mevcut bir depoyu klonlama</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>git<span class="w"> </span>clone<span class="w"> </span><span class="o">[</span>URL<span class="o">]</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1"># Belirli branch ve alt modüllerle klonlama</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>--recurse-submodules<span class="w"> </span><span class="o">[</span>URL<span class="o">]</span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>git<span class="w"> </span>init
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>git<span class="w"> </span>clone<span class="w"> </span><span class="o">[</span>URL<span class="o">]</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>--recurse-submodules<span class="w"> </span><span class="o">[</span>URL<span class="o">]</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="durum-kontrolu-gitignore">Durum Kontrolü &amp; .gitignore<a class="headerlink" href="#durum-kontrolu-gitignore" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Değişikliklerin kaba özeti</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>git<span class="w"> </span>status
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>git<span class="w"> </span>status<span class="w"> </span>-s<span class="w">    </span><span class="c1"># kısa format</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1"># gitignore dosyasında bulunan değişimleride gösterir.</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>git<span class="w"> </span>status<span class="w"> </span>--ignored<span class="w"> </span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c1"># İzlenmemesini istediğiniz dosya/dizinleri ekleyin:</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="c1"># .gitignore</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>*.log
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>build/
+<hr />
+<h2 id="durum-ve-gitignore">Durum ve .gitignore<a class="headerlink" href="#durum-ve-gitignore" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>git<span class="w"> </span>status<span class="w">           </span><span class="c1"># Değişikliklerin durumu</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>git<span class="w"> </span>status<span class="w"> </span>-s<span class="w">        </span><span class="c1"># Kısa format</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>git<span class="w"> </span>status<span class="w"> </span>--ignored<span class="w"> </span><span class="c1"># .gitignore&#39;daki değişiklikler de görünür</span>
 </span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Sembol</th>
+<th>Anlam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>??</code></td>
+<td>İzlenmeyen (untracked) dosya</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td>Staging area'ya eklendi</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>Değiştirildi (modified)</td>
+</tr>
+<tr>
+<td><code>D</code></td>
+<td>Silindi (deleted)</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
-<p class="admonition-title">Not</p>
-<p>Eğer bir dosya önceden commit edildiyse ve sonra .gitignore’a eklerseniz: <code>git rm --cached &lt;file&gt;</code></p>
+<p class="admonition-title">Commit Sonrası .gitignore Eklemek</p>
+<p>Önceden commit edilmiş bir dosyayı <code>.gitignore</code>'a eklemek onu takipten çıkarmaz. Önce: <code>git rm --cached &lt;file&gt;</code></p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Not</p>
-<p>git status 
-??: izlenemeyen dosya
-A: staging area eklenen dosya
-M: (modified) değiştirilmiş dosya
-D: (delete) silinmiş dosya.</p>
-</div>
-<h2 id="staging-sahneleme-commit">Staging (Sahneleme) &amp; Commit<a class="headerlink" href="#staging-sahneleme-commit" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span>
-<span class="normal"><a href="#__codelineno-3-12">12</a></span>
-<span class="normal"><a href="#__codelineno-3-13">13</a></span>
-<span class="normal"><a href="#__codelineno-3-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Tüm değişiklikleri stage’e ekle</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>git<span class="w"> </span>add<span class="w"> </span>.
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c1"># Belirli dosyayı stage’e ekle</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>git<span class="w"> </span>add<span class="w"> </span>path/to/file
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="c1"># Commit oluşturma</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Mesaj&quot;</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="c1"># Değişiklikleri otomatik stage et + commit</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a>git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span><span class="s2">&quot;Mesaj&quot;</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="c1"># Son commit mesajını veya içeriğini düzenle</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a>git<span class="w"> </span>commit<span class="w"> </span>--amend
+<div class="language-bash highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">.gitignore Örnekleri</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>*.log
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>build/
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>.env
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>*.png
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>resimler/**
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>resimler/!deneme.png<span class="w">    </span><span class="c1"># Bu dosya hariç</span>
 </span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="staging-ve-commit">Staging ve Commit<a class="headerlink" href="#staging-ve-commit" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>git<span class="w"> </span>add<span class="w"> </span>.<span class="w">                   </span><span class="c1"># Tüm değişiklikleri ekle</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>git<span class="w"> </span>add<span class="w"> </span>path/to/file<span class="w">        </span><span class="c1"># Belirli dosya</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Mesaj&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span><span class="s2">&quot;Mesaj&quot;</span><span class="w">      </span><span class="c1"># git add + commit</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w">          </span><span class="c1"># Son commit&#39;i düzenle</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
 <h2 id="uzak-depolar-remotes">Uzak Depolar (Remotes)<a class="headerlink" href="#uzak-depolar-remotes" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># Mevcut remote’ları listele</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>git<span class="w"> </span>remote<span class="w"> </span>-v
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="c1"># Yeni remote ekle</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/you/repo.git
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="c1"># Remote’u sil</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>git<span class="w"> </span>remote<span class="w"> </span>rm<span class="w"> </span>origin
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="c1"># Remote adresini güncelle</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a>git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>git@github.com:you/repo.git
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="c1"># Remote adını değiştir</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a>git<span class="w"> </span>remote<span class="w"> </span>rename<span class="w"> </span>oldname<span class="w"> </span>newname
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="c1"># Yerel branch’i remote’a gönder</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="c1"># Tüm branch’leri gönder</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a>git<span class="w"> </span>push<span class="w"> </span>--all
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="c1"># Commit’leri alma + birleştirme</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24"></a>
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="c1"># Zorla gönderme (dikkat!)</span>
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26"></a>git<span class="w"> </span>push<span class="w"> </span>--force
-</span></code></pre></div></td></tr></table></div>
-<div class="admonition node">
-<p class="admonition-title">Not</p>
-<p><code>git update-index --skip-worktree [file_name]</code> komutu sayesinde belirli bir dosyayı o anlık göz ardı etmemizi sağlar. Tekrardan dahil etmek için <code>git update-index --no-skip-worktree [file_name]</code> komutu kullanılır</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Not</p>
-<p><code>git pull</code> aslında <code>git fetch</code> + <code>git merge</code> kombinasyonudur.</p>
-</div>
-<h2 id="branch-yonetimi">Branch Yönetimi<a class="headerlink" href="#branch-yonetimi" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
@@ -1388,26 +1476,25 @@ D: (delete) silinmiş dosya.</p>
 <span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-5-10">10</a></span>
 <span class="normal"><a href="#__codelineno-5-11">11</a></span>
-<span class="normal"><a href="#__codelineno-5-12">12</a></span>
-<span class="normal"><a href="#__codelineno-5-13">13</a></span>
-<span class="normal"><a href="#__codelineno-5-14">14</a></span>
-<span class="normal"><a href="#__codelineno-5-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># Branch listesi (aktifin yanında *)</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>git<span class="w"> </span>branch
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="c1"># Yeni branch oluştur + geç</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature-x
+<span class="normal"><a href="#__codelineno-5-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>git<span class="w"> </span>remote<span class="w"> </span>-v
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/you/repo.git
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>git<span class="w"> </span>remote<span class="w"> </span>rm<span class="w"> </span>origin
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>git@github.com:you/repo.git
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>git<span class="w"> </span>remote<span class="w"> </span>rename<span class="w"> </span>oldname<span class="w"> </span>newname
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="c1"># Branch’e geçiş</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>git<span class="w"> </span>checkout<span class="w"> </span>develop
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="c1"># Branch silme</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature-x<span class="w">    </span><span class="c1"># güvenli siler (merge edilmediyse uyarır)</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>git<span class="w"> </span>branch<span class="w"> </span>-D<span class="w"> </span>feature-x<span class="w">    </span><span class="c1"># zorla siler</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="c1"># Varsayılan (main) branch’i yeniden adlandırma</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a>git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>git<span class="w"> </span>push<span class="w"> </span>--all
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>git<span class="w"> </span>push<span class="w"> </span>--force<span class="w">            </span><span class="c1"># Dikkat!</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main<span class="w">        </span><span class="c1"># fetch + merge</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>git<span class="w"> </span>fetch<span class="w"> </span>origin<span class="w">            </span><span class="c1"># Sadece indir, birleştirme</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="birlestirme-merge-rebase">Birleştirme (Merge) &amp; Rebase<a class="headerlink" href="#birlestirme-merge-rebase" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Pull = Fetch + Merge</p>
+<p><code>git pull</code> aslında <code>git fetch</code> + <code>git merge</code> kombinasyonudur.</p>
+</div>
+<hr />
+<h2 id="branch-yonetimi">Branch Yönetimi<a class="headerlink" href="#branch-yonetimi" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
 <span class="normal"><a href="#__codelineno-6-2">2</a></span>
 <span class="normal"><a href="#__codelineno-6-3">3</a></span>
@@ -1415,117 +1502,103 @@ D: (delete) silinmiş dosya.</p>
 <span class="normal"><a href="#__codelineno-6-5">5</a></span>
 <span class="normal"><a href="#__codelineno-6-6">6</a></span>
 <span class="normal"><a href="#__codelineno-6-7">7</a></span>
-<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Başka bir branch’i mevcut branch’e birleştir</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>git<span class="w"> </span>merge<span class="w"> </span>feature-x
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="c1"># Rebase yaparak temiz geçmiş oluşturma</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>git<span class="w"> </span>rebase<span class="w"> </span>develop
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="c1"># Rebase iptali (branch’in eski haline dön)</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a>git<span class="w"> </span>rebase<span class="w"> </span>--abort
+<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>git<span class="w"> </span>branch<span class="w">                  </span><span class="c1"># Branch listesi (* aktif)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>git<span class="w"> </span>branch<span class="w"> </span>&lt;isim&gt;<span class="w">           </span><span class="c1"># Yeni branch oluştur</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature-x<span class="w">   </span><span class="c1"># Oluştur + geç</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>git<span class="w"> </span>checkout<span class="w"> </span>develop<span class="w">        </span><span class="c1"># Branch değiştir</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>git<span class="w"> </span>switch<span class="w"> </span>develop<span class="w">          </span><span class="c1"># Modern alternatif</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature-x<span class="w">     </span><span class="c1"># Güvenli sil (merge edilmediyse uyarır)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a>git<span class="w"> </span>branch<span class="w"> </span>-D<span class="w"> </span>feature-x<span class="w">     </span><span class="c1"># Zorla sil</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a>git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main<span class="w">          </span><span class="c1"># Ana branch&#39;i yeniden adlandır</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="log-ve-inceleme">Log ve İnceleme<a class="headerlink" href="#log-ve-inceleme" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-7-10">10</a></span>
-<span class="normal"><a href="#__codelineno-7-11">11</a></span>
-<span class="normal"><a href="#__codelineno-7-12">12</a></span>
-<span class="normal"><a href="#__codelineno-7-13">13</a></span>
-<span class="normal"><a href="#__codelineno-7-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1"># Commit geçmişi</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>git<span class="w"> </span>log
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="c1"># Tek satırlık özet</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>git<span class="w"> </span>log<span class="w"> </span>--oneline
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="c1"># Değişiklik dif’leriyle</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>git<span class="w"> </span>log<span class="w"> </span>-p
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="c1"># Dosya bazlı geçmiş</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>git<span class="w"> </span>log<span class="w"> </span>--stat<span class="w"> </span>path/to/file
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="c1"># Belirli committer’a göre filtrele</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a>git<span class="w"> </span>log<span class="w"> </span>--committer<span class="o">=</span><span class="s2">&quot;serkan&quot;</span>
+<hr />
+<h2 id="merge-ve-rebase">Merge ve Rebase<a class="headerlink" href="#merge-ve-rebase" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>git<span class="w"> </span>merge<span class="w"> </span>feature-x<span class="w">         </span><span class="c1"># Mevcut branch&#39;e birleştir</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>git<span class="w"> </span>rebase<span class="w"> </span>develop<span class="w">          </span><span class="c1"># Temiz geçmiş için rebase</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>git<span class="w"> </span>rebase<span class="w"> </span>--abort<span class="w">          </span><span class="c1"># Rebase iptal</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>git<span class="w"> </span>rebase<span class="w"> </span>--continue<span class="w">       </span><span class="c1"># Çakışmayı çözdükten sonra devam</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="etiketleme-tags">Etiketleme (Tags)<a class="headerlink" href="#etiketleme-tags" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-8-10">10</a></span>
-<span class="normal"><a href="#__codelineno-8-11">11</a></span>
-<span class="normal"><a href="#__codelineno-8-12">12</a></span>
-<span class="normal"><a href="#__codelineno-8-13">13</a></span>
-<span class="normal"><a href="#__codelineno-8-14">14</a></span>
-<span class="normal"><a href="#__codelineno-8-15">15</a></span>
-<span class="normal"><a href="#__codelineno-8-16">16</a></span>
-<span class="normal"><a href="#__codelineno-8-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># Local tag listesi</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>git<span class="w"> </span>tag
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="c1"># Yeni tag oluştur</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>git<span class="w"> </span>tag<span class="w"> </span>v1.0.0
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="c1"># Tag’i göster</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a>git<span class="w"> </span>show<span class="w"> </span>v1.0.0
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="c1"># Tüm tag’leri remote’a gönder</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--tags
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="c1"># Belirli tag’i gönder</span>
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.0.0
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="c1"># Remote’dan tag sil</span>
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/tags/v1.0.0
+<pre class="mermaid"><code>graph LR
+    subgraph MERGE["git merge"]
+        MA((main)) --&gt; MC((merge commit))
+        FB((feature)) --&gt; MC
+    end
+    subgraph REBASE["git rebase"]
+        RB1((main)) --&gt; RB2((feature'))
+    end</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Rebase Uyarısı</p>
+<p>Public/paylaşılan branch'lerde <code>rebase</code> kullanmayın. Geçmişi yeniden yazar, diğer geliştiriciler için sorun çıkarır.</p>
+</div>
+<hr />
+<h2 id="stash-degisiklikleri-gecici-sakla">Stash — Değişiklikleri Geçici Sakla<a class="headerlink" href="#stash-degisiklikleri-gecici-sakla" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span>
+<span class="normal"><a href="#__codelineno-8-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>git<span class="w"> </span>stash<span class="w">                   </span><span class="c1"># Değişiklikleri sakla</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>git<span class="w"> </span>stash<span class="w"> </span>push<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;mesaj&quot;</span><span class="w">   </span><span class="c1"># Açıklama ile sakla</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>git<span class="w"> </span>stash<span class="w"> </span>list<span class="w">              </span><span class="c1"># Stash listesi</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a>git<span class="w"> </span>stash<span class="w"> </span>pop<span class="w">               </span><span class="c1"># Son stash&#39;i uygula ve sil</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>git<span class="w"> </span>stash<span class="w"> </span>apply<span class="w"> </span>stash@<span class="o">{</span><span class="m">2</span><span class="o">}</span><span class="w">   </span><span class="c1"># Belirli stash&#39;i uygula (silmez)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a>git<span class="w"> </span>stash<span class="w"> </span>drop<span class="w"> </span>stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span><span class="w">    </span><span class="c1"># Stash&#39;i sil</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a>git<span class="w"> </span>stash<span class="w"> </span>clear<span class="w">             </span><span class="c1"># Tüm stash&#39;leri sil</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a>git<span class="w"> </span>stash<span class="w"> </span>branch<span class="w"> </span>yeni-dal<span class="w">   </span><span class="c1"># Stash&#39;ten yeni branch oluştur</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="alt-moduller-submodules">Alt Modüller (Submodules)<a class="headerlink" href="#alt-moduller-submodules" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>.gitsubmodules</code> dosyasına alt modüller kaydedilir.</li>
-</ul>
+<hr />
+<h2 id="cherry-pick-tek-commit-tas">Cherry-pick — Tek Commit Taşı<a class="headerlink" href="#cherry-pick-tek-commit-tas" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
 <span class="normal"><a href="#__codelineno-9-2">2</a></span>
 <span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span>
-<span class="normal"><a href="#__codelineno-9-5">5</a></span>
-<span class="normal"><a href="#__codelineno-9-6">6</a></span>
-<span class="normal"><a href="#__codelineno-9-7">7</a></span>
-<span class="normal"><a href="#__codelineno-9-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1"># Submodule ekle</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span><span class="o">[</span>URL<span class="o">]</span><span class="w"> </span>path/to/sub
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="c1"># Submodule init + update</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="c1"># Submodule’ü güncelle</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--remote
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>git<span class="w"> </span>cherry-pick<span class="w"> </span>&lt;commit-hash&gt;<span class="w">        </span><span class="c1"># Tek commit&#39;i al</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>git<span class="w"> </span>cherry-pick<span class="w"> </span>A..B<span class="w">                 </span><span class="c1"># A&#39;dan B&#39;ye aralık (A dahil değil)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>git<span class="w"> </span>cherry-pick<span class="w"> </span>--no-commit<span class="w"> </span>&lt;hash&gt;<span class="w">   </span><span class="c1"># Stage&#39;e ekle ama commit etme</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a>git<span class="w"> </span>cherry-pick<span class="w"> </span>--abort<span class="w">              </span><span class="c1"># İptal</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="farkllk-inceleme-diff">Farklılık İnceleme (Diff)<a class="headerlink" href="#farkllk-inceleme-diff" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">3</a></span>
-<span class="normal"><a href="#__codelineno-10-4">4</a></span>
-<span class="normal"><a href="#__codelineno-10-5">5</a></span>
-<span class="normal"><a href="#__codelineno-10-6">6</a></span>
-<span class="normal"><a href="#__codelineno-10-7">7</a></span>
-<span class="normal"><a href="#__codelineno-10-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Çalışma alanı vs. index</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>git<span class="w"> </span>diff
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="c1"># Index vs. son commit</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a>git<span class="w"> </span>diff<span class="w"> </span>--cached
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="c1"># Alt modüller dahil diff</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>--submodule
+<hr />
+<h2 id="reset-ve-revert">Reset ve Revert<a class="headerlink" href="#reset-ve-revert" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Staging&#39;i geri al, dosyaya dokunma</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>git<span class="w"> </span>reset<span class="w"> </span>HEAD<span class="w"> </span>&lt;file&gt;
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>git<span class="w"> </span>restore<span class="w"> </span>--staged<span class="w"> </span>&lt;file&gt;<span class="w">  </span><span class="c1"># Modern yol</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="c1"># Soft: commit&#39;i geri al, değişiklikler staged&#39;de kalsın</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>git<span class="w"> </span>reset<span class="w"> </span>--soft<span class="w"> </span>HEAD~1
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="c1"># Mixed (default): commit + stage&#39;i geri al, dosyalar değişmiş kalır</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a>git<span class="w"> </span>reset<span class="w"> </span>HEAD~1
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="c1"># Hard: commit + stage + çalışma dizinini sıfırla (KALICİ!)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD~1
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="c1"># Güvenli geri alma: yeni &quot;geri alma commit&#39;i&quot; oluşturur</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a>git<span class="w"> </span>revert<span class="w"> </span>&lt;commit-hash&gt;
 </span></code></pre></div></td></tr></table></div>
-<h2 id="fork-edilmis-depoyu-senkronize-etme">Fork Edilmiş Depoyu Senkronize Etme<a class="headerlink" href="#fork-edilmis-depoyu-senkronize-etme" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">git reset --hard</p>
+<p>Kaydedilmemiş tüm değişiklikler kalıcı olarak silinir. Paylaşılan commit'lerde kullanmayın.</p>
+</div>
+<hr />
+<h2 id="log-ve-inceleme">Log ve İnceleme<a class="headerlink" href="#log-ve-inceleme" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
@@ -1539,75 +1612,244 @@ D: (delete) silinmiş dosya.</p>
 <span class="normal"><a href="#__codelineno-11-11">11</a></span>
 <span class="normal"><a href="#__codelineno-11-12">12</a></span>
 <span class="normal"><a href="#__codelineno-11-13">13</a></span>
-<span class="normal"><a href="#__codelineno-11-14">14</a></span>
-<span class="normal"><a href="#__codelineno-11-15">15</a></span>
-<span class="normal"><a href="#__codelineno-11-16">16</a></span>
-<span class="normal"><a href="#__codelineno-11-17">17</a></span>
-<span class="normal"><a href="#__codelineno-11-18">18</a></span>
-<span class="normal"><a href="#__codelineno-11-19">19</a></span>
-<span class="normal"><a href="#__codelineno-11-20">20</a></span>
-<span class="normal"><a href="#__codelineno-11-21">21</a></span>
-<span class="normal"><a href="#__codelineno-11-22">22</a></span>
-<span class="normal"><a href="#__codelineno-11-23">23</a></span>
-<span class="normal"><a href="#__codelineno-11-24">24</a></span>
-<span class="normal"><a href="#__codelineno-11-25">25</a></span>
-<span class="normal"><a href="#__codelineno-11-26">26</a></span>
-<span class="normal"><a href="#__codelineno-11-27">27</a></span>
-<span class="normal"><a href="#__codelineno-11-28">28</a></span>
-<span class="normal"><a href="#__codelineno-11-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># 1. Upstream’i ekle ve alın</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/orijinal-kullanici/orijinal-repo.git
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="c1"># 2. Tüm upstream branch’lerini yerelde oluştur</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a>git<span class="w"> </span>branch<span class="w"> </span>-r<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;-&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^  upstream/&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s@  upstream/@@&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-n1<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>--track
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="c1"># 3. Yereldeki tüm branch’leri origin’e gönder</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--all
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="c1"># 4. Belirli branch’in commit sayısını öğren</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a>git<span class="w"> </span>rev-list<span class="w"> </span>--count<span class="w"> </span>release/1.14
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a>
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="c1"># 5. Upstream’den çektiğin branch’lerin local kopyalarını silme</span>
-</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a>git<span class="w"> </span>branch<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^  upstream/&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s@  upstream/@@&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>-D
-</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a>
-</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a><span class="c1"># 6. Origin’den yeni branch’leri lokalize et (tekrar)</span>
-</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a>git<span class="w"> </span>branch<span class="w"> </span>-r<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;-&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^  origin/&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s@  origin/@@&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-n1<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>--track
+<span class="normal"><a href="#__codelineno-11-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a>git<span class="w"> </span>log
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>git<span class="w"> </span>log<span class="w"> </span>--oneline
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>--graph<span class="w"> </span>--all<span class="w">     </span><span class="c1"># Tüm branch&#39;ler görsel</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>git<span class="w"> </span>log<span class="w"> </span>-p<span class="w">                          </span><span class="c1"># Diff ile</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a>git<span class="w"> </span>log<span class="w"> </span>--stat<span class="w">                      </span><span class="c1"># Dosya değişim özeti</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a>git<span class="w"> </span>log<span class="w"> </span>--committer<span class="o">=</span><span class="s2">&quot;serkan&quot;</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a>git<span class="w"> </span>log<span class="w"> </span>--<span class="w"> </span>path/to/file<span class="w">             </span><span class="c1"># Dosya geçmişi</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>git<span class="w"> </span>log<span class="w"> </span>--since<span class="o">=</span><span class="s2">&quot;2 weeks ago&quot;</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a>git<span class="w"> </span>log<span class="w"> </span>--grep<span class="o">=</span><span class="s2">&quot;feat:&quot;</span><span class="w">              </span><span class="c1"># Commit mesajı filtresi</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a>git<span class="w"> </span>diff<span class="w">                            </span><span class="c1"># Working dir vs index</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w">                   </span><span class="c1"># Index vs son commit</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a>git<span class="w"> </span>show<span class="w"> </span>&lt;commit&gt;<span class="w">                   </span><span class="c1"># Commit detayı</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a>git<span class="w"> </span>blame<span class="w"> </span>&lt;file&gt;<span class="w">                    </span><span class="c1"># Satır bazlı yazar bilgisi</span>
 </span></code></pre></div></td></tr></table></div>
-<div class="language-bash highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Büyük Dosyaları Geçici Olarak Hariç Tutma</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<hr />
+<h2 id="bisect-hatay-ikili-aramayla-bul">Bisect — Hatayı İkili Aramayla Bul<a class="headerlink" href="#bisect-hatay-ikili-aramayla-bul" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
 <span class="normal"><a href="#__codelineno-12-2">2</a></span>
-<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>git<span class="w"> </span>update-index<span class="w"> </span>--skip-worktree<span class="w"> </span>path/to/large-file
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="c1"># Yeniden dahil etmek için:</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>git<span class="w"> </span>update-index<span class="w"> </span>--no-skip-worktree<span class="w"> </span>path/to/large-file
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span>
+<span class="normal"><a href="#__codelineno-12-7">7</a></span>
+<span class="normal"><a href="#__codelineno-12-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>git<span class="w"> </span>bisect<span class="w"> </span>start
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>git<span class="w"> </span>bisect<span class="w"> </span>bad<span class="w">                      </span><span class="c1"># Şu an hatalı</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>git<span class="w"> </span>bisect<span class="w"> </span>good<span class="w"> </span>v1.0<span class="w">                </span><span class="c1"># Bu tag&#39;de iyiydi</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="c1"># Git otomatik commit&#39;leri ikiye böler, test et:</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a>git<span class="w"> </span>bisect<span class="w"> </span>good<span class="w">                     </span><span class="c1"># Bu commit iyi</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a>git<span class="w"> </span>bisect<span class="w"> </span>bad<span class="w">                      </span><span class="c1"># Bu commit kötü</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="c1"># En sonunda hatalı commit bulunur</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a>git<span class="w"> </span>bisect<span class="w"> </span>reset<span class="w">                    </span><span class="c1"># Bisect&#39;ten çık</span>
 </span></code></pre></div></td></tr></table></div>
-<div class="language-bash highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Geçmişten Büyük/Dosya Türlerini Temizleme</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<hr />
+<h2 id="etiketleme-tags">Etiketleme (Tags)<a class="headerlink" href="#etiketleme-tags" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
 <span class="normal"><a href="#__codelineno-13-2">2</a></span>
 <span class="normal"><a href="#__codelineno-13-3">3</a></span>
 <span class="normal"><a href="#__codelineno-13-4">4</a></span>
 <span class="normal"><a href="#__codelineno-13-5">5</a></span>
 <span class="normal"><a href="#__codelineno-13-6">6</a></span>
-<span class="normal"><a href="#__codelineno-13-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a>git<span class="w"> </span>filter-branch<span class="w"> </span>--force<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="w">  </span>--index-filter<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">    </span><span class="s1">&#39;git rm --cached --ignore-unmatch \</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="s1">      -r *.png *.jpg *.pdf *.zip *.mp4 *.material *.dt2 *.sdf&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">  </span>--prune-empty<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">  </span>--tag-name-filter<span class="w"> </span>cat<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="w">  </span>--<span class="w"> </span>--all
+<span class="normal"><a href="#__codelineno-13-7">7</a></span>
+<span class="normal"><a href="#__codelineno-13-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a>git<span class="w"> </span>tag
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a>git<span class="w"> </span>tag<span class="w"> </span>v1.0.0
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Sürüm 1.0.0&quot;</span><span class="w">  </span><span class="c1"># Açıklamalı tag</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a>git<span class="w"> </span>show<span class="w"> </span>v1.0.0
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--tags
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.0.0
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>v1.0.0
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/tags/v1.0.0<span class="w">   </span><span class="c1"># Eski yol</span>
 </span></code></pre></div></td></tr></table></div>
-<div class="admonition note">
+<hr />
+<h2 id="alt-moduller-submodules">Alt Modüller (Submodules)<a class="headerlink" href="#alt-moduller-submodules" title="Permanent link">&para;</a></h2>
+<p><code>.gitmodules</code> dosyasına alt modüller kaydedilir.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span><span class="o">[</span>URL<span class="o">]</span><span class="w"> </span>path/to/sub
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--remote
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>--submodule
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="gecici-dosya-izleme-haric-tutma">Geçici Dosya İzleme Hariç Tutma<a class="headerlink" href="#gecici-dosya-izleme-haric-tutma" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span>
+<span class="normal"><a href="#__codelineno-15-4">4</a></span>
+<span class="normal"><a href="#__codelineno-15-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="c1"># Takip edilen dosyayı geçici olarak görmezden gel</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a>git<span class="w"> </span>update-index<span class="w"> </span>--skip-worktree<span class="w"> </span>path/to/file
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="c1"># Tekrar dahil et</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a>git<span class="w"> </span>update-index<span class="w"> </span>--no-skip-worktree<span class="w"> </span>path/to/file
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="fork-edilmis-repoyu-senkronize-etme">Fork Edilmiş Repoyu Senkronize Etme<a class="headerlink" href="#fork-edilmis-repoyu-senkronize-etme" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span>
+<span class="normal"><a href="#__codelineno-16-11">11</a></span>
+<span class="normal"><a href="#__codelineno-16-12">12</a></span>
+<span class="normal"><a href="#__codelineno-16-13">13</a></span>
+<span class="normal"><a href="#__codelineno-16-14">14</a></span>
+<span class="normal"><a href="#__codelineno-16-15">15</a></span>
+<span class="normal"><a href="#__codelineno-16-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># 1. Upstream ekle</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/orijinal/repo.git
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="c1"># 2. Upstream branch&#39;lerini yerelde oluştur</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a>git<span class="w"> </span>branch<span class="w"> </span>-r<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;-&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^  upstream/&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s@  upstream/@@&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-n1<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>--track
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="c1"># 3. Origin&#39;e gönder</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--all
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15"></a><span class="c1"># 4. Branch commit sayısı</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16"></a>git<span class="w"> </span>rev-list<span class="w"> </span>--count<span class="w"> </span>release/1.14
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="gecmisten-buyuk-dosyalar-temizleme">Geçmişten Büyük Dosyaları Temizleme<a class="headerlink" href="#gecmisten-buyuk-dosyalar-temizleme" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a>git<span class="w"> </span>filter-branch<span class="w"> </span>--force<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="w">  </span>--index-filter<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w">    </span><span class="s1">&#39;git rm --cached --ignore-unmatch -r *.png *.jpg *.pdf *.zip *.mp4&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">  </span>--prune-empty<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">  </span>--tag-name-filter<span class="w"> </span>cat<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="w">  </span>--<span class="w"> </span>--all
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition warning">
 <p class="admonition-title">Uyarı</p>
-<p><strong>Bu işlem bütün commit geçmişini değiştirir ve paylaşılan bir repoda dikkatli kullanılmalıdır!</strong></p>
+<p>Bu işlem tüm commit geçmişini yeniden yazar. Paylaşılan repoda çok dikkatli kullanılmalıdır!</p>
 </div>
+<hr />
+<h2 id="branching-stratejileri">Branching Stratejileri<a class="headerlink" href="#branching-stratejileri" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Git Flow</label><label for="__tabbed_1_2">GitHub Flow</label><label for="__tabbed_1_3">Trunk Based</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="mermaid"><code>graph LR
+    M[main] --&gt; H[hotfix]
+    M --&gt; D[develop]
+    D --&gt; F1[feature/login]
+    D --&gt; F2[feature/api]
+    D --&gt; R[release/1.0]
+    R --&gt; M
+    H --&gt; M
+    H --&gt; D</code></pre>
+<ul>
+<li><code>main</code>: Üretimdeki stabil kod</li>
+<li><code>develop</code>: Geliştirme entegrasyon branch'i</li>
+<li><code>feature/*</code>: Yeni özellikler</li>
+<li><code>release/*</code>: Sürüm hazırlığı</li>
+<li><code>hotfix/*</code>: Acil üretim düzeltmeleri</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>graph LR
+    M[main] --&gt; F[feature branch]
+    F --&gt;|Pull Request + Review| M</code></pre>
+<ul>
+<li>Tek uzun ömürlü branch: <code>main</code></li>
+<li>Her özellik için branch aç, PR ile birleştir</li>
+<li>Basit ve CI/CD odaklı</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Herkes doğrudan <code>main</code>/<code>trunk</code>'a pushlar</li>
+<li>Çok kısa ömürlü feature branch'ler (1-2 gün)</li>
+<li>Feature flags ile tamamlanmamış özellikler gizlenir</li>
+<li>Sürekli entegrasyon zorunlu</li>
+</ul>
+</div>
+</div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Strateji</th>
+<th style="text-align: center;">Takım Büyüklüğü</th>
+<th style="text-align: center;">Sürüm Sıklığı</th>
+<th style="text-align: center;">Karmaşıklık</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Git Flow</td>
+<td style="text-align: center;">Büyük</td>
+<td style="text-align: center;">Periyodik</td>
+<td style="text-align: center;">Yüksek</td>
+</tr>
+<tr>
+<td>GitHub Flow</td>
+<td style="text-align: center;">Küçük-Orta</td>
+<td style="text-align: center;">Sürekli</td>
+<td style="text-align: center;">Düşük</td>
+</tr>
+<tr>
+<td>Trunk Based</td>
+<td style="text-align: center;">Her boyut</td>
+<td style="text-align: center;">Çok sık</td>
+<td style="text-align: center;">Orta</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="hzl-basvuru">Hızlı Başvuru<a class="headerlink" href="#hzl-basvuru" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Komut</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git stash</code></td>
+<td>Değişiklikleri geçici sakla</td>
+</tr>
+<tr>
+<td><code>git cherry-pick &lt;hash&gt;</code></td>
+<td>Tek commit taşı</td>
+</tr>
+<tr>
+<td><code>git revert &lt;hash&gt;</code></td>
+<td>Güvenli geri al</td>
+</tr>
+<tr>
+<td><code>git reset --soft HEAD~1</code></td>
+<td>Son commit'i geri al, değişiklikler korunsun</td>
+</tr>
+<tr>
+<td><code>git bisect</code></td>
+<td>Hatalı commit'i ikili aramayla bul</td>
+</tr>
+<tr>
+<td><code>git blame &lt;file&gt;</code></td>
+<td>Satır bazlı yazar/commit</td>
+</tr>
+<tr>
+<td><code>git reflog</code></td>
+<td>Tüm HEAD geçmişi (kurtarma için)</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -1643,7 +1885,7 @@ D: (delete) silinmiş dosya.</p>
       <nav class="md-footer__inner md-grid" aria-label="Altbilgi" >
         
           
-          <a href="../../robotics/gazebo/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: Gazebo">
+          <a href="../../robotics/control/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: Robot Kontrolü">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1653,7 +1895,7 @@ D: (delete) silinmiş dosya.</p>
                 Önceki
               </span>
               <div class="md-ellipsis">
-                Gazebo
+                Robot Kontrolü
               </div>
             </div>
           </a>

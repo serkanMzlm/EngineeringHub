@@ -14,6 +14,8 @@
         <link rel="prev" href="../docker/">
       
       
+        <link rel="next" href="../algorithms/">
+      
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
@@ -601,6 +603,8 @@
       
         
       
+        
+      
     
     
     
@@ -709,6 +713,8 @@
       
         
       
+        
+      
     
     
     
@@ -760,6 +766,10 @@
   
     
     
+      
+        
+      
+        
       
         
       
@@ -911,36 +921,123 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#gstreamer-nedir" class="md-nav__link">
+  <a href="#genel-baks" class="md-nav__link">
     <span class="md-ellipsis">
-      GStreamer Nedir?
+      Genel Bakış
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mimari-ozellikler" class="md-nav__link">
+  <a href="#temel-kavramlar" class="md-nav__link">
     <span class="md-ellipsis">
-      Mimari Özellikler
+      Temel Kavramlar
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pipeline-element-ve-pad" class="md-nav__link">
+  <a href="#gst-launch-komutlar" class="md-nav__link">
     <span class="md-ellipsis">
-      Pipeline, Element ve Pad
+      gst-launch Komutları
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gst-launch Komutları">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temel-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Temel Test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usb-v4l2-kamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      USB / V4L2 Kamera
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetson-mipi-csi-kamera-nvarguscamerasrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jetson / MIPI CSI Kamera (nvarguscamerasrc)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtsp-yayn-gonder-ve-al" class="md-nav__link">
+    <span class="md-ellipsis">
+      RTSP Yayını (Gönder ve Al)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dosya-islemleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dosya İşlemleri
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-ile-gstreamer-gipygobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python ile GStreamer (gi/PyGObject)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hata-ayklama-sorgulama" class="md-nav__link">
+  <a href="#ros-2-ile-gstreamer" class="md-nav__link">
     <span class="md-ellipsis">
-      Hata Ayıklama &amp; Sorgulama
+      ROS 2 ile GStreamer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hata-ayklama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hata Ayıklama
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codec-ve-format-referans" class="md-nav__link">
+    <span class="md-ellipsis">
+      Codec ve Format Referansı
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hzl-basvuru" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hızlı Başvuru
     </span>
   </a>
   
@@ -950,6 +1047,52 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Algorithms
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vim
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -989,36 +1132,123 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#gstreamer-nedir" class="md-nav__link">
+  <a href="#genel-baks" class="md-nav__link">
     <span class="md-ellipsis">
-      GStreamer Nedir?
+      Genel Bakış
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mimari-ozellikler" class="md-nav__link">
+  <a href="#temel-kavramlar" class="md-nav__link">
     <span class="md-ellipsis">
-      Mimari Özellikler
+      Temel Kavramlar
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pipeline-element-ve-pad" class="md-nav__link">
+  <a href="#gst-launch-komutlar" class="md-nav__link">
     <span class="md-ellipsis">
-      Pipeline, Element ve Pad
+      gst-launch Komutları
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gst-launch Komutları">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temel-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Temel Test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usb-v4l2-kamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      USB / V4L2 Kamera
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetson-mipi-csi-kamera-nvarguscamerasrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jetson / MIPI CSI Kamera (nvarguscamerasrc)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtsp-yayn-gonder-ve-al" class="md-nav__link">
+    <span class="md-ellipsis">
+      RTSP Yayını (Gönder ve Al)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dosya-islemleri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dosya İşlemleri
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-ile-gstreamer-gipygobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python ile GStreamer (gi/PyGObject)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hata-ayklama-sorgulama" class="md-nav__link">
+  <a href="#ros-2-ile-gstreamer" class="md-nav__link">
     <span class="md-ellipsis">
-      Hata Ayıklama &amp; Sorgulama
+      ROS 2 ile GStreamer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hata-ayklama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hata Ayıklama
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codec-ve-format-referans" class="md-nav__link">
+    <span class="md-ellipsis">
+      Codec ve Format Referansı
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hzl-basvuru" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hızlı Başvuru
     </span>
   </a>
   
@@ -1041,58 +1271,122 @@
 
 
 <h1 id="gstreamer">GStreamer<a class="headerlink" href="#gstreamer" title="Permanent link">&para;</a></h1>
-<h2 id="gstreamer-nedir">GStreamer Nedir?<a class="headerlink" href="#gstreamer-nedir" title="Permanent link">&para;</a></h2>
-<p>GStreamer, ses, video ve diğer multimedya verilerinin işlenmesi, kodlanması, dönüştürülmesi ve akış oluşturulması için kullanılan açık kaynaklı bir çerçevedir. Temel çalışma modeli:</p>
+<h2 id="genel-baks">Genel Bakış<a class="headerlink" href="#genel-baks" title="Permanent link">&para;</a></h2>
+<p>GStreamer, ses, video ve multimedya verilerinin işlenmesi, kodlanması ve akışı için açık kaynaklı bir çerçevedir. Pipeline (boru hattı) modeliyle çalışır: veri, birbiriyle bağlanmış <strong>element</strong> zincirinden geçer.</p>
 <pre class="mermaid"><code>graph LR
-  A[Source] --&gt; B[Filter];
-  B --&gt; C[Sink];</code></pre>
-<pre class="mermaid"><code>graph LR
-  A[Element 1] --&gt; |sink| B[Element 2];
-  B --&gt; |source| C[Element 3];</code></pre>
-<h2 id="mimari-ozellikler">Mimari Özellikler<a class="headerlink" href="#mimari-ozellikler" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Modüler &amp; Esnek:</strong> Her işlev <code>“element”</code> adı verilen bileşenlerle sağlanır.</li>
-<li><strong>Geniş Codec Desteği:</strong> Çok sayıda format ve codec plug‑in olarak sunulur.</li>
-<li><strong>Gerçek Zamanlı İşleme:</strong> Düşük gecikmeyle canlı akışları işleyebilir.</li>
-<li><strong>Düşük Seviye Kontrol:</strong> Pipeline’ı elle kurup detaylı yönetim imkânı.</li>
-<li><strong>Açık Kaynak:</strong> İstediğiniz gibi genişletip özelleştirebilirsiniz.</li>
-</ul>
-<h2 id="pipeline-element-ve-pad">Pipeline, Element ve Pad<a class="headerlink" href="#pipeline-element-ve-pad" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Pipeline:</strong> Boru hattı (pipeline), elementlerin zincirlenmesidir. </li>
-</ul>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>gst-launch-1.0<span class="w"> </span>videotestsrc<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span>!<span class="w"> </span>autovideosink
+    SRC[Source\nKamera, dosya, ağ] --&gt;|pad| PROC[Processing\nDönüştür, kodla, filtrele] --&gt;|pad| SINK[Sink\nEkran, dosya, ağ, RTP]</code></pre>
+<hr />
+<h2 id="temel-kavramlar">Temel Kavramlar<a class="headerlink" href="#temel-kavramlar" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Kavram</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pipeline</strong></td>
+<td>Element zinciri; veri kaynaktan sink'e akar</td>
+</tr>
+<tr>
+<td><strong>Element</strong></td>
+<td>Tek bir iş yapan bileşen (kaynak, codec, dönüştürücü, sink)</td>
+</tr>
+<tr>
+<td><strong>Pad</strong></td>
+<td>Elementler arası veri bağlantı noktası</td>
+</tr>
+<tr>
+<td><strong>Source Pad</strong></td>
+<td>Elementten dışarı veri gönderir</td>
+</tr>
+<tr>
+<td><strong>Sink Pad</strong></td>
+<td>Elemente veri alır</td>
+</tr>
+<tr>
+<td><strong>Caps</strong></td>
+<td>Capabilities — pad'lerin kabul ettiği format (video/x-raw, format=BGR, width=1280, ...)</td>
+</tr>
+<tr>
+<td><strong>Bus</strong></td>
+<td>Pipeline'dan uygulama katmanına mesaj iletir (hata, EOS, durum)</td>
+</tr>
+<tr>
+<td><strong>Bin</strong></td>
+<td>Birden fazla elementi saran konteyner</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="gst-launch-komutlar">gst-launch Komutları<a class="headerlink" href="#gst-launch-komutlar" title="Permanent link">&para;</a></h2>
+<h3 id="temel-test">Temel Test<a class="headerlink" href="#temel-test" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Test kaynağıyla ekrana görüntü</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>gst-launch-1.0<span class="w"> </span>videotestsrc<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span>!<span class="w"> </span>autovideosink
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1"># Ses test tonu</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>gst-launch-1.0<span class="w"> </span>audiotestsrc<span class="w"> </span>!<span class="w"> </span>autoaudiosink
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="c1"># Ayrıntılı çıktı</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>gst-launch-1.0<span class="w"> </span>-v<span class="w"> </span>videotestsrc<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span>!<span class="w"> </span>autovideosink
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="c1"># Belirli süre çalıştır (5 saniye)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>timeout<span class="w"> </span><span class="m">5</span><span class="w"> </span>gst-launch-1.0<span class="w"> </span>videotestsrc<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span>!<span class="w"> </span>autovideosink
 </span></code></pre></div></td></tr></table></div>
-<ul>
-<li><code>videotestsrc</code>→ Test kaynağı</li>
-<li><code>videoconvert</code>→ Renk formatı dönüştürücü</li>
-<li>
-<p><code>autovideosink</code> → Ekrana çizici sink</p>
-</li>
-<li>
-<p><strong>Element:</strong> Pipeline’ın yapı taşıdır; her biri tek bir görevi üstlenir (kaynak, dönüştürücü, sink…).</p>
-</li>
-<li>
-<p><strong>Pad:</strong> Elementler arası veri akış noktalarıdır:</p>
-<ul>
-<li>Source Pad: Elementten dışarı veri gönderir.</li>
-<li>Sink Pad: Elemente veri alır.</li>
-</ul>
-</li>
-<li>Uyumlu pad türleri eşleşmeli; aksi takdirde bağlantı kurulamaz.</li>
-</ul>
-<h2 id="hata-ayklama-sorgulama">Hata Ayıklama &amp; Sorgulama<a class="headerlink" href="#hata-ayklama-sorgulama" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>GST_DEBUG:</strong> Log seviyesini ayarlar (<code>0–5</code>). </li>
-<li><code>gst-launch-1.0 --gst-debug-help</code></li>
-</ul>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GST_DEBUG</span><span class="o">=</span><span class="m">3</span>
+<h3 id="usb-v4l2-kamera">USB / V4L2 Kamera<a class="headerlink" href="#usb-v4l2-kamera" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Kamera görüntüsünü ekrana göster</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>gst-launch-1.0<span class="w"> </span>v4l2src<span class="w"> </span><span class="nv">device</span><span class="o">=</span>/dev/video0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span>!<span class="w"> </span>video/x-raw,width<span class="o">=</span><span class="m">1280</span>,height<span class="o">=</span><span class="m">720</span>,framerate<span class="o">=</span><span class="m">30</span>/1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span>!<span class="w"> </span>autovideosink
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1"># Kamera → Dosyaya kaydet (MP4)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>gst-launch-1.0<span class="w"> </span>v4l2src<span class="w"> </span><span class="nv">device</span><span class="o">=</span>/dev/video0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span>!<span class="w"> </span>video/x-raw,width<span class="o">=</span><span class="m">1280</span>,height<span class="o">=</span><span class="m">720</span>,framerate<span class="o">=</span><span class="m">30</span>/1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">    </span>!<span class="w"> </span>x264enc<span class="w"> </span><span class="nv">tune</span><span class="o">=</span>zerolatency<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">    </span>!<span class="w"> </span>mp4mux<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span>!<span class="w"> </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>output.mp4
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="c1"># Kamera → MJPEG donanım çıkışı → JPG sıkıştırma (USB cam için)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a>gst-launch-1.0<span class="w"> </span>v4l2src<span class="w"> </span><span class="nv">device</span><span class="o">=</span>/dev/video0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">    </span>!<span class="w"> </span>image/jpeg,width<span class="o">=</span><span class="m">1280</span>,height<span class="o">=</span><span class="m">720</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span>!<span class="w"> </span>jpegdec<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span>!<span class="w"> </span>autovideosink
 </span></code></pre></div></td></tr></table></div>
-<ul>
-<li><code>gst-inspect-1.0 [element]</code> Element veya plugin’in özelliklerini, pad’lerini ve ayarlarını gösterir.</li>
-<li><code>gst-discoverer-1.0 [uri]</code> Medya dosyasının codec, çözünürlük, bit hızı vb. teknik detaylarını çıkarır.</li>
-</ul>
-<div class="language-bash highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Yararlı CLI Komutları</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<h3 id="jetson-mipi-csi-kamera-nvarguscamerasrc">Jetson / MIPI CSI Kamera (nvarguscamerasrc)<a class="headerlink" href="#jetson-mipi-csi-kamera-nvarguscamerasrc" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
@@ -1108,30 +1402,502 @@
 <span class="normal"><a href="#__codelineno-2-14">14</a></span>
 <span class="normal"><a href="#__codelineno-2-15">15</a></span>
 <span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Basit test pipeline’ı</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>gst-launch-1.0<span class="w"> </span>videotestsrc<span class="w"> </span>!<span class="w"> </span>ximagesink
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1"># GStreamer versiyon ve kurulu plugin’ler</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>gst-launch-1.0<span class="w"> </span>--version
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>gst-inspect-1.0<span class="w"> </span>--plugins
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c1"># Kamera servisini yeniden başlat (Jetson örneği)</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>sudo<span class="w"> </span>service<span class="w"> </span>nvargus-daemon<span class="w"> </span>restart
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="c1"># Video4Linux cihazları</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>v4l2-ctl<span class="w"> </span>--list-devices
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a>v4l2-ctl<span class="w"> </span>-d<span class="w"> </span>/dev/video0<span class="w"> </span>--all
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a>v4l2-ctl<span class="w"> </span>-d<span class="w"> </span>/dev/video0<span class="w"> </span>--list-formats-ext
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="c1"># Ayrıntılı çıktı</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a>gst-launch-1.0<span class="w"> </span>-v<span class="w"> </span>videotestsrc<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span>!<span class="w"> </span>autovideosink
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Jetson&#39;da CSI kamera görüntüsü</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>gst-launch-1.0<span class="w"> </span>nvarguscamerasrc<span class="w"> </span>sensor-id<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span>!<span class="w"> </span><span class="s1">&#39;video/x-raw(memory:NVMM),width=1920,height=1080,framerate=30/1&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span>!<span class="w"> </span>nvvidconv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span>!<span class="w"> </span>video/x-raw,format<span class="o">=</span>BGRx<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span>!<span class="w"> </span>video/x-raw,format<span class="o">=</span>BGR<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span>!<span class="w"> </span>autovideosink
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="c1"># Jetson&#39;da CSI kamera → Dosya kayıt (H265 donanım codec)</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>gst-launch-1.0<span class="w"> </span>nvarguscamerasrc<span class="w"> </span>sensor-id<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">    </span>!<span class="w"> </span><span class="s1">&#39;video/x-raw(memory:NVMM),width=1920,height=1080,framerate=30/1&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">    </span>!<span class="w"> </span>nvv4l2h265enc<span class="w"> </span><span class="nv">bitrate</span><span class="o">=</span><span class="m">8000000</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">    </span>!<span class="w"> </span>h265parse<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">    </span>!<span class="w"> </span>matroskamux<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">    </span>!<span class="w"> </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>jetson_output.mkv
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="c1"># Jetson kamera servisi yeniden başlat (kamera kilitlenirse)</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a>sudo<span class="w"> </span>service<span class="w"> </span>nvargus-daemon<span class="w"> </span>restart
 </span></code></pre></div></td></tr></table></div>
-<div class="admonition note">
-<p class="admonition-title">Not</p>
-<p>GUI tabanlı uygulamaları uzaktan kullanırken ekran yönlendirmesi için:
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span>:0
-</span></code></pre></div></td></tr></table></div></p>
+<h3 id="rtsp-yayn-gonder-ve-al">RTSP Yayını (Gönder ve Al)<a class="headerlink" href="#rtsp-yayn-gonder-ve-al" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># RTSP yayını AL (ağdan görüntü çek)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>gst-launch-1.0<span class="w"> </span>rtspsrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span>rtsp://192.168.1.100:8554/stream<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span>!<span class="w"> </span>rtph264depay<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span>!<span class="w"> </span>h264parse<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span>!<span class="w"> </span>avdec_h264<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span>!<span class="w"> </span>autovideosink<span class="w"> </span><span class="nv">sync</span><span class="o">=</span><span class="nb">false</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="c1"># RTSP yayını düşük gecikme ile al</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>gst-launch-1.0<span class="w"> </span>rtspsrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span>rtsp://192.168.1.100:8554/stream<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">    </span><span class="nv">latency</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>buffer-mode<span class="o">=</span>auto<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span>!<span class="w"> </span>decodebin<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span>!<span class="w"> </span>autovideosink<span class="w"> </span><span class="nv">sync</span><span class="o">=</span><span class="nb">false</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="c1"># UDP&#39;den RTP video al</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a>gst-launch-1.0<span class="w"> </span>udpsrc<span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="m">5000</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">    </span>!<span class="w"> </span>application/x-rtp,encoding-name<span class="o">=</span>H264,payload<span class="o">=</span><span class="m">96</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">    </span>!<span class="w"> </span>rtph264depay<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">    </span>!<span class="w"> </span>h264parse<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="w">    </span>!<span class="w"> </span>avdec_h264<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">    </span>!<span class="w"> </span>autovideosink
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="c1"># Kamera → UDP RTP gönder</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a>gst-launch-1.0<span class="w"> </span>v4l2src<span class="w"> </span><span class="nv">device</span><span class="o">=</span>/dev/video0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">    </span>!<span class="w"> </span>video/x-raw,width<span class="o">=</span><span class="m">640</span>,height<span class="o">=</span><span class="m">480</span>,framerate<span class="o">=</span><span class="m">30</span>/1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">    </span>!<span class="w"> </span>x264enc<span class="w"> </span><span class="nv">tune</span><span class="o">=</span>zerolatency<span class="w"> </span><span class="nv">bitrate</span><span class="o">=</span><span class="m">2000</span><span class="w"> </span>speed-preset<span class="o">=</span>ultrafast<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="w">    </span>!<span class="w"> </span>rtph264pay<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">    </span>!<span class="w"> </span>udpsink<span class="w"> </span><span class="nv">host</span><span class="o">=</span><span class="m">192</span>.168.1.50<span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="m">5000</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="dosya-islemleri">Dosya İşlemleri<a class="headerlink" href="#dosya-islemleri" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># Video dosyasını oynat</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>gst-launch-1.0<span class="w"> </span>filesrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span>video.mp4<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span>!<span class="w"> </span>qtdemux<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span>!<span class="w"> </span>h264parse<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span>!<span class="w"> </span>avdec_h264<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span>!<span class="w"> </span>autovideosink
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="c1"># Kolayca oynat (otomatik format tespiti)</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a>gst-launch-1.0<span class="w"> </span>playbin<span class="w"> </span><span class="nv">uri</span><span class="o">=</span>file:///path/to/video.mp4
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="c1"># Video dönüştür: MP4 → MKV</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a>gst-launch-1.0<span class="w"> </span>filesrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span>input.mp4<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">    </span>!<span class="w"> </span>qtdemux<span class="w"> </span><span class="nv">name</span><span class="o">=</span>demux<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">    </span>demux.video_0<span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>h264parse<span class="w"> </span>!<span class="w"> </span>matroskamux<span class="w"> </span><span class="nv">name</span><span class="o">=</span>mux<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">    </span>mux.<span class="w"> </span>!<span class="w"> </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>output.mkv
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="c1"># Çözünürlük değiştir</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a>gst-launch-1.0<span class="w"> </span>filesrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span>input.mp4<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">    </span>!<span class="w"> </span>decodebin<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">    </span>!<span class="w"> </span>videoscale<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">    </span>!<span class="w"> </span>video/x-raw,width<span class="o">=</span><span class="m">1280</span>,height<span class="o">=</span><span class="m">720</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="w">    </span>!<span class="w"> </span>x264enc<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">    </span>!<span class="w"> </span>mp4mux<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">    </span>!<span class="w"> </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>resized.mp4
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="python-ile-gstreamer-gipygobject">Python ile GStreamer (gi/PyGObject)<a class="headerlink" href="#python-ile-gstreamer-gipygobject" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Kamera Görüntüsü Yakalama</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span>
+<span class="normal"><a href="#__codelineno-5-26">26</a></span>
+<span class="normal"><a href="#__codelineno-5-27">27</a></span>
+<span class="normal"><a href="#__codelineno-5-28">28</a></span>
+<span class="normal"><a href="#__codelineno-5-29">29</a></span>
+<span class="normal"><a href="#__codelineno-5-30">30</a></span>
+<span class="normal"><a href="#__codelineno-5-31">31</a></span>
+<span class="normal"><a href="#__codelineno-5-32">32</a></span>
+<span class="normal"><a href="#__codelineno-5-33">33</a></span>
+<span class="normal"><a href="#__codelineno-5-34">34</a></span>
+<span class="normal"><a href="#__codelineno-5-35">35</a></span>
+<span class="normal"><a href="#__codelineno-5-36">36</a></span>
+<span class="normal"><a href="#__codelineno-5-37">37</a></span>
+<span class="normal"><a href="#__codelineno-5-38">38</a></span>
+<span class="normal"><a href="#__codelineno-5-39">39</a></span>
+<span class="normal"><a href="#__codelineno-5-40">40</a></span>
+<span class="normal"><a href="#__codelineno-5-41">41</a></span>
+<span class="normal"><a href="#__codelineno-5-42">42</a></span>
+<span class="normal"><a href="#__codelineno-5-43">43</a></span>
+<span class="normal"><a href="#__codelineno-5-44">44</a></span>
+<span class="normal"><a href="#__codelineno-5-45">45</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">gi</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gst&#39;</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gi.repository</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gst</span><span class="p">,</span> <span class="n">GLib</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="n">Gst</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="n">pipeline_str</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>    <span class="s2">&quot;v4l2src device=/dev/video0 &quot;</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>    <span class="s2">&quot;! video/x-raw,width=1280,height=720,framerate=30/1 &quot;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>    <span class="s2">&quot;! videoconvert &quot;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a>    <span class="s2">&quot;! video/x-raw,format=BGR &quot;</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a>    <span class="s2">&quot;! appsink name=sink emit-signals=true max-buffers=1 drop=true&quot;</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="p">)</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Gst</span><span class="o">.</span><span class="n">parse_launch</span><span class="p">(</span><span class="n">pipeline_str</span><span class="p">)</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="n">sink</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="s2">&quot;sink&quot;</span><span class="p">)</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_new_sample</span><span class="p">(</span><span class="n">sink</span><span class="p">):</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21"></a>    <span class="n">sample</span> <span class="o">=</span> <span class="n">sink</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;pull-sample&quot;</span><span class="p">)</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22"></a>    <span class="k">if</span> <span class="n">sample</span><span class="p">:</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23"></a>        <span class="n">buf</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">get_buffer</span><span class="p">()</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24"></a>        <span class="n">caps</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">get_caps</span><span class="p">()</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25"></a>        <span class="n">w</span> <span class="o">=</span> <span class="n">caps</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">)</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26"></a>        <span class="n">h</span> <span class="o">=</span> <span class="n">caps</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">)</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27"></a>        <span class="n">ok</span><span class="p">,</span> <span class="n">mapinfo</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">Gst</span><span class="o">.</span><span class="n">MapFlags</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28"></a>        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29"></a>            <span class="n">frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">mapinfo</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30"></a>            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Frame&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31"></a>            <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32"></a>            <span class="n">buf</span><span class="o">.</span><span class="n">unmap</span><span class="p">(</span><span class="n">mapinfo</span><span class="p">)</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33"></a>    <span class="k">return</span> <span class="n">Gst</span><span class="o">.</span><span class="n">FlowReturn</span><span class="o">.</span><span class="n">OK</span>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34"></a>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35"></a><span class="n">sink</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;new-sample&quot;</span><span class="p">,</span> <span class="n">on_new_sample</span><span class="p">)</span>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36"></a><span class="n">pipeline</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">Gst</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">PLAYING</span><span class="p">)</span>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37"></a>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38"></a><span class="k">try</span><span class="p">:</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39"></a>    <span class="n">loop</span> <span class="o">=</span> <span class="n">GLib</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">()</span>
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40"></a>    <span class="n">loop</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41"></a><span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42"></a>    <span class="k">pass</span>
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43"></a><span class="k">finally</span><span class="p">:</span>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44"></a>    <span class="n">pipeline</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">Gst</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">NULL</span><span class="p">)</span>
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45"></a>    <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">OpenCV VideoCapture ile GStreamer Backend</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span>
+<span class="normal"><a href="#__codelineno-6-21">21</a></span>
+<span class="normal"><a href="#__codelineno-6-22">22</a></span>
+<span class="normal"><a href="#__codelineno-6-23">23</a></span>
+<span class="normal"><a href="#__codelineno-6-24">24</a></span>
+<span class="normal"><a href="#__codelineno-6-25">25</a></span>
+<span class="normal"><a href="#__codelineno-6-26">26</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="c1"># GStreamer pipeline&#39;ı OpenCV&#39;ye ver</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>    <span class="s2">&quot;v4l2src device=/dev/video0 &quot;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a>    <span class="s2">&quot;! video/x-raw,width=1280,height=720,framerate=30/1 &quot;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a>    <span class="s2">&quot;! videoconvert &quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a>    <span class="s2">&quot;! video/x-raw,format=BGR &quot;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a>    <span class="s2">&quot;! appsink&quot;</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="p">)</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CAP_GSTREAMER</span><span class="p">)</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15"></a>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Pipeline açılamadı&quot;</span><span class="p">)</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16"></a>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18"></a>    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20"></a>        <span class="k">break</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21"></a>    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Camera&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22"></a>    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23"></a>        <span class="k">break</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24"></a>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25"></a><span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26"></a><span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Jetson CSI Kamera — OpenCV GStreamer</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">jetson_pipeline</span><span class="p">(</span><span class="n">sensor_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>    <span class="k">return</span> <span class="p">(</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>        <span class="sa">f</span><span class="s2">&quot;nvarguscamerasrc sensor-id=</span><span class="si">{</span><span class="n">sensor_id</span><span class="si">}</span><span class="s2"> &quot;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>        <span class="sa">f</span><span class="s2">&quot;! video/x-raw(memory:NVMM),width=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">,height=</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">,&quot;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>        <span class="sa">f</span><span class="s2">&quot;format=NV12,framerate=</span><span class="si">{</span><span class="n">fps</span><span class="si">}</span><span class="s2">/1 &quot;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>        <span class="s2">&quot;! nvvidconv flip-method=0 &quot;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a>        <span class="sa">f</span><span class="s2">&quot;! video/x-raw,width=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">,height=</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">,format=BGRx &quot;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>        <span class="s2">&quot;! videoconvert &quot;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>        <span class="s2">&quot;! video/x-raw,format=BGR &quot;</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a>        <span class="s2">&quot;! appsink&quot;</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>    <span class="p">)</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">jetson_pipeline</span><span class="p">(),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CAP_GSTREAMER</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="ros-2-ile-gstreamer">ROS 2 ile GStreamer<a class="headerlink" href="#ros-2-ile-gstreamer" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># ros2 için gstreamer bridge paketi</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-gstreamer-image-transport
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="c1"># RTSP stream → ROS 2 topic</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>ros2<span class="w"> </span>run<span class="w"> </span>gstreamer_image_transport<span class="w"> </span>gstreamer_image_transport_node<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span>--ros-args<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span>-p<span class="w"> </span>pipeline:<span class="o">=</span><span class="s2">&quot;rtspsrc location=rtsp://cam/stream ! decodebin ! videoconvert ! appsink&quot;</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="hata-ayklama">Hata Ayıklama<a class="headerlink" href="#hata-ayklama" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span>
+<span class="normal"><a href="#__codelineno-9-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1"># Debug seviyesi (0: kapalı, 5: maksimum)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GST_DEBUG</span><span class="o">=</span><span class="m">3</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GST_DEBUG</span><span class="o">=</span>rtspsrc:5,rtph264depay:4<span class="w">    </span><span class="c1"># Element bazlı seviye</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="c1"># Element bilgisi</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>gst-inspect-1.0<span class="w"> </span>v4l2src<span class="w">                </span><span class="c1"># Element özellikleri ve pad&#39;ler</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a>gst-inspect-1.0<span class="w"> </span>--plugins<span class="w">              </span><span class="c1"># Tüm yüklü plugin&#39;ler</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a>gst-inspect-1.0<span class="w"> </span>--list-all<span class="w">             </span><span class="c1"># Tüm elementler</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="c1"># Medya dosyası analiz</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a>gst-discoverer-1.0<span class="w"> </span>video.mp4
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a>gst-discoverer-1.0<span class="w"> </span>rtsp://192.168.1.100:8554/stream
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="c1"># V4L2 cihaz listesi</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a>v4l2-ctl<span class="w"> </span>--list-devices
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a>v4l2-ctl<span class="w"> </span>-d<span class="w"> </span>/dev/video0<span class="w"> </span>--all
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a>v4l2-ctl<span class="w"> </span>-d<span class="w"> </span>/dev/video0<span class="w"> </span>--list-formats-ext<span class="w">  </span><span class="c1"># Desteklenen formatlar</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="c1"># GUI uzak erişimde</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span>:0
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">Pipeline Hata Ayıklama Tüyosu</p>
+<p>Pipeline çalışmıyorsa adım adım daralt: önce <code>videotestsrc ! autovideosink</code> çalıştığını doğrula, sonra birer birer element ekle. <code>GST_DEBUG=3</code> ile element aralarında caps uyumsuzluklarını gör.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">sync=false</p>
+<p>Ağdan gelen akışlarda (<code>rtspsrc</code>, <code>udpsrc</code>) <code>autovideosink sync=false</code> eklemezseniz buffer dolup video donabilir. Gerçek zamanlı izleme için zorunlu.</p>
+</div>
+<hr />
+<h2 id="codec-ve-format-referans">Codec ve Format Referansı<a class="headerlink" href="#codec-ve-format-referans" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Codec</th>
+<th style="text-align: center;">Encoder</th>
+<th style="text-align: center;">Decoder</th>
+<th>Kullanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H.264</td>
+<td style="text-align: center;"><code>x264enc</code> / <code>nvv4l2h264enc</code></td>
+<td style="text-align: center;"><code>avdec_h264</code></td>
+<td>Genel amaç, RTSP</td>
+</tr>
+<tr>
+<td>H.265</td>
+<td style="text-align: center;"><code>x265enc</code> / <code>nvv4l2h265enc</code></td>
+<td style="text-align: center;"><code>avdec_h265</code></td>
+<td>Yüksek sıkıştırma</td>
+</tr>
+<tr>
+<td>MJPEG</td>
+<td style="text-align: center;"><code>jpegenc</code></td>
+<td style="text-align: center;"><code>jpegdec</code></td>
+<td>USB kamera donanım çıkışı</td>
+</tr>
+<tr>
+<td>VP8</td>
+<td style="text-align: center;"><code>vp8enc</code></td>
+<td style="text-align: center;"><code>vp8dec</code></td>
+<td>WebRTC</td>
+</tr>
+<tr>
+<td>AV1</td>
+<td style="text-align: center;"><code>av1enc</code></td>
+<td style="text-align: center;"><code>av1dec</code></td>
+<td>Modern, açık kaynak</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Açıklama</th>
+<th>Kullanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BGR</code></td>
+<td>OpenCV varsayılanı</td>
+<td>cv2.imread çıkışı</td>
+</tr>
+<tr>
+<td><code>RGB</code></td>
+<td>Standart</td>
+<td>PIL, TF</td>
+</tr>
+<tr>
+<td><code>NV12</code></td>
+<td>YUV 4:2:0 planar</td>
+<td>Donanım codec girişi</td>
+</tr>
+<tr>
+<td><code>I420</code></td>
+<td>YUV planar</td>
+<td>FFmpeg, encode</td>
+</tr>
+<tr>
+<td><code>BGRA</code></td>
+<td>Alpha kanallı BGR</td>
+<td>GUI uygulamaları</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="hzl-basvuru">Hızlı Başvuru<a class="headerlink" href="#hzl-basvuru" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Görev</th>
+<th>Pipeline Özeti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USB Kamera → Ekran</td>
+<td><code>v4l2src ! videoconvert ! autovideosink</code></td>
+</tr>
+<tr>
+<td>Kamera → Dosya (H264)</td>
+<td><code>v4l2src ! videoconvert ! x264enc ! mp4mux ! filesink</code></td>
+</tr>
+<tr>
+<td>Kamera → UDP RTP</td>
+<td><code>v4l2src ! x264enc ! rtph264pay ! udpsink</code></td>
+</tr>
+<tr>
+<td>UDP RTP → Ekran</td>
+<td><code>udpsrc ! rtph264depay ! avdec_h264 ! autovideosink</code></td>
+</tr>
+<tr>
+<td>RTSP → Ekran</td>
+<td><code>rtspsrc ! decodebin ! videoconvert ! autovideosink sync=false</code></td>
+</tr>
+<tr>
+<td>Dosya Oynat</td>
+<td><code>playbin uri=file:///path/to/file</code></td>
+</tr>
+<tr>
+<td>Jetson CSI → BGR</td>
+<td><code>nvarguscamerasrc ! nvvidconv ! videoconvert ! appsink</code></td>
+</tr>
+<tr>
+<td>Kamera → OpenCV</td>
+<td>Pipeline sonuna <code>appsink</code> ekle, <code>CAP_GSTREAMER</code> ile aç</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -1182,6 +1948,22 @@
             </div>
           </a>
         
+        
+          
+          <a href="../algorithms/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: Algorithms">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sonraki
+              </span>
+              <div class="md-ellipsis">
+                Algorithms
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
