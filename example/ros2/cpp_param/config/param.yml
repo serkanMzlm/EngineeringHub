@@ -1,0 +1,4 @@
+cpp_talker_node:
+  ros__parameters:
+    freq_pub:  3
+    number: 12

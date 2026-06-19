@@ -1,250 +1,490 @@
-## X ve Y Kavramı
+# Makine Öğrenimi İş Akışı
 
-- **X (Bağımsız Değişkenler / Features):** Modelin girdi olarak kullandığı özelliklerdir.
-- **Y (Bağımlı Değişken / Target):** Modelin tahmin etmeye çalıştığı çıktıdır.
+!!! note "Genel Bakış"
+    Başarılı bir ML projesi güçlü bir algoritmadan çok; doğru problem tanımı, kaliteli veri ve sistematik değerlendirme sürecinin ürünüdür. Bu sayfa, ham fikirden production modeline uzanan uçtan uca akışı kapsar.
 
-- **Örnek Ev Fiyat Tahmini:** X (metrekare, oda sayısı, konum, bina yaşı) -> Y (ev fiyatı)  
+```mermaid
+graph TD
+    PROB[1. Problem Tanımlama] --> DATA[2. Veri Toplama ve EDA]
+    DATA --> PREP[3. Veri Ön İşleme]
+    PREP --> FEAT[4. Özellik Mühendisliği]
+    FEAT --> MODEL[5. Model Seçimi ve Eğitim]
+    MODEL --> EVAL[6. Değerlendirme ve Hata Analizi]
+    EVAL -->|İyileştirme gerekli| FEAT
+    EVAL -->|Yeterli| TUNE[7. Hiperparametre Optimizasyonu]
+    TUNE --> DEPLOY[8. Deployment ve İzleme]
+    DEPLOY -->|Data drift| DATA
 
-!!! note "Not"
-    Modelin başarısı, yalnızca algoritmaya değil; X ve Y’nin doğru tanımlanmasına doğrudan bağlıdır.
+    style PROB fill:#E3F2FD
+    style EVAL fill:#FFF9C4
+    style DEPLOY fill:#E8F5E9
+```
 
 ---
 
-## Cross‑Validation
-- Cross‑Validation, makine öğrenimi modellerinin genelleme yeteneğini (overfitting’i önleyerek gerçek dünyada nasıl performans göstereceğini) değerlendirmek için yaygın olarak kullanılan bir tekniktir. Temel adımlar şöyle işler: 
-    - **Veri Kümesini Parçalara Bölme**
-        - En yaygın yöntem **k‑fold** cross‑validation’dır: Veri seti eşit büyüklükte k parçaya (fold) bölünür.
-        - Örneğin `k = 5` ise, veri beş parçaya ayrılır.
-    - **Eğitim ve Test Döngüleri**
-        - Her seferinde bu k parçadan biri test seti, kalan `k – 1` parça eğitim seti olarak kullanılır.
-        - Toplam k farklı model eğitilir ve test edilir.
-    - **Performans Ölçümü**
-        - Her döngü için hata veya skor metriği (örn. doğruluk, MSE, R²) hesaplanır.
-        - Tüm k sonuç ortalanarak nihai performans tahmini elde edilir.
-    - **Avantajları**
-        - Veri setindeki rastgele bölünmelere bağlı sapmayı azaltır.
-        - Modelin farklı alt kümelerde nasıl davrandığına dair kapsamlı bilgi sunar.
-        - Özellikle küçük veri setlerinde daha güvenilir bir değerlendirme sağlar.
+## 1. Problem Tanımlama
 
-![hata](../../assets/img/ai/cross.png)
+Model yazmadan önce cevaplanması gereken sorular:
 
+| Soru | Önemi |
+|------|-------|
+| Çıktı sürekli mi, kategorik mi? | Regresyon mu, sınıflandırma mı? |
+| Kaç sınıf var? İkili mi, çok sınıflı mı? | Loss ve metrik seçimini etkiler |
+| Sınıflar dengeli mi? | Dengesiz veri stratejisi gerekebilir |
+| Hangi hata daha maliyetli? FP mi FN mi? | Threshold ve metrik seçimi |
+| Gerçek zamanlı inferans gerekiyor mu? | Model boyutu ve latency kısıtı |
+| Yorumlanabilirlik zorunlu mu? | Kara kutu vs. şeffaf model |
 
+!!! example "X ve Y Tanımı"
+    **Ev fiyat tahmini:**  
+    - X = [metrekare, oda sayısı, konum, bina yaşı, kat]  
+    - Y = satış fiyatı (regresyon)
+    
+    **Spam tespiti:**  
+    - X = [e-posta metni → özellikler]  
+    - Y = 0 (ham) veya 1 (spam) (binary sınıflandırma)
 
-| Yöntem	 | Açıklama |
-|----------|-----------|
-| k‑Fold	| Veri k parçaya bölünür ve k kez eğitim/test yapılır. |
-| Stratified k‑Fold |	Özellikle sınıflandırmada, her fold’da sınıf oranlarını korur. |
-| Leave-One-Out |	k = N (her örnek bir fold); her model tek bir örnek test eder. |
-| Shuffle Split	 | Rastgele bölme ve tekrarlama; her döngüde farklı rastgele bölme. |
+---
 
-![hata](../../assets/img/ai/cross_validation.png)
+## 2. Keşifsel Veri Analizi (EDA)
 
-- **Genelleme Hatalarını Ölçer:** Tek seferlik eğitim/test bölünmesine kıyasla daha istikrarlı metrikler sağlar.
-- **Model Seçimi:** Farklı hiperparametrelerin karşılaştırılmasında güvenilir sonuç verir.
-- **Küçük Veri Setleri:** Sınırlı veri olduğunda, her örnek hem eğitim hem test için kullanılarak veri verimli değerlendirilir.
+```python title="EDA — Temel Adımlar"
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-!!! note "Not"
-    Bu yöntemle, modelinizin Coefficient of Determination (`R²`), doğruluk veya diğer metriklere dayalı performans tahmininiz daha güvenilir ve tekrarlanabilir hale gelir.
+df = pd.read_csv("data.csv")
 
-## Veri Hazırlama 
+# Genel bakış
+print(df.shape)          # (satır, sütun)
+print(df.dtypes)         # Sütun tipleri
+print(df.describe())     # İstatistiksel özet
 
-Model performansını en çok etkileyen aşama, veri hazırlamadır. Tipik akış aşağıdaki gibidir:
+# Eksik değer analizi
+missing = df.isnull().sum()
+missing_pct = (missing / len(df)) * 100
+print(pd.DataFrame({'Eksik': missing, 'Yüzde (%)': missing_pct}))
+
+# Sınıf dağılımı (sınıflandırma)
+df['target'].value_counts(normalize=True).plot(kind='bar')
+plt.title("Sınıf Dağılımı")
+plt.show()
+
+# Sayısal özellik dağılımları
+df.hist(figsize=(12, 8), bins=30)
+plt.tight_layout()
+plt.show()
+
+# Korelasyon ısı haritası
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(), annot=True, fmt='.2f', cmap='coolwarm')
+plt.show()
+
+# Aykırı değer tespiti (IQR)
+Q1 = df['feature'].quantile(0.25)
+Q3 = df['feature'].quantile(0.75)
+IQR = Q3 - Q1
+outliers = df[(df['feature'] < Q1 - 1.5*IQR) | (df['feature'] > Q3 + 1.5*IQR)]
+```
+
+---
+
+## 3. Veri Ön İşleme
+
+### Eksik Veri Stratejileri
+
+| Strateji | Ne Zaman | Kod |
+|----------|:--------:|-----|
+| Satırı sil | Eksik < %5 ve rastgele | `df.dropna()` |
+| Medyan ile doldur | Sayısal, aykırı değer var | `df.fillna(df.median())` |
+| Ortalama ile doldur | Sayısal, normal dağılım | `df.fillna(df.mean())` |
+| Mod ile doldur | Kategorik | `df.fillna(df.mode()[0])` |
+| Model ile tahmin | Yüksek eksik oran | `IterativeImputer` |
+
+```python title="sklearn SimpleImputer"
+from sklearn.impute import SimpleImputer, KNNImputer
+
+# Medyan ile doldur
+imp = SimpleImputer(strategy='median')
+X_imputed = imp.fit_transform(X)
+
+# KNN tabanlı doldurma (daha hassas)
+knn_imp = KNNImputer(n_neighbors=5)
+X_imputed = knn_imp.fit_transform(X)
+```
+
+### Ölçeklendirme (Scaling)
+
+Mesafeye dayalı algoritmalar ve gradyan iniş için zorunludur. Ağaç tabanlı yöntemler için gerekli değildir.
+
+=== "Min-Max Normalization"
+
+    $$x' = \frac{x - x_{min}}{x_{max} - x_{min}} \in [0, 1]$$
+
+    - Aykırı değerlere **duyarlı**
+    - Görüntü pikselleri gibi bilinen aralıklarda iyi çalışır
+
+    ```python
+    from sklearn.preprocessing import MinMaxScaler
+    scaler = MinMaxScaler()
+    X_scaled = scaler.fit_transform(X_train)
+    ```
+
+=== "Standardizasyon (Z-Score)"
+
+    $$x' = \frac{x - \mu}{\sigma}$$
+
+    - Ortalama = 0, Standart sapma = 1
+    - Aykırı değerlere **dayanıklı**
+    - Gradyan iniş için tercih edilir
+
+    ```python
+    from sklearn.preprocessing import StandardScaler
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)  # Aynı scaler ile!
+    ```
+
+=== "Robust Scaler"
+
+    $$x' = \frac{x - Q_2}{Q_3 - Q_1}$$
+
+    - Medyan ve IQR kullanır
+    - Aykırı değerler varken **en güvenli** seçenek
+
+    ```python
+    from sklearn.preprocessing import RobustScaler
+    scaler = RobustScaler()
+    X_scaled = scaler.fit_transform(X_train)
+    ```
+
+!!! danger "Kritik Kural"
+    `fit_transform()` yalnızca **eğitim verisine** uygulanır. Test ve validation setine yalnızca `transform()` uygulanır. Aksi hâlde **veri sızıntısı (data leakage)** oluşur ve gerçekçi olmayan performans elde edilir.
+
+### Kategorik Veri Kodlama
+
+```python
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
+from sklearn.preprocessing import OneHotEncoder
+
+# One-Hot Encoding (nominal — sırasız kategoriler)
+# Renk: [Kırmızı, Mavi, Yeşil] → 3 sütun
+ohe = OneHotEncoder(sparse_output=False, drop='first')  # drop='first' → multicollinearity engelle
+X_encoded = ohe.fit_transform(df[['renk']])
+
+# Pandas get_dummies alternatifi
+df_encoded = pd.get_dummies(df, columns=['renk'], drop_first=True)
+
+# Ordinal Encoding (sıralı kategoriler: küçük < orta < büyük)
+oe = OrdinalEncoder(categories=[['küçük', 'orta', 'büyük']])
+df['beden_encoded'] = oe.fit_transform(df[['beden']])
+
+# Label Encoding (ağaç tabanlı modeller için yeterli)
+le = LabelEncoder()
+df['hedef_encoded'] = le.fit_transform(df['hedef'])
+```
+
+| Yöntem | Ne Zaman | Sütun Sayısı |
+|--------|:--------:|:------------:|
+| One-Hot | Nominal (ülke, renk) | +N sütun |
+| Ordinal | Sıralı (beden, derece) | +1 sütun |
+| Target Encoding | Yüksek kardinalite | +1 sütun |
+| Hash Encoding | Çok yüksek kardinalite | Sabit |
+
+---
+
+## 4. Özellik Mühendisliği
+
+Ham veriden bilgi çıkarmak için yeni özellikler türetmek, genellikle model seçiminden daha yüksek etki sağlar.
+
+```python title="Özellik Türetme Örnekleri"
+import pandas as pd
+
+# Tarih parçalama
+df['saat'] = pd.to_datetime(df['zaman']).dt.hour
+df['gun_tipi'] = pd.to_datetime(df['tarih']).dt.weekday.apply(
+    lambda x: 'hafta sonu' if x >= 5 else 'hafta içi')
+
+# Oran ve fark özellikleri
+df['fiyat_per_m2'] = df['fiyat'] / df['metrekare']
+df['oda_bas_alan'] = df['metrekare'] / df['oda_sayisi']
+
+# Polinom özellikler (non-lineer ilişkiler için)
+from sklearn.preprocessing import PolynomialFeatures
+poly = PolynomialFeatures(degree=2, include_bias=False)
+X_poly = poly.fit_transform(X[['alan', 'oda']])
+
+# Log dönüşümü (sağa çarpık dağılım)
+df['log_fiyat'] = np.log1p(df['fiyat'])  # log(1+x) — sıfır güvenli
+
+# Etkileşim özelliği
+df['alan_x_kat'] = df['metrekare'] * df['kat']
+```
+
+### Özellik Seçimi
+
+```python
+from sklearn.feature_selection import SelectKBest, f_classif, RFE
+from sklearn.ensemble import RandomForestClassifier
+
+# Univariate — istatistiksel önem
+selector = SelectKBest(score_func=f_classif, k=10)
+X_selected = selector.fit_transform(X, y)
+
+# Recursive Feature Elimination
+rfe = RFE(estimator=RandomForestClassifier(), n_features_to_select=10)
+X_rfe = rfe.fit_transform(X, y)
+
+# Feature Importance (ağaç tabanlı)
+rf = RandomForestClassifier().fit(X, y)
+importance = pd.Series(rf.feature_importances_, index=feature_names)
+importance.sort_values().plot(kind='barh')
+```
+
+---
+
+## 5. Model Eğitimi
+
+```python title="Scikit-Learn Temel Akış"
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+import joblib
+
+# Veri bölme
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# Model eğitimi
+model = GradientBoostingClassifier(
+    n_estimators=200, learning_rate=0.05,
+    max_depth=4, random_state=42
+)
+model.fit(X_train, y_train)
+
+# Değerlendirme
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred))
+
+# Kayıt
+joblib.dump(model, 'model.joblib')
+model_loaded = joblib.load('model.joblib')
+```
+
+---
+
+## 6. Cross-Validation (Çapraz Doğrulama)
+
+Tek bir eğitim/test bölmesi şansa bağlı olabilir. CV, modelin farklı veri alt kümelerinde tutarlılığını ölçer.
+
+### k-Fold CV
 
 ```mermaid
 graph LR
-  A[Clean Data] --> B[Transform Data];
-  B --> C[Reduce Data];
+    DATA[Eğitim Verisi] --> F1[Fold 1\nTest]
+    DATA --> F2[Fold 2\nTest]
+    DATA --> F3[Fold 3\nTest]
+    DATA --> F4[Fold 4\nTest]
+    DATA --> F5[Fold 5\nTest]
+    F1 & F2 & F3 & F4 & F5 --> AVG[Ortalama Skor]
 ```
 
-1. **Clean Data (Veri Temizleme):** 
-    - Eksik değerlerin giderilmesi veya silinmesi
-    - Tutarsız birimlerin normalize edilmesi (ör. m², kg)
-    - Hatalı veya anlamsız kayıtların ayıklanması
-    - Kategorik etiketlerin düzenlenmesi
+```python
+from sklearn.model_selection import cross_val_score, StratifiedKFold
 
-2. **Transform Data (Veri Dönüştürme):**
-    - Log / ölçek dönüşümleri
-    - Tarih alanlarının parçalanması
-    - Kategorik verilerin sayısal temsile çevrilmesi
-    - Özellik dağılımlarının dengelenmesi
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+scores = cross_val_score(model, X, y, cv=cv, scoring='f1_weighted', n_jobs=-1)
 
-3. **Reduce Data (Veri Azaltma):**
-    - Sabit veya anlamsız kolonların kaldırılması (ID, hash vb.)
-    - Yüksek korelasyonlu özelliklerin azaltılması
-    - Boyut indirgeme yaklaşımları
+print(f"F1: {scores.mean():.3f} ± {scores.std():.3f}")
+```
 
-## Yaygın Ölçeklendirme Yöntemleri
-
-### Normalization (Min–Max)
-
-![hesap](../../assets/img/ai/calculus_1.png)
-
-- Özellikleri 0–1 aralığına sıkıştırır
-- Karşılaştırmayı kolaylaştırır
-- Aykırı değerlere duyarlıdır
-
-### Standardization (Z-Score)
-- Ortalama = 0, standart sapma = 1
-- Aykırı değerlere daha dayanıklıdır
-- Dağılım varsayımı içerir
-
-![hesap](../../assets/img/ai/calculus_2.png)
-
-## Kategorik Veriler ve One-Hot Encoding
-
-Kategorik değişkenler doğrudan sayısal işlemlere uygun değildir. Bu nedenle binary temsile dönüştürülür.
-
-- Her kategori ayrı bir sütun
-- Varlık: 1, yokluk: 0
-
-- **Avantaj:** Mesafeye dayalı algoritmalar için doğru temsil
-- **Dezavantaj:**Çok kategori → boyut patlaması
-
-| Renk	| Kırmızı	| Mavi |	Yeşil | 
-|----|--------------|------|---------|
-| Kırmızı	| 1 | 	0	| 0 | 
-| Mavi	| 0	| 1 | 	0 | 
-| Yeşil	| 0	| 0 |	1 | 
-
-
-![hesap](../../assets/img/ai/color.png)
-
-## Algoritmalar
-
-### Feature Scaling
-- Farklı aralıklardaki özellikler, **gradyan iniş** gibi optimizasyon tabanlı algoritmalarda öğrenme hızını ve kararlılığı bozar. İki yaygın yöntem:
-
-### Gradyan İniş Tabanlı Algoritmalar
-- Linear regression, logistic regression, sinir ağları, PCA vb. modeller gradyan iniş ile parametrelerini günceller. Özellik aralıkları farklı olduğunda:
-    - Büyük değerli özellikler çok küçük adımlarla güncellenir,
-    - Küçük değerli özellikler çok büyük adımlarla güncellenir,
-    - Sonuçta öğrenme yavaşlar veya dengesizleşir.
-- Bu yüzden tüm özellikleri aynı ölçeğe getirmek, gradyan inişin minimuma hızlı ve dengeli yakınsamasını sağlar.
-
-
-### Distance‑Based
-- Özellikler arası mesafeye duyarlıdır
-- Ölçeklendirme **zorunludur**
-- **Örnek kullanım alanı:** Benzerlik, kümelenme, yakın komşuluk
-
-- **Örnek Algoritmalar:**
-    - **K‑NN (K‑Nearest Neighbors):** Sınıflandırma ve regresyon için en yakın K komşuyu kullanır.
-    - **K‑means:** Veri kümesini K kümeye ayırır, merkezine en yakın noktaları bulur.
-    - **SVM (Support Vector Machines):** Sınıflandırma için hiperdüzlemler oluşturur; mesafe ölçüsüne duyarlıdır.
-- **Neden Ölçeklendirme?**
-    - İki özellik farklı aralıklardaysa (örneğin not ortalaması 0–5, gelir 0–100 000), gelir özelliği mesafeyi domine eder.
-    - **Öklidyen mesafe** gibi metrikler, tüm özellikleri eşit katkıda bulunacak şekilde normalizasyon gerektirir.
-
-![oklid](../../assets/img/ai/oklid.png)
+| CV Yöntemi | Açıklama | Ne Zaman |
+|------------|---------|:--------:|
+| **k-Fold** | k parçaya böl | Büyük veri, regresyon |
+| **Stratified k-Fold** | Sınıf oranını koru | Sınıflandırma |
+| **Leave-One-Out** | N fold (her örnek test) | Çok küçük veri |
+| **Time Series Split** | Zaman sırası koru | Zaman serisi |
+| **Group k-Fold** | Grupları koru (hasta ID) | Sızdırmazlık kritik |
 
 ---
 
-### Tree‑Based Algoritmalar
-- Ağaç tabanlı modeller, hem sınıflandırma hem de regresyon problemlerinde en popüler yöntemlerden biridir. Doğrusal olmayan ilişkileri kolayca yakalar ve özellik ölçeğine duyarsızdır.
-- Karakteristik Özellikler:
-    - **Split (Bölme) Kriteri:** Her düğümde, veri setini en homojen alt kümelere ayıran tek bir özelliğe göre bölme.
-    - **Özellik Ölçeğine Duyarsızlık:** Tek bir özelliğe dayalı böldüğü için, diğer özelliklerin değer aralıkları bölme kararını etkilemez.
-    - **Kararlılık & Yorumlanabilirlik:** Model yapısı ağaç grafiği şeklinde görselleştirilebilir.
-- Örnek Algoritmalar:
-    - **Decision Tree:** Tek bir ağaç yapısı kullanır.
-    - **Random Forest:** Birden çok karar ağacından oluşan topluluk yöntemi.
-    - **Gradient Boosted Trees:** Ardışık ağaçlarla hatayı azaltan güçlendirme yöntemi.
+## 7. Hiperparametre Optimizasyonu
 
-![tree](../../assets/img/ai/tree.png)
+```python title="GridSearchCV"
+from sklearn.model_selection import GridSearchCV
 
-!!! note    "Not"
-    Mesafeye dayalı algoritmalarda mutlaka ölçeklendirme yapın.
-    Ağaç tabanlı algoritmalar ise ölçekleme gerektirmez; farklı aralıklardaki özellikleri doğrudan kullanabilir.
+param_grid = {
+    'n_estimators':   [100, 200, 500],
+    'max_depth':      [3, 5, 7],
+    'learning_rate':  [0.01, 0.05, 0.1],
+    'min_samples_leaf': [1, 5, 10]
+}
+
+grid_search = GridSearchCV(
+    GradientBoostingClassifier(),
+    param_grid,
+    cv=5,
+    scoring='f1_weighted',
+    n_jobs=-1,
+    verbose=1
+)
+grid_search.fit(X_train, y_train)
+print(f"En iyi parametreler: {grid_search.best_params_}")
+print(f"En iyi skor: {grid_search.best_score_:.3f}")
+```
+
+```python title="Optuna — Bayesian Optimizasyon"
+import optuna
+
+def objective(trial):
+    params = {
+        'n_estimators':  trial.suggest_int('n_estimators', 50, 500),
+        'max_depth':     trial.suggest_int('max_depth', 2, 8),
+        'learning_rate': trial.suggest_float('learning_rate', 1e-3, 0.3, log=True),
+    }
+    model = GradientBoostingClassifier(**params, random_state=42)
+    score = cross_val_score(model, X_train, y_train, cv=3, scoring='f1_weighted')
+    return score.mean()
+
+study = optuna.create_study(direction='maximize')
+study.optimize(objective, n_trials=50)
+print(study.best_params)
+```
 
 ---
 
-### Yaygın Yöntemler
+## 8. Pipeline — Sızıntısız Akış
 
-| Yöntem | Açıklama |
-|------|---------|
-| k-Fold | Veri k parçaya bölünür, her parça test edilir |
-| Stratified k-Fold | Sınıf oranları korunur |
-| Leave-One-Out | Her örnek tek başına test edilir |
-| Shuffle Split | Rastgele ve tekrarlı bölme |
+```python title="sklearn Pipeline"
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
 
-> Özellikle küçük veri setlerinde cross-validation kritik öneme sahiptir.
+# Sayısal ve kategorik sütunlar
+num_features = ['metrekare', 'oda_sayisi', 'bina_yasi']
+cat_features = ['konum', 'ısıtma_tipi']
+
+num_transformer = Pipeline([
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler', StandardScaler())
+])
+
+cat_transformer = Pipeline([
+    ('imputer', SimpleImputer(strategy='most_frequent')),
+    ('encoder', OneHotEncoder(drop='first', sparse_output=False))
+])
+
+preprocessor = ColumnTransformer([
+    ('num', num_transformer, num_features),
+    ('cat', cat_transformer, cat_features)
+])
+
+full_pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('model', GradientBoostingClassifier())
+])
+
+full_pipeline.fit(X_train, y_train)
+y_pred = full_pipeline.predict(X_test)
+```
 
 ---
 
-### One‑Hot Encoding
-- Kategorik değişkenleri (örneğin renkler) binary sütunlara dönüştürür. Her kategori için bir sütun oluşturulur; o kategori var ise 1, yok ise 0 ile gösterilir:
+## Dengesiz Sınıf Problemi
 
-| Renk	| Kırmızı	| Mavi |	Yeşil | 
-|----|--------------|------|---------|
-| Kırmızı	| 1 | 	0	| 0 | 
-| Mavi	| 0	| 1 | 	0 | 
-| Yeşil	| 0	| 0 |	1 | 
+```python
+# SMOTE ile sentetik azınlık üretme
+from imblearn.over_sampling import SMOTE
+from imblearn.pipeline import Pipeline as ImbPipeline
 
-- **Avantaj:** Mesafeye dayalı algoritmalarda doğru mesafe ölçümü sağlar.
-- **Dezavantaj:** Çok sayıda kategori varsa boyut patlamasına (high dimensionality) yol açabilir.
+sm = SMOTE(random_state=42)
+X_res, y_res = sm.fit_resample(X_train, y_train)
 
-![hesap](../../assets/img/ai/color.png)
+# Class weight ile ağırlıklandırma
+from sklearn.utils.class_weight import compute_class_weight
+weights = compute_class_weight('balanced', classes=np.unique(y), y=y)
+model = GradientBoostingClassifier()
+# veya RandomForestClassifier(class_weight='balanced')
 
-## Decision Tree (Karar Ağacı)
-- Hem sınıflandırma hem de regresyon görevlerinde kullanılan, parametrik olmayan denetimli öğrenme (supervised learning) algoritmasıdır.
-- Nasıl Çalışır?
-    - Veri, her düğümde en iyi ayırımı sağlayan özellik ve eşik değeri (ör. Gini impurity, Entropy) seçilerek ikili dallara ayrılır.
-    - Yaprak düğümlere kadar veya önceden belirlenmiş koşullara (ör. maksimum derinlik) ulaşana dek bölünme devam eder.
-- **Avantajlar:**
-    - Yorumlanabilir ve hızlıdır.
-    - Veri ön işleme (normalizasyon, ölçekleme) genellikle gerekmez.
-- **Dezavantajlar:**
-    - Derin ağaçlar aşırı öğrenmeye meyillidir.
-    - Karar sınırlarını dikdörtgenlere benzer bölgelere böler, dolayısıyla karmaşık sınırlar zor öğrenilir
+# Threshold ayarı (default 0.5 değil)
+y_prob = model.predict_proba(X_test)[:, 1]
+threshold = 0.3   # Recall'u artır, Precision düşer
+y_pred_custom = (y_prob >= threshold).astype(int)
+```
 
-![hesap](../../assets/img/ai/dectree.png)
+---
 
-## Determination Katsayısı (R²)
-- Bir regresyon modelinin verideki toplam varyansın ne kadarını açıkladığını gösteren istatistiksel ölçüdür.
-- Özellikler:
-    - Aralık: Teorik olarak 
-    - **-∞** ile **1** arasında; pratikte modeller iyi çalıştığında `0 - 1` arası.
-    - 1’e yaklaşması, modelin veriye mükemmel uyduğunu; 0’a yakın veya negatif olması ise kötü uyumu işaret eder.
+## Model Yorumlanabilirliği (SHAP)
 
-!!! note "Not"
+```python title="SHAP — Feature Importance"
+import shap
 
-    Not: Yüksek R², modelin kesinlikle doğru olduğunu değil, sadece verideki değişimi iyi açıkladığını gösterir. Örneğin aşırı öğrenme (overfitting) durumu da yüksek R² ile maskelenebilir.
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(X_test)
 
-![hesap](../../assets/img/ai/coefdeter.png)
+# Küresel önem
+shap.summary_plot(shap_values, X_test, feature_names=feature_names)
 
-## ROC Eğrisi (Receiver Operating Characteristic Curve)
-- İkili sınıflandırmada farklı karar eşiklerinin (**threshold**) performansını, **Gerçek Pozitif Oranı (TPR)** ve **Yanlış Pozitif Oranı (FPR)** eksenine karşı çizerek gösteren grafiktir.
+# Tek tahmin açıklama (waterfall)
+shap.plots.waterfall(explainer(X_test)[0])
 
-- **Kullanım:**
-    - **Eşik değeri seçimi:** Eğriye en yakın nokta, en iyi dengeyi sağlar.
-    - **İki modelin karşılaştırılması:** Eğrisi üstte kalan model daha iyi ayırt edici güce sahiptir.
+# Beeswarm
+shap.summary_plot(shap_values, X_test, plot_type='dot')
+```
 
-![roc](../../assets/img/ai/roc_1.png)
+---
 
-![roc](../../assets/img/ai/roc_2.png)
+## XGBoost / LightGBM — Pratikte En Güçlü Tablo Modeli
 
+```python title="XGBoost tam örnek"
+import xgboost as xgb
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score
 
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2)
 
-!!! note "Bilgi"
-    [Josh Starmer’dan açık anlatım](https://www.youtube.com/watch?v=4jRBRDbJemM&ab_channel=StatQuestwithJoshStarmer)
+dtrain = xgb.DMatrix(X_train, label=y_train)
+dval   = xgb.DMatrix(X_val,   label=y_val)
 
-## ROC AUC Skoru
-- ROC eğrisinin altındaki alanın (`Area Under Curve`) sayısal değeridir.
-- **Özellikler:**
-    - Aralık: 0.0–1.0
-        - 0.5: Rastgele tahmin (şans)
-        - 1.0: Mükemmel ayırt edici güç
-    - Modelin tüm eşiklerdeki ayırt edici performansını özetler.
-- **Yorum:**
-    - 0.7–0.8: İyi
-    - 0.8–0.9: Çok iyi
-    - 0.9: Mükemmel
+params = {
+    'objective':   'binary:logistic',
+    'eval_metric': 'auc',
+    'max_depth':   6,
+    'eta':         0.05,
+    'subsample':   0.8,
+    'colsample_bytree': 0.8,
+    'min_child_weight': 5,
+    'seed': 42
+}
 
-![roc](../../assets/img/ai/roc_3.png)
+model = xgb.train(
+    params,
+    dtrain,
+    num_boost_round=1000,
+    evals=[(dval, 'val')],
+    early_stopping_rounds=50,
+    verbose_eval=100
+)
 
+y_prob = model.predict(dval)
+print(f"AUC: {roc_auc_score(y_val, y_prob):.4f}")
+```
 
-!!! note "İpuçları ve Ek Bilgiler"
-    - **Model Değerlendirme:** Sadece tek bir metriğe (ör. R²’ye) bağlı kalmayın; MSE, MAE, Precision, Recall, F1-score gibi ek metrikleri de inceleyin.
-    - **Görselleştirme:** Karar ağacını sklearn.tree.export_graphviz veya plot_tree ile görselleştirin, böylece karar kurallarını somut olarak görebilirsiniz.
-    - **Hiperparametre Ayarı:** GridSearchCV veya RandomizedSearchCV kullanarak `n_estimators`, `max_depth`, `min_samples_split` gibi parametreleri optimize edin.
-    - **Genel Bakış:** Ensemble yöntemler (Random Forest, Gradient Boosting) tek ağaçlara kıyasla genellikle daha kararlı ve yüksek performanslı sonuçlar verir. Cesaretli olun, hatalı sonuçlardan ders çıkarın ve modelinizi sürekli iyileştirmeye odaklanın! 
+---
+
+## Hızlı Başvuru — Algoritma Seçim Tablosu
+
+| Problem | Veri | Başlangıç | Gelişmiş |
+|---------|------|:---------:|:--------:|
+| Binary Sınıflandırma | Tablo | Logistic Reg. | XGBoost, LightGBM |
+| Çok Sınıflı | Tablo | Random Forest | XGBoost + OvR |
+| Regresyon | Tablo | Linear Reg. | XGBoost, LightGBM |
+| Kümeleme | Tablo | K-Means | DBSCAN, HDBSCAN |
+| Görüntü Sınıflandırma | Görüntü | ResNet-50 ft | EfficientNet, ViT |
+| Nesne Tespiti | Görüntü | YOLOv8 | DINO, DETR |
+| Metin Sınıflandırma | Metin | TF-IDF + LR | BERT fine-tune |
+| Metin Üretimi | Metin | GPT-2 | GPT-4, Llama |
+| Zaman Serisi | Dizi | ARIMA | LSTM, Temporal Fusion |
+| Anomali Tespiti | Tablo | Isolation Forest | Autoencoder |

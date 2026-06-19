@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+    <world name="first_world">
+        <physics name="1ms" type="ignored">
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1.0</real_time_factor>
+        </physics>
+
+        <!-- Dünya dinamiklerini simüle edebimek için gereklidir. -->
+        <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+
+        <!-- Modellerin taşınması silinmesi vs. olaylar için gereklidir. -->
+        <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+
+        <!-- Genel olarak simülasyon ortamında bulunan verilerin yayınlanmasını sağlar. -->
+        <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+
+        <!-- Sim ortamında nesnelerin bir biri ile temasından sorumludur. -->
+        <plugin name='gz::sim::systems::Contact' filename='gz-sim-contact-system'/>
+
+        <!-- Sensörlerin çalışması için gerekli plaginler -->
+        <plugin name='gz::sim::systems::Imu' filename='gz-sim-imu-system'/>
+        <plugin name='gz::sim::systems::AirPressure' filename='gz-sim-air-pressure-system'/>
+        <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
+            <render_engine>ogre2</render_engine>
+        </plugin>
+
+        <!-- GUI ayarlamaları yapılır -->
+        <gui fullscreen="0">
+            <!-- 3D görünümün oluşmasını sağlarlar. -->
+            <plugin filename="MinimalScene" name="3D View">
+                <gz-gui>
+                    <title>3D View</title>
+                    <property type="bool" key="showTitleBar">false</property>
+                    <property type="string" key="state">docked</property>
+                </gz-gui>
+                <engine>ogre2</engine>
+                <scene>scene</scene>
+                <ambient_light>0.4 0.4 0.4</ambient_light>
+                <background_color>0.8 0.8 0.8</background_color>
+                <camera_pose>-6 0 6 0 0.5 0</camera_pose>
+                <camera_clip>
+                    <near>0.25</near>
+                    <far>25000</far>
+                </camera_clip>
+                <horizontal_fov>57.29578</horizontal_fov> <!-- Kamera bir nesneyi takip ederken kullanışlı oluyor -->
+            </plugin>
+            <plugin filename="GzSceneManager" name="Scene Manager">
+                <gz-gui>
+                <property key="resizable" type="bool">false</property>
+                <property key="width" type="double">5</property>
+                <property key="height" type="double">5</property>
+          <!-- "docked" yanda bir panel ekler floating kapatılabilir panel ekler   -->
+                <property key="state" type="string">floating</property> 
+                <property key="showTitleBar" type="bool">false</property>
+                </gz-gui>
+            </plugin>
+
+            <!-- Bu kısım nesneler üzerinde sağ tıkla menü açılmasını sağlar -->
+            <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+                <gz-gui>
+                    <property key="state" type="string">floating</property>
+                    <property key="width" type="double">5</property>
+                    <property key="height" type="double">5</property>
+                    <property key="showTitleBar" type="bool">false</property>
+                </gz-gui>
+            </plugin>
+
+            <!-- Simülasyonda Bakış açısını ayarlamamızı simülasyon sırasında bakış açısını 
+                değiştirmek için kullanılır. -->
+            <plugin filename="InteractiveViewControl" name="Interactive view control">
+                <gz-gui>
+                    <property key="resizable" type="bool">false</property>
+                    <property key="width" type="double">5</property>
+                    <property key="height" type="double">5</property>
+                    <property key="state" type="string">floating</property>
+                    <property key="showTitleBar" type="bool">false</property>
+                </gz-gui>
+            </plugin>
+
+            <!-- Kameranın belirtilen nesneyi takip etmesini sağlar -->
+            <plugin filename="CameraTracking" name="Camera Tracking">
+                <gz-gui>
+                    <property key="resizable" type="bool">false</property>
+                    <property key="width" type="double">5</property>
+                    <property key="height" type="double">5</property>
+                    <property key="state" type="string">floating</property>
+                    <property key="showTitleBar" type="bool">false</property>
+                </gz-gui>
+            </plugin>
+
+            <!-- Dünyayı durdurma, devam ettirme vs işlerine yarayan butonların ayarlarının 
+            yapılmasını sağlar. -->
+            <plugin filename="WorldControl" name="World control">
+                <gz-gui>
+                    <title>World control</title>
+                    <property type="bool" key="showTitleBar">false</property>
+                    <property type="bool" key="resizable">false</property>
+                    <property type="double" key="height">72</property>
+                    <property type="double" key="width">150</property>
+                    <property type="double" key="z">1</property>
+
+                    <property type="string" key="state">floating</property>
+                    <anchors target="3D View">
+                    <line own="left" target="left"/>
+                    <line own="bottom" target="bottom"/>
+                    </anchors>
+                </gz-gui>
+                <play_pause>true</play_pause>
+                <step>true</step>
+                <start_paused>true</start_paused>
+                <service>/world/world_demo/control</service>
+                <stats_topic>/world/world_demo/stats</stats_topic>
+            </plugin>
+
+            <plugin filename="MarkerManager" name="Marker manager">
+                <gz-gui>
+                    <property key="resizable" type="bool">false</property>
+                    <property key="width" type="double">5</property>
+                    <property key="height" type="double">5</property>
+                    <property key="state" type="string">floating</property>
+                    <property key="showTitleBar" type="bool">false</property>
+                </gz-gui>
+            </plugin>
+    
+            <plugin filename="SelectEntities" name="Select Entities">
+                <gz-gui>
+                    <anchors target="Select entities">
+                        <line own="right" target="right"/>
+                        <line own="top" target="top"/>
+                    </anchors>
+                    <property key="resizable" type="bool">false</property>
+                    <property key="width" type="double">5</property>
+                    <property key="height" type="double">5</property>
+                    <property key="state" type="string">floating</property>
+                    <property key="showTitleBar" type="bool">false</property>
+                </gz-gui>
+            </plugin>
+            <plugin filename="VisualizationCapabilities" name="Visualization Capabilities">
+                <gz-gui>
+                    <property key="resizable" type="bool">false</property>
+                    <property key="width" type="double">5</property>
+                    <property key="height" type="double">5</property>
+                    <property key="state" type="string">floating</property>
+                    <property key="showTitleBar" type="bool">false</property>
+                </gz-gui>
+            </plugin>
+            
+            <!-- Şekilerin seçilip dünyaya eklenmesini sağlar -->
+            <plugin filename="Spawn" name="Spawn Entities">
+                <gz-gui>
+                    <anchors target="Select entities">
+                        <line own="right" target="right"/>
+                        <line own="top" target="top"/>
+                    </anchors>
+                    <property key="resizable" type="bool">false</property>
+                    <property key="width" type="double">5</property>
+                    <property key="height" type="double">5</property>
+                    <property key="state" type="string">floating</property>
+                    <property key="showTitleBar" type="bool">false</property>
+                </gz-gui>
+            </plugin>
+
+            <!-- Dünya durumunu gösterir. (geçen zaman, RTF, ...)-->
+            <plugin filename="WorldStats" name="World stats">
+                <gz-gui>
+                    <title>World stats</title>
+                    <property type="bool" key="showTitleBar">false</property>
+                    <property type="bool" key="resizable">false</property>
+                    <property type="double" key="height">110</property>
+                    <property type="double" key="width">290</property>
+                    <property type="double" key="z">1</property>
+
+                    <property type="string" key="state">floating</property>
+                    <anchors target="3D View">
+                    <line own="right" target="right"/>
+                    <line own="bottom" target="bottom"/>
+                    </anchors>
+                </gz-gui>
+
+                <sim_time>true</sim_time>
+                <real_time>true</real_time>
+                <real_time_factor>true</real_time_factor>
+                <iterations>true</iterations>
+                <topic>/world/world_demo/stats</topic>
+            </plugin>
+        </gui>
+
+        <gravity>0 0 -9.8</gravity>
+        <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+        <atmosphere type='adiabatic'/>
+    </world>
+</sdf>

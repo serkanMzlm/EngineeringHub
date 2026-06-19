@@ -30,18 +30,27 @@ nav:
       - Raspberry Pi: md/linux/raspberry.md
       - Problems & Solutions: md/linux/problems_and_solutions.md
   - AI:
-      - Fundamentals: md/ai/fundamentals.md
-      - Machine Learning Workflow: md/ai/machine_learning_workflow.md
-      - Tools: md/ai/tools.md
+      - Temel Kavramlar: md/ai/fundamentals.md
+      - ML İş Akışı: md/ai/machine_learning_workflow.md
+      - Sinir Ağları ve Derin Öğrenme: md/ai/neural_networks.md
+      - Görüntü İşleme: md/ai/image_processing.md
+      - Araçlar ve Kütüphaneler: md/ai/tools.md
 
-            
+  - Communication:
+      - IPC: md/communication/ipc.md
+      - Haberleşme Protokolleri: md/communication/protocol.md
+
   - Robotics:
       - ROS2: md/robotics/ros2.md
       - Gazebo: md/robotics/gazebo.md
+      - Robot Kontrolü: md/robotics/control.md
+      
   - DevOps:
       - Git: md/devops/git.md
       - Docker: md/devops/docker.md
       - GStreamer: md/devops/gstreamer.md
+      - Algorithms: md/devops/algorithms.md
+      - Vim: md/devops/vim.md
 
 
 theme:

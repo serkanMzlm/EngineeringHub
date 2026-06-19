@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="reset_1.png">assets\images\reset_1.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file alias="conveyor.ico">assets/icons/conveyor.ico</file>
+        <file alias="medicine.ico">assets/icons/medicine.ico</file>
+        <file alias="conveyor.png">assets/icons/conveyor.png</file>
+        <file alias="home.png">assets/icons/home.png</file>
+        <file alias="pause.png">assets/icons/pause.png</file>
+        <file alias="play.png">assets/icons/play.png</file>
+        <file alias="reset.png">assets/icons/reset.png</file>
+        <file alias="service.png">assets/icons/service.png</file>
+        <file alias="settings.png">assets/icons/settings.png</file>
+        <file alias="test.png">assets/icons/test.png</file>
+        <file alias="warning.png">assets/icons/warning.png</file>
+        <file alias="medicine.svg">assets/icons/medicine.svg</file>
+    </qresource>
+    <qresource prefix="/qml">
+        <file alias="Main.qml">qml/Main.qml</file>
+    </qresource>
+</RCC>
