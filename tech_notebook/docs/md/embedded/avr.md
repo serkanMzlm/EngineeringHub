@@ -1,157 +1,334 @@
-# AVR
-### GPIO Kontrolü
+# AVR Mikrodenetleyici
+
+!!! note "Genel Bakış"
+    AVR, Microchip (eski Atmel) tarafından üretilen 8-bit RISC mikrodenetleyici ailesidir. Harvard mimarisi, tek döngülü komut yürütme ve zengin I/O yapısıyla gömülü sistemlerde öğrenme ve üretim amacıyla yaygın kullanılır. Tipik temsilciler: ATmega328P (Arduino Uno), ATmega2560 (Arduino Mega), ATtiny85.
+
 ![pinout](../../assets/img/embedded/pinout.png)
 
-- **Data Direction Register:** DDRx register’ı, ilgili port pinlerinin giriş (0) mi yoksa çıkış (1) mi olduğunu belirler. (DDRB, DDRC, DDRD...)
-- **Port Output Register:** `PORTx` register’ı, çıkış modundaki pinlere **HIGH (1)** veya **LOW (0)** çıkış seviyesini atar.
-- PINx register’ı, o porta bağlı pinlerin **INPUT** durumunda okunan dijital seviyesini **(HIGH/LOW)** yansıtır.
-    - AVR’de: `PINB`, `PINC`, `PIND` gibi isimlerle kullanılır.
-    - **Pull‑Up ve Pull‑Down:** Arduino kartlarında dahili pull‑up dirençleri vardır; bu sayede unconnected pinler HIGH seviyede sabitlenir. Eğer dahili pull‑up’u devre dışı bırakmak isterseniz, MCUCR’daki PUD bitini 1 yapabilirsiniz: `MCUCR |= (1 << PUD);  // Pull‑Up Disable`
-- En temiz yöntem, bit kaydırma (1 << bit_no) ve mantıksal operatörler kullanmaktır:
-- `|=` ve `&=` kullanımı, diğer pin değerlerini koruyarak yalnızca istediğiniz biti değiştirir.
+---
 
-```c title="PORTD DDRD Kontol"
-DDRD = 0b00000001;   // aynı: DDRD = 0x01;
-DDRD = 0xFF;         // 0b11111111 tüm pinler
+## GPIO Kontrolü
+
+AVR'de her port üç register ile kontrol edilir:
+
+| Register | İşlevi |
+|----------|--------|
+| `DDRx` | Data Direction Register — 0: Giriş, 1: Çıkış |
+| `PORTx` | Output Register — çıkış seviyesi veya pull-up kontrolü |
+| `PINx` | Input Register — pinin anlık dijital seviyesini okur |
+
+```mermaid
+graph LR
+    DDRx -->|0 = Input| PIN_IN[Pin Giriş\nPINx ile oku]
+    DDRx -->|1 = Output| PIN_OUT[Pin Çıkış\nPORTx ile sür]
+    PIN_IN -.->|PORTx=1| PU[Dahili Pull-Up\nAktif]
 ```
 
-```c title="PORTD PORT Kontol"
-DDRD  = 0x01;        // D0 pinini OUTPUT yap
-PORTD = 0x01;        // D0 pinini HIGH (5V)
+```c
+/* Temel kalıplar */
+DDRD |=  (1 << 5);    /* PD5 → Çıkış */
+DDRD &= ~(1 << 3);    /* PD3 → Giriş */
 
-PORTD = 0xFF;        // 0b11111111 tüm pinler
-PORTD = 0x00;        // 0b00000000
+PORTD |=  (1 << 5);   /* PD5 = HIGH (5V) */
+PORTD &= ~(1 << 5);   /* PD5 = LOW  (0V) */
+PORTD ^=  (1 << 5);   /* PD5 = Toggle */
+
+/* Giriş okuma */
+uint8_t durum = (PIND >> 3) & 1;  /* PD3 bit oku */
 ```
 
-```c linenums="1"
-PORTD |= (1 << PORTD0);  // D0 pinini HIGH yapar (diğer pinler etkilenmez)
-PORTD &= ~(1 << PORTD0); // D0 pinini LOW yapar (diğer pinler etkilenmez)
-PORTD |= (1 << PORTD0) | (1 << PORTD1); // D0 ve D1 pinlerini HIGH yapar
+!!! tip "Pull-Up Aktifleştirme"
+    ```c
+    DDRD  &= ~(1 << 3);  /* PD3 giriş */
+    PORTD |=  (1 << 3);  /* PD3 pull-up açık */
+    /* Tüm pull-up'ları devre dışı bırak: */
+    MCUCR |= (1 << PUD);
+    ```
+
+!!! note "uint8_t Kullanımı"
+    AVR 8-bit mimarisinde `int` yerine `uint8_t`, `uint16_t` gibi sabit genişlikli tipler kullanılmalıdır. `int`, host derleyiciye göre 16 veya 32 bit olabilir; bu gömülü sistemlerde beklenmedik davranışa yol açar.
+
+---
+
+## Register Adresleri
+
+AVR portları, belleğe eşlenmiş (memory-mapped) I/O register'larıdır. `DDRD` adresi `0x2A`'dır:
+
+```c
+#define myDDRD *((volatile uint8_t*)0x2A)
+myDDRD = 0xFF;  /* Tüm PORTD pinleri çıkış */
 ```
-
-```c title="" linenums="1"
-
-DDRD = 0xFF;   // Tüm PORTD pinlerini OUTPUT olarak ayarla
-
-while (1) {
-    
-    for (uint8_t i = 0; i < 8; i++) { // Sırayla LED’i yak
-        PORTD |= (1 << i);
-        _delay_ms(100);
-    }
-    
-    for (uint8_t i = 0; i < 8; i++) { // Sırayla LED’i söndür
-        PORTD &= ~(1 << i);
-        _delay_ms(100);
-    }
-    
-    for (uint8_t i = 0; i < 8; i++) { // Alternatif olarak XOR ile toggle:
-        PORTD ^= (1 << i);
-        _delay_ms(100);
-    }
-}
-
-// Veri okuma 
-bool button_press = PINB & (1 << PORTB0);
-
-// Debouncing (Titreşim Giderme)
-if (PINB & (1 << PORTB0)) {     // Butona basıldıysa
-    _delay_ms(50);              // 50 ms bekle
-    if (PINB & (1 << PORTB0)) { // Hala basılı mı?
-        // Geçerli basış
-    }
-}
-```
-
-!!! note "Not"
-    `int` gibi bilgisayarın sistemine göre değişen boyutların kullanımı bazı durumlarda değişik alanlar kapladığından sorun yartabilir bu yüzden platform bağımsız olması için her sistemde aynı bellek alanı genişliği tutan birimlerin kullanımı daha güvenlidir. `uint8_t` ,`uint16_t` ….
-
-- **DDRD** ve **PORTD** bellek adresleri üzerinden doğrudan erişilen **I/O** register’larıdır. olarak **DDRD** bellek alanı `0x2A` bu kısıma erişip bu kısımda değişiklikler yapıp pinlerin durumları belirlenebilir.
 
 ![data](../../assets/img/embedded/data.png)
 
-```c
-#define myDDRD *((uint8_t*)0x2A) 
+---
+
+## Örnek: LED Sürme
+
+```c title="LED Chase (PORTD)" linenums="1"
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main(void) {
+    DDRD = 0xFF;   /* Tüm PORTD çıkış */
+
+    while (1) {
+        /* Sırayla yak */
+        for (uint8_t i = 0; i < 8; i++) {
+            PORTD = (1 << i);
+            _delay_ms(100);
+        }
+
+        /* Sırayla söndür */
+        for (uint8_t i = 0; i < 8; i++) {
+            PORTD &= ~(1 << i);
+            _delay_ms(100);
+        }
+    }
+    return 0;
+}
 ```
 
-## ISR – Interrupt Service Routine
+### Buton Debounce
 
-- **SREG** içindeki I biti (`sei()`) set edilirse ve bir kesme kaynağı tetiklenirse, ilgili **ISR()** fonksiyonu çalışır.
-- Kesmenin işlenebilmesi için:
-    - **Global interrupt** (sei()) açık olmalı.
-    - İlgili **Mask Register’da** (ör. **EIMSK**) o kesme kaynağı izinli olmalı.
+```c
+/* Yazılımsal debouncing — titreşim giderme */
+if (!(PINB & (1 << PB0))) {    /* Aktif-LOW buton basıldı mı? */
+    _delay_ms(50);              /* Titreşim bekle */
+    if (!(PINB & (1 << PB0))) { /* Hala basılı mı? */
+        /* Geçerli basış işle */
+    }
+}
+```
+
+!!! note "Aktif-HIGH vs Aktif-LOW"
+    Pull-up direnci ile bağlı butona **basılmadığında** pin HIGH, basıldığında LOW'dur (aktif-LOW). Bu nedenle okuma `!(PINB & (1 << PB0))` şeklinde ters mantıkla yapılır.
+
+---
+
+## ISR — Interrupt Service Routine
+
+```mermaid
+graph LR
+    SREG_I[SREG I-bit\nsei / cli] --> GLOBAL[Global Interrupt Enable]
+    MASK[EIMSK\nMask Register] --> INT_EN[Kaynak Etkin]
+    GLOBAL & INT_EN --> ISR_TRIGGER[ISR Tetiklendi]
+    ISR_TRIGGER --> ISR_FUNC[ISR Vect Fonksiyonu]
+    ISR_FUNC --> RETURN[Ana Programa Dön]
+```
+
+### Dış Kesme (INT0 / INT1)
 
 ```c title="Dış Kesme INT0" linenums="1"
-int main() {
-    EIMSK |= (1 << INT0); // 1. INT0 maskesini aç (EIMSK)
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
-    // 2. Kesme tetikleme konfigürasyonu (EICRA: düşük/rising seçimi)
-    EICRA |= (1 << ISC01);  // ISC01=1, ISC00=0 → fall edge
-
-    sei(); // 3. Global interrupt aç
-
-    while (1) {}
+int main(void) {
+    EIMSK |= (1 << INT0);          /* INT0 maskesini aç */
+    EICRA |= (1 << ISC01);         /* ISC01=1, ISC00=0 → Düşen kenar */
+    sei();                          /* Global interrupt aç */
+    while (1) { /* Ana döngü */ }
 }
 
-
-// INT0 kesmesi gerçekleşince burası çalışır
 ISR(INT0_vect) {
-    // Kesme işleme kodu
+    /* INT0 kesmesi gerçekleşince çalışır */
+    PORTB ^= (1 << PB5);           /* LED toggle */
 }
 ```
 
-| Register	| İşlevi |
-|----------|---------|
-| EIMSK	| External Interrupt Mask Register |
-| EICRA	| External Interrupt Control Register A |
-| EIFR	| External Interrupt Flag Register |
-| MCUCR	| MCU Control Register (örn. PUD bit’i) |
-| SREG	| Status Register (I biti = global interrupt) |
+| Register | İşlevi |
+|----------|--------|
+| `SREG (I-bit)` | Global interrupt enable; `sei()` / `cli()` |
+| `EIMSK` | External Interrupt Mask (INT0, INT1 etkinleştir) |
+| `EICRA` | INT0/INT1 tetikleme kenarı (yükselen/düşen/değişim) |
+| `EIFR` | External Interrupt Flag (bayrağı temizle) |
+| `MCUCR` | MCU Control (PUD — pull-up disable) |
+
+| EICRA Değeri | INT0 Tetiklenme |
+|:------------:|:---------------:|
+| ISC01=0, ISC00=0 | Düşük seviye |
+| ISC01=0, ISC00=1 | Herhangi değişim |
+| ISC01=1, ISC00=0 | Düşen kenar |
+| ISC01=1, ISC00=1 | Yükselen kenar |
 
 ### Pin Change Interrupt (PCINT)
-- **PCICR** register’ı ile belirli portlardaki pin değişim kesmelerini etkinleştirirsiniz.
-- **PCMSKx** (Pin Change Mask) ile hangi pinlerin izleceğini seçersiniz.
 
-### Timer/Counter:
-- AVR mikrodenetleyicilerde üç temel timer vardır:
+Herhangi bir pine bağlı değişimi yakalamak için; INT0/INT1'den farklı olarak kenar seçimi yoktur — her değişimde tetiklenir.
 
-| Timer	 | Bit Genişliği |	Maks Sayaç Değeri |
-|------|----|----|
-| Timer0 | 8 bit	| 255 |
-| Timer1 | 16 bit	| 65535 |
-| Timer2 | 8 bit	| 255 |
+```c
+PCICR  |= (1 << PCIE0);   /* PCINT[7:0] → Port B izle */
+PCMSK0 |= (1 << PCINT0);  /* PB0'ı izle */
+sei();
 
-- **CPU Frekansı ve Zaman Adımı:** 
-    - Arduino Uno’da `F_CPU = 16 MHz → 1 döngü = 1 / 16 000 000 s ≈ 0.0625 μs`
-    - Timer sayaç adımı = Prescaler’a bağlı olarak CPU döngü süresinin katları olur.
-
-- **Basit Delay Hesabı:** 
-    - **CTC (Clear Timer on Compare)** modunda, belirli bir gecikme için “compare match” değeri hesaplanır `OCRn = (DesiredDelay_s / TickTime_s) - 1`
-    - TickTime_s = Prescaler × (1 / F_CPU)
-    - Örnek: 10 ms gecikme, prescaler = 64:
-
-```c linenums="1"
-TickTime = 64 / 16 000 000 = 4 μs
-OCRn = (0.010 s / 4e‑6) - 1 ≈ 2499
+ISR(PCINT0_vect) {
+    /* PB0 değişti — hangi kenar olduğunu IDR ile tespit et */
+}
 ```
 
-```c title="CTC Mode Örneği (Timer1)" linenums="1"
-void timer1_ctc_init(uint16_t ocr) {
-    TCCR1B |= (1 << WGM12);         // CTC modu
-    OCR1A = ocr;                    // Compare değeri
-    TCCR1B |= (1 << CS11) | (1 << CS10); // Prescaler = 64
-    TIMSK1 |= (1 << OCIE1A);        // Compare A kesmesini aç
-    sei();                          // Global interrupt
+---
+
+## Timer / Counter
+
+### Timer Tipleri
+
+| Timer | Bit | Maksimum | Özellikler |
+|-------|:---:|:--------:|-----------|
+| Timer0 | 8-bit | 255 | PWM, millis(), delay() için kullanılır |
+| Timer1 | 16-bit | 65535 | Yüksek çözünürlüklü zamanlama, servo |
+| Timer2 | 8-bit | 255 | Asenkron (32.768 kHz) RTC için |
+
+### Çalışma Modları
+
+| Mod | WGM Bitleri | Açıklama |
+|-----|:-----------:|---------|
+| Normal | 0 | 0 → MAX → 0 sayar; TOP = 0xFF/0xFFFF |
+| CTC | 2 | OCR değerinde sıfırlanır (frekans üretimi) |
+| Fast PWM | 3 | Hızlı tek-eğim PWM |
+| Phase Correct PWM | 1 | Çift-eğim; daha düzgün PWM |
+
+### CTC Modu — Frekans Hesabı
+
+```
+F_OUT = F_CPU / (2 × Prescaler × (OCRnA + 1))
+
+Örnek: F_CPU=16MHz, Prescaler=64, 10 ms kesme:
+OCRnA = (16_000_000 / (64 × 1000)) - 1 = 249
+```
+
+```c title="Timer1 CTC — 1 ms Kesme" linenums="1"
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+volatile uint32_t ms_ticks = 0;
+
+void timer1_init(void) {
+    TCCR1B |= (1 << WGM12);              /* CTC modu */
+    OCR1A   = (16000000UL / 64 / 1000) - 1;  /* 1 ms = 249 */
+    TCCR1B |= (1 << CS11) | (1 << CS10); /* Prescaler = 64 */
+    TIMSK1 |= (1 << OCIE1A);             /* Compare A kesmesi */
+    sei();
 }
 
 ISR(TIMER1_COMPA_vect) {
-    // 1 ms veya belirlediğiniz sürede burada çalışır
+    ms_ticks++;
 }
 
 int main(void) {
-    // Yaklaşık 1 ms için
-    uint16_t ocr = (16e6/64/1000) - 1;  
-    timer1_ctc_init(ocr);
-    while (1) { }
+    timer1_init();
+    while (1) {
+        if (ms_ticks >= 500) {
+            ms_ticks = 0;
+            PORTB ^= (1 << PB5);  /* 500 ms'de bir LED toggle */
+        }
+    }
 }
+```
+
+### Prescaler Seçimi
+
+| CS12 | CS11 | CS10 | Prescaler | Timer0/1 |
+|:----:|:----:|:----:|:---------:|:--------:|
+| 0 | 0 | 1 | 1 | Clock/1 |
+| 0 | 1 | 0 | 8 | Clock/8 |
+| 0 | 1 | 1 | 64 | Clock/64 |
+| 1 | 0 | 0 | 256 | Clock/256 |
+| 1 | 0 | 1 | 1024 | Clock/1024 |
+
+### PWM
+
+```c
+/* Timer0 Fast PWM — PD6 (OC0A) */
+DDRD  |= (1 << PD6);           /* OC0A pini çıkış */
+TCCR0A = (1 << COM0A1)         /* Non-inverting */
+       | (1 << WGM01) | (1 << WGM00); /* Fast PWM */
+TCCR0B = (1 << CS01);          /* Prescaler = 8 */
+OCR0A  = 128;                  /* %50 duty cycle (0–255) */
+```
+
+!!! tip "PWM Çözünürlüğü"
+    8-bit Timer: 256 adım → %0.39 duty cycle çözünürlüğü.
+    16-bit Timer1: 65536 adım → çok daha hassas servo kontrol.
+
+---
+
+## ADC (Analog-Digital Converter)
+
+```c
+void adc_init(void) {
+    ADMUX  = (1 << REFS0);       /* AVcc referans, ADC0 seçili */
+    ADCSRA = (1 << ADEN)         /* ADC enable */
+           | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); /* /128 prescaler */
+}
+
+uint16_t adc_read(uint8_t kanal) {
+    ADMUX = (ADMUX & 0xF0) | (kanal & 0x0F);  /* Kanal seç */
+    ADCSRA |= (1 << ADSC);                     /* Dönüşüm başlat */
+    while (ADCSRA & (1 << ADSC));              /* Tamamlanmasını bekle */
+    return ADC;                                 /* 10-bit sonuç */
+}
+
+int main(void) {
+    adc_init();
+    uint16_t deger = adc_read(0);   /* ADC0 (PC0) — 0..1023 */
+    /* Gerilim = deger * (5.0 / 1024) */
+}
+```
+
+---
+
+## USART (Serial Communication)
+
+```c
+#define BAUD 9600
+#define UBRR_VAL ((F_CPU / (16UL * BAUD)) - 1)
+
+void usart_init(void) {
+    UBRR0H = (UBRR_VAL >> 8);
+    UBRR0L =  UBRR_VAL;
+    UCSR0B = (1 << TXEN0) | (1 << RXEN0);   /* TX + RX aktif */
+    UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); /* 8-bit, 1 stop, no parity */
+}
+
+void usart_send(uint8_t veri) {
+    while (!(UCSR0A & (1 << UDRE0)));  /* Buffer boşalana dek bekle */
+    UDR0 = veri;
+}
+
+uint8_t usart_recv(void) {
+    while (!(UCSR0A & (1 << RXC0)));   /* Veri gelene dek bekle */
+    return UDR0;
+}
+
+/* printf yönlendirme */
+int uart_putchar(char c, FILE *stream) {
+    usart_send((uint8_t)c);
+    return 0;
+}
+FILE uart_stdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
+
+int main(void) {
+    usart_init();
+    stdout = &uart_stdout;
+    printf("Merhaba AVR!\r\n");
+}
+```
+
+---
+
+## Güç Yönetimi
+
+| Uyku Modu | CPU | I/O Clk | Timer | ADC | Uyandıran |
+|-----------|:---:|:--------:|:-----:|:---:|---------|
+| Idle | ✗ | ✓ | ✓ | ✓ | Her kesme |
+| ADC Noise Reduction | ✗ | ✗ | ✗ | ✓ | ADC tamamlama |
+| Power-Save | ✗ | ✗ | Timer2 | ✗ | Async Timer2, TWINT |
+| Power-Down | ✗ | ✗ | ✗ | ✗ | Sadece INT, Watchdog, TWI addr |
+
+```c
+#include <avr/sleep.h>
+
+set_sleep_mode(SLEEP_MODE_IDLE);
+sleep_enable();
+sleep_cpu();          /* Uyku */
+sleep_disable();      /* Kesme sonrası uyandı */
 ```

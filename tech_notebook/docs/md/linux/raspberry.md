@@ -1,64 +1,332 @@
 # Raspberry Pi
 
-- GPIO numaralarının karşılıklarını görmek için `/sys/kernel/debug/gpio` dosyasına bakılabilir
+!!! note "Genel Bakış"
+    Raspberry Pi, Broadcom SoC tabanlı, Debian/Ubuntu türevi Raspberry Pi OS çalıştıran tek kartlı bilgisayar serisidir. GPIO, CSI (kamera), DSI (display), I2C, SPI, UART gibi gömülü arabirimler; cihazı prototipleme ve üretim projeleri için ideal kılar.
+
+---
+
+## Kurulum ve İlk Yapılandırma
 
 ```bash
-sudo cat /sys/kernel/debug/gpio
+# Headless başlatma (ağ + SSH olmadan)
+# SD karta /boot/ altına dosya ekle:
+touch /boot/ssh          # SSH'ı etkinleştir (Pi 4 ve öncesi)
+# Pi 5 için bootfs bölümüne:
+# /boot/firmware/ssh
+
+# Wi-Fi headless (Pi OS Bullseye ve öncesi)
+cat > /boot/wpa_supplicant.conf << 'EOF'
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+country=TR
+network={
+    ssid="WIFI_ADI"
+    psk="WIFI_SIFRESI"
+    key_mgmt=WPA-PSK
+}
+EOF
+
+# Pi 5 / Bookworm için: raspi-config veya NetworkManager
 ```
 
-- `/etc/udev/rules.d` dosyasının altına belirli kurallar eklenebilir bu kısımda eklenen dosyanın başında yazan sayı öncelik durumunu belirtir ne kadar büyük bir sayıyısa o kadar sonra olucagını ayarlar. 
-
-### GPIO Erişilebilir Yapmak (rules)
+### raspi-config
 
 ```bash
+sudo raspi-config
+# Başlıca menüler:
+# 1. System Options    → Hostname, şifre, splash
+# 3. Interface Options → I2C, SPI, UART, SSH, Camera, VNC
+# 5. Localisation      → Timezone, locale, keyboard
+# 6. Advanced Options  → GPU Memory, PCIe
+```
+
+---
+
+## GPIO
+
+```bash
+# GPIO numaralarını göster
+sudo cat /sys/kernel/debug/gpio
+
+# GPIO'ya userspace erişim izni (udev kuralı)
 sudo nano /etc/udev/rules.d/99-gpio-permissions.rules
 ```
+
 ```
-SUBSYSTEM=="gpio*", PROGRAM="/bin/sh -c 'chown -R root:gpio /sys/class/gpio && chmod -R 770 /sys/clas>
+SUBSYSTEM=="gpio*", PROGRAM="/bin/sh -c \
+  'chown -R root:gpio /sys/class/gpio && chmod -R 770 /sys/class/gpio'"
 ```
 
 ```bash
 sudo udevadm control --reload-rules
+sudo usermod -aG gpio $USER   # Kullanıcıyı gpio grubuna ekle
 ```
 
-### Config File Dosyası 
-- `config.txt` dosyası, Raspberry Pi'nin SD kartındaki kök dizine yerleştirilir ve düz metin dosyasıdır. Raspberry Pi’yi başlatırken sistem bu dosyayı okuyarak uygun donanım ayarlarını yapar.
-- `#` yorum satırı anlamına gelir.
-- `dtoverlay=imx219` -> **"device tree overlay"** parametresidir
+### libgpiod (Modern GPIO API)
 
-### Kamera Test
-
-1. `vcgencmd get_camera`:
-    - **`supported=1 detected=1`:** Kamera bağlı ve Raspberry Pi tarafından tespit edilmiş.
-    - **`supported=1 detected=0`:** Kamera bağlı ama Raspberry Pi tarafından tespit edilmemiş.
-    - **`supported=0 detected=0`:** Kamera bağlı değil veya desteklenmiyor.
-
-2. `dmesg | grep -i camera`
-
-3. **v4l2-ctl:**
-    ```bash
-    v4l2-ctl --list-devices
-
-    v4l2-ctl --device=/dev/video0 --list-formats
-
-    v4l2-ctl --device=/dev/video0 --list-formats-ext
-
-    v4l2-ctl --device=/dev/video0 --all
-    ```
-
-### Kalıcı Swap Alanı Oluşturma
 ```bash
-# swap dosyası oluşturur.
+sudo apt install gpiod
+gpiodetect              # Mevcut GPIO çiplerini listele
+gpioinfo                # Tüm hatların durumu
+gpioget gpiochip0 17    # GPIO 17'yi oku
+gpioset gpiochip0 17=1  # GPIO 17'yi HIGH yap
+```
+
+### Python ile GPIO (gpiozero)
+
+```python
+from gpiozero import LED, Button
+from time import sleep
+
+led = LED(17)        # BCM pin 17
+buton = Button(27)   # BCM pin 27
+
+buton.when_pressed  = led.on
+buton.when_released = led.off
+
+while True:
+    sleep(1)
+```
+
+---
+
+## config.txt — Donanım Yapılandırması
+
+`/boot/firmware/config.txt` (Pi 5) veya `/boot/config.txt` (Pi 4 ve öncesi), Raspberry Pi'nin U-Boot öncesi firmware yapılandırma dosyasıdır.
+
+```ini
+# GPU bellek ayırma (MB)
+gpu_mem=128
+
+# I2C arayüzü aktif
+dtparam=i2c_arm=on
+
+# SPI arayüzü aktif
+dtparam=spi=on
+
+# UART aktif
+enable_uart=1
+
+# Kamera modülü
+dtoverlay=imx219       # IMX219 (Pi Kamera V2)
+dtoverlay=ov5647       # OV5647 (Pi Kamera V1)
+
+# Fan kontrolü (PWM)
+dtoverlay=gpio-fan,gpiopin=18,temp=60000  # 60°C'de devreye girer
+
+# HDMI zorla (monitör bağlı olmasa da)
+hdmi_force_hotplug=1
+```
+
+---
+
+## Kamera
+
+### Kamera Tespiti
+
+```bash
+vcgencmd get_camera           # Eski API (Pi 4 / legacy)
+# supported=1 detected=1  → Bağlı ve tespit edildi
+# supported=1 detected=0  → Bağlı ama tespit edilemedi
+# supported=0 detected=0  → Bağlı değil veya desteklenmiyor
+
+dmesg | grep -i camera        # Kernel mesajlarında kamera bilgisi
+dmesg | grep -i imx219
+
+# v4l2 (modern libcamera)
+v4l2-ctl --list-devices
+v4l2-ctl -d /dev/video0 --all
+v4l2-ctl -d /dev/video0 --list-formats-ext
+```
+
+### libcamera Komutları (Pi OS Bullseye+)
+
+```bash
+libcamera-hello                          # Kamera önizleme
+libcamera-still -o foto.jpg              # Fotoğraf çek
+libcamera-vid -t 10000 -o video.h264    # 10 saniye video
+libcamera-jpeg -o hızlı.jpg             # Hızlı JPEG
+
+# Çözünürlük ve format
+libcamera-still --width 1920 --height 1080 -o foto_fhd.jpg
+
+# GStreamer ile kamera
+gst-launch-1.0 libcamerasrc ! video/x-raw,width=1280,height=720 ! \
+    videoconvert ! autovideosink
+```
+
+### v4l2 Streaming
+
+```bash
+# MJPEG stream
+v4l2-ctl --stream-mmap --stream-count=100 -d /dev/video0
+v4l2-ctl --set-fmt-video=width=1920,height=1080,pixelformat=MJPG \
+    --stream-mmap --stream-count=10 -d /dev/video0
+```
+
+---
+
+## I2C ve SPI
+
+```bash
+# I2C araçları
+sudo apt install i2c-tools
+
+i2cdetect -y 1              # I2C-1 bus'taki cihazları tara
+i2cget -y 1 0x68 0x3B      # 0x68 adresli cihazdan 0x3B register oku
+i2cset -y 1 0x68 0x6B 0x00 # Register yaz
+
+# SPI test
+sudo apt install spi-tools
+spi-config -d /dev/spidev0.0 -q    # SPI yapılandırmasını göster
+```
+
+---
+
+## Sistem Optimizasyonu
+
+### Swap Alanı
+
+```bash
+# Swap dosyası oluştur (SD kart ömrü için /var/swap tercih et)
 sudo fallocate -l 2G /swapfile
-
-#  2 GB boyutunda bir swap dosyası oluşturur
-sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
-
-# Swap dosyasının kullanabilmesi için uygun izinleri verir
 sudo chmod 600 /swapfile
-
-# Swap alanını aktif hale getirir.
 sudo mkswap /swapfile
 sudo swapon /swapfile
+
+# Kalıcı yapmak için /etc/fstab
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+# Swap kullanım önceliği (0=mümkün olduğunca az)
+echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
 ```
-- Kalıcı olarak yapmak için `sudo nano /etc/fstab` dosyasının son kısmına `/swapfile none swap sw 0 0` eklenir.
+
+### SD Kart Ömrünü Uzatma
+
+```bash
+# /tmp'yi RAM'e al (zaten tmpfs olabilir)
+cat /proc/mounts | grep tmpfs
+
+# log2ram: logları RAM'de tut, ara ara SD'ye yaz
+sudo apt install log2ram
+# /etc/log2ram.conf düzenle
+
+# Gereksiz servis durdurma
+sudo systemctl disable bluetooth avahi-daemon cups
+```
+
+### GPU Bellek ve Overclock
+
+```ini title="/boot/firmware/config.txt"
+# GPU minimum bellek (headless sunucu için)
+gpu_mem=16
+
+# Overclock (Pi 4 — soğutucu gerekli)
+arm_freq=1900
+gpu_freq=600
+over_voltage=2
+```
+
+---
+
+## Uzaktan Bağlantı ve Yönetim
+
+```bash
+# SSH
+ssh pi@raspberrypi.local      # Varsayılan kullanıcı: pi (eski) / username (yeni)
+ssh pi@192.168.1.100
+
+# VNC (masaüstü paylaşımı)
+# raspi-config → Interface → VNC → Enable
+vncviewer raspberrypi.local:5900
+
+# Dosya kopyalama
+scp dosya.py pi@raspberrypi.local:~/
+rsync -avz ./proje/ pi@raspberrypi.local:~/proje/
+
+# mDNS (LAN'da IP olmadan bul)
+ping raspberrypi.local
+avahi-browse -at   # Ağdaki tüm mDNS servislerini gör
+```
+
+---
+
+## Güç Tüketimi Takibi
+
+```bash
+# CPU sıcaklığı
+vcgencmd measure_temp
+cat /sys/class/thermal/thermal_zone0/temp   # 1000 ile böl = °C
+
+# CPU frekansı
+vcgencmd measure_clock arm
+vcgencmd measure_clock core
+
+# Voltaj
+vcgencmd measure_volts core
+vcgencmd measure_volts sdram_c
+
+# Throttling durumu
+vcgencmd get_throttled
+# 0x0      = Normal
+# 0x50005  = Under-voltage + Throttled
+```
+
+### Throttle Bit Anlamları
+
+| Bit | Anlam |
+|:---:|-------|
+| 0 | Şu an düşük voltaj |
+| 1 | Şu an ARM frekansı sınırlandı |
+| 2 | Şu an throttled |
+| 16 | Başlangıçtan bu yana düşük voltaj yaşandı |
+| 18 | Başlangıçtan bu yana throttling yaşandı |
+
+!!! danger "Güç Kaynağı Seçimi"
+    Pi 4: 5V / 3A (15W). Pi 5: 5V / 5A (27W). Yetersiz güç kaynağı throttling ve veri bozulmasına yol açar. Resmi Raspberry Pi güç adaptörü kullanın.
+
+---
+
+## Yardımcı Komutlar
+
+```bash
+# Sistem bilgisi
+uname -a
+cat /proc/cpuinfo | grep "Hardware"    # Pi modeli
+cat /proc/cpuinfo | grep "Revision"    # Revizyon kodu
+vcgencmd version                        # Firmware versiyonu
+
+# Disk imaj alma (başka Linux'ta)
+sudo dd if=/dev/sdb bs=4M status=progress | gzip -9 > rpi_backup.img.gz
+
+# İmajı geri yükleme
+gzip -dc rpi_backup.img.gz | sudo dd of=/dev/sdb bs=4M status=progress
+
+# SD kart boyutuna göre imaj küçültme (pi-shrink aracı)
+# github.com/Drewsif/PiShrink
+sudo pishrink.sh rpi_backup.img
+```
+
+---
+
+## udev Kuralları
+
+```bash
+# Kural dosyası
+sudo nano /etc/udev/rules.d/99-mydevice.rules
+
+# Örnek: USB-Serial cihaza sabit isim ver
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", \
+    SYMLINK+="ttyArduino"
+
+# Örnek: USB cihaz bağlandığında script çalıştır
+SUBSYSTEM=="usb", ACTION=="add", \
+    ATTRS{idVendor}=="0403", RUN+="/usr/local/bin/usb_connected.sh"
+
+# Kuralları yenile
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+# Cihaz bilgisi
+udevadm info --query=all --name=/dev/ttyUSB0
+```

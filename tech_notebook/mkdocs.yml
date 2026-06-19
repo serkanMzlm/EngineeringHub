@@ -11,11 +11,15 @@ nav:
       - C: md/programming/c.md
       - C++: md/programming/cpp.md
       - Python: md/programming/python.md
+      - Kotlin: md/programming/kotlin.md
+      - QT: md/programming/qt.md
 
   - Embedded:
       - Concepts: md/embedded/concepts.md
-      - STM Notes: md/embedded/stm.md
-      - AVR Notes: md/embedded/avr.md
+      - Communication Protocols: md/embedded/protocols.md
+      - RTOS (FreeRTOS): md/embedded/rtos.md
+      - STM32: md/embedded/stm.md
+      - AVR: md/embedded/avr.md
   - Linux:
       - Basic Information: md/linux/basics.md
       - Package Management: md/linux/package_management.md

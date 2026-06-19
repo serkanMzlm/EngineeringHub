@@ -1,1006 +1,568 @@
-# Python 
-- `#` Satır içi yorum başlatır.
-- `\` Satır devamı için kullanılır. `\\` Kaçış karakteri olarak tek bir `\` üretir.
-- `"""...""" / '''...'''`: Çok satırlı string ve dokümantasyon (docstring) tanımlamak için kullanılır.
-- `**`: Üst alma işlemi yapar. (`pow()` ile aynı işlemi yapar)
-- **Immutable(Değiştirilemez):** int, float, complex, str, tuple
-- **Mutable(Değiştirilebilir):** list, dict, set
-- **Döngüler - Koşullar:** `for, while`, `if – elif – else`
-    - **pass:** Gövdesi boş bir blok bırakmak için (ileride doldurmak üzere).
-    - **break:** Döngüyü tamamen sonlandırır.
-    - **continue:** Döngünün bir sonraki yinelemesine atla
-    - `and` ve `or` ifadeler birleştirebilir, `not` ile terslenir.
-    - `in` öğende olup olmadığını kontrol eder. `is` kimlik (aynı nesneye işaret etme) kontrol eder. 
-    - `for - while` döngüsüne bir `else` bloğu ekleyebilirsiniz. Döngü normal sonlanırsa (yani `break` ile kesilmezse) else çalışır:
-- `:=` (Walrus Operatörü), bir ifadeye değer atarken aynı anda o değeri kullanmayı sağlar. (Python 3.8+)
-- `print(*objs, sep=' ', end='\n', file=sys.stdout, flush=False)`
-    - `sep` Öğeler arası ayırıcı.
-    - `end` Sonuna eklenen karakter.
-    - `file` Yazma hedefi (dosya veya başka bir çıktı akışı).
-    - `flush` Anında yazmayı zorlar.
-- `input(prompt)` Kullanıcıdan girdi alır **(her zaman string döner)**.
-- `*` operatörü
-    - Fonksiyon çağrısında `*iterable`: elemanları ayrı argüman olarak geçirir.
-    - String çarpımında `"deneme" * 3 ‑> "denemedenedeme"`.
-- `split(sep=None, maxsplit=-1) / rsplit(sep=None, maxsplit=-1) / splitlines(keepends=False)`
-    - `split` Varsayılan boşluk/kaydırma karakterlerine göre böler.
-    - `rsplit` Sağdan başlayarak böler (özellikle maxsplit kullanırken fark eder).
-    - `splitlines` Satır sonu karakterlerine göre böler; keepends=True satır sonlarını korur.
-- `strip(chars=None) / lstrip(chars=None) / rstrip(chars=None)` Başlangıç ve/veya sondaki boşluk ya da chars parametresindeki karakterleri siler.
-- `join(iterable)` Iterable içindeki tüm öğeleri birleştirip tek bir string döner; self araya konur.
-- `count(sub[, start[, end]])` Bir alt string’in kaç kez geçtiğini sayar.
-- `index(sub[, start[, end]]) / rindex(sub[, start[, end]])` 
-    - `index` İlk eşleşmenin başlangıç indeksini döner, bulunamazsa ValueError.
-    - `rindex` Sağdan aramaya başlar.
-- `find(sub[, start[, end]]) / rfind(sub[, start[, end]])`
-    - `find` İlk eşleşmenin indeksini döner; bulunamazsa -1.
-    - `rfind` Sağdan arar.
-- `center(width[, fillchar]) / ljust(width[, fillchar]) / rjust(width[, fillchar])` Metni belirtilen genişliğe ortalar veya sola/sağa yaslar; boşluk dışı karakter için fillchar verebilirsiniz.
-- `zfill(width)` Sağa yaslayarak sol tarafı sıfır ('0') ile doldurur.
-- `partition(sep) / rpartition(sep)` String’i üç parçaya ayırır: (önce, sep, sonra). rpartition sağdan başlar.
-- `encode(encoding="utf-8", errors="strict")` String’i belirtilen kodlamaya göre byte dizisine çevirir.
-- `str.maketrans(x, y=None, z=None)` & `translate(table)`
-    - `maketrans(x, y)` İki string’in karakterlerini eşleştiren bir dönüşüm tablosu (sözlük) oluşturur.
-    - `maketrans('', '', z)` z içindeki karakterleri kaldırmak için tablo üretir.
-    - `translate(table)` String’i tabloya göre dönüştürür veya siler.
+# Python
 
-| Genel Fonksiyon | Açıklama |
-|--------|--------|
-| `eval(expr)`                        | expr string’ini değerlendirir, sonuç döner.  |
-| `exec(code)`                        | code string’ini çalıştırır, değer döndürmez.  |
-| `compile(...)`                      | String’i çalıştırılabilir koda çevirir.  |
-| `globals()`                         | Global isim alanı sözlüğünü döner.  |
-| `locals()`                          | Mevcut local isim alanı sözlüğünü döner.  |
-| `callable(obj)`                     | obj() çağrılabilir mi? (True/False)  |
-| `hash(obj)`                         | obj hash değerini döner.  |
-| `isinstance(obj, type)`             | Tür denetimi yapar.   |
-| `issubclass(cls, classinfo)`        |  Alt sınıf sorgusu.  |
-| `dir(obj)`                          | obj’in metot/özellik adlarını listeler.  |
-| `vars([obj])`                       | obj’in __dict__ öğesini döner (varsayılan local/global).  |
-| `help(obj)`                         | Yardım sistemini açar, dokümantasyonu gösterir.  |
-| `id(obj)`                           | obj’in benzersiz kimlik numarası (bellek adresi).   |
-| `input(prompt)`                     | Kullanıcıdan girdi alır (string).  |
-| `exit(), quit()`                    | Çıkış işlevi (REPL için)  |
-| `replace(old, new, count=-1)`       | String içinde değişim yapılmasını sağlar.  |
-| `abs(x)`                            |  Mutlak değer |
-| `pow(x, y, z)`                      |  `(x**y) % z`   |
-| `round(x, n)`                       |  x’i n ondalığa yuvarlar (default n=0). |
-| `divmod(a, b)`                      |  `(a // b, a % b)` döner.   |
-| `max() / min()`                     | En büyük / küçük eleman |
-| `sum(iterable, start=0)`            | Toplam. (start varsayılan 0)  |
-| `range(start, stop, step)`          | Sayı dizisi üretir (start varsayılan 0, step varsayılan 1)  |
-| `int(x, base)`, `float(x)`          | x’i tam / float türüne çevirir.  |
-| `complex(re, im=0)`, `str(x)`       | x’i karmaşık / string türüne çevirir.  |
-| `bytes(x, encoding)`                | x’i bytes yapar.  |
-| `bytearray(x, …)`                   | Değiştirilebilir bytes.   |
-| `bin(x), oct(x), hex(x)`            | x’i sırasıyla ikili, sekizli, onaltılıya çevirir.  |
-| `ord(c)`                            | Tek bir karakterin Unicode kod noktasını (tamsayı) döndürür.  |
-| `chr(i)`                            | Verilen Unicode kod noktasına karşılık gelen karakteri döndürür.  |
-| `len(x)`                            |  Eleman sayısı / uzunluk.  |
-| `type(obj)`                         |  Nesnenin türü  |
-| `sorted(iterable, key, reverse)`    |  Sıralı liste döner.   |
-| `reversed(seq)`                     |  Ters yönde iterator döner.  |
-| `all(iter)`                         |  Tüm öğeler True ise True   |
-| `any(iter)`                         |  En az bir öğe True ise True   |
-| `enumerate(iter, start=0)`          |  (index, value) çiftlerinden iter oluşturur   |
-| `zip(*iterables)`                   |  Paralel iterasyon için tuple iterator  |
-| `filter(func, iterable)`            |  func(item) True ise öğeyi geçirir  |
-| `map(func, iterable)`               |  func(item) dönen yeni öğe iteratoru  |
-| `slice(start, stop, step)`          |  Dilim objesi (obj[slice])  |
+!!! note "Genel Bakış"
+    Python, yüksek seviyeli, dinamik tipli ve çok paradigmalı bir programlama dilidir. "Batteries included" felsefesiyle kapsamlı standart kütüphane, okunabilir sözdizimi ve hızlı prototipleme kapasitesiyle ön plana çıkar. Veri bilimi, sistem otomasyonu, web geliştirme ve gömülü sistemlerde (MicroPython) yaygın olarak kullanılır.
 
+```mermaid
+graph LR
+    PY((Python))
+    PY --> TP[Temel Tipler]
+    PY --> YP[Yapılar]
+    PY --> FN[Fonksiyonlar]
+    PY --> OO[OOP]
+    PY --> SL[Standart Kütüphane]
+    PY --> EC[Eşzamanlılık]
 
-```py title="Temel Kullanımlar" linenums="1"
-a = b = 10                       # Birden fazla değişkene değer atama
-a, b, c = 10, 20, 30             # Çoklu atama
-a, b = b, a                      # swap (a->b, b->a)
+    TP --> TP1[int / float / complex]
+    TP --> TP2[str / bytes]
+    TP --> TP3[bool / None]
 
+    YP --> YP1[list / tuple]
+    YP --> YP2[dict / set]
+    YP --> YP3[frozenset / deque]
+
+    FN --> FN1[lambda / closure]
+    FN --> FN2[decorator]
+    FN --> FN3[generator / yield]
+
+    OO --> OO1[Inheritance / ABC]
+    OO --> OO2[Dunder Methods]
+    OO --> OO3[Dataclass]
+
+    SL --> SL1[collections / itertools]
+    SL --> SL2[functools / pathlib]
+    SL --> SL3[re / logging / json]
+
+    EC --> EC1[threading / GIL]
+    EC --> EC2[multiprocessing]
+    EC --> EC3[asyncio / await]
+
+    style PY  fill:#3776AB,color:#fff
+    style TP  fill:#2196F3,color:#fff
+    style YP  fill:#4CAF50,color:#fff
+    style FN  fill:#FF9800,color:#fff
+    style OO  fill:#9C27B0,color:#fff
+    style SL  fill:#009688,color:#fff
+    style EC  fill:#F44336,color:#fff
+```
+
+---
+
+## Temel Kavramlar
+
+### Mutability (Değişebilirlik)
+
+| Immutable (Değiştirilemez) | Mutable (Değiştirilebilir) |
+|:-------------------------:|:-------------------------:|
+| `int`, `float`, `complex` | `list`, `dict`, `set`, `bytearray` |
+| `str`, `bytes`, `bool` | Kullanıcı tanımlı nesneler (genellikle) |
+| `tuple`, `frozenset` | |
+
+!!! note "Neden Önemli?"
+    Immutable nesneler dict key ve set eleman olabilir; hash değerleri değişmez. Mutable nesneyi default parametre yapmak klasik bir tuzaktır (bkz. Mutable Default Argument).
+
+### Temel Operatörler
+
+| Operatör | Açıklama | Örnek |
+|----------|---------|-------|
+| `**` | Üst alma | `2 ** 10 = 1024` |
+| `//` | Tam bölme (floor division) | `7 // 2 = 3` |
+| `%` | Modulo | `7 % 2 = 1` |
+| `@` | Matris çarpımı (PEP 465) | `A @ B` |
+| `:=` | Walrus (atama + kullanma, 3.8+) | `if (n := len(a)) > 10:` |
+| `is` | Kimlik (aynı nesne mi?) | `a is None` |
+| `in` | Üyelik | `'a' in 'python'` |
+
+!!! tip "Sayı Gösterimleri"
+    ```python
+    n = 100_000_000  # _ rakam ayırıcı (okunabilirlik için)
+    n = 0b1010       # İkili
+    n = 0o12         # Sekizlik
+    n = 0x1F         # Onaltılık
+    ```
+
+!!! danger "Mutable Default Argument Tuzağı"
+    ```python
+    def ekle(item, liste=[]):   # Kötü: liste yalnızca bir kez oluşturulur
+        liste.append(item)
+        return liste
+
+    ekle(1)   # [1]
+    ekle(2)   # [1, 2]  ← beklenen [2] değil!
+
+    def ekle(item, liste=None): # Doğru
+        if liste is None:
+            liste = []
+        liste.append(item)
+        return liste
+    ```
+
+### Kontrol Akışı
+
+```python
+# Ternary expression
+sonuc = "çift" if n % 2 == 0 else "tek"
+
+# Walrus — atama ve kontrol tek satırda
 if (n := len(input("deger: "))) < 10:
     print(f"Girdi {n} karakterden kısa")
 
-l = [1,2,3,4,5,6]
-print(list(filter(lambda x: x%2, l)))       # [1,3,5]
-print(list(map(lambda x: x*x, l)))          # [1,4,9,16,25,36]
-
-# Direkt liste halinde görmek için `*` kullanılabilir 
-print(*enumerate("istihza")) # Ya da for kullanılır
-for idx, harf in enumerate("istihza", start=1):
-    print(idx, harf)
-
-
-exec("print('Merhaba')")  # print yazılmış gibi davranır
-result = eval("10 + 20")  # 30
-
-with open("deneme.txt", "w") as dosya:
-    ad = input("adiniz: ")
-    yas = int(input("yas: "))
-    print(ad, yas, sep="-", file=dosya, flush=True)
-
-n = 42
-
-if (n > 10) and (n < 100):
-    print("10 ile 100 arasında")
-elif (n > 100) or (n < 0):
-    print("0’dan küçük veya 100’den büyük")
-elif not (n == 42):
-    print("Yanlış sayı")
-else:
-    print("Diğer durumlar")
-
-if 'a' in "ali":
-    print("‘a’ var")
-
-a = None
-if a is None:
-    pass
-
-metin = "Bu yAzıdA küçük a yok."
+# for-else: break ile çıkılmadıysa else çalışır
 for harf in metin:
     if harf == 'a':
-        print("‘a’ bulundu.")
+        print("bulundu")
         break
 else:
-    print("‘a’ bulunmadı.")
-
-for i in range(17):
-    # {:^9} → Onlu, {:^9o} → Sekizli (oct)
-    # {:^9x} → Onaltılı (hex, küçük harf)
-    # {:^9b}   → İkili (bin)
-    print("{0:^9} {0:^9o} {0:^9x} {0:^9b}".format(i))
-```
-### Strings
-- Tek (`'…'`), çift (`"…"`) veya üçlü tırnak (`'''…''' / """…"""`) kullanılabilir.
-- Üçlü tırnak çok satırlı metin tanımı içindir.
-- İç içe tırnak gerekirse diğer tip tırnak kullanılır veya kaçış karakteri (`\", \'`) kullanılır.
-- `expandtabs(tabsize)` Sekme (`\t`) karakterlerini belirtilen genişlikte boşluklara çevirir.
-
-```python title="İndeksleme ve Dilimleme" linenums="1"
-kelime = "ali"
-kelime[0]       # 'a'
-kelime[-1]      # 'i' (son eleman)
-kelime[:2]      # 'al' (başlangıçtan 2. karaktere kadar, 2 dahil değil)
-kelime[1:]      # 'li' (1. karakterden sona kadar)
-kelime[::-1]    # 'ila' (ters çevirme)
-kelime[::2]     # 'ai' (iki karakterde bir atlayarak)
-"A" + kelime[1:]# 'Ali' (ilk harfi değiştirerek)
-```
-```python title="String Gömülü Fonkisyonlar" linenums="1"
-s = "python Programlama"
-s.capitalize()   # 'Python programlama' – sadece ilk harf
-s.title()        # 'Python Programlama' – her kelimenin ilk harfi
-s.upper()        #  ya da s.lower() 
-s.casefold()     # 'python programlama' – dil bağımsız, daha agresif küçültme
-s.swapcase()     # Büyük harf küçük, küçük harf büyük yapılır.
-
-s.islower() / s.isupper()  # tümü küçük / büyük mü?
-s.startswith("py")         # py ile mi başlıyor?
-s.endswith("ma")           # ma ile mi bitiyor?
-s.isalpha() / s.isdigit()  # yalnızca harflerden / rakamlardan mı oluşuyor?
-s.isalnum()     # harf veya rakam mı?
-s.isdecimal()   # ondalık rakam mı?
-s.isnumeric()   # sayısal karakter mi?
-s.isidentifier()# geçerli Python tanımlayıcı mı?
-s.isspace()     # yalnızca boşluk karakterlerinden mi?
-s.isprintable() # yazdırılabilir karakterler mi?
+    print("bulunamadı")  # sadece break tetiklenmediyse
 ```
 
-### String Biçimlendirme
-- `%`, işaretinden sonra gelen biçim belirteçleri (`%d, %s, %f, %x` vb.) C tarzı yer tutuculardır.
-    - Genişlik ve hassasiyet belirtilebilir: `%6.2f, %03d`
-    - Hizalama ve doldurma: `%10s, %-10s`
-    - Birden fazla değer, tuple ile verilir: "`%d %s`" % (n, text)
-- **str.format()**, `{}` yer tutucularını, format() içindeki argümanlarla doldurur.
-    - `{0}, {1}…` sayılarla pozisyon belirtebilir; `{name}` ile isimli argüman kullanabilirsiniz
-    - İsteğe bağlı format belirtimleri için `:` kullanılır
-    - Hizalama: `{:>10} (sağa)`, `{:^10} (ortala)`, `{:<10} (sola)`.
-    - Tip ve hassasiyet: `{:d}, {:.2f}` vb.
-    - Binlik ayırıcı: `{:,}` (her 3 basamakta virgül).
-- **F-String (Python 3.6+)**, Dizge başına `f` eklenir, `{}` içinde doğrudan değişken veya ifadeler yazılır.
-    - Esnek: aritmetik, metod çağrısı, format belirtimi doğrudan kullanılabilir.
+| Deyim | Etki |
+|-------|------|
+| `break` | Döngüyü sonlandırır |
+| `continue` | Bir sonraki iterasyona geçer |
+| `pass` | İşlem yapmaz; sözdizimi için yer tutar |
+| `return` | Fonksiyondan çıkar; `return None` varsayılan |
+
+---
+
+## Veri Yapıları
+
+### String
+
+Tek (`'…'`), çift (`"…"`) veya üçlü tırnak ile tanımlanır. **Immutable** — bir karakter değiştirmek için yeni string üretmek gerekir.
 
 ```python
-# % format
-print("Ad: %s, Yas: %s" % ("Ali", 19))
+kelime = "python"
+kelime[0]       # 'p'
+kelime[-1]      # 'n'
+kelime[::-1]    # 'nohtyp'  (ters çevirme)
+kelime[::2]     # 'pto'
+kelime * 3      # 'pythonpythonpython'
+```
 
-# str format
-template = "Ad : {} Yas: {}"
-print(template.format("Serkan", "30"))
-print("Kullanıcı: {user}".format(user="serkan"))
+| String Metodu | Açıklama |
+|---------------|---------|
+| `s.upper()` / `s.lower()` | Büyük / küçük harfe çevirir |
+| `s.capitalize()` | Yalnızca ilk harfi büyük yapar |
+| `s.title()` | Her kelimenin ilk harfini büyük yapar |
+| `s.casefold()` | Dil bağımsız, agresif küçültme (karşılaştırmalar için) |
+| `s.strip()` / `lstrip()` / `rstrip()` | Baştaki/sondaki boşlukları siler |
+| `s.split(sep)` / `s.rsplit(sep)` | Böler; `rsplit` sağdan başlar |
+| `s.join(iterable)` | Elemanları `s` ile birleştirir |
+| `s.find(sub)` / `s.rfind(sub)` | İndeks döner; bulunamazsa -1 |
+| `s.index(sub)` | İndeks döner; bulunamazsa `ValueError` |
+| `s.count(sub)` | Alt string tekrar sayısı |
+| `s.replace(old, new)` | Tüm eşleşmeleri değiştirir |
+| `s.startswith(p)` / `s.endswith(p)` | Ön/son ek kontrolü |
+| `s.partition(sep)` | `(önce, sep, sonra)` üçlüsü döner |
+| `s.encode(enc)` | `bytes` nesnesine çevirir |
+| `s.zfill(w)` | Sola `'0'` doldurur |
+| `s.isalpha()` / `s.isdigit()` | Yalnızca harf / rakam mı? |
+| `s.isalnum()` | Harf veya rakam mı? |
+| `s.isspace()` | Yalnızca boşluk karakterleri mi? |
 
-# f format
-isim, yas = "Serkan", 45
-print(f"Selam {isim}, yas = {yas}")
-print(f"Sayıların toplamı = {int(input('1. sayı: ')) + int(input('2. sayı: '))}")
+#### String Biçimlendirme
+
+| Yöntem | Sözdizimi | Not |
+|--------|-----------|-----|
+| `%` (printf tarzı) | `"%s %d" % (isim, n)` | Eski; hâlâ geçerli |
+| `str.format()` | `"{} {}".format(a, b)` | Esnek; Python 2.6+ |
+| **f-string** | `f"{isim!r:>10}"` | En hızlı; Python 3.6+ |
+
+```python
+isim, yas = "Serkan", 30
+print(f"{isim:<10} yaşında {yas:03d}")  # 'Serkan     yaşında 030'
+print(f"{3.14159:.2f}")                  # '3.14'
+print(f"{1_000_000:,}")                  # '1,000,000'
+print("{0:^9} {0:^9x} {0:^9b}".format(15))  # onluk/hex/binary
+```
+
+#### Karakter, Byte ve Bytearray
+
+```python
+# String <-> Bytes dönüşümü
+s = "İstanbul"
+b = s.encode("utf-8")         # b'\xc4\xb0stanbul'
+print(b.decode("utf-8"))      # 'İstanbul'
+
+print(ord('A'))                # 65
+print(chr(65))                 # 'A'
+
+ba = bytearray(b"mutable")    # Değiştirilebilir byte dizisi
+ba[0] = 77                    # 'm' → 'M'
+
+bytes.fromhex("deadbeef")     # b'\xde\xad\xbe\xef'
 ```
 
 ### List
-- `[]` içinde tanımlanır, öğeler `,` ile ayrılır `liste = [1, "iki", 3.0, True]`
-- **Mutable (değiştirilebilir):** Aynı liste üzerinde ekleme, silme, değiştirme yapabilirsiniz.
-- Tekrar eden elemanlar olabilir.
-- Eleman sayısını len(liste) ile alırsınız.
-- İç içe listeler desteklenir
-- `b = a → referans` aynı listeyi işaret eder; birinde değişiklik diğerini etkiler.
-- `b = a[:]` veya `b = list(a)` veya `b = a.copy() → yeni liste` bağımsız kopya.
 
-```python linenums="1"
-my_list = [1, 2, 2, 3, 'a', 'b', 'c']
+Bellekte sıralı, dinamik boyutlu **mutable** dizi.
 
-matris = [[1,2,3], [4,5,6], [7,8,9]]
-print(matris[1][2])  # 6
-
-bos = list()                 # []
-chars = list("python")       # ['p','y','t','h','o','n']
-nums  = list(range(5))       # [0,1,2,3,4]
-
-a = [3,1,4]
-a.append(2)           # [3,1,4,2]
-a.extend([5,6])       # [3,1,4,2,5,6]
-a.insert(1, 99)       # [3,99,1,4,2,5,6]
-a.remove(99)          # [3,1,4,2,5,6]
-x = a.pop()           # x=6, a=[3,1,4,2,5]
-a.sort()              # [1,2,3,4,5]
-a.reverse()           # [5,4,3,2,1]
-b = a.copy()          # b bağımsız kopya
-
-meyveler = ["elma","armut","çilek","kiraz"]
-print(meyveler[0])     # 'elma'
-print(meyveler[-1])    # 'kiraz'
-print(meyveler[1:3])   # ['armut','çilek']
-print(meyveler[:2])    # ['elma','armut']
-print(meyveler[::2])   # ['elma','çilek']
-
-
-liste = [i for i in range(1000)]  # 0–999 arası sayılar
-even = [i for i in range(1000) if i % 2 == 0] # çift sayılar
-
-matris = [[1,2],[3,4]]                    # iç içe açma
-duz = [x for row in matris for x in row]  # [1,2,3,4]
+```python
+a = [3, 1, 4, 2]
+a.append(5)           # Sona ekler
+a.extend([6, 7])      # Listeyi genişletir
+a.insert(1, 99)       # index 1'e ekler; sonrasını kaydırır
+a.remove(99)          # İlk eşleşmeyi siler
+x = a.pop()           # Son elemanı siler ve döner
+x = a.pop(0)          # index 0'ı siler ve döner
+a.sort(reverse=True)  # In-place sırala
+a.reverse()           # In-place ters çevir
+b = a.copy()          # Yüzeysel kopya
+a.clear()             # Tüm elemanları siler
 ```
 
-### Tuple 
-- Parantez içinde veya virgülle oluşturulur
-- **Immutable:** İçerik değiştirilemez; yeni bir atama eski nesneden farklı kimlik üretir.
-- Erişim, dilimleme listelerle aynı şekilde
-- Tekrar eden elemanlar olabilir.
-- Tek öğeli demet: sonuna virgül koyun.
-- Yüzeysel kopya gerekmez; atama hep referans davranışı verir.
-- `count(x)` x’in kaç kez geçtiğini sayar.
-- `index(x)` İlk x’in indeksini döner; bulunmazsa `ValueError`.
+!!! note "a.sort() vs sorted(a)"
+    `a.sort()` in-place çalışır, `None` döner. `sorted(a)` yeni liste oluşturur; orijinale dokunmaz.
 
-```python linenums="1"
+!!! tip "List Comprehension"
+    ```python
+    kareler  = [x**2 for x in range(10)]
+    ciftle   = [x for x in range(100) if x % 2 == 0]
+    matris   = [[1,2],[3,4]]
+    duz      = [x for satir in matris for x in satir]  # [1,2,3,4]
+    ```
+
+!!! danger "Yüzeysel vs Derin Kopya"
+    ```python
+    import copy
+    a  = [[1,2], [3,4]]
+    b  = a.copy()          # Yüzeysel — iç listeler paylaşılır
+    c  = copy.deepcopy(a)  # Derin — tamamen bağımsız
+    ```
+
+### Tuple
+
+`()` içinde virgülle oluşturulur. **Immutable** — değiştirilemez.
+
+```python
 t = (1, 2, 3)
-t2 = 4, 5, 6
+t2 = 4, 5, 6       # Parantez zorunlu değil
+tek = (42,)        # Tek elemanlı — sondaki virgül zorunlu
 
-print(t[0], t[-1], t[1:3])
-single = (42,) # Tek elemanlı Demet
-
-t = (1,2,1,3)
-print(t.count(1))   # 2
-print(t.index(3))   # 3
+# Unpacking
+a, b, c = t
+baş, *orta, son = [1, 2, 3, 4, 5]  # baş=1, orta=[2,3,4], son=5
 ```
+
+!!! tip "Named Tuple"
+    ```python
+    from collections import namedtuple
+    Nokta = namedtuple('Nokta', ['x', 'y'])
+    p = Nokta(3, 4)
+    print(p.x, p.y)       # 3  4
+    print(p._asdict())    # {'x': 3, 'y': 4}
+    ```
 
 ### Dict
-- Anahtarlar immutable ve benzersiz olmalı; değerler mutable olabilir.
-- Süslü parantezle oluşturulur: `{}`.
-- Key – Value çiftlerinden oluşur
-- Değişik veri tipleri kullanılabilir:
-    - Key olarak immutable tipler (str, int, tuple vs.).
-    - Value olarak her tür (list, dict, başka dict vs.).
-- Yeni öğe eklemek/güncellemek:
-- `keys()` Tüm anahtarları döner.
-- `values()` Tüm değerleri döner.
-- `items()` (key, value) çiftlerini döner.
-- `get(key, default=None)` Key yoksa default döner, hata vermez.
-- `pop(key, default=…)` Key’i silip değerini döner; yoksa default veya KeyError.
-- `popitem()` Son eklenen çifti silip döner.
-- `setdefault(key, default=None)` Key yoksa ekler ve default döner; varsa mevcut değeri döner.
-- `update(other_dict)` Başka bir sözlüğün içeriğini ekler/günceller.
-- `clear()` Tüm öğeleri siler ({}).
-- `copy()` Yüzeysel kopya oluşturur.
-- `fromkeys()` Belirli anahtarlarla hepsi aynı değere sahip yeni bir sözlük oluşturur:
 
-```python linenums="1"
-sozluk = {
-    "kitap"      : "book",
-    "bilgisayar" : "computer",
-    "dil"        : "language"
-}
+Anahtar-değer çifti. Python 3.7+'da **ekleme sırası korunur**. Key'ler immutable ve hashlanabilir olmalı.
 
-sozluk["Ahmet"] = "Adana"
+```python
+sozluk = {"isim": "Ali", "yas": 30}
 
-sozluk = {"a": 1, "b": 2}
-print(list(sozluk.keys()))    # ['a', 'b']
-print(sozluk.get("c", 0))     # 0
-sozluk.update({"b": 3, "c": 4})
-print(sozluk)                 # {'a':1, 'b':3, 'c':4}
+sozluk["sehir"] = "Ankara"           # Ekleme / güncelleme
+sozluk.get("tel", "Yok")             # Güvenli okuma
+sozluk.pop("sehir")                  # Siler, değeri döner
+sozluk.setdefault("tel", "000")      # Yoksa ekler, varsa dokunmaz
+sozluk.update({"yas": 31, "x": 1})  # Toplu güncelleme
+{**sozluk, "yeni": True}             # Dict merge (3.9+'da | operatörü)
 
-kisiler = {
-    "Ahmet": {"Sehir": "Istanbul", "Meslek": "Ogretmen"},
-    "Mehmet": {"Sehir": "Adana", "Meslek": "Muhendis"}
-}
-print(kisiler["Ahmet"]["Meslek"])  # Ögretmen
-
-keys = ['a', 'b', 'c']
-sozluk = dict.fromkeys(keys, 0)
-# {'a':0, 'b':0, 'c':0}
+for k, v in sozluk.items():
+    print(f"{k}: {v}")
 ```
+
+!!! tip "Dict Comprehension ve zip"
+    ```python
+    kareler = {x: x**2 for x in range(5)}
+
+    keys, values = ['a', 'b', 'c'], [1, 2, 3]
+    d = dict(zip(keys, values))  # {'a':1, 'b':2, 'c':3}
+    ```
 
 ### Set
-- `set()` ile veya `{}` içinde virgülle oluşturulur.
-- **Mutable** (değiştirilebilir), sırasız, benzersiz elemanlar.
-- **Immutable** set: `frozenset()` oluşturulduktan sonra değiştirilemez.
-- `add(x)` Eleman ekler.
-- `update(iterable)` Birden fazla elemanı ekler.
-- `remove(x)` Eleman siler; yoksa KeyError.
-- `discard(x)` Eleman siler; yoksa hata vermez.
-- `pop()` Rastgele bir elemanı siler ve döner.
-- `clear()` Tüm elemanları siler.
-- `copy()` Yüzeysel kopya döner.
-- `union(other)` / `|`: Birleşim.
-- `intersection(other)` / `&`: Kesişim.
-- `difference(other)` / `-`: Fark.
-- `symmetric_difference(other)` / `^`: Karşılıklı fark.
-- `_update` versiyonları (`intersection_update`, vb.) sonucu aynı kümeye uygular.
-- Sorgular:
-    - `isdisjoint(other)` Ortak eleman yok mu?
-    - `issubset(other)` Alt küme mi?
-    - `issuperset(other)` Üst küme mi?
 
-```python linenums="1"
-my_set = {1, 2, 3, 'a', 'b', 'c'}
-s = set([1,2,3])
-t = {"elma", "armut", "kiraz"}
-f = frozenset([1,2,3])
-
-s = {1,2,3}
-s.add(4)           # {1,2,3,4}
-s.update([5,6])    # {1,2,3,4,5,6}
-s.discard(2)       # {1,3,4,5,6}
-s.remove(3)        # {1,4,5,6}
-
-a = {1,2,3,4}
-b = {3,4,5,6}
-
-print(a | b)   # {1,2,3,4,5,6}
-print(a & b)   # {3,4}
-print(a - b)   # {1,2}
-print(a ^ b)   # {1,2,5,6}
-print(a.issubset({1,2,3,4,5}))  # True
-```
+Sırasız, benzersiz elemanlar. Üyelik kontrolü ortalama O(1).
 
 ```python
-# for döngüsü
-for harf in "deneme":
-    print(harf)
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
 
-# enumerate ile indeksli yineleme
-for idx, harf in enumerate("deneme"):
-    print(idx, harf)
+a | b    # Birleşim   {1,2,3,4,5,6}
+a & b    # Kesişim    {3,4}
+a - b    # Fark       {1,2}
+a ^ b    # Simetrik   {1,2,5,6}
 
-# while döngüsü
-i = 0
-while i < 3:
-    print(i)
-    i += 1
+a.issubset(b)    # a ⊆ b mı?
+a.isdisjoint(b)  # Ortak eleman yok mu?
 ```
 
-### Hata Yakalama ve İstisnalar
-- **try – except** `try` bloğu içindeki kod çalıştırılır; eğer tanımlı bir istisna (Exception) fırlatılırsa uygun `except` bloğu devreye girer. Birden fazla `except` ile farklı hata türlerini ayrı işleyebilirsiniz. Hiçbir tür belirtilmeden yazılan `except` tüm istisnaları yakalar **(genellikle önerilmez)**.
-- **raise** Kendi hata durumlarınızı fırlatmak için
-- **assert** Bir koşulun doğru olduğunu doğrulamak için. Yanlışsa `AssertionError` fırlatır:
+!!! tip "Frozenset"
+    `frozenset` immutable set; dict key veya başka bir set'in elemanı olabilir.
+
+---
+
+## Fonksiyonlar
+
+### Parametre Türleri
+
+| Parametre Türü | Sözdizimi | Açıklama |
+|----------------|-----------|---------|
+| Pozisyonel zorunlu | `a` | Sırayla verilmesi şart |
+| Varsayılan | `a=10` | Verilmezse varsayılan kullanılır |
+| Variadic positional | `*args` | Ek pozisyonel argümanları tuple yapar |
+| Keyword-only | `*, k` | `*` sonrasındaki; yalnızca isimle verilir |
+| Variadic keyword | `**kwargs` | Ek keyword argümanlarını dict yapar |
+| Positional-only | `/` öncesi | `/` öncesi yalnızca pozisyonel geçilebilir (3.8+) |
 
 ```python
-try:
-    deger = input("Sayı: ")
-    deger_int = int(deger)
-    if deger == 10:
-        raise Exception("10 sayısı yasaktır!")
-except ValueError:
-    print("Geçerli bir sayı değil.")
-except ZeroDivisionError:
-    print("Sıfıra bölme hatası.")
-except (TypeError, NameError) as hata:
-    print("Başka bir hata:", hata)
-else:
-    print("Başarılı dönüşüm:", deger_int)
-finally:
-    print("Bu blok her zaman çalışır.")
+def f(a, b=10, *args, anahtar_only=False, **kwargs):
+    print(a, b, args, anahtar_only, kwargs)
 
-giris = input("Adınız: ")
-assert giris, "İsim boş olamaz!"
-print("Hoş geldiniz,", giris)
+f(1, 2, 3, 4, anahtar_only=True, x=99)
+# 1  2  (3,4)  True  {'x': 99}
 ```
 
-### Temel Dosya İşlemleri
+!!! note "Argument Unpacking"
+    ```python
+    def topla(a, b, c): return a + b + c
 
-- open(path, mode, encoding=None) ile dosya açılır.
-- mode:
-    - `'r'` – okuma (varsayılan)
-    - `'w'` – yazma (varsa üzerine yazar, yoksa oluşturur)
-    - `'a'` – ekleme (varsa sona ekler, yoksa oluşturur)
-    - b eklenirse ikili mod (örn. `'rb'`, `'wb'`)
-    - + eklenirse hem okuma hem yazma (örn. `'r+'`, `'w+'`)
+    topla(*[1, 2, 3])           # Pozisyonel açma
+    topla(**{'a': 1, 'b': 2, 'c': 3})  # Keyword açma
+    ```
 
-- Windows yollarında ters eğik çizgi (`\`) kaçış karakteri olduğundan:
-- **Context manager (with)** kullandığınızda `close()` otomatik çağrılır
-- `f.read(size=-1)` Tüm içeriği (size=-1) veya en fazla size byte/karakter okur.
-- `f.readline()` Bir satır okur (satır sonunu da içerir).
-- `f.readlines()` Tüm satırları liste olarak döner.
-- `f.write(text) / f.writelines(iterable)` Metni yazar. write tek string, writelines birden çok satır içeren iterable alır.
-- `print(..., file=f, flush=True)` print fonksiyonu ile doğrudan dosyaya yazabilirsiniz.
-- `f.seek(offset, whence=0)` 
-    - İmleci offset byte ileri/geri taşır.
-        - whence=0: baştan (seek(0) başa dön).
-        - whence=1: mevcut pozisyondan.
-        - whence=2: sondan.
-- `f.tell()` Geçerli imleç pozisyonunu byte cinsinden döner.
-- `f.readable(), f.writable(), f.seekable()` İzin sorguları (bool).
-- `f.truncate(size=None)` Dosyayı `size` byte’a kadar kısaltır (default: mevcut pozisyona kadar).
-- `f.mode` → açılış modu ('r', 'wb', vb.)
-- `f.name` → dosya adı veya yol
-- `f.encoding` → metin modunda kullanılan kodlama
-
-```python linenums="1"
-f = open("C:\\klasor\\dosya.txt", "r") # Ya çift ters eğik kullanın
-f = open(r"C:\klasor\dosya.txt", "r")  # Ya ham string (raw) ile
-
-try:
-    f = open("veri.txt", "r", encoding="utf-8")
-    içerik = f.read()
-except IOError:
-    print("Dosya açılamadı veya okuma hatası!")
-finally:
-    f.close()
-
-# with bloğu bitince f.close() otomatik yapılır
-with open("veri.txt", "r", encoding="utf-8") as f:
-    for satır in f:
-        print(satır.rstrip("\n"))
-
-with open("cikti.txt", "w", encoding="utf-8") as f:
-    f.write("Merhaba\n")
-    print("Dosyaya ek satır", file=f, flush=True)
-
-# Metin modu (satır sonu çevirisi, encoding)
-with open("notlar.txt", "w+", encoding="utf-8") as f:
-    f.write("Türkçe karakter: ç\n")
-    f.seek(0)
-    print(f.read())
-
-with open("resim.png", "rb") as f: # İkili mod (raw byte)
-    header = f.read(8)
-    print(header)  # b'\x89PNG\r\n\x1a\n'
-```
-
-### PDF Dosyaları Üzerinde Basit İşlemler
-- PDF’ler genellikle ikili dosyalardır; içinde `/Producer`, `/CreationDate` gibi metaveri etiketleri bulunur. Örneğin üretici bilgisini okumak için
+### Lambda ve Closures
 
 ```python
-with open("belge.pdf", "rb") as f:
-    data = f.read()
-    idx = data.find(b"/Producer")
-    if idx != -1:
-        print(data[idx:idx+50])
+kare  = lambda x: x * x
+siralama = sorted(isimler, key=lambda x: x.lower())
+
+# Closure: iç fonksiyon dış değişkeni "kapar"
+def carp_ile(carpan):
+    def ic(x):
+        return x * carpan   # carpan closure üzerinden yaşar
+    return ic
+
+ikiyle_carp = carp_ile(2)
+print(ikiyle_carp(5))  # 10
 ```
 
-!!! note "Not"
+### Decorators
 
-    Gerçek PDF işleme için PyPDF2, pdfminer.six gibi kütüphaneleri kullanmak çok daha güvenli ve pratiktir.
+Fonksiyonu sarmalayarak davranışını değiştiren veya genişleten fonksiyon.
 
-| Etiket | Anlamı |
-|--------|--------|
-| `/Creator`          | Belgeyi oluşturan uygulama veya yazılım (ör. Adobe InDesign) |
-| `/Producer`         | PDF’yi üreten kütüphane veya araç (ör. “PDFLib” vb.) |
-| `/Author`           | Belge yazarı |
-| `/Title`            | Belge başlığı |
-| `/Subject`          | Belge konusu veya özeti |
-| `/Keywords`         | Anahtar kelimeler (arama ve sınıflandırma için) |
-| `/CreationDate`     | Oluşturulma tarihi (D:YYYYMMDDHHmmSSZ formatında) |
-| `/ModDate`          | Son değiştirilme tarihi |
-| `/Trapped`          | Baskı iş akışı notu (“True”, “False” veya “Unknown”) |	
-	
-```python
-with open("belge.pdf", "rb") as f:
-    data = f.read()
-    for tag in [b"/Creator", b"/Producer", b"/Author", b"/Title", b"/Subject", b"/Keywords", b"/CreationDate", b"/ModDate"]:
-        idx = data.find(tag)
-        if idx != -1:
-            snippet = data[idx:idx+100].split(b"\n",1)[0]
-            print(snippet)
-```
+=== "Temel Decorator"
+    ```python
+    import functools
 
-### Dosya Türü Algılama (Magic Numbers)
+    def zamanlayici(func):
+        @functools.wraps(func)   # __name__, __doc__ korunur
+        def wrapper(*args, **kwargs):
+            import time
+            t0 = time.perf_counter()
+            sonuc = func(*args, **kwargs)
+            print(f"{func.__name__}: {time.perf_counter()-t0:.4f}s")
+            return sonuc
+        return wrapper
 
-- Bazı dosyalar, içerdikleri “magic number” (sihrî sayı) adı verilen sabit bayt dizileri sayesinde türleri kolayca tespit edilebilir:
-- **JPEG** – Başlangıç baytları: `FF D8 FF E0 ?? ?? 4A 46 49 46` (JFIF) Veya `FF D8 FF E0 ?? ?? 45 78 69 66` (Exif)
-- **PNG** – İlk 8 bayt: 
-    - Onluk: `137 80 78 71 13 10 26 10` 
-    - Onaltılık: `89 50 4E 47 0D 0A 1A 0A`
-    - Karakter karşılığı: `\x89 P N G \r \n \x1A \n`
-- **GIF** – İlk 3 bayt: `47 49 46` (“GIF”)
-- **TIFF** – İlk 2 bayt: `49 49` (“II”) veya `4D 4D` (“MM”)
-- **BMP** – İlk 2 bayt: `42 4D` (“BM”)
+    @zamanlayici
+    def agir_islem():
+        sum(range(10_000_000))
+    ```
 
-```python
-for path in dosyalar:
-    header = open(path, 'rb').read(10)
-    if header[6:10] in (b'JFIF', b'Exif'):
-        print(f"{path} → JPEG")
-    elif header[:8] == b"\x89PNG\r\n\x1a\n":
-        print(f"{path} → PNG")
-    elif header[:3] == b"GIF":
-        print(f"{path} → GIF")
-    elif header[:2] in (b"II", b"MM"):
-        print(f"{path} → TIFF")
-    elif header[:2] == b"BM":
-        print(f"{path} → BMP")
-    else:
-        print(f"{path} → Bilinmeyen tür")
-```
+=== "Parametre Alan Decorator (Factory)"
+    ```python
+    def tekrarla(n):
+        def decorator(func):
+            @functools.wraps(func)
+            def wrapper(*args, **kwargs):
+                for _ in range(n):
+                    func(*args, **kwargs)
+            return wrapper
+        return decorator
 
-### Karakter, Byte ve Bytearray
+    @tekrarla(3)
+    def merhaba():
+        print("Merhaba")
 
-- Kodlama Hataları (`errors`): 
-    - Dosya açarken errors parametresi, çözümlenemeyen karakterlerle ne yapılacağını belirler:
-        - `'strict'` → Hata fırlatır.
-        - `'ignore'` → Hatayı atlatarak karakteri atlar.
-        - `'replace'` → Geçersiz karakter yerine ? koyar.
-        - `'xmlcharrefreplace'` → XML karakter referansı (&#1234;) ekler.
-- `repr(obj)` Nesnenin resmi (parse edilebilir) gösterimini döner; kaçış dizilerini gösterir.
-- `ascii(obj)` repr() benzeri, ama ASCII olmayan karakterleri \x../\u.. biçiminde kodlar.
-- `ord(c)` Karakter c’nin Unicode kod noktasını döner (int).
-- `chr(n)` Kod noktası n’e karşılık gelen karakteri döner.
-- `bytes` Değiştirilemez (immutable) bayt dizisi.
-- `bytearray` Değiştirilebilir (mutable) bayt dizi
-- `s.encode(encoding, errors)` → bytes
-- `b.decode(encoding, errors)` → str
-- `fromhex()` Onaltılık dizeden bytes oluşturur
+    merhaba()  # 3 kez yazdırır
+    ```
+
+=== "Stacked Decorators"
+    ```python
+    @A
+    @B
+    def f(): pass
+    # Eşdeğeri: f = A(B(f))
+    # Uygulama sırası: içten dışa (önce B, sonra A)
+    ```
+
+!!! danger "functools.wraps Neden Zorunlu?"
+    `@wraps(func)` olmadan wrapper, `__name__`, `__doc__`, `__module__` gibi nitelikleri kaybeder. Bu durum loglama, debugging ve bazı framework'lerin (Flask gibi) iç mekanizmasını bozabilir.
+
+### Generators ve yield
+
+Büyük veri setlerini lazy (tembel) değerlendirme ile bellekte saklamadan üretir.
 
 ```python
-# 'ç' ASCII’e çevrilmez:
-"çalış".encode("ascii", errors="ignore")   # b"al s"
-"çalış".encode("ascii", errors="replace")  # b"?al?s"
-
-print(repr("Line\nNew"))    # "'Line\\nNew'"
-print(ascii("Türkçe"))      # "'T\\xfcrk\\xe7e'"
-
-print(ord('A'))  # 65
-print(chr(65))   # 'A'
-
-b = b"hello"                         # literal
-b2 = bytes([65,66,67])               # b"ABC"
-ba = bytearray(b"mutable")           # bytearray(b"mutable")
-
-s = "İstanbul"
-b = s.encode("utf-8")            # b'\xc4\xb0stanbul'
-print(b.decode("utf-8"))         # 'İstanbul'
-
-bytes.fromhex("deadbeef")      # b'\xde\xad\xbe\xef'
-
-# Bir karakterin byte uzunluğu, kullandığınız kodlamaya göre değişir:
-print(len("ş".encode("utf-8")))    # 2 byte
-print(len("ş".encode("cp1254")))   # 1 byte
-```
-
-### Fonksiyonlar (def)
-
-- `def` anahtar kelimesiyle fonksiyon tanımlanır.
-- İlk satırdaki string (docstring), fonksiyonun belgelendirilmesi içindir (`help()` ile erişilebilir).
-- `Default` değerler **tanım sırasında** belirlenir.
-- Default’lar yalnızca sondaki parametrelerde kullanılabilir.
-- **Değişken Sayıda Parametre:** `*args` → pozisyonel argümanları tuple olarak alır. `**kwargs` → keyword argümanları dict olarak alır.
-- `*args` ve `**kwargs` aynı fonksiyonda birlikte kullanılabilir.
-- Sıralama:
-    - Pozisyonel zorunlu parametreler
-    - Default parametreler
-    - `*args`
-    - Keyword-only parametreler (sadece * sonrası gelenler)
-    - `**kwargs`
-
-- `*` işaretiyle, sonrasında gelen parametrelerin yalnızca keyword ile atanmasını zorunlu kılabilirsiniz
-- `return` ile fonksiyonu sonlandırıp değer döndürür.
-- `return` yoksa `None` döner.
-- **Lambda (Anonim Fonksiyonlar)** Tek satırlık fonksiyonlar oluşturulur.
-- **Local** değişkenler fonksiyon içinde tanımlıdır.
-- `global` ile fonksiyon içinde `global` scope’daki bir değişkene atama yapabilirsiniz
-- `nonlocal` ile dış (ancak global olmayan) scope’daki değişkene erişebilirsiniz
-
-```python linenums="1"
-def kayit_olustur(isim, soyisim, sehir):
-    """
-    Üç zorunlu parametre alan kayıt oluşturma fonksiyonu.
-    """
-    print(f"İsim   : {isim}")
-    print(f"Soyisim: {soyisim}")
-    print(f"Şehir  : {sehir}")
-
-def kur(kurulum_dizini="/usr/bin/"):
-    """
-    Kurulum dizini verilmezse varsayılan "/usr/bin/" kullanılır.
-    """
-    print(f"Program {kurulum_dizini} dizinine kuruldu!")
-
-def carp(*sayilar):
-    """İstediğiniz kadar sayı alır, hepsini çarpar."""
-    sonuc = 1
-    for s in sayilar:
-        sonuc *= s
-    return sonuc
-
-def kayit(**bilgiler):
-    """Anahtar=değer çiftlerini sözlük olarak yazdırır."""
-    for k, v in bilgiler.items():
-        print(f"{k:10}: {v}")
-
-def islem(a, b, *, verbose=False):
-    """verbose ancak key=value ile geçilebilir."""
-    result = a + b
-    if verbose:
-        print(f"{a} + {b} = {result}")
-    return result
-
-def sayi_uret(bas=0, bit=50, adet=5):
-    """Tekrarsız rastgele sayılar seti döner."""
-    sonuc = set()
-    while len(sonuc) < adet:
-        sonuc.add(random.randint(bas, bit))
-    return sonuc
-    
-kayit_olustur("Fırat", "Özgül", "İstanbul") # Pozisyonel argümanlarla
-kayit_olustur(soyisim="Özgül", isim="Fırat", sehir="İstanbul") # Keyword argümanlarla (sıra farketmez)
-
-kur()                    # Program /usr/bin/ dizinine kuruldu!
-kur("/opt/myapp/")       # Program /opt/myapp/ dizinine kuruldu!
-
-print(carp(2, 3, 5))  # 30
-kayit(ad="Ahmet", soyad="Öz", sehir="Ankara")
-
-islem(2, 3, verbose=True)  # 5 satırını yazdırır
-# islem(2,3,True)          # TypeError!
-
-rastgele = sayi_uret(1, 100, adet=3)
-print(rastgele)  # örn. {42, 7, 99}
-```
-
-```py title="lambda fonksiyonları"
-carp = lambda *s, **k: __import__("functools").reduce(lambda x,y: x*y, s, 1)
-print(carp(2,3,4))  # 24
-
-kare = lambda x: x*x
-print(kare(5))      # 25
-
-# Lambda olarak fonk = lambda param1, param2: param1 + param2
-def fonk(param1, param2):
-    return param1 + param2
-
-harfler = "abcçdefgğhıijklmnoöprsştuüvyz"
-isimler = ["ahmet", "ışık", "ismail", "can", "iskender"]
-
-çevrim = {i: harfler.index(i) for i in harfler}           
-print(sorted(isimler, key=lambda x: çevrim.get(x[0])))
-
-l = [2, 5, 10, 23, 3, 6]
-print(*map(lambda sayı: sayı ** 2, l))
-```
-
-```python title="İç İçe Fonksiyonlar"
-isim = "Fırat"
-
-def yazıcı():
-    def yaz(mesaj):
-        print(mesaj)
-    return yaz
-
-def fonksiyon_sayıcı():
-    sayı = 0
-    def say():
-        nonlocal sayı   #localde bulunan değişkene erişmeyi sağlar
-        sayı += 1
-        return sayı
-    return say
-
-def degistir():
-    global isim
-    isim += " Özgül"
-
-degistir()
-print(isim)  # Fırat Özgül
-```
-
-```python linenums="1" title="Öz yinelemeli"
-def azalt(s):
-    if len(s) < 1:
-        return s
-    else:
-        print(s)
-        return azalt(s[1:])
-
-print(azalt('istihza'))
-```
-
-
-#### Fonksiyon İmzası ve Anotasyonlar
-- Parametre ve dönüş türü açıklamaları için **type hints**
-
-```python linenums="1"
-from typing import List, Dict
-
-def ortalama(sayilar: List[int]) -> float:
-    return sum(sayilar) / len(sayilar)
-
-print(ortalama([10, 20, 30]))  # 20.0
-```
-
-- Bu anotasyonlar çalışma zamanı değil, statik araçlar (mypy, IDE) içindir.
-
-#### Üreteçler (Generators)
-
-- Python üreteçleri, `yield` anahtar kelimesiyle tanımlanan, duraklatılabilir ve devam ettirilebilir fonksiyonlardır. Büyük veri setlerini adım adım üretmek ve bellek tasarrufu sağlamak için idealdir.
-- `yield`: Fonksiyonu duraklatır ve bir değer döndürür.
-- Bir sonraki değeri almak için `next()` kullanılır
-- Üreteç sonsuz döngüde çalışabilir; ihtiyaç duyulana kadar bellek kullanmaz.
-- **Bellek Verimliliği:** Tüm veriyi aynı anda saklamaz, ihtiyaç duyulana kadar hesaplar.
-- **Akış Tabanlı İşlemler:** Dosya satır satır okuma, sonsuz veri akışları, büyük diziler vb.
-
-```python linenums="1"
-def uretec():
-    sayi = 0
+def fibonacci():
+    a, b = 0, 1
     while True:
-        sayi += 1
-        yield sayi
+        yield a
+        a, b = b, a + b
 
-def iki_yazi():
-    yield "Merhaba"
-    yield "Dünya"
-
-g = uretec()
-print(next(g))  # 1
-print(next(g))  # 2
-print(next(g))  # 3
-
-g = iki_yazi()
-print(next(g))  # "Merhaba"
-print(next(g))  # "Dünya"
-# print(next(g))  # StopIteration hatası (artık değer kalmadı)
-
-# Başka bir üreteci doğrudan çağırmak ve alt değerleri yeniden üretmek için
-def uretec1():
-    yield "A başladı"
-    yield "A bitti"
-
-def uretec2():
-    yield "B başladı"
-    yield from uretec1()
-    yield "B bitti"
-
-for v in uretec2():
-    print(v)
-
-# Çıktı:
-# B başladı
-# A başladı
-# A bitti
-# B bitti
+gen = fibonacci()
+[next(gen) for _ in range(8)]  # [0, 1, 1, 2, 3, 5, 8, 13]
 ```
 
-```python linenums="1" title="Üreteç İfadeleri (Generator Expressions)"
-# Kısa söz dizimiyle üreteç oluşturma
-# Liste üretmek yerine üreteç:
-liste = [i*i for i in range(5)]         # normal liste
-uretec = (i*i for i in range(5))         # üreteç ifadesi
+| | Liste | Generator |
+|--|:-----:|:---------:|
+| Bellek | Tüm veri | Sadece anlık eleman |
+| Sözdizimi | `[expr for ...]` | `(expr for ...)` |
+| Tekrar edilebilir | Evet | Hayır (tükenir) |
+| `len()` | ✓ | ✗ |
 
-print(type(uretec))  # <class 'generator'>
-print(next(uretec))  # 0
-print(list(uretec))  # [1, 4, 9, 16]
-```
+!!! note "yield from"
+    ```python
+    def zincir(a, b):
+        yield from a    # a'nın tüm değerlerini delegation ile üretir
+        yield from b
+    ```
 
-- `()` içinde, `[]` listesinden tek farkı bellek yerine değerleri teker teker üretir.
-- `Send / Throw / Close` Üreteç ile çift yönlü iletişim sağlar.
-- `StopIteration` Üreteç tükendiğinde (ek `yield` yoksa), `next()` StopIteration fırlatır.
+!!! tip "send() ile İki Yönlü İletişim"
+    ```python
+    def akumulator():
+        toplam = 0
+        while True:
+            n = yield toplam
+            toplam += (n or 0)
 
-```python linenums="1"
-def echo():
-    while True:
-        value = (yield)
-        print("Gelen:", value)
+    g = akumulator()
+    next(g)        # Başlat (ilk yield'e kadar ilerle)
+    g.send(10)     # 10
+    g.send(5)      # 15
+    ```
 
-g = echo()
-next(g)            # başlat (ilk yield’e kadar)
-g.send("Merhaba")  # "Gelen: Merhaba"
-g.close()          # üreteci kapat
-```
+### Type Hints
 
-### Modüller ve Paketler
-- `os.name, os.listdir()` gibi tam yolu kullanırsınız.
-- Bir klasörün paket olarak tanınması için içinde bir **__init__.py** dosyası bulunmalıdır (Python 3.3+’ta bu zorunlu değil, ama iyi pratiktir).
-- `sys.path` ile Özel Yol Ekleme: Python, modülleri sys.path listesindeki klasörlerde arar. Dinamik olarak ekleme yapabilirsiniz
-- `sys.path` değişkeni, `import` sırasında bakılan dizin listesini tutar.
-- Yolu ekledikten sonra, o klasördeki `.py` dosyalarını doğrudan `import` edebilirsiniz.
-
-```python linenums="1" title="Tüm modülü içe aktarma"
-import os
-import subprocess as sp              # Alias ile kısaltma 
-import urllib.request                # Modül içindeki alt modülü tam yoluyla kullan
-from os import name, listdir, getcwd # Belirli fonksiyonları dahil eder
-from os import path as p             # Alias ile kısaltma
-from sys import *                    # Tüm nitelikleri içe aktarma (genellikle önerilmez)
-
-# same package altında
-from . import helper       # mypkg/helper.py
-from .sub import utils     # mypkg/sub/utils.py
-# bir üst pakete çıkmak
-from ..core import config
-
-home = os.environ.get('HOME') or os.environ.get('HOMEPATH')
-desktop = os.path.join(home, 'Desktop')
-sys.path.append(desktop)  # artık Desktop’taki modülleri import edebilirsiniz
-```
-
-### Standart Kütüphanaler
-
-#### Düzenli İfadeler (re Modülü)
-Python’un `re` modülü, metin içinde karmaşık desen aramaları ve dönüşümleri için kullanılır. Gereksiz yere değil, gerçekten ihtiyaç duyduğunuzda tercih edin.
-
-- Bağlam Belirleyiciler
-    - `^` → Metnin başlangıcı
-    - `$` → Metnin sonu
-    - `\b` → Kelime sınırı
-    - `\B` → Kelime sınırı değil
-
-- Gruplama ve Yakalama: Parantez içinde oluşturulur:
-    - `(...)` → Yakalama grubu (daha sonra `.group(n)` ile erişilir).
-    - `(?:...)` → Yakalamadan sadece grup oluşturur.
-
-- Bayraklar (Flags): Regex’i satır satır (`re.MULTILINE`), büyük/küçük harf duyarsız (`re.IGNORECASE`) veya noktanın yeni satırı da yakalaması için (`re.DOTALL`) yapılandırın:
-
-|**Temel Fonksiyon** |	**Açıklama** |
-|-------------|------------------|
-| `re.match(pattern, text)` | Metnin başında pattern ile eşleşme arar. |
-| `re.search(pattern, text)` | Metnin her yerinde ilk eşleşmeyi bulur. |
-| `re.findall(pattern, text)` | Tüm eşleşmeleri liste olarak döner. |
-| `re.finditer(pattern, text)`	| Tüm eşleşmeleri iterator olarak döner (match objeleri). |
-| `re.sub(pattern, repl, text)`	| Deseni repl ile değiştirir (tüm eşleşmelerde). |
-| `re.split(pattern, text) ` | Desene göre bölerek liste döner. |
-
-|**Desen**   | **Anlamı** |
-|------------|--------|
-| `[abc]`     | a veya b veya c |
-| `[0-9]`     | 0–9 arası |
-| `[^abc]`	     | a, b, c dışındaki karakterler |
-| `.`	         | Yeni satır (\n) hariç her karakter |
-| `\d`	         | Ondalık rakam ([0-9]) |
-| `\D`	         | Ondalık olmayan ([^0-9]) |
-| `\w`	         | Alfanümerik ve alt çizgi ([A-Za-z0-9_]) |
-| `\W`	         | Alfanümerik olmayan ([^A-Za-z0-9_]) |
-| `\s`	         | Boşluk karakterleri ([ \t\n\r\f\v]) |
-| `\S`	         | Boşluk olmayan karakterler |
-
-| Tekrarlama Metakarakter |	Anlamı |
-|------------|-------------|
-| `*`	    | 0 veya daha fazla kez |
-| `+`	    | 1 veya daha fazla kez |
-| `?`	    | 0 veya 1 kez |
-| `{m}	`    | Tam olarak m kez |
-| `{m,}`	| En az m kez |
-| `{m,n}`	| m ile n kez arası |
-
-```python linenums="1" title=""
-text = "Foo123 Bar456 Baz789"
-
-# Başta “Foo” olup olmadığını kontrol
-print(bool(re.match(r"Foo", text)))          # True
-
-# Metinde ilk sayısal bloku bul
-m = re.search(r"\d+", text)
-print(m.group(), m.start())                  # '123', 3
-
-# Tüm sayı bloklarını listele
-print(re.findall(r"\d+", text))              # ['123', '456', '789']
-
-# Harf ve rakam arasına tire ekle
-print(re.sub(r"([A-Za-z]+)(\d+)", r"\1-\2", text))
-# 'Foo-123 Bar-456 Baz-789'
-
-# Büyük harfle başlayıp rakamla biten satır
-pattern = r"^[A-Z].*\d$"
-print(bool(re.match(pattern, "Hello123")))  # True
-print(bool(re.match(pattern, "hello123")))  # False
-
-m = re.search(r"(\d+)-(\d+)-(\d+)", "Tarih: 2021-12-31")
-print(m.groups())    # ('2021', '12', '31')
-
-# 'cat' veya 'dog'
-re.findall(r"cat|dog", "cat dog mouse")  # ['cat', 'dog']
-
-pattern = r"^foo"
-text = "foo\nbar\nfoo"
-
-print(re.findall(pattern, text))  # ['foo']
-print(re.findall(pattern, text, flags=re.MULTILINE))  # ['foo', 'foo']
-```
-
-- İpuçları ve İyi Uygulamalar: 
-    - Ham string (raw): `r"..."` kullanın, böylece \ kaçış sorunlarıyla uğraşmazsınız.
-    - **Derlenmiş desen:** Çok sık kullanılan deseni re.compile() ile derleyip tekrar kullanın.
-    - **Yorumlayın:** Karmaşık desenler için (?x) flag’i ile boşluk ve yorum yazabilirsiniz
+Çalışma zamanında zorunlu değil; `mypy`, IDE ve linter için statik analiz sağlar.
 
 ```python
-pattern = re.compile(r"""
-    ^               # satır başı
-    [A-Za-z]+       # harflerden oluşan bir veya daha fazla karakter
-    \d{2,4}         # 2 ila 4 rakam
-    $               # satır sonu
-""", re.VERBOSE)
+from typing import Optional, TypeVar, Generic, Protocol
+
+def selamla(isim: str) -> str:
+    return f"Merhaba {isim}"
+
+def ilk_eleman(lst: list[int]) -> Optional[int]:  # 3.9+'da list[int] yeterli
+    return lst[0] if lst else None
+
+T = TypeVar('T')
+
+class Yigin(Generic[T]):
+    def __init__(self) -> None:
+        self._veri: list[T] = []
+    def push(self, item: T) -> None:
+        self._veri.append(item)
+    def pop(self) -> T:
+        return self._veri.pop()
 ```
 
+!!! note "Protocol — Yapısal Subtipleme"
+    ```python
+    class Yazdirabilir(Protocol):
+        def yazdir(self) -> None: ...
 
-### Nesne Yönelimli Programlama (OOP)
-- `class` anahtar kelimesiyle başlar, sınıf adı **PascalCase** (büyük harfle başlayan her kelime) olur.
-- `__init__` metodu, nesne oluşturulurken otomatik çağrılır.
-- `self`, o örneğe (nesneye) referans verir; her metot ilk parametresi `self` olmalıdır.
-- Sınıf nitelikleri (toplam) tüm örnekler arasında paylaşılır.
-- Örnek nitelikleri (self.id) yalnızca o nesneye özeldir.
-- Sınıf içindeki her işlev, metot olarak adlandırılır.
-- İlk parametresi `self` olduğu için örneğe erişebilir.
-- `@classmethod` ile işaretlenen metotlara ilk parametre olarak sınıf `(cls)` gelir.
-- Sınıf niteliği üzerinde işlem yapmak için kullanılır.
-- `@staticmethod` ile tanımlanan metotlar ne self ne de cls alır; sınıfa bağlı değil, bağımsız işlev gibidir.
-- `@property` ile metodu öznitelik gibi (d.alan) kullanabilirsiniz.
-- Okuma (`@<isim>.setter`) ve silme (`@<isim>.deleter`) işlemleri de eklenebilir.
-- **Public** (her yerden erişilebilir): isim
-- **Protected** (alt sınıflarda kullanılabilir): _isim
-- **Private** (sınıf içinde saklı): __isim → arkasında isim eşleme (`name mangling`)
-- **Bir sınıf class AltSinif(UstSinif):** ile miras alır.
-- `super()` ile üst sınıfın metotlarını çağırabilirsiniz.
-- Çoklu kalıtım: `class C(A, B)`
-- Dunder (double underscore) metotları, nesnelere özel davranışlarla Python’un yerleşik işlemlerini yeniden tanımlar:
-- Böylece +, -, len(), str(), == gibi işlemleri nesnenize özgü hale getirebilirsiniz.
+    def cikti_al(obj: Yazdirabilir) -> None:
+        obj.yazdir()
+    # Herhangi bir sınıf `yazdir` metoduna sahipse Protocol'u karşılar.
+    # Explicit miras almak gerekmez — duck typing'in tip güvenli hali.
+    ```
 
-```python 
-class Sayac:
-    toplam  = 0        # Sınıf niteliği
+### Fonksiyon İmzası ve Anotasyonlar
 
-    def __init__(self):
-        Sayac.toplam += 1
-        self.id = Sayac.toplam   # Örnek niteliği
-        self.__gizli = 42
+```python
+from typing import Callable
+
+def uygula(f: Callable[[int], int], x: int) -> int:
+    return f(x)
+
+uygula(lambda x: x * 2, 5)  # 10
+```
+
+---
+
+## OOP
+
+### Sınıf Anatomisi
+
+```python
+class Sekil:
+    sinif_sayisi: int = 0     # Sınıf niteliği — tüm örnekler paylaşır
+
+    def __init__(self, renk: str) -> None:
+        self.renk = renk          # Örnek niteliği
+        Sekil.sinif_sayisi += 1
 
     @classmethod
-    def toplam_sayac(cls):
-        return cls.toplam
-        
+    def kac_adet(cls) -> int:    # cls = Sekil veya alt sınıf
+        return cls.sinif_sayisi
+
     @staticmethod
-    def topla(a, b):
-        return a + b
+    def tanim() -> str:          # Ne self ne cls — bağımsız
+        return "Geometrik şekil"
 
     @property
-    def alan(self, r):
-        return 3.1416 * r ** 2
+    def bilgi(self) -> str:      # Getter — parametre almaz
+        return f"Renk: {self.renk}"
 
+    @bilgi.setter
+    def bilgi(self, yeni: str) -> None:
+        self.renk = yeni
+```
 
+| Nitelik Türü | Erişim | Açıklama |
+|-------------|--------|---------|
+| `isim` | Her yerden | Public |
+| `_isim` | Kural gereği yalnızca içeriden | Protected (gelenek) |
+| `__isim` | Yalnızca içeriden | Private — name mangling: `_SinifAdi__isim` |
 
-print(Sayac.toplam_sayac())   # 0
+```python
+class Sayac:
+    toplam = 0
+    def __init__(self):
+        Sayac.toplam += 1
+        self.id = Sayac.toplam
+        self.__gizli = 42
+
 a, b = Sayac(), Sayac()
-print(Sayac.toplam_sayac())   # 2
-print(Sayac.topla(3, 4))      # 7
-# print(a.__gizli)            # AttributeError
-print(a._Sayac__gizli)        # 42 (name mangling)
+print(Sayac.toplam)          # 2
+# print(a.__gizli)           # AttributeError
+print(a._Sayac__gizli)       # 42 (name mangling ile erişim)
+```
 
+### Dunder (Magic) Metotlar
 
-class Calisan
-    def __init__(self, isim):
-        self.isim = isim
+| Dunder | Tetikleyen | Açıklama |
+|--------|-----------|---------|
+| `__init__` | `Sinif()` | Constructor |
+| `__del__` | GC / `del obj` | Destructor |
+| `__repr__` | `repr(obj)` / REPL | Resmi, parse edilebilir gösterim |
+| `__str__` | `str(obj)` / `print` | Kullanıcı dostu gösterim |
+| `__len__` | `len(obj)` | Uzunluk |
+| `__getitem__` | `obj[key]` | İndeksleme |
+| `__setitem__` | `obj[key] = v` | Atama |
+| `__delitem__` | `del obj[key]` | Silme |
+| `__contains__` | `x in obj` | Üyelik kontrolü |
+| `__iter__` | `iter(obj)` | Iterator başlatma |
+| `__next__` | `next(obj)` | Sonraki eleman |
+| `__add__` | `a + b` | Toplama |
+| `__eq__` | `a == b` | Eşitlik |
+| `__lt__` | `a < b` | Küçüklük |
+| `__hash__` | `hash(obj)` | Dict key / set eleman için |
+| `__call__` | `obj()` | Nesneyi çağrılabilir yapar |
+| `__enter__` / `__exit__` | `with obj:` | Context manager protokolü |
 
-    def calis(self):
-        print(f"{self.isim} çalışıyor")
-
-class Yonetici(Calisan):
-    def calis(self):
-        super().calis()
-        print(f"{self.isim} yönetiyor")
-
-y = Yonetici("Ayşe")
-y.calis()
-
+```python
 class Nokta:
     def __init__(self, x, y):
         self.x, self.y = x, y
@@ -1011,17 +573,656 @@ class Nokta:
     def __repr__(self):
         return f"Nokta({self.x}, {self.y})"
 
-p1, p2 = Nokta(1,2), Nokta(3,4)
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+p1, p2 = Nokta(1, 2), Nokta(3, 4)
 print(p1 + p2)  # Nokta(4, 6)
 ```
 
-### Pip 
+### Kalıtım ve MRO
 
-```bash linenums="1"
-# pip3 içinde geçerlidir
-pip show numpy
-pip install numpy
-pip install numpy==1.25.0  # Belirli bir version indirilir.
-pip install --upgrade scikit-learn
-pip list         # Yüklü olan python paketlerini listeler
+```mermaid
+graph TD
+    A[Sekil] --> B[Dortgen]
+    A --> C[Daire]
+    B --> D[Kare]
+    style A fill:#2196F3,color:#fff
+    style B fill:#4CAF50,color:#fff
+    style C fill:#4CAF50,color:#fff
+    style D fill:#FF9800,color:#fff
 ```
+
+```python
+class Sekil:
+    def alan(self) -> float:
+        raise NotImplementedError
+
+class Dortgen(Sekil):
+    def __init__(self, a: float, b: float) -> None:
+        self.a, self.b = a, b
+
+    def alan(self) -> float:
+        return self.a * self.b
+
+class Kare(Dortgen):
+    def __init__(self, kenar: float) -> None:
+        super().__init__(kenar, kenar)  # Üst sınıf __init__
+
+print(Kare.__mro__)
+# (<class 'Kare'>, <class 'Dortgen'>, <class 'Sekil'>, <class 'object'>)
+```
+
+!!! note "MRO (Method Resolution Order)"
+    Python çoklu kalıtımda hangi metodun çağrılacağını **C3 Linearization** algoritmasıyla belirler. `super()` her zaman MRO'daki sıradaki sınıfı çağırır.
+
+### Abstract Base Classes (ABC)
+
+```python
+from abc import ABC, abstractmethod
+
+class Sekil(ABC):
+    @abstractmethod
+    def alan(self) -> float: ...
+
+    @abstractmethod
+    def cevre(self) -> float: ...
+
+class Daire(Sekil):
+    def __init__(self, r: float) -> None:
+        self.r = r
+    def alan(self) -> float:
+        return 3.14159 * self.r ** 2
+    def cevre(self) -> float:
+        return 2 * 3.14159 * self.r
+
+# s = Sekil()   # TypeError — abstract sınıf örneklenemez
+```
+
+### Dataclasses (Python 3.7+)
+
+`__init__`, `__repr__`, `__eq__` gibi boilerplate'i otomatik üretir.
+
+```python
+from dataclasses import dataclass, field
+
+@dataclass(order=True, frozen=False)
+class Nokta:
+    x: float
+    y: float
+    z: float = 0.0
+    etiket: list = field(default_factory=list)  # Mutable default — GÜVENLİ
+
+    def uzaklik(self) -> float:
+        return (self.x**2 + self.y**2 + self.z**2) ** 0.5
+
+p1 = Nokta(1.0, 2.0)
+p2 = Nokta(1.0, 2.0)
+print(p1 == p2)   # True  (otomatik __eq__)
+```
+
+!!! danger "field(default_factory=...) Neden Şart?"
+    `etiket: list = []` yazılırsa tüm dataclass örnekleri **aynı listeyi** paylaşır. `field(default_factory=list)` her nesne için bağımsız liste üretir.
+
+### Context Managers
+
+`with` bloğu ile kaynak yönetimini otomatize eder; exception'da dahi `__exit__` çalışır.
+
+=== "Sınıf Tabanlı"
+    ```python
+    class ZamanOlcer:
+        def __enter__(self):
+            import time
+            self.t = time.perf_counter()
+            return self
+
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            import time
+            self.sure = time.perf_counter() - self.t
+            return False   # False → Exception'ı bastırma, yukarı ilet
+
+    with ZamanOlcer() as z:
+        sum(range(10_000_000))
+    print(f"{z.sure:.3f}s")
+    ```
+
+=== "@contextmanager"
+    ```python
+    from contextlib import contextmanager
+
+    @contextmanager
+    def zaman_olcer():
+        import time
+        t = time.perf_counter()
+        try:
+            yield              # With bloğu burada çalışır
+        finally:
+            print(f"{time.perf_counter()-t:.3f}s")
+
+    with zaman_olcer():
+        sum(range(10_000_000))
+    ```
+
+---
+
+## Hata Yönetimi
+
+```python
+class UygulamaHatasi(Exception):
+    """Özel uygulama hatası."""
+    def __init__(self, mesaj: str, kod: int = 0) -> None:
+        super().__init__(mesaj)
+        self.kod = kod
+
+try:
+    deger = int(input("Sayı: "))
+    if deger < 0:
+        raise UygulamaHatasi("Negatif değer yasak!", kod=400)
+except ValueError:
+    print("Geçersiz sayı.")
+except UygulamaHatasi as e:
+    print(f"Hata ({e.kod}): {e}")
+except Exception as e:
+    print(f"Beklenmedik hata: {e}")
+    raise          # Yeniden fırlat
+else:
+    print("Başarılı")    # Exception fırlatılmadıysa çalışır
+finally:
+    print("Her zaman çalışır")
+```
+
+| İstisna | Nedeni |
+|---------|--------|
+| `ValueError` | Tip doğru ama değer geçersiz |
+| `TypeError` | Yanlış tip |
+| `KeyError` | Dict'te olmayan anahtar |
+| `IndexError` | Liste sınırı dışı |
+| `AttributeError` | Nesne özniteliği yok |
+| `FileNotFoundError` | Dosya bulunamadı |
+| `ZeroDivisionError` | Sıfıra bölme |
+| `StopIteration` | Generator tükendi |
+| `RecursionError` | Özyineleme limiti aşıldı |
+
+!!! tip "Exception Chaining"
+    ```python
+    try:
+        ...
+    except ValueError as e:
+        raise RuntimeError("Dönüşüm başarısız") from e
+    # Traceback her iki hatayı da gösterir — kayıp bağlam olmaz
+    ```
+
+---
+
+## Dosya İşlemleri
+
+### Text ve Binary Mod
+
+| Mod | Açıklama |
+|-----|---------|
+| `'r'` | Okuma (varsayılan) |
+| `'w'` | Yazma (varsa üzerine yazar) |
+| `'a'` | Sonuna ekler |
+| `'x'` | Oluşturma; varsa `FileExistsError` |
+| `'b'` | Binary mod ekler: `'rb'`, `'wb'` |
+| `'+'` | Hem okuma hem yazma: `'r+'`, `'w+'` |
+
+```python
+# Text modu — with bloğu kapanışı garanti eder
+with open("veri.txt", "r", encoding="utf-8") as f:
+    icerik = f.read()          # Tüm içerik
+    # ya da satır satır (büyük dosyalarda bellek verimli):
+    for satir in f:
+        print(satir.rstrip())
+
+# Binary modu — magic number ile dosya türü tespiti
+with open("resim.png", "rb") as f:
+    header = f.read(8)
+    if header[:8] == b"\x89PNG\r\n\x1a\n":
+        print("PNG dosyası")
+```
+
+### pathlib (Önerilen Yol Yönetimi)
+
+`os.path` yerine modern, nesne yönelimli yol API'si.
+
+```python
+from pathlib import Path
+
+p = Path("/home/user/docs/rapor.txt")
+
+p.exists()     # Var mı?
+p.is_file()    # Dosya mı?
+p.suffix       # '.txt'
+p.stem         # 'rapor'
+p.parent       # /home/user/docs
+
+# / operatörü ile yol birleştirme
+log = Path("/var/log") / "uygulama" / "app.log"
+
+# Tüm .py dosyalarını recursive bul
+for dosya in Path(".").rglob("*.py"):
+    print(dosya)
+
+# open() yerine doğrudan
+log.write_text("başladı\n", encoding="utf-8")
+icerik = log.read_text(encoding="utf-8")
+```
+
+### PDF İçin Magic Number ve Metadata
+
+| Dosya Türü | Magic Bytes | Hex |
+|-----------|-------------|-----|
+| PNG | `\x89PNG\r\n\x1a\n` | `89 50 4E 47 0D 0A 1A 0A` |
+| JPEG (JFIF) | İlk 2 byte `\xFF\xD8`, offset 6-9 `JFIF` | `FF D8 FF E0 .. .. 4A 46 49 46` |
+| GIF | `GIF` | `47 49 46` |
+| BMP | `BM` | `42 4D` |
+| TIFF LE | `II` | `49 49` |
+
+```python
+PDF_ETIKETI = {
+    b"/Creator": "Oluşturan uygulama",
+    b"/Producer": "PDF kütüphanesi",
+    b"/Author": "Yazar",
+    b"/Title": "Başlık",
+    b"/CreationDate": "Oluşturma tarihi",
+}
+
+with open("belge.pdf", "rb") as f:
+    data = f.read()
+    for etiket, aciklama in PDF_ETIKETI.items():
+        idx = data.find(etiket)
+        if idx != -1:
+            print(f"{aciklama}: {data[idx:idx+80].split(b'\n', 1)[0]}")
+```
+
+### json Modülü
+
+```python
+import json
+
+veri = {"isim": "Ali", "yas": 30, "sehirler": ["Ankara", "İstanbul"]}
+
+metin = json.dumps(veri, ensure_ascii=False, indent=2)  # Python → JSON string
+nesne = json.loads(metin)                                # JSON string → Python
+
+with open("veri.json", "w", encoding="utf-8") as f:
+    json.dump(veri, f, ensure_ascii=False, indent=2)
+
+with open("veri.json", encoding="utf-8") as f:
+    nesne = json.load(f)
+```
+
+---
+
+## Modüller ve Paketler
+
+```python
+import os
+import urllib.request                # Alt modül tam yolu
+from os import path as p             # Alias
+from os import getcwd, listdir       # Belirli isimler
+from sys import *                    # Önerilmez
+
+# Aynı paket içi göreli import
+from . import helper                 # mypkg/helper.py
+from .sub import utils               # mypkg/sub/utils.py
+from ..core import config            # Bir üst pakete çıkış
+```
+
+!!! note "Paket Yapısı"
+    ```
+    mypackage/
+    ├── __init__.py       # Paketi tanımlar (3.3+'da zorunlu değil, iyi pratik)
+    ├── core.py
+    └── utils/
+        ├── __init__.py
+        └── helpers.py
+    ```
+
+!!! tip "__all__ ile Public API Kontrolü"
+    ```python
+    # mypackage/__init__.py
+    __all__ = ["core", "yardimci"]   # from mypackage import * için filtre
+    ```
+
+!!! note "sys.path ile Dinamik Import"
+    ```python
+    import sys
+    sys.path.append("/ozel/dizin")   # Bu dizindeki .py dosyaları import edilebilir
+    ```
+
+---
+
+## Standart Kütüphane
+
+### collections
+
+```python
+from collections import Counter, defaultdict, namedtuple, deque
+
+# Counter — eleman sayma
+metin = "abracadabra"
+c = Counter(metin)
+c.most_common(3)    # [('a', 5), ('b', 2), ('r', 2)]
+c + Counter("abc")  # Counter'ları toplar
+
+# defaultdict — eksik anahtar için otomatik varsayılan
+dd = defaultdict(list)
+dd["notlar"].append(90)  # KeyError yok
+
+# deque — O(1) baştan ve sondan ekleme/silme
+q = deque([1, 2, 3], maxlen=5)
+q.appendleft(0)    # [0, 1, 2, 3]
+q.rotate(1)        # Sağa döndür: [3, 0, 1, 2]
+
+# namedtuple — immutable, isimli alanlı tuple
+Nokta = namedtuple('Nokta', ['x', 'y'])
+p = Nokta(3, 4)
+p.x, p.y            # 3, 4
+p._replace(x=10)    # Yeni Nokta(10, 4) — immutable
+```
+
+### itertools
+
+Lazy iterator kombinasyonları; bellek dostu ve sıfır kopyalama.
+
+| Fonksiyon | Açıklama |
+|-----------|---------|
+| `count(start, step)` | Sonsuz sayaç |
+| `cycle(seq)` | Sonsuz tekrar |
+| `repeat(obj, n)` | n kez tekrar |
+| `chain(*iters)` | Zincirleme — tek iterator |
+| `islice(it, n)` | Lazy dilimleme |
+| `product(*iters)` | Kartezyen çarpım |
+| `permutations(seq, r)` | Permütasyonlar |
+| `combinations(seq, r)` | Kombinasyonlar |
+| `groupby(seq, key)` | Gruplama (önce sort gerekli) |
+| `takewhile(pred, it)` | Koşul True olduğu sürece al |
+| `dropwhile(pred, it)` | Koşul False olana kadar atla |
+
+```python
+from itertools import chain, groupby, product, islice
+
+liste = list(chain([1,2], [3,4], [5]))  # [1,2,3,4,5]
+
+# groupby — önce sort zorunlu
+data = sorted([('A', 1), ('B', 2), ('A', 3)], key=lambda x: x[0])
+for grup, elemanlar in groupby(data, key=lambda x: x[0]):
+    print(grup, list(elemanlar))
+
+# İlk 5 çift sayı
+ciftle = islice(filter(lambda x: x%2==0, range(1000)), 5)
+```
+
+### functools
+
+```python
+from functools import lru_cache, partial, reduce, wraps, cache
+
+# lru_cache — memoization
+@lru_cache(maxsize=128)
+def fib(n: int) -> int:
+    return n if n < 2 else fib(n-1) + fib(n-2)
+
+# @cache (Python 3.9+) — sınırsız LRU
+@cache
+def pahalı_hesap(n):
+    return sum(range(n))
+
+# partial — argüman kilitler
+def kuvvet(taban, us):
+    return taban ** us
+
+kare = partial(kuvvet, us=2)
+print(kare(5))   # 25
+
+# reduce — koleksiyonu tek değere indirger
+toplam = reduce(lambda a, b: a + b, range(1, 6))  # 15
+```
+
+### re (Regular Expressions)
+
+| Fonksiyon | Açıklama |
+|-----------|---------|
+| `re.match(p, s)` | Yalnızca string başından eşleşir |
+| `re.search(p, s)` | İlk eşleşmeyi bulur |
+| `re.findall(p, s)` | Tüm eşleşmeleri liste döner |
+| `re.finditer(p, s)` | Tüm eşleşmeleri iterator döner |
+| `re.sub(p, r, s)` | Eşleşmeleri değiştirir |
+| `re.split(p, s)` | Desene göre böler |
+| `re.compile(p)` | Tekrar kullanım için desen derler |
+
+| Özel Karakter | Anlam |
+|---------------|-------|
+| `.` | Yeni satır hariç her karakter |
+| `^` / `$` | Satır başı / sonu |
+| `\d` / `\D` | Rakam / rakam değil |
+| `\w` / `\W` | `[A-Za-z0-9_]` / değil |
+| `\s` / `\S` | Boşluk / boşluk değil |
+| `*` / `+` / `?` | 0+, 1+, 0-1 tekrar |
+| `{m,n}` | m-n arası tekrar |
+| `(...)` | Yakalama grubu |
+| `(?:...)` | Yakalamayan grup |
+| `(?P<isim>...)` | İsimli yakalama grubu |
+
+```python
+import re
+
+metin = "2024-06-19 tarihinde 3 olay meydana geldi."
+m = re.search(r"(\d{4})-(\d{2})-(\d{2})", metin)
+if m:
+    yil, ay, gun = m.groups()  # ('2024', '06', '19')
+
+# Compile ile tekrar kullanım — performans
+email_re = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+mailler = email_re.findall("info@ornek.com ve admin@test.org")
+
+# re.VERBOSE ile okunabilir desen
+tarih = re.compile(r"""
+    ^(\d{4})    # Yıl
+    -(\d{2})    # Ay
+    -(\d{2})$   # Gün
+""", re.VERBOSE)
+```
+
+### logging
+
+`print()` yerine logging kullanmak üretim kodunun temelidir.
+
+```python
+import logging
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+)
+
+log = logging.getLogger(__name__)
+
+log.debug("Değişken: %s", veri)   # % interpolation — lazy; string üretilmez
+log.info("İşlem tamamlandı")
+log.warning("Disk doluyor")
+log.error("Bağlantı başarısız")
+log.critical("Sistem çöküyor")
+```
+
+| Seviye | Değer | Kullanım |
+|--------|:-----:|---------|
+| `DEBUG` | 10 | Geliştirme sürecinde ayrıntılı bilgi |
+| `INFO` | 20 | Normal operasyonel olaylar |
+| `WARNING` | 30 | Beklenmedik ama ölümcül olmayan durum |
+| `ERROR` | 40 | Bir işlemin başarısız olması |
+| `CRITICAL` | 50 | Sistemin çökmesi |
+
+!!! tip "Handler'lar ile Çoklu Hedef"
+    ```python
+    logger = logging.getLogger("uygulama")
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(logging.FileHandler("app.log"))
+    logger.addHandler(logging.StreamHandler())   # Konsol
+    ```
+
+---
+
+## Eşzamanlılık
+
+```mermaid
+graph LR
+    subgraph "CPU-Bound Parallelism"
+        MP[multiprocessing\nGerçek Paralellik\nAyrı Process]
+    end
+    subgraph "I/O-Bound Concurrency"
+        TH[threading\nGIL sınırlı\nAyrı Thread]
+        AIO[asyncio\nSingle-thread\nCooperative]
+    end
+```
+
+### GIL (Global Interpreter Lock)
+
+CPython'da aynı anda yalnızca bir thread Python bytecode çalıştırabilir.
+
+| Senaryo | Çözüm | Açıklama |
+|---------|-------|---------|
+| I/O-bound (ağ, disk) | `threading` veya `asyncio` | GIL, I/O bekleme sırasında serbest bırakılır |
+| CPU-bound (hesaplama) | `multiprocessing` | Her process kendi GIL'ine sahip |
+
+### threading
+
+```python
+import threading
+
+kilit = threading.Lock()
+sayac = 0
+
+def artir():
+    global sayac
+    for _ in range(100_000):
+        with kilit:      # RAII — scope bitince release
+            sayac += 1
+
+t1 = threading.Thread(target=artir)
+t2 = threading.Thread(target=artir)
+t1.start(); t2.start()
+t1.join(); t2.join()
+print(sayac)  # 200000
+```
+
+!!! danger "Deadlock"
+    İki thread birbirinin kilidini beklerse program sonsuza kadar bloke olur. Kilitleri her zaman **aynı sırayla** alın.
+
+### multiprocessing
+
+```python
+from multiprocessing import Pool
+
+def kare(n: int) -> int:
+    return n * n
+
+if __name__ == '__main__':   # Windows'ta zorunlu
+    with Pool(processes=4) as pool:
+        sonuclar = pool.map(kare, range(10))
+    print(sonuclar)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+### asyncio
+
+Cooperative multitasking — `await` noktasında event loop başka coroutine'lere geçer.
+
+```python
+import asyncio
+
+async def veri_getir(n: int) -> str:
+    await asyncio.sleep(1)   # I/O simülasyonu — bloke etmez
+    return f"Sonuç {n}"
+
+async def ana():
+    gorevler = [asyncio.create_task(veri_getir(i)) for i in range(5)]
+    sonuclar = await asyncio.gather(*gorevler)  # Paralel — ~1 saniyede tamamlanır
+    return sonuclar
+
+asyncio.run(ana())
+```
+
+!!! note "async/await Kuralları"
+    - `async def` ile tanımlanan fonksiyon **coroutine** döner; çağrılırken `await` şart.
+    - `await` yalnızca `async def` içinde kullanılabilir.
+    - `asyncio.run()` event loop'u başlatır ve coroutine tamamlanana kadar bekler.
+
+| | `threading` | `multiprocessing` | `asyncio` |
+|--|:-----------:|:-----------------:|:---------:|
+| GIL kısıtı | Evet | Hayır | N/A |
+| I/O-bound | İyi | Gereksiz overhead | En iyi |
+| CPU-bound | Yetersiz | En iyi | Yetersiz |
+| Bellek | Paylaşılan | İzole | Paylaşılan |
+
+---
+
+## Ortam ve Araçlar
+
+### Virtual Environment
+
+```bash
+python3 -m venv .venv           # Sanal ortam oluştur
+source .venv/bin/activate        # Linux/macOS etkinleştir
+.venv\Scripts\activate.bat       # Windows etkinleştir
+deactivate                       # Devre dışı bırak
+```
+
+!!! tip "Neden venv?"
+    Her proje bağımsız paket sürümlerine sahip olur; sistem Python'u kirletilmez. Takım çalışmasında `requirements.txt` aynı ortamı yeniden oluşturur.
+
+### pip
+
+```bash
+pip install numpy                    # Yükle
+pip install numpy==1.25.0            # Belirli versiyon
+pip install --upgrade scikit-learn   # Güncelle
+pip uninstall numpy                  # Kaldır
+pip list                             # Yüklü paketler
+pip show numpy                       # Paket bilgisi (bağımlılıklar dahil)
+pip freeze > requirements.txt        # Ortamı dışa aktar
+pip install -r requirements.txt      # Ortamı içe aktar
+```
+
+!!! note "pyproject.toml (Modern Yol)"
+    `requirements.txt` yerine modern projeler `pyproject.toml` (PEP 517/518) kullanır. `pip install .` veya `pip install -e .` (editable) ile proje yüklenir.
+
+---
+
+## Built-in Fonksiyon Referansı
+
+| Fonksiyon | Açıklama |
+|-----------|---------|
+| `len(x)` | Uzunluk |
+| `range(start, stop, step)` | Sayı dizisi üreteci |
+| `enumerate(it, start=0)` | `(index, value)` çiftleri |
+| `zip(*iters)` | Paralel iterasyon |
+| `map(f, it)` | Her elemana `f` uygular; lazy |
+| `filter(f, it)` | `f(x)` True olanları geçirir; lazy |
+| `sorted(it, key, reverse)` | Yeni sıralı liste |
+| `reversed(seq)` | Ters iterator |
+| `all(it)` / `any(it)` | Tümü / en az biri True |
+| `sum(it, start=0)` | Toplam |
+| `max()` / `min()` | En büyük / küçük; `key` parametresi alır |
+| `abs(x)` | Mutlak değer |
+| `round(x, n)` | n ondalığa yuvarlama |
+| `divmod(a, b)` | `(a//b, a%b)` çifti |
+| `isinstance(obj, type)` | Tür denetimi; tuple ile birden fazla tip |
+| `issubclass(cls, base)` | Alt sınıf sorgusu |
+| `type(obj)` | Nesne türü |
+| `id(obj)` | Bellek kimliği (CPython'da adres) |
+| `hash(obj)` | Hash değeri; immutable için |
+| `dir(obj)` | Öznitelik ve metod listesi |
+| `vars(obj)` | `__dict__` döner |
+| `callable(obj)` | Çağrılabilir mi? |
+| `repr(obj)` | Resmi string gösterimi |
+| `eval(expr)` | String'i değerlendirir (güvenli ortamda kullanın) |
+| `exec(code)` | String'i çalıştırır (güvenli ortamda kullanın) |
+| `ord(c)` / `chr(n)` | Karakter ↔ Unicode kod noktası |
+| `bin(x)` / `oct(x)` / `hex(x)` | Taban dönüşümleri |
+| `bytes(x)` / `bytearray(x)` | Byte nesneleri |
+| `open(path, mode, encoding)` | Dosya açma |
+| `print(*objs, sep, end, file, flush)` | Çıktı |
+| `input(prompt)` | Kullanıcı girişi — her zaman `str` döner |

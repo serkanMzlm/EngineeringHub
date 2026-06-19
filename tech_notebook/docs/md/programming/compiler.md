@@ -1,285 +1,415 @@
 # Compiler
 
+!!! note "Genel Bakış"
+    C/C++ kaynak kodu çalıştırılabilir bir programa dönüştürülürken dört aşamadan geçer: **Preprocessor → Compiler → Assembler → Linker**.
+
 ```mermaid
 graph LR
-  A[main.c - main.cpp] --> |Preprocessor| B[main.i];
-  B --> |Compiler| C[main.s];
-  C --> |Assembler| D[main.o];
-  D --> |Linker| E[main];
+    A["main.c / main.cpp\nKaynak Kod"] -->|Preprocessor| B["main.i\nGenişletilmiş Kod"]
+    B -->|Compiler| C["main.s\nAssembly"]
+    C -->|Assembler| D["main.o\nObject File"]
+    D -->|Linker| E["main\nExecutable"]
+
+    style A fill:#4CAF50,color:#fff
+    style E fill:#F44336,color:#fff
 ```
+
+---
 
 ## Derleme Aşamaları
 
-1. **Pre-processing:** Macro ifadeleri çözümlenir, yorum satırları temizlenir ve kod saf C/Cpp kodu haline getirilir.
+| # | Aşama | Girdi | Çıktı | Açıklama |
+|---|-------|-------|-------|---------|
+| 1 | **Preprocessing** | `.c` / `.cpp` | `.i` | Macro ifadeleri çözümlenir, `#include` dosyaları gömülür, yorum satırları temizlenir |
+| 2 | **Compilation** | `.i` | `.s` | Temizlenen kod, hedef mimarinin assembly diline çevrilir |
+| 3 | **Assembly** | `.s` | `.o` | Assembly kodu makine diline (binary) dönüştürülerek object file oluşturulur |
+| 4 | **Linking** | `.o` + kütüphaneler | executable | Object file'lar ve kütüphaneler birleştirilerek nihai çalıştırılabilir dosya üretilir |
 
-2. **Compilation:** Temizlenen C/Cpp kodu, hedef işlemcinin mimarisine uygun assembly diline çevrilir.
+!!! example "Adım Adım Derleme"
+    ```bash
+    gcc -E main.c -o main.i         # 1. Preprocessing  → .i
+    gcc -S main.i -o main.s         # 2. Compilation    → .s (assembly)
+    gcc -c main.s -o main.o         # 3. Assembly       → .o (object)
+    gcc main.o -o main              # 4. Linking        → executable
 
-3. **Assembly:** Assembly kodu, makine diline (0 ve 1) dönüştürülerek bir object file oluşturulur.
+    gcc -save-temps main.c -o main  # Tek komut, tüm ara dosyalar saklanır
+    ```
 
-4. **Linking:** Programda kullanılan kütüphaneler ve farklı object file dosyaları bir araya getirilerek nihai executable dosya üretilir.
+---
 
 ## GCC / G++ Parametreleri
 
-- **Wall:** Kod içerisindeki temel warning mesajlarını aktif eder. 
-- **Wextra:** Standart uyarıların ötesinde, daha detaylı ve hassas warning mesajlarının gösterilmesini sağlar.
-- **Wconversion:** Veri kaybına yol açabilecek type conversion işlemleriyle ilgili uyarıları tetikler.
-- **Wsign-conversion:** Signed ve unsigned veri türleri arasında yapılan dönüşümlerdeki olası risklere karşı uyarı verir.
-- **std=c++11:** Derleme işlemi sırasında kaynak kodun C++11 standardına göre işleneceğini belirtir.
-- **I:** Projede kullanılan header file dosyalarının aranacağı dizini (include path) tanımlar.
-- **O:** Optimizasyon seviyesini ayarlar.
+!!! tip "Temel Öneri"
+    Geliştirme ortamında `-Wall -Wextra` kombinasyonu minimum standart olarak benimsenmelidir. Production derlemelerinde `-Werror` eklenerek uyarılar hata olarak ele alınır.
 
-!!! example "Örnek Kullanımlar"
-	```bash
-	gcc -E main.c -o main.i         # Pre-processing .i dosyası
-	gcc -S main.i -o main.s         # Compilation .s dosyası
-	gcc -c main.s -o main.o         # Assembly .o dosyası
-	gcc main.o -o main              # Linking 
-	gcc -save-temps main.c -o main  # Tek komutta tüm adımlar 
+| Parametre | Açıklama |
+|-----------|---------|
+| `-Wall` | Temel warning mesajlarını aktif eder |
+| `-Wextra` | Standart uyarıların ötesinde daha hassas uyarıları gösterir |
+| `-Wconversion` | Veri kaybına yol açabilecek type conversion işlemlerini uyarır |
+| `-Wsign-conversion` | Signed/unsigned dönüşümlerindeki riskleri bildirir |
+| `-Werror` | Tüm uyarıları hata olarak ele alır; uyarı varsa derleme durur |
+| `-std=c++17` | Kaynak kodun belirtilen C++ standardına göre derleneceğini belirtir |
+| `-I<dizin>` | Header dosyalarının aranacağı ek dizini (include path) ekler |
+| `-O<n>` | Optimizasyon seviyesini ayarlar (`0`: yok, `1-3`: artan, `s`: boyut) |
+| `-g` | Debug bilgisi ekler; GDB gibi araçlarla kullanım için gereklidir |
+| `-o <dosya>` | Çıktı dosyasının adını belirtir |
+| `-c` | Yalnızca object file üretir; link aşamasını atlar |
+| `-E` | Yalnızca preprocessor çıktısı üretir |
+| `-S` | Yalnızca assembly çıktısı üretir |
 
-	gcc -o main.o main.c -Wall -Wextra -Wconversion -Wsign-conversion
-	g++ -o main.o main.cpp -std=c++11 -I/source/includes -O2
-	```
+!!! example "Kullanım Örnekleri"
+    ```bash
+    gcc  -o output main.c   -Wall -Wextra -Wconversion -Wsign-conversion
+    g++  -o output main.cpp -std=c++17 -Wall -Wextra -Werror -O2
+    g++  -o output main.cpp -std=c++11 -I./include -I/usr/local/include
+    g++  -o output main.cpp -g -O0     # Debug derlemesi (optimizasyon kapalı)
+    ```
 
 !!! note "VS Code Derleyici Ayarları"
-	```json title="tasks.json" linenums="1" hl_lines="8"
-	{
-		"version": "2.0.0",
-		"tasks": [
-			{
-				"label": "C++ Build",
-				"type": "shell",
-				"command": "g++",
-				"args": ["-std=c++20", "-Wall", "-Wextra", "-Wconversion", "-Wsign-conversion", "-Werror", "-o", "main", "main.cpp"],
-				"group": {
-				"kind": "build",
-				"isDefault": true
-				}
-			}
-		]
-	}
-	```
+    ```json title="tasks.json"
+    {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "C++ Build",
+                "type": "shell",
+                "command": "g++",
+                "args": [
+                    "-std=c++20", "-Wall", "-Wextra",
+                    "-Wconversion", "-Wsign-conversion",
+                    "-Werror", "-o", "main", "main.cpp"
+                ],
+                "group": { "kind": "build", "isDefault": true }
+            }
+        ]
+    }
+    ```
 
+---
 
-## Kconfig ve Menuconfig 
+## Kconfig ve Menuconfig
 
-- **Kconfig (Altyapı ve Sözdizimi Katmanı):** Projedeki özelliklerin, bağımlılıkların ve varsayılan değerlerin tanımlandığı metin tabanlı konfigürasyon dosyalarıdır.
-- **Menuconfig (Arayüz Katmanı):** Kconfig dosyalarında tanımlanan kuralları okuyarak geliştiriciye grafiksel veya terminal tabanlı bir görsel arayüz sunan araçtır.
+**Kconfig** ve **Menuconfig**, özellikle Linux kernel ve gömülü sistem projelerinde derleme öncesi konfigürasyon yönetimini sağlayan araçlardır.
 
-- **Veri Türleri:** Tanımlanan değişkenin türünü belirler. `bool`, `string`, `int`, `hex` (onaltılık sayı) ve `tristate` (n: kapalı, y: açık, m: modül) türleri mevcuttur. 
-- **`mainmenu`:** Konfigürasyon ekranının en üstünde yer alacak ana başlığı tanımlar.
-- **`comment`:** Geliştiriciye bilgi vermek amacıyla arayüzde görünecek açıklama satırları ekler.
-- **`menu / endmenu`:** Seçenekleri hiyerarşik bir alt menü altında gruplar.
-- **`choice / endchoice`:** Kullanıcının listeden sadece tek bir seçeneği seçebileceği çoktan seçmeli gruplar oluşturur.
-- **`config`:** Yeni bir yapılandırma parametresi tanımlar.
-- **`default`:** Parametrenin başlangıçtaki varsayılan değerini belirler.
-- **`depends on`:** Bir seçeneğin görünür veya seçilebilir olmasını başka bir parametrenin durumuna bağlar (dependency).
-- **`select`:** Bir seçenek aktif edildiğinde, ihtiyaç duyduğu diğer bağımlılıkları otomatik olarak etkinleştirir.
-- **`range`:** int veya hex türündeki sayısal girdilerin minimum ve maksimum sınırlarını belirler.
-- **`help`:** Kullanıcının arayüzde yardım butonuna bastığında göreceği detaylı açıklama metnini içerir.
+!!! tip "Katman Ayrımı"
+    - **Kconfig:** Projedeki özelliklerin, bağımlılıkların ve varsayılan değerlerin tanımlandığı metin tabanlı konfigürasyon dosyasıdır.
+    - **Menuconfig:** Kconfig dosyalarını okuyarak geliştiriciye terminal veya grafik tabanlı arayüz sunan araçtır.
 
+### Veri Türleri
+
+| Tür | Açıklama |
+|-----|---------|
+| `bool` | Açık (`y`) / Kapalı (`n`) |
+| `tristate` | Kapalı (`n`) / Açık (`y`) / Modül (`m`) |
+| `string` | Metin değeri |
+| `int` | Ondalık sayı |
+| `hex` | Onaltılık sayı |
+
+### Anahtar Kelimeler
+
+| Kelime | Açıklama |
+|--------|---------|
+| `mainmenu` | Konfigürasyon ekranının ana başlığını tanımlar |
+| `comment` | Arayüzde görünecek bilgi/açıklama satırı ekler |
+| `menu / endmenu` | Seçenekleri hiyerarşik alt menü altında gruplar |
+| `choice / endchoice` | Listeden yalnızca tek seçime izin veren grup oluşturur |
+| `config` | Yeni bir yapılandırma parametresi tanımlar |
+| `default` | Parametrenin başlangıç varsayılan değerini belirler |
+| `depends on` | Seçeneğin görünürlüğünü başka bir parametreye bağlar |
+| `select` | Seçenek aktif edildiğinde bağımlılıklarını otomatik etkinleştirir |
+| `range` | `int` veya `hex` girdilerin min/max sınırlarını belirler |
+| `help` | Yardım butonuna basıldığında gösterilecek açıklama metnini içerir |
+
+!!! example "Örnek Kconfig"
+    ```kconfig
+    mainmenu "Proje Konfigürasyonu"
+
+    config ENABLE_LOGGING
+        bool "Loglama aktif et"
+        default y
+        help
+            Sistem loglarını aktif eder.
+
+    config LOG_LEVEL
+        int "Log seviyesi"
+        range 0 5
+        default 3
+        depends on ENABLE_LOGGING
+    ```
+
+---
 
 ## Make
 
-- **`#`:** Yorum satırı işaretidir.
-- **`@`:** Başına geldiği komutun kendisini terminal çıktısında gizler, sadece komutun ürettiği sonucu gösterir.
-- **`$`:** Değişkenlere veya otomatik değişkenlere referans vermek için kullanılır.
-- **`=`:** Gecikmeli (recursive) değişken ataması yapar. Değişkenin değeri, çağrıldığı andaki güncel içeriğe göre belirlenir.
-- **`:=`:** Anında (simple) değerlendirilerek değişken atar.
-- **`?=`:** Eğer değişken daha önce tanımlanmamışsa varsayılan değeri atar, tanımlıysa mevcut değeri korur.
-- **`$@`:** Mevcut kuralın target adını temsil eden otomatik değişkendir.
-- **`$^`:** Target'a ait tüm dependencies listesini tutan otomatik değişkendir.
-- **`$<`:** Target'ın tetiklenmesini sağlayan first dependency ifade eden otomatik değişkendir.
-- **`$?`:** Target dosyasından daha yeni bir değiştirilme tarihine (timestamp) sahip olan dependencies listeler.
-- **`*`:** Dosya adı genişletmede kullanılan joker karakterdir (wildcard); belirtilen dizindeki tüm dosyalarla eşleşir.
-- **`%`:** Şablon (pattern) eşleştirmelerinde değişken olan dinamik kısmı temsil eder. Yapısal kurallarda pattern rule tanımlamak için de kullanılır (Örn: %.o: %.c).
-- **`:`** Bir target ile onun çalışması için gereken dependencies arasındaki ilişkiyi kurar.
-- **`::`:** Aynı target adı için birbirinden bağımsız ve farklı zamanlarda çalışabilecek birden fazla kural tanımlanmasını sağlar.
-- **`\`:** Uzun komutların veya satırların bir sonraki satırdan devam ettiğini belirten satır birleştirme karakteridir.
-- **`make -s`:** Komutları sessiz modda (silent mode) çalıştırır; terminale işlem adımlarını basmaz.
-- **`make -k`:** Bir kuralda hata oluşsa bile, o hatadan bağımsız olan diğer targets derlenmesine devam eder (keep going).
-- **`make -i`:** Derleme sırasında karşılaşılan hataları ignore eder sürecin sonuna kadar devam etmesini sağlar.
+Make, kaynak dosyalar arasındaki bağımlılıkları takip ederek yalnızca değişen dosyaları yeniden derleyen bir build otomasyon aracıdır.
 
-```Makefile
+```makefile
 target: dependencies
-	command
+	command   # TAB ile girintilenmeli, boşluk değil!
 ```
 
-!!! note "Kritik Kural"
-	1. Makefile kurallarının altındaki komut satırlarında girintileme işlemi kesinlikle **TAB** karakteri ile yapılmalıdır. **Boşluk (Space)** kullanılması durumunda derleyici hata verecektir.
+### Özel Karakterler
 
-	2. Makefile dosyasının bulunduğu dizinde kullandığımız target adında bir dizin veya dosya varsa make ile bu target çalıştırdığımızda `make: '...' is up to date.` hatası alırız. Bu hatanın önüne geçmek için `.PHONY` kullanılır. Direkt olarak target çalışmasını sağlar.
+| Karakter | Açıklama |
+|----------|---------|
+| `#` | Yorum satırı |
+| `@` | Komutun kendisini terminalde gizler; yalnızca çıktısını gösterir |
+| `$` | Değişkenlere veya otomatik değişkenlere referans verir |
+| `\` | Uzun satırı bir sonraki satırda devam ettirir |
 
-	3. `wildcard` fonksiyonu mutlaka `:=` ile birlikte kullanılmalıdır aksi halde genişletilmez
+### Değişken Atama Operatörleri
 
-!!! note "Not"
-	Bu kullanım tüm .c dosyalarını .o uzantılı versiyonlara çevirir
-	```make
-	SRC := $(wildcard *.c)
-	OBJ := $(SRC:.c=.o)
-	```
+| Operatör | Tür | Açıklama |
+|----------|-----|---------|
+| `=` | Recursive (gecikmeli) | Değişken çağrıldığı andaki güncel içeriğe göre değerlenir |
+| `:=` | Simple (anında) | Atama anında değerlendirilerek sabitlenir |
+| `?=` | Koşullu | Değişken tanımlı değilse atar; tanımlıysa mevcut değeri korur |
+| `+=` | Ekleme | Mevcut değerin sonuna yeni değeri ekler |
+
+### Otomatik Değişkenler
+
+| Değişken | Açıklama |
+|----------|---------|
+| `$@` | Mevcut kuralın **target** adı |
+| `$^` | Target'a ait **tüm dependency**'lerin listesi |
+| `$<` | Target'ı tetikleyen **ilk dependency** |
+| `$?` | Target'tan **daha yeni** olan dependency'lerin listesi |
+
+### Joker ve Pattern Karakterler
+
+| Karakter | Açıklama |
+|----------|---------|
+| `*` | Dosya adı genişletmesinde tüm dosyalarla eşleşir (wildcard) |
+| `%` | Pattern kurallarında değişken kısmı temsil eder (örn: `%.o: %.c`) |
+| `:` | Target ile dependency arasındaki ilişkiyi kurar |
+| `::` | Aynı target için birbirinden bağımsız birden fazla kural tanımlar |
+
+### Make Bayrakları
+
+| Bayrak | Açıklama |
+|--------|---------|
+| `make -s` | Silent mode; komutların kendisini terminale basmaz |
+| `make -k` | Hata olsa bile bağımsız diğer target'lar derlemeye devam eder |
+| `make -i` | Hataları yok sayarak sona kadar devam eder |
+| `make -j<n>` | `n` paralel iş parçacığıyla derler (örn: `make -j4`) |
+
+!!! danger "Kritik Kurallar"
+    1. Makefile komut satırları **kesinlikle TAB** ile girintilenmeli. Boşluk (Space) kullanılması `Makefile:N: *** missing separator` hatasına yol açar.
+    2. Target adında bir dizin veya dosya varsa `make: '...' is up to date.` hatası oluşur. Bunu önlemek için `.PHONY` kullanılır.
+    3. `wildcard` fonksiyonu mutlaka `:=` ile kullanılmalıdır; aksi hâlde genişletilmez.
+
+!!! example "Örnek Makefile"
+    ```makefile
+    CC     := gcc
+    CFLAGS := -Wall -Wextra -O2
+    SRC    := $(wildcard *.c)
+    OBJ    := $(SRC:.c=.o)
+    TARGET := output
+
+    .PHONY: all clean
+
+    all: $(TARGET)
+
+    $(TARGET): $(OBJ)
+    	$(CC) $^ -o $@
+
+    %.o: %.c
+    	$(CC) $(CFLAGS) -c $< -o $@
+
+    clean:
+    	rm -f $(OBJ) $(TARGET)
+    ```
+
+---
 
 ## CMake
 
-CMake, platformlar arası derleme süreçlerini otomatikleştirmek ve build dosyalarını (Makefile, Ninja vb.) oluşturmak için kullanılan bir meta-derleme sistemidir.
+CMake, platformlar arası derleme süreçlerini otomatikleştiren ve Makefile, Ninja gibi build dosyalarını üreten bir meta-derleme sistemidir.
 
-- **Directories (CMakeLists.txt):** Projenin ana ve alt dizinlerinde yer alır. Derleme mimarisini, hedefleri ve bağımlılıkları tanımlayan ana yapı taşlarıdır.
+```mermaid
+graph LR
+    A["CMakeLists.txt"] -->|"cmake -S . -B build"| B["Build Sistemi\nMakefile / Ninja"]
+    B -->|"make / ninja"| C["Executable / Library"]
 
-- **Scripts (`<script>.cmake`):** cmake -P komutuyla doğrudan terminalden çalıştırılabilen, derleme sürecinden bağımsız dosya veya dizin işlemlerini otomatikleştiren betiklerdir
-
-- **Modules (`<module>.cmake`):** include() veya find_package() komutları vasıtasıyla ana build sürecine dahil edilen, harici kütüphaneleri bulma veya özel fonksiyonları projeye katma işlevi gören yardımcı dosyalardır.
-
-- **`if - elseif - else`:** Mantıksal koşul bloklarıdır. **1, TRUE, Y, YES, ON** ifadeleri doğru; **0, FALSE, N, NO, OFF, IGNORE, NOTFOUND ve boş metinler** yanlış kabul edilir.
-	- **DEFINED** Değişkenin tanımlı olup olmadığı kontrol edilir.
-	- **COMMAND** Belirtilen CMake komutunun mevcut olup olmadığını kontrol eder.
-	- **EXISTS**  Belirtilen dosya veya klasör yolunun fiziksel olarak var olup olmadığını kontrol eder.
-	- **STREQUAL** İki string değerin eşit olup olmadığını kontrol eder.
-	- **NOT** , **AND**, **OR**
-	- **STRGREATER** , **STRLESS**
-
-- **`foreach` ve `while`:** Belirli bir dosya listesi veya şart sağlandığı sürece döngüler yürütür.
-
-```cmake
-foreach(x RANGE 10)       # 0'dan 10'a kadar (10 dahil)
-foreach(x RANGE 10 20)    # 10'dan 20've kadar
-foreach(x RANGE 10 20 5)  # 10'dan 20'ye 5'erli artışla
+    style A fill:#2196F3,color:#fff
+    style C fill:#4CAF50,color:#fff
 ```
 
-- **`function`:** Çağrıldığı yerde local scope oluşturur. Fonksiyon içindeki değişikliklerin dışarıyı etkilemesi için `PARENT_SCOPE` anahtar kelimesi kullanılmalıdır.
-	- **ARGC:** Fonksiyona girilen toplam argüman sayısı.
-	- **ARGV:** Girilen tüm argümanların listesi.
-	- **ARGN:** Belirlenen parametre isimlerinin dışında kalan ekstra argümanların listesi.
+### Dosya Türleri
 
-- **`macro`:** Çağrıldığı yere doğrudan kopyalanarak yapıştırılır (inline). Çağrıldığı yerdeki kapsamı (parent scope) kullanır ve oradaki değişkenleri değiştirebilir.
+| Dosya | Açıklama |
+|-------|---------|
+| `CMakeLists.txt` | Projenin her dizininde yer alan ana yapı taşı |
+| `<script>.cmake` | `cmake -P` ile doğrudan çalıştırılan script dosyaları |
+| `<module>.cmake` | `include()` veya `find_package()` ile dahil edilen yardımcı modüller |
 
-- **`cmake_minimum_required`:** Projenin sorunsuz derlenebilmesi için gereken minimum CMake sürümünü zorunlu kılar.
+### Temel Komutlar
 
-- **`project`:** Projenin adını, versiyonunu ve kullanılacak programlama dillerini (C, CXX vb.) tanımlar.
+| Komut | Açıklama |
+|-------|---------|
+| `cmake_minimum_required(VERSION x.y)` | Minimum CMake sürümünü zorunlu kılar |
+| `project(ad VERSION x.y LANGUAGES CXX)` | Proje adını, versiyonunu ve dillerini tanımlar |
+| `add_executable(hedef kaynak...)` | Kaynak kodlardan çalıştırılabilir program üretir |
+| `add_library(hedef TÜR kaynak...)` | Static, shared veya interface kütüphane üretir |
+| `add_subdirectory(dizin)` | Alt dizindeki `CMakeLists.txt` dosyasını çalıştırır |
+| `target_include_directories(hedef KAPSAM dizin...)` | Header arama dizinlerini hedefe tanımlar |
+| `target_link_libraries(hedef KAPSAM kütüphane...)` | Hedefe kütüphane bağlar |
 
-- **`add_executable`:** Belirtilen kaynak kodlardan çalıştırılabilir bir nihai program (executable) hedefi oluşturur.
+### Kapsam Belirteçleri
 
-- **`add_library`:** Proje içinde kullanılacak veya dışarıya sunulacak kütüphane (static, shared veya interface) hedefleri oluşturur.
+!!! tip "PUBLIC / PRIVATE / INTERFACE"
+    | Belirteç | Hedef kullanır | Tüketiciler kullanır |
+    |----------|:--------------:|:-------------------:|
+    | `PUBLIC` | ✓ | ✓ |
+    | `PRIVATE` | ✓ | ✗ |
+    | `INTERFACE` | ✗ | ✓ |
 
-- **`add_subdirectory`:** Belirtilen alt dizine geçiş yaparak oradaki CMakeLists.txt dosyasının çalıştırılmasını sağlar.
+### Değişken Yönetimi
 
-- **`target_include_directories`:** Oluşturulan bir hedefe özel header arama dizinlerini tanımlar.
-    - **PUBLIC:** Hem hedef hem tüketiciler
-    - **PRIVATE:** Tanımlanan dizinleri sadece ilgili hedefin kendisi kullanır; bu hedefi tüketen diğer projeler bu dizinleri görmez
-    - **INTERFACE:** İlgili hedefin kendisi derlenirken bu dizinleri kullanmaz, ancak bu hedefi projesine dahil eden tüketiciler bu dizinleri otomatik olarak içeri alır.
+| Komut | Açıklama |
+|-------|---------|
+| `set(VAR değer)` | Değişken tanımlar; `${VAR}` ile erişilir |
+| `unset(VAR)` | Değişkeni bellekten siler |
+| `$ENV{VAR}` | İşletim sistemi ortam değişkenine erişir |
+| `set(VAR değer CACHE TÜR "açıklama" [FORCE])` | Cache'e yazılan kalıcı değişken |
 
-- **`include`:** Harici bir .cmake betiğini veya kütüphane yapılandırma dosyasını mevcut CMake akışına dahil eder.
+!!! note "Tırnak ve Liste Davranışı"
+    ```cmake
+    set(LIST_VAR a b c)      # Liste: ["a", "b", "c"]
+    set(STR_VAR "a b c")     # Tek string: "a b c"
+    set(LIST_VAR2 "a;b;c")   # Liste: ["a", "b", "c"]  (manuel ayraç)
+    ```
 
-- **`set`:** Bir CMake değişkeni oluşturur. Değişken değerine `${DEGISKEN_ADI}` şeklinde erişilir. Tırnak kullanırsan araya boşluk koysan bile CMake onu tek bir bütün string kabul eder. Araya elle `;` koyarsan listeye çevirir. Tırnak kullanmazsan, her boşluk otomatik olarak bir `;` (yani liste elemanı) halini alır.
-- **`unset`:** Tanımlanmış bir değişkeni bellekten silerek tanımsız hale getirir.
+### Akış Kontrolü
 
-- **$ENV{}`:** İşletim sistemine ait ortam değişkenlerine erişmek veya onları değiştirmek için kullanılır.
+| Komut | Açıklama |
+|-------|---------|
+| `if / elseif / else / endif` | Koşullu bloklar |
+| `foreach / endforeach` | Döngü |
+| `while / endwhile` | Koşul döngüsü |
+| `function / endfunction` | Local scope'lu fonksiyon |
+| `macro / endmacro` | Inline yapıştırılan makro (parent scope kullanır) |
 
-- **`list(param1 param2 ...)`:** Değişken listeleri üzerinde işlem yapar. `param1` listesi ne yapılacağı, `param2` listenin adıdır. (APPEND, REMOVE_AT, REMOVE_ITEM, REMOVE_DUPLICATES, SORT, INSERT, REVERSE, LENGTH, GET, SUBLIST, JOIN, FIND)
+!!! tip "function vs macro"
+    `function` yeni bir scope açar; içerideki değişkenler dışarıyı etkilemez, etkilemesi için `PARENT_SCOPE` kullanılır.
+    `macro` çağrıldığı yere kopyalanır ve o noktanın scope'unu doğrudan kullanır.
 
-- **`string(param1 param2 ... param_out)`:** Metin ifadelerinin üzerinde işlem yapılmasını sağlar. `param1` ne yapılacağını, `param2` dize ifadesi ve `param_out` çıktıyı tutan değişkendir. (FIND, REPLACE, PREPEND, APPEND, TOLOWER, TOUPPER, LENGTH)
+!!! example "foreach Kullanımı"
+    ```cmake
+    foreach(x RANGE 10)       # 0'dan 10'a kadar (10 dahil)
+    foreach(x RANGE 10 20)    # 10'dan 20'ye kadar
+    foreach(x RANGE 10 20 5)  # 10'dan 20'ye 5'erli artışla
 
-- **`message:`** Terminale çıktı basılmasını sağlar.
-	- `message(STATUS "Cmake File Status Worked...")`
-	- `message(DEBUG "Cmake File Debug Worked...")`
-	- `message(WARNING "Cmake File WARNING Worked...")`
-	- `message(FATAL ERROR "Cmake File FATAL ERROR Worked...")`
-	- `message("Cmake File Worked...")`
+    foreach(item IN LISTS MY_LIST)
+        message(STATUS "Eleman: ${item}")
+    endforeach()
+    ```
 
-- **`set_target_properties` / `set_property`:** Belirli bir hedefe veya nesneye (C++ standart versiyonu, çıktı adı vb.) özel nitelikler ve kurallar atar.
+!!! tip "if Koşul Operatörleri"
+    **1, TRUE, Y, YES, ON** ifadeleri doğru; **0, FALSE, N, NO, OFF, IGNORE, NOTFOUND** ve boş string'ler yanlış kabul edilir.
 
-- **`install`:** Derleme sonucunda üretilen dosyaların, kütüphanelerin veya başlık dosyalarının hedef işletim sistemindeki belirli dizinlere (Örn: `/usr/local/bin`) kurulma kurallarını belirler.
-	- **FILES** dosyayı kopyalar
-	- **TARGETS**` add_executable()` veya `add_library()` ile oluşturulan hedefleri (binary veya kütüphane) kurar.
-	- **EXPORT** Yaptığımız dosyaları `find_package` komutu ile bulmamızı sağlayacak şekilde gerekli forma dönüştürür.
+    | Operatör | Açıklama |
+    |----------|---------|
+    | `DEFINED` | Değişkenin tanımlı olup olmadığını kontrol eder |
+    | `COMMAND` | Belirtilen CMake komutunun mevcut olup olmadığını kontrol eder |
+    | `EXISTS` | Dosya veya dizin yolunun var olup olmadığını kontrol eder |
+    | `STREQUAL` | İki string değerin eşitliğini kontrol eder |
+    | `STRGREATER` / `STRLESS` | String karşılaştırması |
+    | `NOT`, `AND`, `OR` | Mantıksal operatörler |
 
-- **`find_package`:** Sistemde kurulu harici paketleri arar. Önce `Find<paket_adi>.cmake` biçimindeki **MODULE** modunu, bulamazsa `<paket_adi>-config.cmake` biçimindeki **CONFIG** modunu tarar. 
-	- **REQUIRED** ifadesi paketin bulunmasını zorunlu kılar. 
+### Yardımcı Komutlar
 
-- **`option`:** Kullanıcıya derleme sürecini özelleştirebileceği **ON/OFF** anahtarları sunar. Terminalden `cmake -DENABLE_FEATURE=ON ..` şeklinde tetiklenebilir.
+| Komut | Açıklama |
+|-------|---------|
+| `message(DURUM "metin")` | Terminale çıktı basar (`STATUS`, `WARNING`, `FATAL_ERROR`) |
+| `include(dosya)` | `.cmake` dosyasını dahil eder |
+| `find_package(pkg REQUIRED)` | Sistemde kurulu paketi arar |
+| `option(VAR "açıklama" ON/OFF)` | Kullanıcıya açma/kapama anahtarı sunar |
+| `install(TARGETS/FILES ...)` | Kurulum kurallarını tanımlar |
+| `file(GLOB VAR şablon)` | Şablona uyan dosyaları listeler |
+| `add_compile_options(flags...)` | Geçerli dizindeki tüm hedeflere derleyici parametresi ekler |
+| `add_custom_command(...)` | Derleme sürecine özel komut adımı ekler |
+| `add_custom_target(...)` | Dosya üretmeyen bağımsız build hedefi oluşturur |
+| `execute_process(COMMAND ...)` | Yapılandırma anında terminal komutu çalıştırır |
+| `cmake_policy(...)` | Sürümler arası davranış uyumluluğunu yönetir |
 
-- **`add_compile_options`:** Geçerli dizin ve altındaki tüm hedeflere uygulanacak derleyici parametrelerini (Örn: `-Wall`) ekler.
+!!! note "execute_process Parametreleri"
+    | Parametre | Açıklama |
+    |-----------|---------|
+    | `COMMAND` | Çalıştırılacak komutu tanımlar |
+    | `WORKING_DIRECTORY` | Komutun çalışacağı dizini belirtir |
+    | `RESULT_VARIABLE` | Başarıda `0`, hata durumunda `1` döner |
+    | `OUTPUT_VARIABLE` | Komut çıktısını değişkene atar |
+    | `ERROR_VARIABLE` | Hata mesajını sakladığı değişkeni belirtir |
 
-- **`add_compile_definitions` ve `add_definitions`:** Kod içerisinden erişilebilecek derleme zamanı makroları tanımlar (Eski bir komut olan `add_definitions` yerine hedef bazlı yönetim için `target_compile_definitions` kullanımı modern CMake standartlarında daha çok önerilir).
+### Önemli CMake Değişkenleri
 
-- **`file(GLOB)` / `file(GLOB_RECURSE)`:** Belirtilen şablona uyan dosyaları tarayarak bir liste oluşturur (**GLOB_RECURSE** alt klasörleri de tarar).
+| Değişken | Açıklama |
+|----------|---------|
+| `PROJECT_NAME` | `project()` komutundaki güncel proje adı |
+| `CMAKE_PROJECT_NAME` | Kök dizindeki ana proje adı |
+| `CMAKE_VERSION` | Çalışan CMake sürümü |
+| `CMAKE_GENERATOR` | Kullanılan build sistemi (Ninja, Unix Makefiles) |
+| `CMAKE_SOURCE_DIR` | Ana proje dizininin tam yolu |
+| `CMAKE_CURRENT_SOURCE_DIR` | İşlenen `CMakeLists.txt`'in bulunduğu dizin |
+| `PROJECT_SOURCE_DIR` | En son çağrılan `project()` komutuna ait dizin |
+| `CMAKE_BINARY_DIR` | Ana build dizini |
+| `CMAKE_SYSTEM_NAME` | Hedef işletim sistemi (Linux, Windows, Darwin) |
+| `CMAKE_INSTALL_PREFIX` | `install()` komutunun hedef kök dizini |
+| `CMAKE_MODULE_PATH` | Ek modüllerin aranacağı klasör yolları |
 
-- **`add_custom_command`:** Belirli bir dosya çıktısı üretmek amacıyla derleme sürecine özel bir komut adımı (Örn: kod üretici çalıştırma) ekler.
+### CMake CLI
 
-- **`add_custom_target`:** Fiziksel bir dosya çıktısı olmasa bile, sadece istenen komutları çalıştırmak üzere bağımsız bir build hedefi (Örn: make documentation) oluşturur.
+```bash
+cmake --help                         # Genel yardım
+cmake --help-variable-list           # Kullanılabilir değişkenleri listeler
+cmake --help-variable CMAKE_VERSION  # Belirli değişken hakkında detay
 
-- **`execute_process`:** Yapılandırma anında terminal üzerinde harici komutlar (Örn: git clone) çalıştırır. 
-	- **COMMAND:**  Çalıştırılacak komutu ifade edin
-	- **WORKING_DIRECTORY:** Komutların çalışacağı dizini ifade eder.
-	- **RESULT_VARIABLE:** Komutun sonucu başarılı olursa 0, başarısız olursa 1 değerini döndürür.
-	- **OUTPUT_VARIABLE:** Komut çıktısını değişkene atar.
-	- **ERROR_VARIABLE:** Komutta bir hata oluşursa bu hatayı sakladığı değişkeni ayarlarız.
-
-- **`cmake_policy`:** Eski ve yeni CMake sürümleri arasındaki davranış değişikliklerini ve geriye dönük uyumluluk kurallarını yönetir.
-
-
-```bash 
-cmake --help                     # CMake ve build yöntemleri hakkında genel bilgi.
-cmake --help-variable-list       # Kullanılabilir değişkenleri listeler.
-cmake --help-variable [variable] # Belirtilen değişken hakkında detaylı bilgi.
-
-cmake -S . -B build              # -S cmake'in bulunduğu dizin, -B hedef dizin
-cmake --build build              # Belirtilen kurallara göre dizini derler (make)
-cmake -P a.cmake                 # -P derleme yapmadan dosyayı yürütür.
+cmake -S . -B build                  # Kaynak dizin ve build dizini tanımla
+cmake --build build                  # Build dizinini derle
+cmake -P script.cmake                # Script modunda çalıştır (derleme yapmaz)
 
 cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -S . -B build
 ```
 
-!!! note "Not"
-	1. Modern CMake pratiklerinde, yeni dosyalar eklendiğinde CMake'in bunu otomatik fark edip yeniden tetiklenmemesi riskinden dolayı kaynak kodları listelerken `file(GLOB)` yerine dosyaları tek tek elle yazmak tercih edilir.
-
-	2. `CACHE` anahtar kelimesiyle tanımlanan değişkenler, build/CMakeCache.txt dosyasında saklanır. Bu sayede her cmake komutu çalıştığında değerler tekrar hesaplanmaz, doğrudan bellekten okunarak hızlı erişim sağlanır. Komut satırından `-D` parametresiyle gönderilen değerlerin önbellekteki eski değerlerin üzerine zorla yazılması için FORCE ifadesi kullanılır
-    ```cmake
-    # Cache değişkeni tanımlama şablonu:
-	set(DEGISKEN_ADI "Değer" CACHE TUR "Açıklama Metni" [FORCE])
-
-	# Örnek Kullanım:
-	set(ENABLE_LOGGING ON CACHE BOOL "Sistem loglarını aktif eder" FORCE)
-
-	3. `CMakeLists.txt` içinde `add_executable` veya project gibi derleme hedefleri barındırdığı için `-P` (Script modu) ile çalıştırılamaz, hata verir. `-P` parametresi sadece saf script komutları içeren `.cmake` dosyaları için geçerlidir.
-    ```
-
-
-| Değişken | Anlamı |
-|--------|--------|
-| `PROJECT_NAME`              | `project()` komutunda belirtilen güncel proje adı |
-| `CMAKE_PROJECT_NAME`        | En üst (kök) dizindeki ana `project()` adı |
-| `CMAKE_VERSION`             | Sistemde çalışan güncel CMake sürümü |
-| `CMAKE_GENERATOR`           | Yapı oluşturucuyu belirtir (Ninja, Unix Makefiles) |
-| `CMAKE_SOURCE_DIR`          | Ana (kök) proje dizininin tam yolu |
-| `CMAKE_CURRENT_SOURCE_DIR`  | O anda işlenen CMakeLists.txt dosyasının bulunduğu dizin |
-| `PROJECT_SOURCE_DIR`        | En son çağrılan project() komutuna ait dizin yolu |
-| `CMAKE_BINARY_DIR`          | Çıktıların üretildiği ana build dizini |
-| `CMAKE_SYSTEM`              | Hedef işletim sisteminin tam adı ve versiyonu |
-| `CMAKE_SYSTEM_NAME`         | Hedef işletim sisteminin kısa adı (Linux, Windows, Darwin) |
-| `CMAKE_INSTALL_PREFIX`      | install() komutunun dosyaları kuracağı kök dizin yolu |
-| `CMAKE_MODULE_PATH`         | CMake'in ek modülleri (.cmake) arayacağı özel klasör yolları |
-
-
 === "Derleme Yöntem 1"
-
-    ```cmake
-    mkdir build  
-    cd build  
-    cmake ..  
+    ```bash
+    mkdir build && cd build
+    cmake ..
     make
     ```
 
 === "Derleme Yöntem 2"
-
-    ```cmake
-    cmake -S . -B build  
-    cd build  
-    make 
+    ```bash
+    cmake -S . -B build
+    cd build && make
     ```
 
 === "Derleme Yöntem 3"
-
-    ```cmake
-    cmake -B build  
+    ```bash
+    cmake -B build
     cmake --build build
     ```
-    
+
+!!! danger "Dikkat Edilmesi Gerekenler"
+    1. Modern CMake'te `file(GLOB)` yerine kaynak dosyaları elle listelemek tercih edilir. `GLOB`, yeni dosyalar eklendiğinde CMake'in otomatik yeniden tetiklenmemesine yol açabilir.
+    2. `CACHE` değişkenleri `build/CMakeCache.txt` dosyasında saklanır. Komut satırından `-D` ile verilen değerlerin önbellekteki değerlerin üzerine yazılması için `FORCE` kullanılır.
+    3. `CMakeLists.txt` dosyası `-P` (Script modu) ile çalıştırılamaz. `-P` yalnızca `add_executable` gibi derleme hedefleri içermeyen saf `.cmake` script dosyaları içindir.
+
+!!! example "Minimal CMakeLists.txt"
+    ```cmake
+    cmake_minimum_required(VERSION 3.20)
+    project(MyProject VERSION 1.0 LANGUAGES CXX)
+
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+    add_executable(myapp
+        src/main.cpp
+        src/utils.cpp
+    )
+
+    target_include_directories(myapp PRIVATE include/)
+    target_compile_options(myapp PRIVATE -Wall -Wextra)
+    ```

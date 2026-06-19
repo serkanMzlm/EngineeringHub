@@ -1,110 +1,317 @@
-## **systemctl Dosyaları**
-- Systemd, modern Linux dağıtımlarında “init” sisteminin yerini alan bir sistem ve hizmet yöneticisidir.
-- Amaçları:
-    - Paralel başlatma ile açılış süresini kısaltmak.
-    - Bağımlılık grafiği kullanarak servisler arası doğru sırayı garantilemek.
-    - Journald ile merkezi günlük kaydı (log) tutmak.
-    - Socket, D-Bus, timer, mount ve daha pek çok birimi yönetmek.
--Genel Konumlar
-    - Sistem geneli: `/etc/systemd/system/`
-    - Dağıtım birincil: `/lib/systemd/system/` veya `/usr/lib/systemd/system/`
-    - Kullanıcı bazlı: `~/.config/systemd/user/`
-- Her `.service` dosyası üç ana başlığa sahiptir:
-```service
+# Servisler ve Daemon Yönetimi
+
+!!! note "Genel Bakış"
+    `systemd`, modern Linux dağıtımlarında PID 1 olarak çalışan sistem ve servis yöneticisidir. Paralel başlatma, bağımlılık grafiği, merkezi log (journald) ve gelişmiş servis denetimi sağlar. Bu bölüm systemd, systemctl ve journalctl araçlarını kapsar.
+
+```mermaid
+graph TD
+    BIOS[BIOS / UEFI] --> GRUB[GRUB2\nBootloader]
+    GRUB --> KERNEL[Linux Kernel\n+ initramfs]
+    KERNEL --> SYSTEMD[systemd\nPID = 1]
+    SYSTEMD --> DEF[default.target]
+    DEF --> MULTI[multi-user.target]
+    DEF --> GRAPHICAL[graphical.target]
+    MULTI --> NET[network.target]
+    MULTI --> SSH[sshd.service]
+    MULTI --> CRON[cron.service]
+    GRAPHICAL --> DISP[display-manager.service]
+
+    style SYSTEMD fill:#BBDEFB
+    style DEF fill:#C8E6C9
+```
+
+---
+
+## Systemd Unit Türleri
+
+| Uzantı | Tür | Açıklama |
+|:------:|-----|---------|
+| `.service` | Service | Arka plan hizmetleri (daemon) |
+| `.target` | Target | Unit grupları; run level yerine geçer |
+| `.socket` | Socket | Socket-activated servisler |
+| `.timer` | Timer | Zamanlanmış görevler (cron alternatifi) |
+| `.mount` | Mount | Dosya sistemi otomatik mount |
+| `.path` | Path | Dosya/dizin değişikliklerini tetikleyici |
+| `.slice` | Slice | Cgroups kaynak sınırı grubu |
+
+**Unit dosyaları konumları:**
+
+| Konum | Kapsam | Öncelik |
+|-------|--------|:-------:|
+| `/etc/systemd/system/` | Sistem geneli (admin değişikliği) | Yüksek |
+| `/usr/lib/systemd/system/` | Dağıtım paketleri | Orta |
+| `~/.config/systemd/user/` | Kullanıcı bazlı | — |
+
+---
+
+## Service Dosyası Yapısı
+
+```ini title="/etc/systemd/system/my-app.service"
 [Unit]
-Description=Kısa ve öz açıklama
-After=network.target
+Description=My Application Service
+Documentation=https://example.com/docs
+After=network.target postgresql.service
 Wants=postgresql.service
+Conflicts=conflicting.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/my-daemon --option
+User=appuser
+Group=appgroup
+WorkingDirectory=/opt/myapp
+ExecStart=/usr/bin/python3 /opt/myapp/main.py
 ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -SIGTERM $MAINPID
 Restart=on-failure
 RestartSec=5s
-User=myuser
-Environment=ENV_VAR=value
+TimeoutStopSec=30s
+
+# Ortam değişkenleri
+Environment=ENV=production
+EnvironmentFile=/etc/myapp/env
+
+# Kaynak sınırları
+LimitNOFILE=65536
+MemoryMax=512M
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-- `[Unit]`
-    - **Description:** Hizmetin ne yaptığını özetler.
-    - **After / Before:** Başlama sırasını ayarlar. Örneğin **After=network.target → ağ** hazır olmadan başlamaz.
-    - **Wants / Requires:** Zayıf / güçlü bağımlılık ilişkileri kurar.
+### [Unit] Bölümü
 
-- `[Service]`
-    - **Type:** Başlatma davranışını belirler.
-        - **simple (default):** ExecStart arka planda ayrılmadan çalışır.
-        - **forking:** Daemon arka plana fork ettiğinde kabul edilir.
-        - **oneshot:** Tek seferlik kısa işler için.
-        - `notify, dbus, idle vb.` gelişmiş tipler de var.
-    - **ExecStart, ExecReload, ExecStop:** Başlatma, yeniden yükleme ve durdurma komutları.
-    - **Restart:** Yeniden başlatma koşulları (no, on-success, on-failure, always vb.).
-    - **RestartSec:** Yeniden başlatma öncesi bekleme süresi.
-    - **User / Group:** Hizmeti hangi kullanıcı/grup altında çalıştıracağını belirler.
-    - **Environment:** Çevresel değişkenleri tanımlar.
-    - **WorkingDirectory:** Çalışma dizinini ayarlar.
+| Direktif | Açıklama |
+|----------|---------|
+| `Description` | İnsan okunabilir kısa açıklama |
+| `After` | Başlama sırasını belirler; belirtilen unit'ten sonra başlar |
+| `Before` | Belirtilen unit'ten önce başlar |
+| `Wants` | Zayıf bağımlılık; bağımlı unit başlamasa da devam eder |
+| `Requires` | Güçlü bağımlılık; bağımlı başlamazsa bu da başlamaz |
+| `Conflicts` | Çakışan unit; biri başlayınca diğeri durur |
 
-- `[Install]`
-    - **WantedBy:** Hangi target’a “enable” edildiğinde ekleneceğini tanımlar. Örneğin `multi-user.target → systemctl enable my.service ile /etc/systemd/system/multi-user.target.wants/my.service` bağlantısı oluşturulur.
-    - **RequiredBy:** Zorunlu alt birim ilişkisi oluşturur
+### [Service] Bölümü
 
-## **systemctl Komutları**
+| Direktif | Açıklama |
+|----------|---------|
+| `Type=simple` | ExecStart fork etmeden çalışır (varsayılan) |
+| `Type=forking` | Daemon arka plana fork ettiğinde kabul edilir |
+| `Type=oneshot` | Tek seferlik kısa işler |
+| `Type=notify` | Daemon sd_notify() ile hazır sinyali gönderir |
+| `Restart=no` | Yeniden başlatma yok |
+| `Restart=on-failure` | Başarısız çıkışta yeniden başlat |
+| `Restart=always` | Her zaman yeniden başlat |
+| `User` | Hangi kullanıcı altında çalışacağı |
+| `Environment` | Ortam değişkeni |
+| `EnvironmentFile` | Dosyadan ortam değişkeni yükle |
+| `WorkingDirectory` | Çalışma dizini |
+
+### [Install] Bölümü
+
+| Direktif | Açıklama |
+|----------|---------|
+| `WantedBy=multi-user.target` | `systemctl enable` ile bu target'a bağlanır |
+| `RequiredBy` | Zorunlu bağımlılık olarak bağlanır |
+| `Also` | Bu unit enable edildiğinde başka unit de enable et |
+
+---
+
+## Gerçek Örnekler
+
+=== "ROS2 Servisi"
+
+    ```ini
+    [Unit]
+    Description=ROS 2 Startup Service
+    After=network.target
+
+    [Service]
+    Type=simple
+    User=rosuser
+    Environment=HOME=/home/rosuser
+    ExecStartPre=/bin/sleep 5
+    ExecStart=/home/rosuser/start_ros2.sh
+    Restart=on-failure
+    RestartSec=10s
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+=== "Python Web Servisi"
+
+    ```ini
+    [Unit]
+    Description=FastAPI Application
+    After=network.target
+
+    [Service]
+    Type=simple
+    User=webuser
+    WorkingDirectory=/opt/api
+    EnvironmentFile=/opt/api/.env
+    ExecStart=/opt/api/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+    Restart=always
+    RestartSec=3s
+    StandardOutput=journal
+    StandardError=journal
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+=== "Periyodik Görev (Timer)"
+
+    ```ini title="backup.timer"
+    [Unit]
+    Description=Daily Backup Timer
+
+    [Timer]
+    OnCalendar=*-*-* 02:00:00
+    Persistent=true
+
+    [Install]
+    WantedBy=timers.target
+    ```
+
+    ```ini title="backup.service"
+    [Unit]
+    Description=Daily Backup Service
+
+    [Service]
+    Type=oneshot
+    ExecStart=/usr/local/bin/backup.sh
+    ```
+
+    ```bash
+    sudo systemctl enable --now backup.timer
+    systemctl list-timers
+    ```
+
+---
+
+## systemctl Komutları
+
 ```bash
-sudo systemctl start   my.service   # Başlatır
-sudo systemctl stop    my.service   # Durdurur
-sudo systemctl restart my.service   # Yeniden başlatır
-sudo systemctl status  my.service   # Durum bilgisini gösterir
+# Servis kontrolü
+sudo systemctl start   my.service
+sudo systemctl stop    my.service
+sudo systemctl restart my.service
+sudo systemctl reload  my.service     # Yapılandırmayı yeniden yükle (fork yok)
+sudo systemctl status  my.service
 
-sudo systemctl enable  my.service   # Boot’ta otomatik başlayacak şekilde işaretler
-sudo systemctl disable my.service   # Artık otomatik başlamaz
-sudo systemctl is-enabled my.service  # Etkin mi diye kontrol eder
+# Otomatik başlatma
+sudo systemctl enable  my.service     # Boot'ta başlat
+sudo systemctl disable my.service     # Boot'ta başlatma
+sudo systemctl enable --now my.service  # Enable + hemen başlat
+sudo systemctl is-enabled my.service
+sudo systemctl is-active  my.service
 
-sudo systemctl daemon-reload # Yeni veya güncellenmiş birim dosyalarını tanıtmak
+# Unit listesi
+systemctl list-units --all
+systemctl list-units --type=service --state=running
+systemctl list-units --type=target
+systemctl list-timers
 
-systemctl list-units --all # Tüm birimleri listeler
-systemctl list-units --type=target  # Sadece target’ları gör
+# Birim yenileme
+sudo systemctl daemon-reload           # Değişen unit dosyalarını tanı
 
-# Sistemi kapat / yeniden başlat / uyku moduna al
+# Sistem geneli
 sudo systemctl poweroff
 sudo systemctl reboot
 sudo systemctl suspend
 sudo systemctl hibernate
+sudo systemctl rescue                  # Kurtarma moduna geç
 ```
 
-```
-[Unit]
-Description=ROS 2 Startup Service
-After=network.target
+---
 
-[Service]
-Type=simple
-User=rosuser
-Environment=HOME=/home/rosuser
-ExecStart=/home/rosuser/start_ros2.sh
-Restart=on-failure
-RestartSec=10s
+## journalctl — Log Yönetimi
 
-[Install]
-WantedBy=multi-user.target
+```mermaid
+graph LR
+    SVC[Service / Kernel] -->|stdout/stderr| JOURNAL[journald\n/run/log/journal]
+    JOURNAL -->|journalctl| USER[Kullanıcı]
+    JOURNAL -->|kalıcı| DISK[/var/log/journal]
 ```
 
-- Bu dosyayı `/etc/systemd/system/ros2-start.service` olarak kaydedin.
+```bash
+# Temel kullanım
+journalctl                          # Tüm loglar
+journalctl -b                       # Son boot'tan itibaren
+journalctl -b -1                    # Bir önceki boot
+journalctl -f                       # Canlı takip (tail -f)
 
-```bash 
-sudo systemctl daemon-reload
-sudo systemctl enable  ros2-start.service
-sudo systemctl start   ros2-start.service
+# Servis filtreleme
+journalctl -u sshd
+journalctl -u sshd -f               # SSH loglarını canlı izle
+journalctl -u nginx --since today
+
+# Zaman filtresi
+journalctl --since "2024-01-01 08:00:00"
+journalctl --until "2024-01-02"
+journalctl --since "1 hour ago"
+
+# Öncelik filtresi
+journalctl -p err                   # Sadece hata ve üzeri
+journalctl -p warning               # Uyarı ve üzeri
+# debug(7) info(6) notice(5) warning(4) err(3) crit(2) alert(1) emerg(0)
+
+# Çıktı formatı
+journalctl -o json-pretty           # JSON formatı
+journalctl -o short-precise         # Mikrosaniye hassasiyetiyle
+journalctl --no-pager               # Sayfalama olmadan
+journalctl -n 50                    # Son 50 satır
+
+# Kernel mesajları
+journalctl -k                       # Kernel logları
+journalctl -k -b                    # Bu boot'taki kernel logları
+
+# Disk kullanımı ve temizlik
+journalctl --disk-usage
+sudo journalctl --vacuum-size=500M  # 500 MB'dan fazlasını sil
+sudo journalctl --vacuum-time=30d   # 30 günden eskiyi sil
 ```
 
-### Birim (Unit) Türleri
-| Tip	| Uzantı	| Ne İşe Yarar? |
-|-----|---------|-----------------|
-| Service	| .service	 | Arka plan hizmetlerini (daemon) tanımlar. |
-| Target	| .target |	Çeşitli birimleri gruplar, run level yerine geçer. |
-| Socket	| .socket |	Socket-activated servisler tanımlar. |
-| Timer	    |  .timer |	Zamanlanmış görevler (cron alternatifi). |
-| Mount	    |  .mount | 	Dosya sistemleri otomatik monteler. |
-| Path	    | .path |	Dosya/dizin değişikliklerini tetikleyici yapar. |
+### journald Yapılandırması
+
+```ini title="/etc/systemd/journald.conf"
+[Journal]
+Storage=persistent           # Logları disk'e yaz (auto/volatile/persistent)
+Compress=yes                 # Sıkıştır
+SystemMaxUse=500M            # Maksimum disk alanı
+SystemKeepFree=200M          # Minimum boş alan bırak
+MaxRetentionSec=1month       # En uzun saklama süresi
+ForwardToSyslog=no           # /var/log/syslog'a da yönlendir
+```
+
+---
+
+## Cron vs systemd Timer
+
+| Özellik | cron | systemd timer |
+|---------|:----:|:-------------:|
+| Başarısız job retry | ✗ | ✓ |
+| Log (journald) | ✗ (mail) | ✓ |
+| Boot'ta kaçırılan job | ✗ | ✓ (Persistent=true) |
+| Bağımlılık yönetimi | ✗ | ✓ |
+| Kolaylık | Yüksek | Orta |
+
+!!! tip "Cron Hâlâ Geçerli"
+    Basit zamanlama gereksinimleri için `crontab -e` hızlıdır. Retry, logging veya servis bağımlılığı gerektiren kritik görevler için systemd timer tercih edin.
+
+---
+
+## Ortak Sistem Servisleri
+
+| Servis | Açıklama |
+|--------|---------|
+| `sshd` | SSH sunucusu |
+| `NetworkManager` | Ağ yönetimi |
+| `cron` / `crond` | Zamanlanmış görevler |
+| `rsyslog` | Syslog daemon |
+| `udev` | Aygıt olaylarını yönetir |
+| `dbus` | Süreçler arası mesajlaşma (IPC) |
+| `avahi-daemon` | mDNS/DNS-SD yerel ağ keşfi |
+| `bluetooth` | Bluetooth yönetimi |
+| `cups` | Yazıcı yönetimi |
+| `snapd` | Snap paket yöneticisi |

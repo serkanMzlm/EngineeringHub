@@ -1,259 +1,366 @@
+# Gömülü Sistem Kavramları
+
+!!! note "Genel Bakış"
+    Gömülü sistemler, belirli bir donanıma ve göreve özel, genellikle gerçek zamanlı kısıtlarla çalışan bilgisayar sistemleridir. Bu bölüm, ARM Cortex-M tabanlı mikrodenetleyicilerde bilinmesi gereken temel mimari ve donanım kavramlarını kapsar.
+
 ![mcu](../../assets/img/embedded/cpu_mpu_mcu.png)
 
+---
+
+## CPU — MPU — MCU
+
+```mermaid
+graph LR
+    subgraph MCU["MCU (Microcontroller)"]
+        direction TB
+        CORE[CPU Core\nALU + CU + Register] --- MEM[Flash / SRAM]
+        CORE --- PER[Peripherals\nGPIO / UART / SPI / ADC / Timer]
+        CORE --- INT[Interrupt Controller\nNVIC]
+    end
+
+    subgraph MPU_["MPU (Microprocessor)"]
+        direction TB
+        CPU2[CPU Core] --- EXT_MEM[Harici RAM/ROM]
+        CPU2 --- MMU[MMU]
+        CPU2 --- EXT_PER[Harici Peripheral]
+    end
+
+    style MCU fill:#E3F2FD,stroke:#2196F3
+    style MPU_ fill:#E8F5E9,stroke:#4CAF50
+```
+
+| Özellik | CPU | MPU | MCU |
+|---------|:---:|:---:|:---:|
+| İşlemci | ✓ | ✓ | ✓ |
+| Dahili Bellek | ✗ | ✗ | ✓ (Flash + SRAM) |
+| Dahili Peripheral | ✗ | ✗ | ✓ |
+| MMU | ✗ | ✓ | ✗ (genellikle MPU) |
+| İşletim Sistemi | ✗ | Linux vb. | Bare-metal / RTOS |
+| Kullanım Alanı | Hesaplama | PC, SBC | IoT, gömülü, otomotiv |
+
+!!! note "CPU vs MCU"
+    - **MCU:** Tek çipte CPU + Flash + SRAM + peripheral. Düşük maliyet, düşük güç. STM32, AVR, PIC.
+    - **MPU:** Sadece işlemci çekirdeği; bellek ve periferaller harici. Raspberry Pi (BCM2837), i.MX8.
+
+---
+
 ## Terimler
-- **Peripheral:** CPU çekirdeğinin dışında kalan ve donanımsal bir iş yapan tüm modüllerdir. (GPIO, TIMER, USART / UART, SPI, I2C, ADC, DMA, USB vs.)
-- **ALU (Arithmetic Logic Unit):** Aritmetik (toplama, çıkarma, çarpma vb.) ve mantıksal (AND, OR, XOR vb.) işlemleri gerçekleştirir.
-- **CU (Control Unit):** Komutları sırayla okur, çözümler ve diğer donanım birimlerini yönlendiren kontrol sinyallerini üretir. Sistem bileşenleri arasında senkronizasyon sağlar.
-- **Register:** Çok hızlı, küçük kapasiteli geçici depolama birimleridir.
-- **callee-saved:** Bir fonksiyon bu register’ları kullanıyorsa, işi bitince eski haline geri getirme olayıdır.
-- **FPU (Floating Point Unit):** Kayan noktalı (float/double) işlemleri CPU yerine donanım üzerinde gerçekleştirerek işlemciyi rahatlatır; FPU yoksa veya devre dışıysa bu hesaplamalar yazılımsal olarak CPU’ya bindirilir, FPU aktif olduğunda ise aynı işlemler donanım seviyesinde yürütülür.
-- **T Bit:** İşlemcinin komutları hangi dilde çalıştıracağını belirleyen hayati bir kontrol bitidir; Cortex-M mimarisinde yalnızca Thumb komutları desteklendiği için bu bit her zaman 1 olmak zorundadır ve yanlış bir adresleme veya hatalı fonksiyon çağrısı sonucu **T bit’in 0** durumuna düşmesi, işlemcinin geçersiz bir yürütme durumuna girmesine ve doğrudan `HardFault` oluşmasına neden olur.
-    - LSB = 1 → Thumb Modu (Tüm komutların 16 bit uzunluğunda olması)
-    - LSB = 0 → ARM Modu (Tüm komutların 32 bit uzunluğunda olması)
-- **PLL (Phase Locked Loop):**Giriş olarak verilen düşük frekanslı ve kararlı bir clock kaynağını (örn. kristal veya internal RC) referans alarak, bunu çarpan ve bölücüler yardımıyla daha yüksek ve sistem gereksinimlerine uygun frekanslara dönüştüren dahili saat üretim birimidir. Sistem clock’unun, bus clock’larının ve peripheral clock’larının performans gereksinimlerine göre ölçeklenmesini sağlar. Yanlış PLL konfigürasyonu, zamanlama hatalarına, çevre birimlerinin çalışmamasına veya sistem kararsızlığına yol açabilir.
 
-## CPU - MPU - MCU
-- **CPU (Central Processing Unit) - Processor**, bir sistemde komutları alan, yorumlayan ve yürüten merkezi işlem birimidir. Bilgisayarlarda, **mikroişlemcilerde (MPU)** ve **mikrodenetleyicilerde (MCU)** temel bileşen olarak yer alır. Program akışını yönetir, hesaplamaları gerçekleştirir ve sistemin genel çalışma düzenini koordine eder.
-- **MPU (Microprocessor Unit)**, temel olarak yalnızca işlemci çekirdeğini içeren bir bileşendir. Bellek ve çevresel birimler harici olarak bağlanır. Yüksek işlem gücü ve esnek yapı sunar.
-    - Harici RAM, ROM/Flash ve çevresel birimlere (GPIO, UART, SPI vb.) ihtiyaç duyar.
-    - Genellikle MMU (Memory Management Unit) içerir.
-    - Linux gibi işletim sistemlerini çalıştırabilir.
-    - PC’ler, sunucular ve embedded Linux tabanlı sistemlerde yaygın olarak kullanılır.
-- **MCU (Microcontroller Unit)**, tek bir entegre çipte işlemci çekirdeği + bellek + çevre birimleri (GPIO, timer, ADC, UART, I²C, SPI vb.) barındıran tam donanımlı gömülü sistem bileşenidir.
-    - **Dahili Bellek:** Flash/ROM (Program kodu depolama), SRAM (Veri ve stack alanı)
-    - **Çevresel Birimler:** GPIO, ADC, Timers/Counter, UART, SPI, I²C, CAN, USB vb. 
-    - **Avantajları:** Düşük maliyet, düşük güç tüketimi, tek kartta tüm bileşenler.
+| Terim | Açıklama |
+|-------|---------|
+| **ALU** | Aritmetik (toplama, çıkarma) ve mantıksal (AND, OR, XOR) işlemler |
+| **CU (Control Unit)** | Komutları sırayla okur, çözümler, kontrol sinyalleri üretir |
+| **Register** | CPU içindeki çok hızlı, küçük kapasiteli geçici depolama |
+| **Peripheral** | CPU çekirdeği dışında donanımsal iş yapan modüller (GPIO, UART, ADC…) |
+| **FPU** | Kayan nokta işlemlerini yazılım yerine donanımda yapar |
+| **T Bit** | İşlemcinin hangi komut setini çalıştırdığını belirler (ARM/Thumb) |
+| **PLL** | Düşük frekanslı giriş sinyalini çarparak yüksek frekans üretir |
+| **Callee-saved** | Fonksiyon kullanılan register'ları işi bitince eski haline getirir (R4–R11) |
 
-| Özellik |	MPU | 	MCU |
-|------|----------|-----------|
-| İşlemci |	Var (yalnızca çekirdek) | 	Var (çekirdek + çevresel birimler) |
-| Bellek	| Harici RAM/ROM |	Dahili Flash + SRAM |
-| Çevresel Birimler |	Harici eklentilerle sağlanır |	Dahili UART, GPIO, ADC, timer vb. modüller |
-| Kullanım Alanı	| PC, sunucu, yüksek performans	 | Gömülü sistem, IoT, otomotiv, endüstri |
+!!! danger "T Bit — HardFault Sebebi"
+    Cortex-M mimarisinde T Bit **her zaman 1** olmalıdır (Thumb modu). Yanlış adresleme veya hatalı fonksiyon işaretçisi T Bit'i 0'a düşürür → `HardFault`. LSB = 1 → Thumb, LSB = 0 → ARM (Cortex-M'de desteklenmez).
 
+---
 
-## AAPCS 
-- **AAPCS (ARM Architecture Procedure Call Standard)**, ARM mimarisinde fonksiyon çağrı sözleşmesini tanımlar. Amaçlar:
-    - **Parametre İletimi:** İlk dört parametre `r0–r3` register’larında, fazlası stack taşınır.
-    - **Geri Dönüş Adresi:** `lr` (link register) içinde saklanır.
-    - **Yığın Düzeni:** Yeni çerçevede önce geri dönüş adresi, sonra yerel register kurtarma alanı, en altta yerel değişkenler yer alır.
-    - **Kayıt Koru:** Callee‑saved (`r4–r11`) ve Caller‑saved (`r0–r3, r12, lr`) register’lar ayrıştırılır.
-- Bu standart, farklı derleyiciler ve kütüphaneler arasında uyum ve taşınabilirlik sağlar.
+## Bellek Mimarisi
 
+```mermaid
+graph TD
+    subgraph "ARM Cortex-M Adres Uzayı (4 GB)"
+        direction TB
+        F["0x0000_0000 – 0x1FFF_FFFF\nCode (Flash)"]
+        S["0x2000_0000 – 0x3FFF_FFFF\nSRAM"]
+        P["0x4000_0000 – 0x5FFF_FFFF\nPeripheral Register"]
+        R["0xE000_0000 – 0xE00F_FFFF\nSystem (NVIC, SysTick, ITM)"]
+    end
+    F --> S --> P --> R
+    style F  fill:#BBDEFB
+    style S  fill:#C8E6C9
+    style P  fill:#FFE0B2
+    style R  fill:#EDE7F6
+```
 
-## Memory
-- **Stack Memory:** Fonksiyon çağrıldığında bellek ayrılır, fonksiyon bittiğinde otomatik olarak geri verilir.
-    - **Yerel Değişkenler:** Fonksiyonlara ait yerel değişkenler ve dönüş adresleri stack üzerinde tutulur.
-    - **Yapı:** Her fonksiyon çağrısı için ayrı bir *stack frame* oluşturulur.
-    - **Sınır:** Boyutu sınırlıdır; kontrolsüz kullanım *stack overflow* hatasına yol açabilir.
+### Stack Belleği
 
-- **Heap Memory:**  Bellek, çalışma zamanı sırasında `malloc`, `calloc`, `new` gibi fonksiyonlarla ayrılır.
-    - **Yaşam Süresi:** Açıkça serbest bırakılana (`free`, `delete`) kadar bellekte kalır.
-    - **Kullanım Alanı:** Boyutu önceden bilinmeyen veri yapıları ve uzun ömürlü nesneler için kullanılır.
-    - **Risk:** Yanlış yönetim bellek sızıntılarına (*memory leak*) ve parçalanmaya (*fragmentation*) neden olabilir.
+| Pointer | Kullanım Alanı | Mod |
+|---------|---------------|-----|
+| **MSP** (Main Stack Pointer) | Kesme (ISR) ve sistem başlatma | Privileged |
+| **PSP** (Process Stack Pointer) | RTOS thread'leri; her task kendi PSP'sine sahip | Thread (user) |
 
-- ARM Cortex‑M işlemcide iki ayrı stack kullanılır:
-    - **MSP (Main Stack Pointer):** Sistem başlangıcında yığını MSP yönetir.
-    - **PSP (Process Stack Pointer):** OS/RTOS kullanıldığında, her thread kendi PSP yığınına sahip olabilir.
+```c
+/* PSP kullanımı (CMSIS) */
+__set_PSP(0x20002000);
+__set_CONTROL(__get_CONTROL() | 2);  /* SPSEL = 1 → PSP seç */
+```
 
-!!! example "Bilgi"
-    | İşaretçi	| Kullanım Alanı	| Mod |
-    |------|----------|-----------|
-    | MSP	| Kesme servis rutinleri ve sistem başlatma |	Privileged (kernel) |
-    | PSP	| Uygulama kodu ve thread işlemleri	| Thread (user) |
+### Heap Belleği
 
-    ```c
-    // PSP kullanımı örneği (CMSIS)
-    __set_PSP(0x20002000);       // PSP başlangıç adresini ayarla
-    __set_CONTROL(__get_CONTROL() | 2); // CONTROL register’da SPSEL bit’i = 1 (PSP seç)
-    ```
+!!! warning "Gömülü Sistemlerde Heap Kullanımı"
+    `malloc`/`free` çağrıları deterministik değildir ve bellek parçalanmasına (fragmentation) yol açabilir. Kritik güvenlik sistemlerinde ve sıkı gerçek zamanlı uygulamalarda heap kullanımından kaçınılır; statik tampon ve memory pool tercih edilir.
 
+---
 
-## Bit-Banding
-- **Bit‑Banding**, belirli bellek bölgesindeki her biti ayrı bir adrese eşler. Böylece tek adımla tek bir biti set/clear edebilirsiniz:
-- Memory Region: 0x20000000–0x200FFFFF
-- Alias Region: 0x22000000–0x23FFFFFF
-- Hesaplama Formülü: `alias_addr = alias_base + (byte_offset × 32) + (bit_number × 4)`
+## AAPCS (ARM Procedure Call Standard)
 
-| Register |	Açıklama |
-|-----|---------------|
-| ODR	| Output Data Register (çıkış verisi) |
-| IDR	| Input Data Register (giriş verisi) |
-| BSRR	| Bit Set/Reset Register (set ve reset için) |
-| BRR	| Bit Reset Register (sadece reset için) |
+```mermaid
+graph LR
+    A["Çağıran (Caller)"] -->|"R0–R3\nParametreler"| B["Çağrılan (Callee)"]
+    B -->|"R0 (–R1)\nDönüş Değeri"| A
+    A -->|"Stack\n5. param ve sonrası"| B
+```
 
+| Register Grubu | Roller | Kim Korur? |
+|----------------|--------|-----------|
+| R0 – R3 | Parametre + dönüş değeri | Caller-saved (caller korumalı) |
+| R4 – R11 | Genel amaçlı uzun ömürlü | Callee-saved (callee korumalı) |
+| R12 (IP) | Geçici / derleyici ara değeri | Caller-saved |
+| SP (R13) | Stack pointer | Otomatik |
+| LR (R14) | Geri dönüş adresi | Caller-saved |
+| PC (R15) | Program counter | Otomatik |
 
-## Access Levels 
-Gömülü sistemlerde erişim seviyeleri, kodun hangi modda çalıştığını ve hangi kaynaklara erişebileceğini belirler
-
-| Mod	| Açıklama |
-|----|----|
-| Handler Mode	| Kesme ve istisna işleyicilerinin (ISR) çalıştığı, her zaman ayrıcalıklı modu. |
-| Thread/User Mode |	Normal uygulama kodunun çalıştığı mod; ister ayrıcalıklı, ister kısıtlı olabilir. |
-| PAL (Privileged Access) |	Tüm sistem kaynaklarına tam erişime izin verir (örn. donanım kontrolü). |
-| NPAL (Non‑Privileged) |	Korunan belleğe ve kritik birimlere erişimi sınırlandırır. |
-
+---
 
 ## NVIC (Nested Vectored Interrupt Controller)
-ARM Cortex‑M mikrodenetleyicilerinde kesme yönetimini üstlenen donanım modülüdür:
 
-- **Vectored Interrupts:** Her kesme kaynağı için önceden tanımlı vektör tablosu (ISR adresleri).
-- **Öncelik Seviyeleri:** 0 (en yüksek) → 255 (en düşük) arası öncelik atayarak, kritik kesmelere öncelik verebilirsiniz.
-- **Nesting (İç İçe Kesme):** Daha yüksek öncelikli kesme, daha düşük öncelikli bir ISR çalışırken bile tetiklenip işlenebilir.
-- **Enable/Disable:** İstediğiniz kesmeyi `NVIC_EnableIRQ(IRQn)` ve `NVIC_DisableIRQ(IRQn)` ile kontrol edebilirsiniz.
+ARM Cortex-M kesme yönetim donanımıdır.
 
-## RCC - HSI - HSE 
-- **RCC (Reset and Clock Control)**, mikrodenetleyicideki tüm modüllere saat (clock) sinyallerini sağlayan ve donanım-software sıfırlama (reset) işlemlerini yöneten merkezi bir birimdir.
-    - **Saat Kaynak Seçimi:** Dahili osilatör (HSI), harici kristal (HSE) veya PLL (Phase‑Locked Loop) kullanımı
-    - `AHB, APB1/APB2` gibi bus’lar için bölme (prescaler) değerlerini ayarlar
-    - **PLL** parametreleriyle sistem saat hızını (SYSCLK) optimize eder
-    - **Güç Tüketimi:** Düşük güçlü modlar için clock gating (kullanılmayan modülleri durdurma)
-    - Sistem reset’i, güç reset’i, bağımsız watchdog reset’i gibi kaynakları kontrol eder
-    - Her modülün reset bit’ini (örneğin `RCC_APB1RSTR`) yazarak o çevresel birimi yeniden başlatır
-- **HSI (High-Speed Internal) Oscillator:** MCU içinde entegre edilmiştir (Dahili osilatör).
-    - **Frekans:** STM32 modellerine göre genellikle 8 MHz veya 16 MHz.
-    - **Avantaj:** Harici kristal gerekmez, hızlı başlar ve düşük güç tüketir.
-    - **Dezavantaj:** Doğruluğu `±1 %` civarında; hassas zamanlama gerektiren protokoller için ideal değil.
-- **HSE (High-Speed External) Oscillator:** Harici kristal veya dış saat sinyali kullanır.
-    - **Desteklenen frekans:** 4 MHz – 25 MHz
-    - **Avantaj:** Çok daha kararlı ve doğru saat kaynağı.
-    - **Kullanım:** USB, CAN, SDIO, yüksek hızlı UART gibi hassas zamanlama gerektiren iletişimler.
+| Özellik | Açıklama |
+|---------|---------|
+| **Vectored** | Her kesme için vektör tablosunda önceden tanımlı ISR adresi |
+| **Nested** | Yüksek öncelikli kesme, düşük öncelikli ISR'ı kesebilir |
+| **Öncelik** | 0 (en yüksek) → 255 (en düşük); sayı küçüldükçe öncelik artar |
+| **Enable/Disable** | `NVIC_EnableIRQ(IRQn)` / `NVIC_DisableIRQ(IRQn)` |
 
+!!! note "Sabit Öncelikli İstisnalar"
+    Reset (-3), NMI (-2), HardFault (-1) sabittir ve değiştirilemez; diğer kesmelerin önceliği yazılımla ayarlanabilir.
 
-## AHB - APB 
-- **AHB (Advanced High-performance Bus):**, ARM AMBA (Advanced Microcontroller Bus Architecture) ailesinin yüksek hızlı veri yolu katmanıdır. Özellikleri:
-    - **Yüksek Bant Genişliği:** Burst transfer desteği sayesinde ardışık veri bloklarını kesintisiz taşır.
-    - **Düşük Gecikme:** Pipeline mimarisiyle her döngüde bir transfer başlatılabilir.
-    - **Multi‑Master Desteği:** Birden fazla bus master (ör. DMA, CPU) arasında arbitraj yaparak kontrolü paylaşır.
-    - **Ana işlemci (CPU)** ve **DMA** birimi doğrudan AHB’ye bağlıdır.
-    - **Sistem bellekleri** (SRAM/Flash) ve sabit bellek arayüzleri genellikle AHB üzerinden erişilir.
+---
 
-- **APB (Advanced Peripheral Bus):**, AMBA ailesinin düşük hızlı çevre birimleri için tasarlanmış basitleştirilmiş veri yoludur:
-    - **Düşük Karmaşıklık:** Tek döngülü, pipelineless tasarım; aracılar (bridges) üzerinden AHB’ye bağlanır.
-    - **Düşük Güç Tüketimi:** Çevresel birimleri gerektikçe uyandıracak şekilde çalışır.
-    - **Tipik Kullanım:** UART, SPI, I²C, Timer’lar gibi düşük hızlı algılayıcı ve kontrol modülleri APB üzerinde yer alır.
+## RCC — HSI — HSE — PLL
 
-| Özelikler | **AHP** | **APB** |
-| --- | --- | --- |
-| Hız | Yüksek hızda veri iletimi | Düşük hızda veri iletimi |
-| Veri Transferi | Burst transfer, pipelining, yüksek hız | Tek veri transferi, basit iletişim |
-| Yapı | Karmaşık, daha fazla donanım gereksinimi | Basit, düşük maliyetli |
-| Gecikme | Düşük gecikme | Yüksek gecikme |
-| Uygulama Alanları |  CPU, DMA, bellek arayüzleri, büyük veri transferi | Çevre birimleri (UART, I2C, GPIO, Timer vb.) ile iletişim |
-| Bağlantı Tipi | Master/slave yapısı, daha karmaşık bağlantılar | Basit veri iletimi ve bağlantılar
-| Güç Tüketimi | Yüksek güç tüketimi | Düşük güç tüketimi |
+```mermaid
+graph LR
+    HSI[HSI\n8/16 MHz\nDahili RC] --> MUX{Clock Mux}
+    HSE[HSE\n4–25 MHz\nHarici Kristal] --> PLL --> MUX
+    HSE --> MUX
+    MUX --> SYSCLK[SYSCLK]
+    SYSCLK --> |AHB Prescaler| AHB[AHB Bus]
+    AHB --> |APB1 Prescaler| APB1[APB1 Bus\n≤42 MHz]
+    AHB --> |APB2 Prescaler| APB2[APB2 Bus\n≤84 MHz]
 
+    style HSI fill:#FFF9C4
+    style HSE fill:#DCEDC8
+    style PLL fill:#BBDEFB
+    style SYSCLK fill:#F8BBD0
+```
 
-## Burst Transfer
-- Yüksek hızlı veri yollarında ardışık ve blok halinde veri iletimi sağlayan yöntemdir:
-- **Blok İletimi:** Birçok küçük hatta tek tek veri yerine, büyük bir veri bloğu peş peşe aktarılır.
-- **Verimlilik:** Her küçük veri paketi için ayrı başlatma/durdurma/idare işlemi yapılmaz; başlatma/durdurma maliyeti tek seferde ödenir.
-- **Düşük Gecikme:** Pipeline desteğiyle, her clock döngüsünde yeni bir veri kelimesi transfer edilebilir.
-- **Yüksek Bant Genişliği:** Burst modunda, topyekûn aktarım hızında ciddi artış sağlar.
+| Kaynak | Tip | Doğruluk | Kullanım |
+|--------|-----|:--------:|---------|
+| **HSI** | Dahili RC | ±1 % | Hızlı başlatma, genel amaçlı |
+| **HSE** | Harici kristal | < 100 ppm | USB, CAN, hassas UART |
+| **LSI** | Dahili RC, 32 kHz | Düşük | IWDG, RTC (düşük hassasiyet) |
+| **LSE** | Harici 32.768 kHz | Çok yüksek | RTC (yüksek hassasiyet) |
+| **PLL** | HSI/HSE tabanlı çarpan | HSE kadar | Yüksek sistem frekansı |
+
+---
+
+## AHB — APB Bus Mimarisi
+
+```mermaid
+graph TD
+    CPU[CPU\nCortex-M4] -->|I-Bus| FLASH[Flash Memory]
+    CPU -->|D-Bus| SRAM[SRAM]
+    CPU -->|S-Bus| AHB[AHB Matrix]
+    DMA[DMA] --> AHB
+    AHB -->|Bridge| APB1[APB1\nUART, SPI, I2C, TIM2-7]
+    AHB -->|Bridge| APB2[APB2\nADC, TIM1, SPI1, USART1]
+    AHB --> GPIO[GPIO]
+    AHB --> USB[USB OTG]
+```
+
+| Özellik | AHB | APB |
+|---------|:---:|:---:|
+| Hız | Yüksek (burst, pipeline) | Düşük (basit, pipelinesız) |
+| Gecikme | Düşük | Yüksek |
+| Karmaşıklık | Yüksek | Düşük |
+| Güç | Yüksek | Düşük |
+| Tipik bağlılar | CPU, DMA, GPIO, USB | UART, SPI, I2C, Timer |
+
+---
+
+## Bit-Banding
+
+Belirli bir bellek bölgesindeki her bit için ayrı alias adresi üretir; RMW (Read-Modify-Write) döngüsünü atomik tek yazıya indirir.
+
+| Bölge | Gerçek Adres | Alias Başlangıcı |
+|-------|:------------:|:---------------:|
+| SRAM | 0x2000_0000 – 0x200F_FFFF | 0x2200_0000 |
+| Peripheral | 0x4000_0000 – 0x400F_FFFF | 0x4200_0000 |
+
+```c
+/* Alias adresi hesabı */
+#define BB_ADDR(base, byte_off, bit) \
+    ((base##_BB) + (byte_off)*32 + (bit)*4)
+
+/* GPIOA ODR bit 5 = Alias adresi üzerinden atomic set */
+*(volatile uint32_t*)BB_ADDR(PERIPH, 0x40020014 - 0x40000000, 5) = 1;
+```
+
+!!! note "Cortex-M7 ve Sonrası"
+    Bit-Banding Cortex-M0/M0+/M3/M4/M4F'te desteklenir. Cortex-M7 ve M23/M33'te kaldırılmıştır; yerini atomik `LDREX/STREX` ve C11 `_Atomic` almaktadır.
+
+---
+
+## Erişim Seviyeleri ve Modlar
+
+```mermaid
+stateDiagram-v2
+    [*] --> Thread_Privileged : Reset
+    Thread_Privileged --> Thread_Unprivileged : CONTROL.nPRIV = 1
+    Thread_Unprivileged --> Thread_Privileged : SVC (Supervisor Call)
+    Thread_Privileged --> Handler_Mode : Interrupt / Exception
+    Thread_Unprivileged --> Handler_Mode : Interrupt / Exception
+    Handler_Mode --> Thread_Privileged : EXC_RETURN
+```
+
+| Mod | Erişim | Açıklama |
+|-----|:------:|---------|
+| **Handler Mode** | Privileged (zorunlu) | ISR ve exception handler'lar |
+| **Thread — Privileged** | Tam erişim | Kernel kodu, RTOS kodu |
+| **Thread — Unprivileged** | Kısıtlı | Kullanıcı uygulama kodu (MPU korumalı) |
+
+---
 
 ## ISR (Interrupt Service Routine)
 
-- **interrupt** oluştuğunda otomatik olarak çağrılan kesme işleyici fonksiyonudur. Ana program akışı duraklar, **ISR** çalışır, sonra ana programa döner.
-- CPU **LR** (link register) içerisine dönüş adresini kaydeder
-- Kesme kaynağı bayrağını temizleyip (ör. `EXTI->PR |= …`) ilgili işlemi yapar
-- **R0–R12** → Genel amaçlı register’lar
-- **SP** (Stack Pointer) → Geçici veri ve ISR dönüş adresi
-- **LR** (Link Register) → ISR öncesi dönüş adresi
-- **PC** (Program Counter) → Bir sonraki yürütülecek komut
+```mermaid
+sequenceDiagram
+    participant MAIN as Ana Program
+    participant HW as Donanım
+    participant NVIC as NVIC
+    participant ISR as ISR
 
-
-## SVC (Supervisor Call)
-
-Yazılım kesmesi (`svc`) aracılığıyla kullanıcı uygulamasından çekirdek veya RTOS hizmetlerine (ör. bellek ayırma, görev oluşturma) erişim sağlar.
-
-```asm
-SVC #5    ; SVC numarası 5 ile çekirdek çağrısı
+    MAIN->>MAIN: Normal çalışma
+    HW->>NVIC: Kesme sinyali
+    NVIC->>MAIN: Durdur, R0-R3 + LR stack'e kaydedilir
+    NVIC->>ISR: PC → ISR adresine atla
+    ISR->>ISR: Bayrağı temizle, işle
+    ISR->>MAIN: EXC_RETURN → Kaldığı yerden devam
 ```
+
+!!! danger "ISR Tasarım Kuralları"
+    - ISR mümkün olduğunca **kısa** tutulmalı; ağır işler ana döngüye veya RTOS task'ına bırakılmalı.
+    - ISR içinde `while()` veya bloklu bekleme **kesinlikle yasak**.
+    - Kesme bayrağı temizlenmezse ISR sürekli tetiklenir (interrupt storm).
+    - ISR ile paylaşılan veriler `volatile` ile işaretlenmelidir.
+
+---
+
+## SVC (Supervisor Call) ve Debug Arayüzleri
+
+### SVC
+
+Kullanıcı kodundan kernel/RTOS servislerine güvenli geçiş yöntemi:
 
 ```c
-__ASM("svc 5");
+__ASM("svc 5");   /* SVC #5 ile kernel çağrısı */
 ```
 
-## SWD (Serial Wire Debug)
-- ARM Cortex‑M programlama ve hata ayıklama amacıyla kullanılan, az (2) pinli (SWDIO, SWCLK) ve düşük overhead’li bir debug arayüzüdür.
-- **Düşük pin sayısı** ile JTAG’a göre avantajlı
-- Gerçek zamanlı bellek okuma/yazma, register izleme
-- **SWO** (Serial Wire Output) ile trace mesajlarını aktarır
+### SWD vs JTAG
 
-## JTAG (Joint Test Action Group)
-- Elektronik bileşenlerin test ve hata ayıklama standardıdır:
-- 4 - 5 pinli protokol (TCK, TMS, TDI, TDO, TRST)
-- Boundary‑scan test, IC programlama, çekirdek debug
-- SWD’ın alt kümesi olarak bazı ARM çekirdeklerinde desteklenir
-- JTAG, çoklu cihaz desteği ve **boundary-scan** gibi üretim odaklı yetenekler sunduğu için vardır; SWD ise ARM mikrodenetleyicilerde aynı debug işlevlerini daha az pinle sağlamak amacıyla geliştirilmiş bir alternatiftir
+| Özellik | JTAG | SWD |
+|---------|:----:|:---:|
+| Pin sayısı | 4–5 | 2 (SWDIO, SWCLK) |
+| Zincirleme | ✓ (daisy-chain) | ✗ |
+| ARM Cortex-M | ✓ | ✓ (tercih edilen) |
+| Trace çıkışı | ✓ (ETM) | ✓ (SWO) |
+| Kullanım | FPGA, üretim testi | MCU debug |
 
-|  | **JTAG** | **SWD** |
-| --- | --- | --- |
-| **Pin Sayısı** | 5-6 pin | 2 pin |
-| **Temel Pinler** | TDI, TDO, TMS, TCK, TRST (opsiyonel) | SWDIO, SWCLK |
-| **Zincirleme Desteği** | Var, birden fazla cihazı zincirleme olarak bağlayabilir | Yok, her cihaz için ayrı bağlantı gereklidir |
-| **Hız ve Performans** | Daha fazla veri iletimi, daha yüksek hız, ancak karmaşık sistemlerde yavaş olabilir | Daha hızlı veri iletimi, düşük pin sayısı ile daha hızlı sonuç alabilirsiniz |
-| **Karmaşıklık** | Daha karmaşık, çok sayıda pin ve yapılandırma gerektirir | Daha basit, düşük pin sayısı ve yapılandırma gerektirir |
-| **Kullanım Alanları** | Daha büyük ve karmaşık sistemler, FPGA'lar, bellekler, CPU'lar | ARM Cortex-M mikrodenetleyiciler, düşük pinli yapılar |
-| **Debugging Yeteneği** | Kapsamlı debugging, register işlemleri ve sistem izleme | Temel debugging, register okuma/yazma, programlama |
-| **Zamanlayıcı Desteği** | Yüksek hızda test ve iletişim gerektiren sistemler için uygundur | Düşük pin sayısı ile hızlı hata ayıklama sağlar |
-| **Enerji Tüketimi** | Daha fazla enerji tüketebilir, daha fazla pin kullanıldığı için | Daha az enerji tüketir, çünkü sadece 2 pin kullanılır |
-| **Karmaşık Sistemler İçin Uygunluk** | Yüksek hızda ve karmaşık sistemlerde kullanılır | Daha basit ve düşük pin sayısına sahip sistemler için uygundur |
+!!! note "OpenOCD"
+    OpenOCD (Open On-Chip Debugger), JTAG/SWD üzerinden mikrodenetleyici programlama ve debug yapılmasını sağlayan açık kaynaklı debug sunucusudur. GDB ile birlikte `arm-none-eabi-gdb` + OpenOCD + ST-Link/J-Link üçlüsü tipik geliştirme ortamını oluşturur.
 
-!!! note "Not"
-    OpenOCD (Open On-Chip Debugger), mikrodenetleyici ve SoC’lere JTAG/SWD üzerinden programlama ve hata ayıklama yapılmasını sağlayan açık kaynaklı bir debug sunucusudur.
+---
 
 ## ITM (Instrumentation Trace Macrocell)
-- ITM, ARM Cortex‑M tabanlı mikrodenetleyicilerde yerleşik olarak bulunan, **gerçek zamanlı izleme** ve **hata ayıklama** altyapısıdır:
-- **Gerçek Zamanlı İzleme:** Kodunuzun akışını, fonksiyon çağrılarını veya değişken değerlerini canlı olarak “trace” edebilirsiniz.
-- **Düşük Gecikme:** `SWO` (Serial Wire Output) pininden taşan veriyi, sistem performansını etkilemeden aktarır.
-- **Performans Analizi:** Zaman damgalı etiketler (timestamps) sayesinde hangi kod bloğunun ne kadar sürdüğünü ölçebilir, darboğazları hızla tespit edebilirsiniz.
-- **Özelleştirilebilir Paketler:** Hem ARM tarafından tanımlı standart trace paketlerini hem de kendi veri formatlarınızı kullanabilirsiniz.
-- Zamanlama hatalarını keşfetme
-- Döngü sayımlarını ve iş parçacıkları arasındaki geçişleri izleme
-- Kalıcı log alınamayan gerçek zamanlı sistemlerde debug
 
-!!! note "Not"
-    Cortex-M0/M0+/M1/M2 çekirdekleri düşük alan ve maliyet odaklı tasarlandığı için CoreSight debug altyapısını (ITM, DWT, ETM) içermez; Cortex-M3 ve sonrası ise ileri seviye debug ve izleme (trace) gereksinimleri nedeniyle ITM’ye geçmiştir.
+ARM Cortex-M3 ve üzeri çekirdeklerde bulunan, **UART kullanmadan** SWO pini üzerinden gerçek zamanlı log ve trace gönderme altyapısı.
 
-## GPIO  - Nibble
-- Mikrodenetleyici veya işlemci üzerinde bulunan; dijital giriş (input) veya dijital çıkış (output) olarak yapılandırılabilen, donanım seviyesinde kontrol edilen genel amaçlı pinlerdir.
-- 4 bitten oluşan bir veri birimidir → 0000–1111 (hex’de 0–F)
-    - **MSB (Most Significant Bit)** en soldaki bittir
-    - **LSB (Least Significant Bit)** en sağdaki bittir.
-- `&` Bitwise And, `|` Bitwise Or, `^` Bitwise XOR
-- `~` Bitwise NOT, `<<` Bitwise Shift Left, `>>` Bitwise Shift Right
+```mermaid
+graph LR
+    SW[printf / ITM_SendChar] --> ITM[ITM Stimulus Port 0]
+    ITM --> SWO[SWO Pin]
+    SWO --> ST_LINK[ST-Link / Debug Probe]
+    ST_LINK --> IDE[SWV ITM Data Console\nSTM32CubeIDE]
+```
 
-## Cross Compiler 
-- Bir x86 veya macOS/Windows gibi “geliştirme host” makinenizde çalışıp, farklı bir “hedef” platform (ör. ARM Cortex‑M) için derlenmiş kod üreten derleyicidir. En yaygın örnek:
+!!! note "Cortex-M0/M0+/M1 ITM Yoktur"
+    Bu çekirdekler alan ve maliyet odaklı tasarlandığından CoreSight debug altyapısı (ITM, DWT, ETM) içermez. M3 ve sonrasında kullanılabilir.
+
+---
+
+## GPIO — Nibble — Bit İşlemleri
+
+| Terim | Açıklama |
+|-------|---------|
+| **Nibble** | 4 bit; 0x0–0xF arası hex değer |
+| **MSB** | Most Significant Bit — en soldaki bit |
+| **LSB** | Least Significant Bit — en sağdaki bit |
+
+| Operatör | İşlem |
+|----------|-------|
+| `&` | Bitwise AND — bit maskeleme için |
+| `\|` | Bitwise OR — bit set için |
+| `^` | Bitwise XOR — bit toggle için |
+| `~` | Bitwise NOT — tüm bitleri çevirir |
+| `<<` | Bit sola kaydır |
+| `>>` | Bit sağa kaydır |
+
+```c
+/* Set, Clear, Toggle kalıpları */
+REG |=  (1 << N);    /* Bit N'yi SET et         */
+REG &= ~(1 << N);    /* Bit N'yi CLEAR et       */
+REG ^=  (1 << N);    /* Bit N'yi TOGGLE et      */
+bit = (REG >> N) & 1; /* Bit N'yi oku           */
+```
+
+---
+
+## Cross Compiler
+
+Geliştirme ortamında (x86/macOS/Windows) çalışıp hedef mimari (ARM Cortex-M) için kod üreten derleyici.
 
 ```
 arm-none-eabi-gcc
 │   │    │      └─ gcc (GNU Compiler Collection)
 │   │    └─ eabi (Embedded Application Binary Interface)
-│   └─ none (OS yok: bare‑metal)
+│   └─ none (İşletim sistemi yok — bare-metal)
 └─ arm (ARM mimarisi)
 ```
 
-- Çıktı Dosya Biçimleri
-    - **ELF (.elf):** Çalıştırılabilir, simge tablosu ve debug bilgisi içerir. (Linux/Unix standardı)
-    - **HEX (.hex):** Intel HEX formatı; her satırda adres + byte dizisi ASCII olarak saklanır. Mikrodenetleyici bootloader’larına uygundur.
-    - **BIN (.bin):** Saf makine kodu; hiçbir meta‑veri içermez, doğrudan belleğe veya flash’a yazılır.
-- **Tipik Derleme Akışı**
-    - `arm-none-eabi-gcc -c main.c -o main.o` → Derleme
-    - `arm-none-eabi-ld main.o -T linker_script.ld -o firmware.elf` → Bağlama
-    - `arm-none-eabi-objcopy -O ihex firmware.elf firmware.hex` → HEX’e dönüştürme
-    - `arm-none-eabi-objcopy -O binary firmware.elf firmware.bin` → BIN’e dönüştürme
-
+| Çıktı Formatı | Uzantı | Açıklama |
+|---------------|:------:|---------|
+| ELF | `.elf` | Debug bilgisi + sembol tablosu; GDB ile kullanılır |
+| Intel HEX | `.hex` | ASCII kodlu; bootloader ile flashing |
+| Binary | `.bin` | Saf makine kodu; doğrudan flash adresine yazılır |
 
 ```mermaid
 graph LR
-  A[main.c] --> |Preprocessor| B{main.i};
-  B --> |Parser| C[Code generator];
-  C --> D[main.s];
-  D --> |Assembler| E[main.o];
-  E --> |Linker| F[Debug File .elf];
-  F --> |Objcopy Tool| H["(.bin)"]
-  G["Other Lib (.a)"] --> |Linker| F["Debug File (.elf)"];
+    A[main.c] -->|Preprocessor| B[main.i]
+    B -->|Parser + Codegen| C[main.s]
+    C -->|Assembler| D[main.o]
+    LIB[stdlib.a\nCustom Lib] --> E
+    D -->|Linker LD Script| E[firmware.elf]
+    E -->|objcopy| F[firmware.hex]
+    E -->|objcopy| G[firmware.bin]
+    style E fill:#BBDEFB
+    style F fill:#C8E6C9
+    style G fill:#FFE0B2
 ```
 
+```bash
+arm-none-eabi-gcc   -mcpu=cortex-m4 -mthumb -c main.c -o main.o
+arm-none-eabi-ld    main.o -T linker.ld -o firmware.elf
+arm-none-eabi-objcopy -O ihex   firmware.elf firmware.hex
+arm-none-eabi-objcopy -O binary firmware.elf firmware.bin
+arm-none-eabi-size  firmware.elf   # Flash ve RAM kullanımı
+```

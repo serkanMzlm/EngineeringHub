@@ -1,501 +1,484 @@
-
 # Terminal Komutları
 
-## **File & Directory Operations**
-- `pwd` , `touch` , `mv` , `ls` , `tree` , `cat`  , `find`, `cp`
-- **`cd`:** `.` bulunduğun dizin, `..` bir üst dizin, `-` bir önce ki dizin, `~` home
-- `rmdir` Boş dizini siler.
-- `ln` Hard veya sembolik link oluşturur. `-s` sembolink link, `-i` hard link
-- `file` : Bir dosyanın **gerçek türünü** içeriğini analiz ederek belirler. Dosyanın uzantısına güvenilmez
-- `stat` : `ls -l` göre daha detaylı dosya meta bilgilerini gösterir.
-- `install`: Genellikle **`build` ve `deployment`** süreçlerinde kullanılan, `cp + chmod + chown` birleşimi bir komuttur
-- `less` , `more` , `head` , `tail`
-    - `less` : Büyük dosyaları **sayfalı**, **scroll edilebilir** ve **arama destekli** şekilde görüntüler.
-    - `more` :`less`’in daha eski ve sınırlı versiyonudur. Sadece ileri yönde sayfalama yapar.
-- `locate` : Önceden oluşturulmuş bir **dosya indeksini** kullanarak arama yapar. `find`’e göre çok hızlıdır; ancak **gerçek zamanlı değildir**.   
-- `which` : Bir komut çağrıldığında **shell’in PATH environment variable** üzerinden **hangi executable dosyayı çalıştıracağını** gösterir
-- `whereis`  : Bir komutun **binary**, **source** ve **manual** dosyalarının olası konumlarını birlikte listeler. `which`’ten farklı olarak **PATH** ile sınırlı değildir; standart dizinlerde arama yapar.
-- `readlink`  Bu komut sayesinde link edilmiş bir dosyanın gerçek konumunu gösterir.
+!!! note "Genel Bakış"
+    Linux komut satırı araçlarının kategori bazlı referans kılavuzu. Her komut için açıklama ve en yaygın kullanım örnekleri verilmiştir. Etkileşimli yardım için `man <komut>` veya `<komut> --help` kullanın.
+
+---
+
+## Dosya ve Dizin İşlemleri
+
+| Komut | Açıklama |
+|-------|---------|
+| `pwd` | Mevcut dizin yolunu gösterir |
+| `cd` | Dizin değiştirir |
+| `ls` | Dizin içeriğini listeler |
+| `mkdir` | Dizin oluşturur |
+| `rmdir` | Boş dizin siler |
+| `touch` | Boş dosya oluşturur veya tarih günceller |
+| `cp` | Dosya/dizin kopyalar |
+| `mv` | Dosya taşır veya yeniden adlandırır |
+| `rm` | Dosya/dizin siler |
+| `ln` | Link oluşturur (-s: sembolik, -i: hard) |
+| `file` | Dosyanın gerçek türünü içerik analizi ile belirler |
+| `stat` | Ayrıntılı dosya meta bilgileri |
+| `tree` | Dizin yapısını ağaç şeklinde gösterir |
+| `readlink` | Sembolik linkin gerçek hedefini gösterir |
+| `install` | Kopyalama + izin + sahip atama birleşimi |
 
 ```bash
-ls -t              # zamana göre sıralar
-ls -S              # boyuta göre sıralar
+# cd kullanımı
+cd ~              # Home dizini
+cd -              # Önceki dizin
+cd ../..          # İki üst dizin
 
-tree  -d           # sadece dizinleri gösterir
-tree  -h           # boyutları gösterir 
+# ls bayrakları
+ls -la             # Gizli dahil tüm dosyalar + detay
+ls -lh             # İnsan okunabilir boyut
+ls -lt             # Zamana göre sırala (yeni önce)
+ls -lS             # Boyuta göre sırala (büyük önce)
+ls -R              # Alt dizinleri de listele
 
-rm -i <file>       # silmeden önce onay ister
-rm -rf             # Belirtilen her şeyi siler
-rm -rf  !(a.txt)   # a.txt dışında dosyaları siler.
+# mkdir
+mkdir -p a/b/c    # İç içe dizin oluşturur
 
-cat -n <file>      #satır numarası ekler
+# rm
+rm -rf dizin/     # Zorla sil
+rm -i dosya.txt   # Silmeden önce onay sor
+rm -rf !(a.txt)   # a.txt dışında her şeyi sil
 
-find . -type d -name "log"   # Dosya türüne göre filtreler (file, directory, link).
-find /var -size +10M         # Dosya boyutuna göre arama yapar.
+# cp
+cp -r src/ dst/   # Dizini özyinelemeli kopyala
+cp -p dosya dst   # İzin ve tarihleri koru
+cp -l dosya link  # Hard link olarak kopyala
 
-cp -r <dir> <copy>  # Dizinleri ve içinde bulunan her şeyi kopylamayı sağlar. 
-cp -l <file> <copy> # Kopyalama işlemini link şeklinde yapar.
+# ln
+ln -s /hedef /link_adı    # Sembolik link
+ln kaynak link             # Hard link
 
-mv a.txt /home/       # Dosya taşıma
-mv a.txt b.txt        # Dosyanın ismini değiştirme
+# tree
+tree -d            # Sadece dizinleri göster
+tree -h            # Boyutları göster
+tree -I ".git"     # Belirli kalıbı hariç tut
 
-mkldir -p dizin/dizin      # İç içe dizin  oluşturur.
-
-cat a.txt                      # içeriği gösterir  
-cat > a.txt                    # a dosaysını oluşturup içine yazı yazmamızı sağlarla
-cat >> a.txt                   # a dosyası varsa üstüne yazmamızı sağlar.
-cat a.txt >  b.txt             # a dosaysını b dosyasına kopyalar.
-cat a.txt >> b.txt             # a dosaysını b dosyasının üstüne yazar.
-
-install -m 755 app ~/app               # permission set eder
-install -d /etc/myapp                  # dizin oluşturur
-sudo install -o root app ~/app         # owner belirler
-sudo install -o myuser app ~/app       # dizin oluşturur
-
-dmesg | less
-less large.log
-
-head -c 100 <file>  # Dosya başından byte sayısına göre çıktı verir.
-tail -c 100 <file>  # Dosya sonundan byte sayısına göre çıktı verir.
-
-locate -i network   # Büyük/küçük harf duyarsız arama
-updatedb            # locate komutunun datebase günceller.
-
-
-find . -size +100M        # 100mb büyük dosyaları arar
-find . -type f -perm 0777 # Belirtilen izinlere sahip dosyaları bulur.
-find . --name *.gz        # gz uzantılı dosyaları bulur.
-find . -mtime 3           # 3 gün içinde değişiklik yapılan dosyaları bulur.
-
-which ls
-which -a gcc    # Tüm eşleşmeleri gösterir
-
-whereis ls
-whereis -b gcc  # Sadece binary dosyaları gösterir.
+# install
+install -m 755 app /usr/local/bin/    # İzinli kopyala
+install -d /etc/myapp                  # Dizin oluştur
 ```
 
-## **Arşivleme ve Sıkıştırma**
+---
 
-- `tar` , `gzip` , `gunzip` ,  `zip` , `unzip` , `xz` , `7z`
-- `truncate` Dosyayı belirtilen boyuta keser.
-- `zcat` : `.gz` dosyasının içeriğini **diskte açmadan** stdout’a basar. Log analizi ve pipe senaryolarında idealdir.  
+## Dosya Görüntüleme
+
+| Komut | Açıklama |
+|-------|---------|
+| `cat` | Dosya içeriğini ekrana basar |
+| `less` | Sayfalı, aranabilir görüntüleme |
+| `more` | `less`'in eski ve sınırlı hali |
+| `head` | Dosyanın başını gösterir (varsayılan: 10 satır) |
+| `tail` | Dosyanın sonunu gösterir |
+| `tac` | Satırları ters sırada gösterir |
+| `wc` | Satır, kelime, byte sayar |
 
 ```bash
-# -c arşiv oluşturur
-# -x arşiv açar.
-# -f arşiv dosya adını belirtir.
-# -p dizinin izinlerinin korunmasını sağlar
-# -v işlem sırasında dosyaları listeler.
-# -z gzip ile sıkıştırır
-tar -cvf backup.tar project/  
-tar -xvf backup.tar
+cat -n dosya.txt           # Satır numarası ile
+cat -A dosya.txt           # Görünmez karakterleri göster
 
-# -k orijinal dosyayı korur.
-# -d açma işlemi (gunzip eşdeğeri)
-# -l sıkıştırılmış dosya bilgilerini gösterir
-# -9 maksimum sıkıştırma
-gzip -k file.txt
-gzip -9 big.log  
+# less içinde
+# g → Başa git | G → Sona git | / → Ara | n → Sonraki eşleşme | q → Çık
 
-gunzip *.gz  # .gz dosyalarını açar
+head -n 20 dosya.txt       # İlk 20 satır
+head -c 100 dosya.txt      # İlk 100 byte
+tail -n 20 dosya.txt       # Son 20 satır
+tail -f /var/log/syslog    # Canlı log takibi
+tail -f -n 100 uygulama.log # Son 100 satır + canlı
 
-zcat archive.log.gz
-zcat system.log.gz | grep error
-
-truncate -s 40 file.txt  #dosyayı 40 byte olarak keser fazlalık olan kısmı siler. Sıkıştırma işlemi yapmaz.
+wc    dosya.txt            # Satır kelime byte
+wc -l dosya.txt            # Satır sayısı
+wc -w dosya.txt            # Kelime sayısı
+wc -c dosya.txt            # Byte sayısı
 ```
 
-## **Text Processing**
+---
 
-- `grep - egrep` Metin içinde desen arar.
-- `cut` Belirtilen sütunları veya karakterleri keser.
-- `awk` Alan bazlı metin işleme sağlar.
-- `sed` Satır içi metin değiştirmeye yarar.
-- `sort` Satırları belirli kritere göre sıralar.
-- `uniq` Birbirini izleyen tekrarları filtreler.
-- `tr` Karakter dönüşümleri yapar.
-- `wc` Satır, kelime ve byte sayar.
-- `diff` Dosyalar arasındaki satır farklılıklarını gösterir. (line by line)
-- `cmp` Dosyaları byte byte karşılaştırır. (byte by byte)
-- `truncate` kesme işlemi yapar.
+## Arama Komutları
+
+| Komut | Açıklama |
+|-------|---------|
+| `find` | Gerçek zamanlı dosya arama |
+| `locate` | İndeks tabanlı hızlı arama (gerçek zamanlı değil) |
+| `which` | PATH üzerindeki executable konumu |
+| `whereis` | Binary, source, manual konumları |
+| `grep` | Metin içinde desen arama |
 
 ```bash
-grep keyword file.txt            # Belirtilen kelimeyi dosya içinde arar
-grep -c keyword file.txt         # Belirtilen kelimenin dosyada kaç tane olduğunu gösterir.
-grep -i keyword file.txt         # Belirtilen kelimeyi dosya içinde arar. Arama yaparken büyük küçük duyarlılığı kapatır.
-grep -n keyword file.txt         # Hnagi satırlarada bulunaduklarını    gösterir.
-grep -v keyword file.txt         # Belirtilen anahtar kelimesi dışındaki yerleri alır
-grep -R "GZ_SIM_RESOURCE_PATH" . # Belirltilen dizinin içinde bulunan bütün dosyaların içinde arama yapar
+# find
+find . -name "*.py"                    # İsme göre ara
+find . -type f -size +10M             # 10 MB'dan büyük dosyalar
+find . -type f -perm 0777             # Belirli izinli dosyalar
+find . -mtime -3                       # Son 3 günde değişenler
+find . -user serkan                    # Belirli sahibin dosyaları
+find . -type d -name "node_modules" -exec rm -rf {} + # Sil
 
-ls | grep Desktop
-egrep -i "keyword1|keyword2" file.txt  # Arama yaparken keyword1 veya keyword2 birinin olması yeterli olur.
+# locate
+locate -i network                      # Büyük/küçük harf duyarsız
+sudo updatedb                          # İndeksi güncelle
 
+# which / whereis
+which python3
+which -a gcc                           # Tüm eşleşmeler
+whereis ls                             # Binary + manual
+whereis -b gcc                         # Sadece binary
 
-cut -c1 file.txt           # 1. sütünda bulunan karakterleri gösterir.
-cut -c1,3,4,5 file.txt     # 1., 3., 4., 5. sütünda bulunan karakterleri gösterir.
-cut -c1-4 file.txt         # 1. sütündan 4. sütüna kadar bulunan karakterleri gösterir.
-cut -c1-4, 6-8 file.txt
-cut -b1-3 file.txt         # 1. sütündan başlayıp 3 byte veri al
-ls -la | cut -c2-4
-
-
-awk '{print $1}' file.txt                  # Dosyanın içinde bulunan her satırda bulunan ilk kelimeyi gösterir.
-awk '{print $2, $4}' file.txt 
-awk '{print $NF}' file.txt                 # Her satırın son kelimesini gösterir. 
-awk '/jer/ {print}' file.txt               # Dosyanın içinde jey arar ve varsa ekranda gösterir. 
-cat file.txt | awk '{$2="hi"; print $0}'   # Bu dosaynın içinde bulunan her satırda 2. kelimesini "hi" ile değiştirir.
-awk 'lenght($0) > 20' file.txt             # İlk karakteri 20 bytetan fazla olan satırları gösterir.
-ls -l | awk '{if($9 == "Des") print $0;}'  # Şartı sağlayan satırı gösterir.
-
-
-sed 's/[kelime]/[yeni_kelime]/g' dosya.txt      # kelime olan kısımlar  yeni_kelime ile değiştirilir.
-sed -i 's/[kelime]/[yeni_kelime]/g' dosya.txt   #  -i parametresi sayesinde dosyanın içinde yapılır değişiklik
-sed -i 's/[kelime]/d' dosya.txt                 #  kelime siler
-
-
-sort file.txt      # Alfabetik sıraya göre sıralar
-sort -r file.txt   # Alfabetik sıranın tersine  göre sıralar
-sort -k2 file.txt  # Alfabetik sıraya göre sıralar (2. kelimeye bakarak sıralam yapılır)
-
-
-uniq file.txt      # Aynı olan satıorların sadece birini gösterir
-uniq -c  file.txt  # Her satırın kaç kez geçtiğini gösterir.
-
-
-sort file.txt | uniq
-sort file.txt | uniq -c
-sort file.txt | uniq -d   #Sadece tekrarlanan kısmı gösterir.
-
-cat a.txt | tr ‘a-z’  ‘A-Z’              # Bütün harfleri büyük yazar
-
-wc file.txt    # Stır kelime byte çıktısı verir
-wc -l file.txt # Satır sayısını verir.
-wc -w file.txt # Kelime sayısını verir.
-wc -c file.txt # Byte sayısını verir.
-ls -l | wc -l
-grep  keyword file | wc -l   # Belirtilen keyword kaç kez geçtiğini bulmuş oluruz
-
-truncate -s 40 file.txt      # Dosyayı 40 byte olarak keser fazlalık olan kısmı siler. Sıkıştırma işlemi yapmaz.
+# grep
+grep "hata" dosya.log
+grep -i "error" dosya.log             # Büyük/küçük harf duyarsız
+grep -n "failed" dosya.log            # Satır numarasıyla
+grep -r "TODO" ./src                  # Özyinelemeli
+grep -E "ERROR|WARN|FATAL" app.log    # ERE
+grep -v "^#" /etc/ssh/sshd_config    # Yorum satırlarını atla
+grep -o "[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+" dosya  # Sadece eşleşen kısmı
 ```
 
+---
 
-## **Süreç & Kaynak Yönetimi**
-- `ps` Çalışan süreçleri listeler.
-    - TTY sütunu, işlemin hangi terminalde yürütüldüğünü,
-    - TIME sütunu, o işlemin ne kadar süredir çalıştığını,
-    - CMD sütunu ise hangi komutun çalıştırıldığını gösterir.
-    - `ps aux` çıktısındaki STAT sütununda yer alan harflerin anlamları ise şunlardır:
-        - **D:** uyku modu (disk I/O için bekliyor)
-        - **R:** çalışıyor
-        - **T:** duraklatılmış
-        - **X:** zorla durdurulmuş
-        - **Z:** zombi işlem
-        - **S:** işlem için kaynak (örneğin CPU) bekliyor
-- `pstree` ise bu işlemleri adeta bir aile ağacı gibi detaylı şekilde görselleştirir—kim kimin çocuğu, kim kimin ebeveyni, hepsini tek bakışta anlarsınız!
-- `top` Canlı sistem kaynak kullanımını gösterir. PID, USER, PR(öncelik seviyesi), RES(RAM miktarı) gibi durumlar gözlenebilir.
-- `kill` Süreci sonlandırmak için sinyal gönderir.
-- `nohup` Komutu oturumdan bağımsız çalıştırır. Yani terminal kapansa dahi komut yürütülmeye devam eder.
-- `bg` Durdurulan işlemi arka plana alır.
-- `fg` Arka plandaki işlemi ön plana getirir.
-- `jobs` O anki kabuk işlerinin durumunu listeler.
-- `nice - renice` Komuta öncelik (niceness) atar. / Çalışan sürecin önceliğini değiştirir.
-- `script` Terminal oturumunu kaydeder.
-- `timeout` Komutun çalışmasını süre ile sınırlar.
-- `dd` “Disk Dump” kısaltmasıyla bilinir. Unix/Linux’ta dosya, disk ve blok düzeyinde kopyalama yapmanızı sağlar. Veri bloklarını farklı biçimlerde işleyerek yedekleme, klonlama veya sıfırlama (örneğin `/dev/zero` kullanarak) gibi işlemlerde kullanılabilir.
+## Metin İşleme
+
+| Komut | Açıklama |
+|-------|---------|
+| `sed` | Akış düzenleyici; satır içi değiştirme |
+| `awk` | Alan bazlı metin işleme programlama dili |
+| `cut` | Belirli sütunları veya karakterleri ayıklar |
+| `sort` | Satırları sıralar |
+| `uniq` | Birbirini izleyen tekrar eden satırları filtreler |
+| `tr` | Karakter dönüşümleri |
+| `diff` | Dosya farklılıklarını satır bazında gösterir |
+| `cmp` | Dosyaları byte bazında karşılaştırır |
+| `tee` | Çıktıyı hem terminale hem dosyaya yazar |
 
 ```bash
-ps 
-ps -a
-ps aux
-ps -e                  # O kullanıcı tarafından yapılan tüm işlemler
-ps -u [user_name]      # Belirli bir kullanıcının yaptıklarını gösterir.
-ps -ef
-pstree
+# sed
+sed 's/eski/yeni/g' dosya.txt             # Değiştir (stdout)
+sed -i 's/eski/yeni/g' dosya.txt          # In-place
+sed -n '/ERROR/p' dosya.txt               # Sadece eşleşen satırlar
+sed '/^$/d' dosya.txt                      # Boş satırları sil
+sed -n '10,20p' dosya.txt                  # 10-20. satırlar
 
-kill -l                # Sinyallari sitler.
-kill -9 PID_number     # İşlemi sonlandırır.
-kill -1 PID_number     # İşlemi yeniden başlatır.
-killall       top      # PID numarası yerine direkt işlemin adı verilir.
+# awk
+awk '{print $1}' dosya.txt                # İlk alan
+awk '{print $1, $3}' dosya.txt            # 1. ve 3. alan
+awk '{print $NF}' dosya.txt               # Son alan
+awk -F':' '{print $1}' /etc/passwd        # Ayırıcı değiştir
+awk '/ERROR/ {print NR": "$0}' dosya.txt  # Satır no ile yazdır
+awk '{sum+=$2} END{print "Toplam:", sum}' # Toplama
+awk 'NR==5' dosya.txt                     # 5. satır
 
-# En fazla CPU tüketen 5 uygulamayı listeler
-ps H -eo pid,pcpu | sort -nk2 | tail
+# cut
+cut -d',' -f2 data.csv                    # CSV 2. sütun
+cut -c1-20 dosya.txt                      # İlk 20 karakter
 
-# PID karşılık Gelen uygulamanın hangisi olduğu anlaşılır.
-# ll ilede gösterilebilir.
-ps aux | fgrep [PID] 
-ll /proc/[PID]
+# sort
+sort dosya.txt                             # Alfabetik
+sort -r dosya.txt                          # Ters
+sort -n sayilar.txt                        # Sayısal
+sort -k2 -n dosya.txt                     # 2. alana göre sayısal
+sort -rh                                   # İnsan okunabilir boyut (du çıktısı)
 
-top -u [user_name]   # Belirli bir kullanıcının detaylı gösterilmesini sağlar.
+# uniq
+sort dosya.txt | uniq                     # Tekrarları kaldır
+sort dosya.txt | uniq -c                  # Kaç kez tekrar ettiği
+sort dosya.txt | uniq -d                  # Sadece tekraları göster
+sort dosya.txt | uniq -u                  # Sadece benzersizleri
 
-# nohup process &
-# nohup process > /dev/null 2>&1 &
-nohup sleep 75 &
-nohup sleep 70 > /dev/null 2>&1 &
-
-timeout 10s ping google.com
-timeout 1m ping google.com
-timeout 1h ping google.com
-
-dd if=/dev/sda of=/mnt/backup/sda.img bs=64K conv=noerror,sync
+# tr
+cat dosya.txt | tr 'a-z' 'A-Z'           # Büyük harfe çevir
+cat dosya.txt | tr -d '\r'               # Windows satır sonu sil
+cat dosya.txt | tr -s ' '               # Çoklu boşluğu tekleştir
 ```
 
+---
 
-## **Sistem Bilgisi & İstatistik**
-- `uname` Sistem bilgilerini görüntüler.
-- `arch` İşletim sistemi mimarisini gösterir. (64 / 32)
-- `df` Dosya sistemi kullanım özetini verir.
-- `du` Dizin veya dosya boyutunu hesaplar.
-- `free` Bellek (RAM) kullanımını gösterir.
-- `dmesg` Kernel mesajlarını okur.
-- `lsusb`
-- `lsmod` Yüklü çekirdek modüllerini listeler.
-- `lsblk` Blok aygıtlarını ağaç yapısında gösterir.
-- `fdisk` Disk bölüm bilgilerini yönetir.
-- `blkid` Blok aygıtlarının UUID ve tür bilgilerini listeler.
-- `badblocks` Bozuk disk bloklarını tarar.
-- `fsck` Dosya sistemini onarır.
-- `lspci` PCIe cihazlarını listeler (GPU, NIC, NVMe, Wi-Fi).
-- `modprobe` Kernel modülü **yükler veya kaldırır**. Dependency’leri otomatik çözer. `insmod`’a göre tercih edilir çünkü bağımlılık yönetir.
-- `modinfo` Bir modül hakkında **metadata** verir.
-- `dmesg`Kernel ring buffer’ını okur. **Boot, driver, donanım hataları** burada konuşur.
-- `mount`  bir dosya sistemini **mount point’e bağlar**.  `mount /dev/sdb1 /mnt/data`
-- `umount`bağlı bir dosya sistemini **güvenli şekilde ayırır**. `umount /dev/sdb1`
-- `findmnt`  mount ilişkilerini **ağaç yapısında** gösterir.
-- `mountpoint` bir dizinin **gerçekten mount edilmiş olup olmadığını** kontrol eder.
-- `mkfs`
+## Arşiv ve Sıkıştırma
+
+| Komut | Açıklama |
+|-------|---------|
+| `tar` | Arşivleme aracı (`.tar`, `.tar.gz`, `.tar.xz`) |
+| `gzip`/`gunzip` | `.gz` sıkıştırma |
+| `bzip2`/`bunzip2` | `.bz2` sıkıştırma |
+| `xz`/`unxz` | `.xz` yüksek sıkıştırma |
+| `zip`/`unzip` | `.zip` arşivi |
+| `zcat` | `.gz` dosyasını açmadan görüntüle |
 
 ```bash
-uname -a    # Tüm sistem bilgileri
-uname -s    # İşletim sisteminin adı
-uname -r    # İşletim sisteminin sürümünü gösterir.
-uname -m    # Mimari (x86_64, aarch64)
+# tar
+tar -cvf arsiv.tar dizin/          # Arşiv oluştur
+tar -czvf arsiv.tar.gz dizin/      # gzip ile sıkıştır
+tar -cJvf arsiv.tar.xz dizin/      # xz ile sıkıştır
+tar -xvf arsiv.tar                  # Arşiv aç
+tar -xzvf arsiv.tar.gz             # gzip'li arşiv aç
+tar -xvf arsiv.tar -C /hedef/      # Belirli dizine aç
+tar -tvf arsiv.tar                  # İçeriği listele
+tar --exclude=".git" -czf proje.tar.gz proje/  # Dışla
 
-du dosya_yolu
-du -h dosya_yolu    # Boyutları okunabilirliğini artırır.
-du -sh dosya_yolu   # Alt dizinleri almaz
+# Hızlı kopya (sıkıştırmadan)
+tar -cf - src/ | tar -xf - -C dst/
 
-free 
-cat /proc/cpuinfo   # Tüm sistem bilgilerinin bulunduğu dosyadır.
-cat /proc/meminfo   # RAM hakkında bilgi verir.
-
-lsusb -v   # Ayrıntılı modda USB cihaz bilgilerini gösterir.
-lsusb -t   # USB cihaz hiyerarşisini gösterir.
-
-dmesg
-dmesg | less
-dmesg -H  #Anlaşılır
-dmesg -c  #Günlüğü temizler
-dmesg -l  #Günlükleri filtrelemek için kullanılı (-l err sadece hataları gösterir)
-lspci -k  # Hangi device hangi kernel driver’ını kullanıyor net görülür.
+# gzip
+gzip -k dosya.txt          # Orijinali koru
+gzip -9 büyük.log          # Maksimum sıkıştırma
+gzip -l arsiv.gz           # Bilgi göster
+zcat arsiv.log.gz | grep error  # Açmadan içinde ara
 ```
 
-## **Kullanıcı & İzinler**
-- `chmod` Dosya/dizin izinlerini değiştirir. (u = user, g = groups, o = or)
-- `chown` Sahiplik bilgilerini değiştirir.
-- `chgrp` Grup bilgisini değiştirir.
-- `useradd` Yeni kullanıcı ekler.
-- `usermod` Mevcut kullanıcıyı düzenler.
-- `userdel` Kullanıcı siler.
-- `groupadd` Yeni grup oluşturur.
-- `groupdel` Grup siler.
-- `passwd` Kullanıcı şifresi ayarlar.
-- `chfn` Kullanıcı bilgilerini değiştirir.
-- `getfacl`etfacl — ACL bazlı izinleri yönetir.
-- `id` Kullanıcının bağlı olduğu ID gösterir.
-- `w` Sistemde çevrim içi kullanıcı sayısını gösterir.
-- `lastb - last` lastb Sisteme başarısız girişleri gösterir. last bütün girişleri gösterir
-- `users`  Sistemde aktif kullanıcıları gösterir.
-- `whoami`  O an ki kullanıcı adını verir.
+---
+
+## Process ve Sistem Yönetimi
+
+| Komut | Açıklama |
+|-------|---------|
+| `ps` | Çalışan process listesi |
+| `top` | Canlı sistem kaynak monitörü |
+| `htop` | Gelişmiş interaktif process monitörü |
+| `kill` | Process'e sinyal gönderir |
+| `pkill` | İsimle process öldürür |
+| `killall` | İsimle tüm eşleşen process'leri öldürür |
+| `nice` | Düşük öncelikle başlatır |
+| `renice` | Çalışan process önceliğini değiştirir |
+| `nohup` | Terminale bağımsız çalıştırır |
+| `bg` | Arka planda devam ettirir |
+| `fg` | Ön plana alır |
+| `jobs` | Arka plan işlerini listeler |
+| `timeout` | Komut süresini sınırlar |
 
 ```bash
-chmod 777 file
-chmod ugo+rwx file
-chmod g-x file
-chmod +x file
+# ps
+ps aux                              # Tüm process'ler (a=tüm kullanıcı, u=detay, x=tty'siz)
+ps -ef                              # Full format
+ps -u serkan                        # Belirli kullanıcı
+ps --sort=-%cpu | head              # CPU kullanımına göre sırala
+pstree                              # Ağaç görünümü
 
-chown root file
-chgrp root file
+# STAT sütunu anlamları:
+# R=Çalışıyor, S=Uyuyor, D=I/O bekliyor, Z=Zombi, T=Durmuş
 
-chown yeni_kullanıcı a.txt
-chgrp grupadi dosyaadi
+# kill sinyalleri
+kill -l                             # Sinyal listesi
+kill -9  <PID>                     # SIGKILL (zorla)
+kill -15 <PID>                     # SIGTERM (nazikçe)
+kill -1  <PID>                     # SIGHUP (yeniden yükle)
+pkill -f "uygulama_adi"            # Kalıba göre öldür
 
-userdel -r user_1  # Kullanıcıyı home dizini ile beraber siler
-usermod -U user_1  # Aktif 
-usermod -L user_1  # Pasif
+# top etkileşim
+# k → kill | r → renice | M → Belleğe göre sırala | P → CPU'ya göre
 
-sudo useradd -m -s /bin/bash ali    # -m home dizini, -s login shell
-sudo usermod -aG arge ali
+# nohup
+nohup ./betik.sh &
+nohup ./betik.sh > cikti.log 2>&1 &
 
-sudo userdel -r ali                 # home birlikte kullanıcı silme
+# nice (-20 en yüksek, +19 en düşük öncelik)
+nice -n 10 python3 agir_is.py
+renice +5 -p <PID>
+
+# Zamanlanmış sonlandırma
+timeout 30s ping google.com
+timeout 5m ./uzun_betik.sh || echo "Zaman aşıldı!"
 ```
 
-## **Ağ & İnternet**
-- `ip` modern Linux’ta ağ yapılandırmasının merkez komutudur. `ifconfig`, `route`, `arp` gibi eski araçların yerini alır. Linux kernel netlink arayüzü üzerinden ağ yapılandırmasını ve durumunu yöneten ana araçtır. Ağ ile ilgili üç temel varlığı tek komut ailesi altında toplar:
-    - **link** → fiziksel / sanal arayüz
-    - **addr** → IP adresleri
-    - **route** → yönlendirme (routing)
-- `ping` Ağ bağlantısını test eder. `-c` ile kaç kez atılacağı ayarlanır.
-- `ifconfig`p addr — Ağ arayüzü yapılandırmasını gösterir.
-- `netstat - ss` Aktif bağlantıları listeler.
-- `curl` URL’lerden veri transferi yapar.
-- `wget` Dosya indirir.
-- `dig - nslookup` Komutları, belirli bir alan adı veya IP adresi hakkında bilgi almak için DNS (Domain Name System) sunucularına sorgu yapmak için kullanılan komut satırı araçlarıdır.
-- `iptables` Paket filtreleme ve NAT kurallarını yönetir.
-- `arp` ARP tablosunu gösterir.
-- `hostname` Sistem adı ve IP adresini verir. Sistemin ağ üzerindeki adını (hostname) `/etc/hostname` dosyasından okur ve değiştirir `sudo hostnamectl set-hostname yeni_hostname`
-- `netdiscover` Ağ taraması yapar.
-- `nmcli` NetworkManager’ı komut satırı üzerinden yönetmenizi sağlayan güçlü bir araçtır. Ağ bağlantıları oluşturabilir, düzenleyebilir, silebilir ve mevcut durum hakkında ayrıntılı bilgi alabilirsiniz.
-- `nm-connection-editor` NetworkManager bağlantılarını grafiksel (GUI) ortamda düzenlemenizi sağlar. Masaüstü kullanıcıları için idealdir.
+---
+
+## Disk ve Dosya Sistemi
+
+| Komut | Açıklama |
+|-------|---------|
+| `df` | Bağlı dosya sistemleri disk kullanımı |
+| `du` | Dizin/dosya disk kullanımı |
+| `lsblk` | Blok cihazların ağaç görünümü |
+| `blkid` | Blok cihaz UUID ve tip |
+| `mount` / `umount` | Dosya sistemi bağla / ayır |
+| `findmnt` | Mount noktalarını ağaç yapısında gösterir |
+| `fdisk` | Disk bölüm yönetimi |
+| `mkfs` | Dosya sistemi oluşturur |
+| `fsck` | Dosya sistemi kontrolü ve onarımı |
+| `dd` | Düşük seviye blok kopyalama |
 
 ```bash
-wget https:/...../.....tar.gz
-curl -o putty httğs:/..../...tar.gz
+# df
+df -h                         # İnsan okunabilir
+df -hT                        # Dosya sistemi tipini de göster
+df -h /                       # Sadece root
 
-# l → listening socket’ler
-# n → numeric (DNS çözme yapma)
-# t → TCP, u → UDP
-# p → process (PID / binary)
-ss -lntp     # Kim hangi portu dinliyor
-ss -lunp
-ss -nt       # Tüm aktif bağlantıları görme
+# du
+du -sh /var/log               # Tek dizin özeti
+du -sh /var/* | sort -rh | head -10  # En büyük alt dizinler
+du -h --max-depth=1 /home     # Sadece 1 seviye derine git
 
-nmcli general status   # Temel durum kontrolü
-nmcli device status    # Arayüz bazlı durum
-nmcli connection show  # Bağlantıları listele
-nmcli connection show --active
-nmcli connection delete "Wired connection 1" 
-nmcli con show                      # Mevcut ethernet profili
-nmcli con up "Wired connection 1"   # Elle aktif etme 
+# lsblk
+lsblk                         # Disk yapısı
+lsblk -f                      # Dosya sistemi tipleri ve UUID
 
-nmcli con mod "Wired connection 1" \
-  ipv4.method manual \
-  ipv4.addresses 192.168.1.50/24 \
-  ipv4.gateway 192.168.1.1 \
-  ipv4.dns "8.8.8.8 1.1.1.1"
-  
-sudo nmcli connection add \
-  type ethernet \
-  ifname eth0 \
-  con-name eth0-dhcp \
-  ipv4.method auto \
-  ipv6.method ignore
+# mount
+sudo mount /dev/sdb1 /mnt/disk
+sudo mount -t ext4 /dev/sdb1 /mnt/disk
+sudo mount -o ro /dev/sdb1 /mnt/disk  # Salt okunur
+sudo umount /mnt/disk
 
-sudo nmcli connection delete eth0
-
-# Create a new DHCP profile
-sudo nmcli connection add type ethernet ifname eth0 con-name eth0 ipv4.method auto ipv6.method ignore
-
-# Fix permissions
-# Without these, NetworkManager can see the profile but cannot activate it.
-sudo chmod 600 /etc/NetworkManager/system-connections/eth0
-sudo chown root:root /etc/NetworkManager/system-connections/eth0
-
-# Restart NM
-sudo nmcli connection reload
-sudo systemctl restart NetworkManager
-
-# Bring up the interface
-sudo nmcli connection down eth0
-sudo nmcli connection up eth0
-
-
-nmcli con down "Wired connection 1"
-nmcli con up "Wired connection 1"
-
-nmcli radio wifi        # Wi-Fi donanımı açık mı
-nmcli radio wifi on
-nmcli radio wifi off
-nmcli dev wifi list     # Ağları tara
-nmcli dev wifi connect "SSID_ADI" password "SIFRE"  # Ağa bağlanma
-
-# Aynı anda birden fazla profil varsa, öncelik belirlenir.
-nmcli con mod "EvWifi" connection.autoconnect-priority 10
-nmcli con mod "OfisWifi" connection.autoconnect-priority 20
-
-# Arayüz bazlı aç/kapa
-nmcli device disconnect wlan0
-nmcli device connect wlan0
-nmtui # nmcli’nin metin tabanlı, kullanıcı dostu arayüzüdür. CLI yerine basit menülerle ağ ayarlarını yönetmek isterseniz tercih edebilirsiniz.
+# dd — Disk imajı
+sudo dd if=/dev/sda of=/mnt/backup.img bs=64K conv=noerror,sync status=progress
+sudo dd if=/mnt/backup.img of=/dev/sdb bs=64K status=progress
+# Doğrula:
+sha256sum /dev/sda /mnt/backup.img
 ```
 
+!!! danger "dd Komutu"
+    `dd` kaynak (`if=`) ve hedefi (`of=`) doğrudan silmeden yazar. Hedefi yanlış belirlemek veri kaybına neden olur. Çalıştırmadan önce `if=` ve `of=` değerlerini **iki kez kontrol edin**.
 
-## **Zaman & Planlama**
-- `date` Tarih ve saati gösterir veya ayarlar.
-- `sleep` Belirtilen süre bekler. `sleep 10`
-- `watch` Komutu belirli aralıklarla tekrarlar.
-- `crontab` Zamanlanmış görevler oluşturur.
-- `at` Tek seferlik zamanlanmış iş başlatır.
-- `uptime` Çalışma süresi ve kullanıcı sayısını gösterir.
+---
+
+## Kullanıcı ve Yetki Yönetimi
 
 ```bash
-date                                # Tarih ve saati gösterir
-sudo date --set="$(date)"           # Tarih ve saati düzenler
-sudo date -s "10 MAR 2023 10:19:23" # Tarih ve saati düzenler
-sudo date -s "2023-12-16 09:16:00"
-sudo date +%T -s "13:30:00"
-# Ya da 
-timedatectl set-time '2015-11-20 22:13:20'
+# Kullanıcı yönetimi
+sudo useradd -m -s /bin/bash -G sudo serkan   # Kullanıcı oluştur
+sudo passwd serkan                              # Şifre ata
+sudo usermod -aG docker,gpio serkan           # Gruplara ekle
+sudo usermod -L serkan                         # Kilitle
+sudo usermod -U serkan                         # Kilidi aç
+sudo userdel -r serkan                         # Home ile birlikte sil
+
+# Grup yönetimi
+sudo groupadd arge
+sudo groupdel arge
+groups                          # Mevcut kullanıcının grupları
+id serkan                       # UID, GID ve gruplar
+
+# Giriş bilgisi
+who                             # Sisteme giriş yapmış kullanıcılar
+w                               # Detaylı
+last                            # Tüm girişler
+lastb                           # Başarısız girişler
+
+# Kullanıcı geçişi
+su serkan                       # Kullanıcıya geç
+sudo su                         # Root'a geç
+sudo -i                         # Root shell
+sudo -s                         # Mevcut shell'de root
+
+# ACL
+getfacl dosya.txt
+setfacl -m u:serkan:rwx dosya.txt
+setfacl -m g:arge:rx dosya.txt
+setfacl -x u:serkan dosya.txt   # Kaldır
+setfacl -b dosya.txt            # Tümünü kaldır
 ```
 
-!!! note "Not"
-    Linux sisteminde belirli zaman aralıklarında veya zamanlamalar da tekrarlanması gereken görevleri otomatikleştirmek için kullanılır. crontab komutu belirli günlerde belirli haftalarda belirli zaman aralıklarında tekrarlamasını istediğimiz komutlar için kullanılır. Oluşan dosyalar `etc/cron.[]` konumunda bulunur. `crontab -e`  crontab dosyasını düzenlemek için kullanılır. Açılan dosyananın içine dakika saat gün ay ve haftanın günü son olarakda yapılacak komut yazılır.
-    ```bash
-    crontab -e
-    0 2 * * * echo "hello world" > a.txt   # Bu kısımda * işareti o kabsadığı alanın her zaman dilimini alır.
+---
 
-    at now + 1 hour echo "hello world"   # ctrl + D işlemi tamamlanır.
-    ```
-
-## **Kernel & Yardım**
-- `reboot` Sistemi yeniden başlatır.
-- `poweroff` Sistemi anında kapatır.
-- `shutdown`  Sistemi kapatırken seçenekler sunar.
-- `exit` Açık olan kullanıcıdan çıkar.
-- `env - printenv` Sistemde bulunan evrensel değişkenleri gösterir. Ortam değişkenini kullanmak için `$` kullanılır
-- `su` Kullanıcı değiştirmeyi sağlar.
-- `bash` Yeni bir kabuk başlatır.
-- `source` Betik dosyasını mevcut kabuğa yükler.
-- `clear` Terminali temizler
-- `history` Kabuk komut geçmişini listeler.
-- `man` Komut kılavuz sayfasını açar.
-- `info` GNU bilgi sayfasını gösterir.
-- `--help` Komut yardımını ekrana basar.
-- `alias - unalias` Takma ad oluşturur veya siler.
-- `apropos` Belirtilen anahtar kelimeye göre kılavuz sayfalarını arar.
-- `export` Ortam değişkeni tanımlar.
-- `lsb_realease`  Kullanılan sürüm hakkında bilgi verir.
-- `who`  Sisteme giriş yapmış kullanıcıları gösterir.
-- `whatis`  Komut hakkında kısa bilgi verir.
-- `whereis / which`  Komutun konumunu gösterir.
-- `wall` Tüm kayıtlı kullanıcılara terminal üzerinden mesaj iletmenizi sağlar. Yalnızca yetkili kullanıcılar tarafından çalıştırılabilir.
-- `write` Belirli bir kullanıcıya doğrudan mesaj göndermek için kullanılır. İleti girdisini tamamlamak için Ctrl +D tuşuna basmanız yeterlidir.
-
+## Sistem Bilgisi
 
 ```bash
-env
-printenv
-echo $PATH
+# Donanım bilgisi
+uname -a               # Kernel, hostname, mimari
+uname -r               # Kernel sürümü
+uname -m               # Mimari (x86_64, aarch64)
+lscpu                  # İşlemci detayı
+free -h                # RAM kullanımı
+lspci                  # PCIe cihazlar
+lspci -k               # Hangi sürücüyü kullandığı
+lsusb                  # USB cihazlar
+lsusb -v               # Detaylı
+lsusb -t               # Hiyerarşi
+lsmod                  # Yüklü kernel modülleri
+modinfo <modül>        # Modül bilgisi
 
-su user_1   # user_1 kullanıcısına geçer
-sudo su     # root kullanıcısına geçer
-sudo -i     # root kullanıcısı olarak yeni bir kulanıcı kabugu açılmış gibi davranır.
-sudo -s     # o an ki kabugun root gibi davranmasını sağlar.
+# Sistem bilgisi
+cat /proc/cpuinfo      # CPU detayı
+cat /proc/meminfo      # Bellek detayı
+cat /etc/os-release    # Dağıtım bilgisi
+lsb_release -a         # Dağıtım sürümü
+hostname               # Sistem adı
+hostname -I            # IP adresleri
+uptime                 # Çalışma süresi ve yük
 
-apropos "list directory contents"
+# Tarih ve saat
+date
+timedatectl            # Zaman dilimi ve NTP durumu
+timedatectl set-timezone Europe/Istanbul
+```
 
+---
+
+## Zaman ve Otomasyon
+
+```bash
+# date formatları
+date +"%Y-%m-%d %H:%M:%S"   # 2024-01-15 14:30:00
+date +%s                     # Unix timestamp (epoch)
+date +%Y%m%d                 # 20240115
+
+# Sistem zamanı ayarla
+sudo timedatectl set-time '2024-01-15 14:30:00'
+sudo timedatectl set-ntp true   # NTP senkronizasyonu
+
+# watch — periyodik komut tekrar
+watch -n 2 df -h         # 2 saniyede bir
+watch -n 1 'ps aux --sort=-%cpu | head'
+
+# sleep
+sleep 5                  # 5 saniye bekle
+sleep 1m                 # 1 dakika
+sleep 1h30m              # 1 saat 30 dakika
+
+# at — tek seferlik zamanlama
+at now + 30 minutes << 'EOF'
+/usr/local/bin/yedekle.sh
+EOF
+atq                      # Kuyruğu gör
+atrm <iş_no>            # İptal et
+
+# Zaman ölçümü
+time komut               # Gerçek, user, sys süresi
+```
+
+---
+
+## Ortam Değişkenleri
+
+```bash
+env                      # Tüm ortam değişkenleri
+printenv PATH            # Belirli değişken
+echo $HOME $USER $SHELL  # Sistem değişkenleri
+
+# Geçici tanımlama
+export MY_VAR="değer"
+MY_VAR="değer" komut     # Sadece o komut için
+
+# Kalıcı (.bashrc veya .profile)
+echo 'export MY_VAR="değer"' >> ~/.bashrc
+source ~/.bashrc
+
+# Alias
+alias ll='ls -alh'
+alias gs='git status'
+alias update='sudo apt update && sudo apt upgrade -y'
+unalias ll               # Kaldır
+alias                    # Tüm alias'ları listele
+
+# history
 history
-HISTSIZE=2000      # history komutunda en fazla kaç komut tutulacağını ayarlar.
-!124               # history komutunda 124 sırada komut çalışır.
-!!                 # Bir önceki komut çalışır
-!-3                # Üç önceki komut çalışır.
-!:2                # Son komutun 2. indexte bulunan parametresini ifade eder
-
-wall "Sistem bakımı yapılacaktır. Lütfen oturumunuzu kaydedin ve bekleyin."
-write user_1   # Mesajınızı yazın, ardından Ctrl + D ile gönderin
+history | grep apt       # Filtrelenmiş geçmiş
+!!                       # Önceki komut
+!124                     # Geçmişte 124. komut
+!apt                     # apt ile başlayan son komut
+Ctrl+R                   # Ters arama
 ```
 
-## **ACL (Access Control List)**
-Standart Unix izinlerinin ötesinde, her dosya veya dizine kullanıcı ve grup bazlı ayrıntılı erişim hakları tanımlamanıza imkân verir. Böylece belirli bir kullanıcının veya grubun okuma, yazma, çalıştırma gibi izinlerini hassas biçimde ayarlayabilirsiniz.
+---
 
-- `getfacl` Dosya/dizin üzerindeki ACL girişlerini ve temel izinleri gösterir.
-- `setfacl` ACL üzerinden izin ekleme, düzenleme veya silme işlemleri yapar.
+## Mesajlaşma ve Bildirim
+
+```bash
+wall "Sistem 10 dakika sonra bakıma alınacak"    # Tüm kullanıcılara
+write serkan pts/1                                # Belirli terminale
+
+# notify-send (masaüstü bildirimi)
+notify-send "Yedekleme" "Tamamlandı!" --icon=dialog-information
+```
