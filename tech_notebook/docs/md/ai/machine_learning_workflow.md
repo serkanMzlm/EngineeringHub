@@ -1,7 +1,7 @@
 # Makine Öğrenimi İş Akışı
 
 !!! note "Genel Bakış"
-    Başarılı bir ML projesi güçlü bir algoritmadan çok; doğru problem tanımı, kaliteli veri ve sistematik değerlendirme sürecinin ürünüdür. Bu sayfa, ham fikirden production modeline uzanan uçtan uca akışı kapsar.
+    Başarılı bir ML projesi güçlü bir algoritmadan çok; doğru problem tanımı, kaliteli veri ve sistematik değerlendirme sürecinin ürünüdür. Bu sayfa, ham fikirden production modeline uzanan uçtan uca akışı açıklar.
 
 ```mermaid
 graph TD
@@ -15,272 +15,259 @@ graph TD
     TUNE --> DEPLOY[8. Deployment ve İzleme]
     DEPLOY -->|Data drift| DATA
 
-    style PROB fill:#E3F2FD
-    style EVAL fill:#FFF9C4
-    style DEPLOY fill:#E8F5E9
+    style PROB fill:#1565C0,color:#fff
+    style EVAL fill:#E65100,color:#fff
+    style DEPLOY fill:#2E7D32,color:#fff
 ```
 
 ---
 
 ## 1. Problem Tanımlama
 
-Model yazmadan önce cevaplanması gereken sorular:
+Bu adım, model yazmaktan önce gelir ve çoğu zaman en kritik adımdır. Yanlış soruyu doğru yanıtlamak işe yaramaz.
 
-| Soru | Önemi |
-|------|-------|
+**Cevaplanması gereken sorular:**
+
+| Soru | Neden Önemli |
+|------|-------------|
 | Çıktı sürekli mi, kategorik mi? | Regresyon mu, sınıflandırma mı? |
-| Kaç sınıf var? İkili mi, çok sınıflı mı? | Loss ve metrik seçimini etkiler |
+| Kaç sınıf var? İkili mi, çok sınıflı mı? | Loss fonksiyonu ve metrik seçimi |
 | Sınıflar dengeli mi? | Dengesiz veri stratejisi gerekebilir |
-| Hangi hata daha maliyetli? FP mi FN mi? | Threshold ve metrik seçimi |
-| Gerçek zamanlı inferans gerekiyor mu? | Model boyutu ve latency kısıtı |
+| Hangi hata daha maliyetli? FP mi FN mi? | Threshold ve optimizasyon hedefi |
+| Gerçek zamanlı inferans gerekiyor mu? | Model boyutu ve gecikme kısıtı |
 | Yorumlanabilirlik zorunlu mu? | Kara kutu vs. şeffaf model |
+| Başarı kriteri nedir? | Üretimde hangi metriği optimize edeceksiniz? |
 
-!!! example "X ve Y Tanımı"
-    **Ev fiyat tahmini:**  
-    - X = [metrekare, oda sayısı, konum, bina yaşı, kat]  
-    - Y = satış fiyatı (regresyon)
+**Problem türü nasıl belirlenir?**
+
+```mermaid
+graph TD
+    Q1[Tahmin edilecek şey nedir?] --> NUM[Sayısal değer mi?]
+    Q1 --> CAT[Kategori mi?]
+    Q1 --> STRUCT[Yapı/Örüntü mü?]
+    NUM --> REG[Regresyon\nFiyat, sıcaklık, satış]
+    CAT --> BIN[İkili Sınıflandırma\nSpam, Hastalık, Dolandırıcılık]
+    CAT --> MULTI[Çok Sınıflı\nDil, Nesne türü]
+    STRUCT --> CLUS[Kümeleme\nSegmentasyon]
+    STRUCT --> ANOMALY[Anomali Tespiti\nArıza, sahtekarlık]
+```
+
+!!! example "Problem Tanımı Örnekleri"
+    **Ev fiyat tahmini:**
+    - X = [metrekare, oda sayısı, konum, bina yaşı]
+    - Y = satış fiyatı
+    - Tür: **Regresyon** — sürekli sayısal çıktı
+    - Başarı kriteri: RMSE < 50.000 TL, R² > 0.85
     
-    **Spam tespiti:**  
-    - X = [e-posta metni → özellikler]  
-    - Y = 0 (ham) veya 1 (spam) (binary sınıflandırma)
+    **Kredi başvurusu değerlendirme:**
+    - X = [gelir, borç oranı, kredi geçmişi, iş durumu]
+    - Y = 0 (reddedilir) veya 1 (onaylanır)
+    - Tür: **İkili Sınıflandırma**
+    - Başarı kriteri: Recall > 0.9 (kötü müşteri kaçırma pahalı), Precision > 0.7
 
 ---
 
 ## 2. Keşifsel Veri Analizi (EDA)
 
-```python title="EDA — Temel Adımlar"
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+Model kurmadan önce verinizi tanıyın. EDA, varsayımları doğrular, sorunları önceden görmenizi ve hangi özelliklerin önemli olduğu konusunda sezgi geliştirmenizi sağlar.
 
-df = pd.read_csv("data.csv")
+### EDA'da Yanıtlanacak Sorular
 
-# Genel bakış
-print(df.shape)          # (satır, sütun)
-print(df.dtypes)         # Sütun tipleri
-print(df.describe())     # İstatistiksel özet
+**Veri yapısı:**
+- Kaç örnek var? Yeterli mi?
+- Her özelliğin tipi ne? (sayısal, kategorik, tarih, metin)
+- Hangi özelliklerde eksik veri var? Ne kadar?
 
-# Eksik değer analizi
-missing = df.isnull().sum()
-missing_pct = (missing / len(df)) * 100
-print(pd.DataFrame({'Eksik': missing, 'Yüzde (%)': missing_pct}))
+**Dağılım analizi:**
+- Sayısal özellikler normal dağılımlı mı? Çarpık mı?
+- Aykırı değerler (outlier) var mı? Gerçek mi, veri hatası mı?
+- Kategorik değişkenlerin kaç benzersiz değeri var? (kardinalite)
 
-# Sınıf dağılımı (sınıflandırma)
-df['target'].value_counts(normalize=True).plot(kind='bar')
-plt.title("Sınıf Dağılımı")
-plt.show()
+**İlişki analizi:**
+- Özellikler hedefle ne kadar ilişkili?
+- Özellikler kendi aralarında yüksek korelasyonlu mu? (multicollinearity)
+- Hedef değişkenin sınıfları dengeli mi?
 
-# Sayısal özellik dağılımları
-df.hist(figsize=(12, 8), bins=30)
-plt.tight_layout()
-plt.show()
+**Görsel araçlar:**
 
-# Korelasyon ısı haritası
-plt.figure(figsize=(10, 8))
-sns.heatmap(df.corr(), annot=True, fmt='.2f', cmap='coolwarm')
-plt.show()
+| Araç | Ne Gösterir |
+|------|------------|
+| Histogram | Tek değişken dağılımı |
+| Box plot | Medyan, IQR, aykırı değerler |
+| Scatter plot | İki değişken arasındaki ilişki |
+| Correlation heatmap | Tüm değişken çiftleri arasındaki korelasyon |
+| Pairplot | Her değişken çiftini beraber çizer |
+| Bar/Count plot | Kategorik değişken frekansları |
 
-# Aykırı değer tespiti (IQR)
-Q1 = df['feature'].quantile(0.25)
-Q3 = df['feature'].quantile(0.75)
-IQR = Q3 - Q1
-outliers = df[(df['feature'] < Q1 - 1.5*IQR) | (df['feature'] > Q3 + 1.5*IQR)]
-```
+!!! tip "EDA'nın Gücü"
+    EDA sırasında bulunan içgörüler sizi doğru modele yönlendirir. "Sınıf dengesizliği %95/%5 oranında" → özel strateji gerekir. "X özelliği Y ile neredeyse mükemmel korelasyonda" → veri sızıntısı riski. "Belirli bir tarihten sonra dağılım değişiyor" → veri setini böl.
 
 ---
 
 ## 3. Veri Ön İşleme
 
+Ham veri neredeyse hiçbir zaman doğrudan kullanılamaz. Eksik değerler, yanlış tipler, tutarsız biçimler, aykırı değerler — bunların hepsi model performansını bozar.
+
 ### Eksik Veri Stratejileri
 
-| Strateji | Ne Zaman | Kod |
-|----------|:--------:|-----|
-| Satırı sil | Eksik < %5 ve rastgele | `df.dropna()` |
-| Medyan ile doldur | Sayısal, aykırı değer var | `df.fillna(df.median())` |
-| Ortalama ile doldur | Sayısal, normal dağılım | `df.fillna(df.mean())` |
-| Mod ile doldur | Kategorik | `df.fillna(df.mode()[0])` |
-| Model ile tahmin | Yüksek eksik oran | `IterativeImputer` |
+Eksik veri **neden** eksik? Bu soruyu yanıtlamak stratejiyi belirler.
 
-```python title="sklearn SimpleImputer"
-from sklearn.impute import SimpleImputer, KNNImputer
+- **MCAR (Missing Completely at Random):** Tamamen rastgele eksik. Silmek güvenli.
+- **MAR (Missing at Random):** Başka bir değişkene bağlı eksik. Diğer veriden tahmin edilebilir.
+- **MNAR (Missing Not at Random):** Eksikliğin kendisi bilgi taşır. Dikkatli yaklaşım gerekir.
 
-# Medyan ile doldur
-imp = SimpleImputer(strategy='median')
-X_imputed = imp.fit_transform(X)
+| Strateji | Ne Zaman | Nasıl |
+|----------|:--------:|-------|
+| **Satırı sil** | Eksik < %5, MCAR ise | `dropna()` |
+| **Medyan ile doldur** | Sayısal, outlier var | Outlier'a dayanıklı |
+| **Ortalama ile doldur** | Sayısal, normal dağılım | Basit ve hızlı |
+| **Mod ile doldur** | Kategorik | En sık görülen değeri ata |
+| **Model ile tahmin** | Yüksek eksik oran, MAR | KNN Imputer, Iterative Imputer |
+| **Eksik bayrağı ekle** | MNAR olabilir | Yeni binary özellik: "bu_eksik_mi" |
 
-# KNN tabanlı doldurma (daha hassas)
-knn_imp = KNNImputer(n_neighbors=5)
-X_imputed = knn_imp.fit_transform(X)
-```
+!!! warning "Veri Sızıntısı (Data Leakage)"
+    Test verisinin istatistiklerini (ortalama, medyan) kullanarak eğitim verisini doldurursanız, model gerçek dünyada göremeyeceği bilgiye erişmiş olur. Tüm doldurma işlemleri **sadece eğitim verisine** fit edilmeli, test verisine uygulanmalıdır.
 
-### Ölçeklendirme (Scaling)
+### Ölçeklendirme (Feature Scaling)
 
-Mesafeye dayalı algoritmalar ve gradyan iniş için zorunludur. Ağaç tabanlı yöntemler için gerekli değildir.
+Bazı algoritmalar özelliklerin büyüklük sırasına duyarlıdır. 1000 TL'lik bir özellik ile 0-1 arasındaki bir özellik varsa, gradyan iniş 1000 TL'liğe doğru yanlı olur.
 
-=== "Min-Max Normalization"
+**Ölçeklendirme kimler için gereklidir?**
+- Mesafeye dayalı: KNN, SVM, K-Means
+- Gradyan iniş kullanan: Lojistik Regresyon, Sinir Ağları
+- Düzenlilik kullanan: Ridge, Lasso
+
+**Ölçeklendirme kimler için gerekmez?**
+- Ağaç tabanlı: Karar Ağacı, Random Forest, XGBoost — bölme noktaları ölçekten bağımsızdır.
+
+=== "Min-Max Normalizasyon"
 
     $$x' = \frac{x - x_{min}}{x_{max} - x_{min}} \in [0, 1]$$
 
-    - Aykırı değerlere **duyarlı**
-    - Görüntü pikselleri gibi bilinen aralıklarda iyi çalışır
-
-    ```python
-    from sklearn.preprocessing import MinMaxScaler
-    scaler = MinMaxScaler()
-    X_scaled = scaler.fit_transform(X_train)
-    ```
+    Tüm değerleri [0, 1] aralığına sıkıştırır. Aykırı değerlere **çok duyarlı** — bir outlier tüm dağılımı sıkıştırır. Görüntü pikselleri gibi bilinen sabit aralıklarda kullanımı idealdir.
 
 === "Standardizasyon (Z-Score)"
 
     $$x' = \frac{x - \mu}{\sigma}$$
 
-    - Ortalama = 0, Standart sapma = 1
-    - Aykırı değerlere **dayanıklı**
-    - Gradyan iniş için tercih edilir
-
-    ```python
-    from sklearn.preprocessing import StandardScaler
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X_train)
-    X_test_scaled = scaler.transform(X_test)  # Aynı scaler ile!
-    ```
+    Ortalama 0, standart sapma 1 yapılır. Aykırı değerlere **dayanıklı** — outlier varlığında Min-Max'tan üstün. Gradyan iniş optimizasyonu için en yaygın tercih.
 
 === "Robust Scaler"
 
     $$x' = \frac{x - Q_2}{Q_3 - Q_1}$$
 
-    - Medyan ve IQR kullanır
-    - Aykırı değerler varken **en güvenli** seçenek
-
-    ```python
-    from sklearn.preprocessing import RobustScaler
-    scaler = RobustScaler()
-    X_scaled = scaler.fit_transform(X_train)
-    ```
-
-!!! danger "Kritik Kural"
-    `fit_transform()` yalnızca **eğitim verisine** uygulanır. Test ve validation setine yalnızca `transform()` uygulanır. Aksi hâlde **veri sızıntısı (data leakage)** oluşur ve gerçekçi olmayan performans elde edilir.
+    Medyan (Q2) ve IQR (Q3-Q1) kullanır. Ortalama ve std'ye göre çok daha dayanıklı. Aykırı değerlerin yoğun olduğu veri setlerinde en güvenli seçenek.
 
 ### Kategorik Veri Kodlama
 
-```python
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
-from sklearn.preprocessing import OneHotEncoder
+Makine öğrenimi modelleri sayısal girdi bekler. Kategorik değerleri sayıya çevirmek gerekir.
 
-# One-Hot Encoding (nominal — sırasız kategoriler)
-# Renk: [Kırmızı, Mavi, Yeşil] → 3 sütun
-ohe = OneHotEncoder(sparse_output=False, drop='first')  # drop='first' → multicollinearity engelle
-X_encoded = ohe.fit_transform(df[['renk']])
+**One-Hot Encoding:** Sırasız kategorik değişkenler için. Her kategori ayrı bir ikili (0/1) sütun olur.
 
-# Pandas get_dummies alternatifi
-df_encoded = pd.get_dummies(df, columns=['renk'], drop_first=True)
+- "Renk: Kırmızı/Mavi/Yeşil" → üç ayrı sütun: renk_kirmizi, renk_mavi, renk_yesil
+- `drop='first'` ile multicollinearity önlenir: üç sütun yerine iki yeterli (üçüncü ikisinin toplamından çıkar)
+- **Yüksek kardinalitede sakınca:** 1000 farklı şehir → 1000 sütun. Bu durumda Target Encoding veya Hash Encoding tercih edilir.
 
-# Ordinal Encoding (sıralı kategoriler: küçük < orta < büyük)
-oe = OrdinalEncoder(categories=[['küçük', 'orta', 'büyük']])
-df['beden_encoded'] = oe.fit_transform(df[['beden']])
+**Ordinal Encoding:** Sıralı kategoriler için. Büyüklük sırası korunur.
 
-# Label Encoding (ağaç tabanlı modeller için yeterli)
-le = LabelEncoder()
-df['hedef_encoded'] = le.fit_transform(df['hedef'])
-```
+- "Beden: küçük < orta < büyük" → 0, 1, 2 olarak kodlanır
+- Ağaç tabanlı modeller bu sıralamayı otomatik kullanır
 
-| Yöntem | Ne Zaman | Sütun Sayısı |
-|--------|:--------:|:------------:|
-| One-Hot | Nominal (ülke, renk) | +N sütun |
-| Ordinal | Sıralı (beden, derece) | +1 sütun |
-| Target Encoding | Yüksek kardinalite | +1 sütun |
-| Hash Encoding | Çok yüksek kardinalite | Sabit |
+**Label Encoding:** Hedef değişken veya ağaç tabanlı modeller için. 0, 1, 2... olarak atar ama sıra varsayımı içerebilir.
+
+**Target Encoding:** Yüksek kardinaliteli değişkenler için. Her kategori, o kategoriye ait hedef değişkenin ortalamasıyla kodlanır. Güçlü ama veri sızıntısı riski yüksek — cross-validation ile dikkatli uygulanmalı.
 
 ---
 
 ## 4. Özellik Mühendisliği
 
-Ham veriden bilgi çıkarmak için yeni özellikler türetmek, genellikle model seçiminden daha yüksek etki sağlar.
+Ham veriden bilgi çıkarmak için yeni özellikler türetmek, genellikle model seçiminden daha yüksek etki sağlar. Aynı veri, farklı özelliklerle çok farklı model performansı verir.
 
-```python title="Özellik Türetme Örnekleri"
-import pandas as pd
+### Özellik Türetme
 
-# Tarih parçalama
-df['saat'] = pd.to_datetime(df['zaman']).dt.hour
-df['gun_tipi'] = pd.to_datetime(df['tarih']).dt.weekday.apply(
-    lambda x: 'hafta sonu' if x >= 5 else 'hafta içi')
+**Tarih/Zaman özellikleri:**
+Ham tarih tek başına anlamsızdır. Ancak türetilen özellikler güçlüdür:
 
-# Oran ve fark özellikleri
-df['fiyat_per_m2'] = df['fiyat'] / df['metrekare']
-df['oda_bas_alan'] = df['metrekare'] / df['oda_sayisi']
+- Saatin günün hangi bölümüne denk geldiği (sabah, öğleden sonra, gece)
+- Haftanın günü (Pazartesi sabahı vs Cuma akşamı tamamen farklı davranışlar)
+- Mevsim, tatil mi değil mi, ay sonu mu
+- Son satın almadan geçen gün sayısı
 
-# Polinom özellikler (non-lineer ilişkiler için)
-from sklearn.preprocessing import PolynomialFeatures
-poly = PolynomialFeatures(degree=2, include_bias=False)
-X_poly = poly.fit_transform(X[['alan', 'oda']])
+**Oran ve fark özellikleri:**
+- "Fiyat / Metrekare" → Gerçek değer oranı, ham fiyattan daha anlamlı
+- "Bugünkü satış - Dünkü satış" → Değişim hızı (trend)
+- "Müşteri yaşı / Hesap yaşı" → Orantısal karşılaştırma
 
-# Log dönüşümü (sağa çarpık dağılım)
-df['log_fiyat'] = np.log1p(df['fiyat'])  # log(1+x) — sıfır güvenli
+**Log dönüşümü:**
+Sağa çarpık dağılımlarda (fiyat, gelir, nüfus) log dönüşümü uygulanır. Log(0) undefined olduğu için `log(1 + x)` güvenli versiyondur. Bu dağılımı normalleştirip modelin daha iyi öğrenmesini sağlar.
 
-# Etkileşim özelliği
-df['alan_x_kat'] = df['metrekare'] * df['kat']
-```
+**Etkileşim özellikleri:**
+İki değişkenin birlikte etkisi bazen ayrı etkilerinden farklıdır. "Alan × Konum" kombinasyonu her ikisinden bağımsız bilgi taşıyabilir.
+
+**Polinom özellikler:**
+İlişki doğrusal değilse, x² veya x³ gibi polinom terimler eklemek modelin eğri ilişkileri öğrenmesini sağlar.
 
 ### Özellik Seçimi
 
-```python
-from sklearn.feature_selection import SelectKBest, f_classif, RFE
-from sklearn.ensemble import RandomForestClassifier
+Her özellik modele bilgi katmaz. Gereksiz özellikler:
+- Modeli yavaşlatır
+- Overfitting riskini artırır
+- Yorumlanabilirliği azaltır
 
-# Univariate — istatistiksel önem
-selector = SelectKBest(score_func=f_classif, k=10)
-X_selected = selector.fit_transform(X, y)
+**Filtre Yöntemleri:** İstatistiksel bağımsızlık testleri (korelasyon, chi-kare, ANOVA). Her özelliği hedefle bağımsız olarak değerlendirir. Hızlı ama özellikler arası etkileşimi dikkate almaz.
 
-# Recursive Feature Elimination
-rfe = RFE(estimator=RandomForestClassifier(), n_features_to_select=10)
-X_rfe = rfe.fit_transform(X, y)
+**Sarmalayıcı Yöntemler (Wrapper):** Özellik alt kümesini model üzerinde test eder. Geriye doğru eliminasyon: tüm özelliklerle başla, en az etkiyi kaldır, tekrar et. İleri seçim: boştan başla, en çok katkı sağlayanı ekle, tekrar et. Doğru ama yavaş.
 
-# Feature Importance (ağaç tabanlı)
-rf = RandomForestClassifier().fit(X, y)
-importance = pd.Series(rf.feature_importances_, index=feature_names)
-importance.sort_values().plot(kind='barh')
-```
+**Gömülü Yöntemler (Embedded):** Model eğitimi sırasında özellik seçimi yapar. L1 regularizasyon (Lasso) gereksiz özelliklerin ağırlığını sıfırlar. Random Forest ve XGBoost feature importance skorları üretir.
 
 ---
 
-## 5. Model Eğitimi
+## 5. Model Seçimi ve Eğitim
 
-```python title="Scikit-Learn Temel Akış"
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.metrics import classification_report, confusion_matrix
-import joblib
+### Baseline Model
 
-# Veri bölme
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
-)
+Her ML projesine basit bir baseline ile başlayın. Karmaşık model eklemeden önce ne kadar kazanacağınızı bilesiniz.
 
-# Model eğitimi
-model = GradientBoostingClassifier(
-    n_estimators=200, learning_rate=0.05,
-    max_depth=4, random_state=42
-)
-model.fit(X_train, y_train)
+- **Regresyon baseline:** Hedefin ortalamasını her zaman tahmin et. RMSE bu çıta.
+- **Sınıflandırma baseline:** Her zaman çoğunluk sınıfını tahmin et. Accuracy bu çıta.
+- **Basit model baseline:** Lojistik Regresyon veya Decision Tree. Bunları geçemeyen karmaşık model anlamsız.
 
-# Değerlendirme
-y_pred = model.predict(X_test)
-print(classification_report(y_test, y_pred))
+**Neden baseline önemli?** Eğer karmaşık XGBoost modeliniz basit ortalamanın sadece %2 üstündeyse, ek karmaşıklık değmeyebilir.
 
-# Kayıt
-joblib.dump(model, 'model.joblib')
-model_loaded = joblib.load('model.joblib')
+### Model Seçim Rehberi
+
+| Veri Türü | Küçük Veri (< 1 K) | Orta Veri (1 K – 100 K) | Büyük Veri (> 100 K) |
+|-----------|:-----------------:|:----------------------:|:-------------------:|
+| **Tablo** | Lojistik Reg., Ridge | Random Forest, XGBoost | XGBoost, LightGBM, NN |
+| **Görüntü** | Transfer Learning (dondur) | Transfer Learning (fine-tune) | CNN sıfırdan veya büyük fine-tune |
+| **Metin** | TF-IDF + LojistikReg | BERT (son katman) | BERT fine-tune |
+| **Zaman Serisi** | ARIMA, basit baseline | LSTM, Prophet | Temporal Fusion, LSTM |
+
+### Eğitim Süreci
+
+Veriyi üç parçaya bölün:
+
+```mermaid
+graph LR
+    DATA[Tüm Veri] --> TRAIN[Eğitim Seti\n%70-80\nModeli eğit]
+    DATA --> VAL[Doğrulama Seti\n%10-15\nHiperparametre ayarı]
+    DATA --> TEST[Test Seti\n%10-15\nFinal değerlendirme]
 ```
+
+- **Eğitim seti:** Model bu veriden öğrenir. Hiç görmediği test verisini tahmin etmesi beklenir.
+- **Doğrulama seti:** Hiperparametre seçimi ve early stopping için. Model bu veriden öğrenmez, sadece izler.
+- **Test seti:** Sadece final değerlendirmede bir kez kullanılır. Defalarca test ederseniz test setine overfit edersiniz!
+
+!!! danger "Kritik Kural: Data Leakage"
+    Test seti eğitim sürecinin hiçbir aşamasında kullanılmamalıdır. Scaler'ı sadece eğitim setine fit edin. Imputer'ı sadece eğitim setine fit edin. Test seti sadece son değerlendirmede görünür — "sanki gerçek dünyadan yeni gelen veri" gibi.
 
 ---
 
 ## 6. Cross-Validation (Çapraz Doğrulama)
 
-Tek bir eğitim/test bölmesi şansa bağlı olabilir. CV, modelin farklı veri alt kümelerinde tutarlılığını ölçer.
+Tek bir eğitim/test bölmesi şansa bağlı olabilir — verinin hangi örneklerin test setine düştüğüne göre sonuç değişir. Cross-validation bu problemi çözer.
 
-### k-Fold CV
+### k-Fold Cross-Validation
 
 ```mermaid
 graph LR
@@ -289,188 +276,178 @@ graph LR
     DATA --> F3[Fold 3\nTest]
     DATA --> F4[Fold 4\nTest]
     DATA --> F5[Fold 5\nTest]
-    F1 & F2 & F3 & F4 & F5 --> AVG[Ortalama Skor]
+    F1 & F2 & F3 & F4 & F5 --> AVG[Ortalama ± Std\nGerçek Performans]
 ```
 
-```python
-from sklearn.model_selection import cross_val_score, StratifiedKFold
+**Nasıl çalışır?** Veri k parçaya bölünür. Her tur bir parça test, geri kalanı eğitim olarak kullanılır. k tur sonunda k ayrı skor elde edilir — ortalaması gerçek genelleme hatasının tarafsız tahminidir.
 
-cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-scores = cross_val_score(model, X, y, cv=cv, scoring='f1_weighted', n_jobs=-1)
-
-print(f"F1: {scores.mean():.3f} ± {scores.std():.3f}")
-```
+**k değeri seçimi:** k=5 veya k=10 yaygındır. k büyüdükçe tahmin daha doğru ama hesaplama yavaşlar.
 
 | CV Yöntemi | Açıklama | Ne Zaman |
 |------------|---------|:--------:|
-| **k-Fold** | k parçaya böl | Büyük veri, regresyon |
-| **Stratified k-Fold** | Sınıf oranını koru | Sınıflandırma |
-| **Leave-One-Out** | N fold (her örnek test) | Çok küçük veri |
-| **Time Series Split** | Zaman sırası koru | Zaman serisi |
-| **Group k-Fold** | Grupları koru (hasta ID) | Sızdırmazlık kritik |
+| **k-Fold** | k parçaya böl, her biri bir kez test | Genel amaç |
+| **Stratified k-Fold** | Sınıf oranını her parçada koru | **Sınıflandırma (zorunlu)** |
+| **Leave-One-Out** | N=k, her örnek bir kez test | Çok küçük veri |
+| **Time Series Split** | Zaman sırasını korur: geçmişle eğit, geleceği test et | Zaman serisi |
+| **Group k-Fold** | Aynı gruba ait örnekler aynı katta | Hasta ID, kullanıcı ID — sızıntı önleme |
+
+**CV nasıl yorumlanır?** `F1: 0.847 ± 0.023` → ortalama F1 0.847, standart sapma 0.023. Düşük std: model kararlı. Yüksek std: modelin performansı veriye çok bağımlı, daha fazla veri veya daha güçlü regularizasyon gerekebilir.
 
 ---
 
-## 7. Hiperparametre Optimizasyonu
+## 7. Değerlendirme ve Hata Analizi
 
-```python title="GridSearchCV"
-from sklearn.model_selection import GridSearchCV
+Metrikler yeterli değil — *neyin* yanlış gittiğini anlamak gerekir.
 
-param_grid = {
-    'n_estimators':   [100, 200, 500],
-    'max_depth':      [3, 5, 7],
-    'learning_rate':  [0.01, 0.05, 0.1],
-    'min_samples_leaf': [1, 5, 10]
-}
+### Hata Analizi
 
-grid_search = GridSearchCV(
-    GradientBoostingClassifier(),
-    param_grid,
-    cv=5,
-    scoring='f1_weighted',
-    n_jobs=-1,
-    verbose=1
-)
-grid_search.fit(X_train, y_train)
-print(f"En iyi parametreler: {grid_search.best_params_}")
-print(f"En iyi skor: {grid_search.best_score_:.3f}")
-```
+**Yanlış sınıflandırmaları incele:**
+- Hangi sınıflar birbirine karışıyor? (Confusion Matrix)
+- Yanlış tahmin edilen örnekler arasında ortak özellik var mı?
+- Model tutarsız mı? (Benzer örnekler farklı tahminler)
+- Aykırı değerler mi yanlış tahmin ediliyor?
 
-```python title="Optuna — Bayesian Optimizasyon"
-import optuna
+**Güven kalibrasyonu:**
+Model "%95 pozitif dedi" örneklerin gerçekten %95'i pozitif mi? Kötü kalibre model yüksek güven verip yanılır. Calibration Curve bunu gösterir.
 
-def objective(trial):
-    params = {
-        'n_estimators':  trial.suggest_int('n_estimators', 50, 500),
-        'max_depth':     trial.suggest_int('max_depth', 2, 8),
-        'learning_rate': trial.suggest_float('learning_rate', 1e-3, 0.3, log=True),
-    }
-    model = GradientBoostingClassifier(**params, random_state=42)
-    score = cross_val_score(model, X_train, y_train, cv=3, scoring='f1_weighted')
-    return score.mean()
+**Hata dağılımı (Regresyon):**
+- Hatalar rastgele dağılıyor mu? Belirli bir değer aralığında sistematik hata var mı?
+- Büyük değerlerde daha fazla hata mı? (Heterokedastiklik)
 
-study = optuna.create_study(direction='maximize')
-study.optimize(objective, n_trials=50)
-print(study.best_params)
-```
+### Metrik Çelişkileri
+
+Bazı durumlarda metrikler çakışır:
+
+| Durum | Sorun | Çözüm |
+|-------|-------|-------|
+| Yüksek Accuracy, düşük Recall | Dengesiz sınıf — çoğunluğu her zaman doğru söylüyor | F1, ROC-AUC kullan; class weight ekle |
+| Yüksek eğitim F1, düşük test F1 | Overfitting | Regularizasyon, daha fazla veri |
+| CV F1 iyi, production F1 kötü | Distribution shift | Production verisiyle CV yap |
 
 ---
 
-## 8. Pipeline — Sızıntısız Akış
+## 8. Hiperparametre Optimizasyonu
 
-```python title="sklearn Pipeline"
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
+Model parametrelerini (ağırlıklar) model öğrenir. Ama hiperparametreleri (kaç ağaç, ne kadar regularizasyon) siz belirlersiniz. Optimizasyon bu seçimi sistematik yapar.
 
-# Sayısal ve kategorik sütunlar
-num_features = ['metrekare', 'oda_sayisi', 'bina_yasi']
-cat_features = ['konum', 'ısıtma_tipi']
+**Önemli nokta:** Hiperparametre optimizasyonu her zaman **validation seti** üzerinde yapılır. Test seti hiç görülmez.
 
-num_transformer = Pipeline([
-    ('imputer', SimpleImputer(strategy='median')),
-    ('scaler', StandardScaler())
-])
+### Grid Search
 
-cat_transformer = Pipeline([
-    ('imputer', SimpleImputer(strategy='most_frequent')),
-    ('encoder', OneHotEncoder(drop='first', sparse_output=False))
-])
+Önceden belirlenmiş değerlerin tüm kombinasyonlarını dener.
 
-preprocessor = ColumnTransformer([
-    ('num', num_transformer, num_features),
-    ('cat', cat_transformer, cat_features)
-])
+- `n_estimators: [100, 200, 500]`, `max_depth: [3, 5, 7]` → 9 kombinasyon
+- Kapsamlı ama yavaş. Her kombinasyon için tam CV çalışır.
+- Küçük arama uzayında iyidir.
 
-full_pipeline = Pipeline([
-    ('preprocessor', preprocessor),
-    ('model', GradientBoostingClassifier())
-])
+### Random Search
 
-full_pipeline.fit(X_train, y_train)
-y_pred = full_pipeline.predict(X_test)
-```
+Belirlenen aralıktan rastgele kombinasyonlar dener.
 
----
+- Grid Search'ten çoğunlukla daha verimli. Neden?
+- Bazı hiperparametrelerin etkisi küçüktür. Random Search, önemli olanları daha fazla değerde test eder.
+- n_iter kadar kombinasyon dener — bütçeyle kontrol edilir.
 
-## Dengesiz Sınıf Problemi
+### Bayesian Optimizasyon (Optuna, Hyperopt)
 
-```python
-# SMOTE ile sentetik azınlık üretme
-from imblearn.over_sampling import SMOTE
-from imblearn.pipeline import Pipeline as ImbPipeline
+Önceki denemelerin sonuçlarından öğrenerek bir sonraki denemeyi akıllıca seçer. "Bu bölgede iyi sonuçlar alındı, buraya odaklan."
 
-sm = SMOTE(random_state=42)
-X_res, y_res = sm.fit_resample(X_train, y_train)
+- Grid/Random Search'ten çok daha verimli.
+- Büyük ve pahalı arama uzaylarında standart.
+- Erken durdurma (Pruning): Ümitsiz kombinasyonları yarıda keser.
 
-# Class weight ile ağırlıklandırma
-from sklearn.utils.class_weight import compute_class_weight
-weights = compute_class_weight('balanced', classes=np.unique(y), y=y)
-model = GradientBoostingClassifier()
-# veya RandomForestClassifier(class_weight='balanced')
+### Hangi Hiperparametreler Önemli?
 
-# Threshold ayarı (default 0.5 değil)
-y_prob = model.predict_proba(X_test)[:, 1]
-threshold = 0.3   # Recall'u artır, Precision düşer
-y_pred_custom = (y_prob >= threshold).astype(int)
-```
+Her model için kritik hiperparametreler farklıdır:
+
+| Model | En Kritik Hiperparametreler |
+|-------|:--------------------------:|
+| **Random Forest** | n_estimators, max_depth, min_samples_leaf |
+| **XGBoost** | learning_rate, n_estimators, max_depth, subsample |
+| **Sinir Ağı** | learning_rate, batch_size, architecture, dropout |
+| **SVM** | C, kernel, gamma |
+| **Ridge/Lasso** | alpha (λ) |
 
 ---
 
-## Model Yorumlanabilirliği (SHAP)
+## 9. Dengesiz Sınıf Problemi
 
-```python title="SHAP — Feature Importance"
-import shap
+Veri setinde bir sınıf çok az örnekle temsil edilebilir. Kredi dolandırıcılığı (%0.1 pozitif), hastalık tespiti (%2 hasta), üretim hatası (%0.5 hatalı). Standart yaklaşımlar başarısız olur.
 
-explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(X_test)
+### Neden Sorun?
 
-# Küresel önem
-shap.summary_plot(shap_values, X_test, feature_names=feature_names)
+Model veriyi eğitim için kullanır. %99 negatif varsa, model "her şeye negatif de" stratejisi benimseyip %99 Accuracy elde eder. Ama tek bir pozitifi bulamamış olabilir — ki bu tam anlamıyla işe yaramayan bir modeldir.
 
-# Tek tahmin açıklama (waterfall)
-shap.plots.waterfall(explainer(X_test)[0])
+### Çözüm Stratejileri
 
-# Beeswarm
-shap.summary_plot(shap_values, X_test, plot_type='dot')
-```
+**1. Doğru Metrik Seç**
+
+Dengesiz veri setinde Accuracy anlamsız. Bunlar yerine kullanılacaklar:
+- F1-Score (özellikle azınlık sınıfı için)
+- ROC-AUC
+- Precision-Recall AUC (dengesiz veri için ROC'tan daha bilgilendirici)
+
+**2. Sınıf Ağırlığı (Class Weight)**
+
+Model eğitiminde azınlık sınıfına daha yüksek ağırlık verin. Azınlık sınıfı hatasını daha fazla cezalandırır. Çoğu sklearn modelinde `class_weight='balanced'` parametresi otomatik hesaplar.
+
+**3. Örnekleme Teknikleri**
+
+- **Oversampling:** Azınlık sınıfını çoğalt. En basit yol: rastgele kopyala. Daha gelişmişi: **SMOTE** — azınlık örnekleri arasında enterpolasyonla sentetik yeni örnekler üret.
+- **Undersampling:** Çoğunluk sınıfından örnekleri at. Bilgi kaybı riski. NearMiss algoritması en bilgilendirici örnekleri tutar.
+- **Combined:** İkisini birlikte kullan — azınlığı artır, çoğunluğu azalt.
+
+**4. Karar Eşiğini Ayarla**
+
+Model 0.5 varsayılan eşiği kullanır. "0.3'ten büyükse pozitif say" diyerek Recall artırılır, Precision düşer. ROC eğrisinde Precision-Recall dengesine göre uygulama gereksinimini karşılayan eşik seçilir.
 
 ---
 
-## XGBoost / LightGBM — Pratikte En Güçlü Tablo Modeli
+## 10. Pipeline — Temiz ve Sızıntısız Akış
 
-```python title="XGBoost tam örnek"
-import xgboost as xgb
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score
+Veri ön işleme, özellik mühendisliği ve model adımlarını tek bir zincire bağlamak:
 
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2)
+**Neden Pipeline gerekir?**
+- Test verisine fit etme hatasını önler (scaler, imputer sadece eğitim verisine fit edilir)
+- Cross-validation'da her fold için tüm adımlar tekrar edilir — sızıntı imkânsız
+- Deployment'ta tek bir nesne tüm akışı kapsar: yeni veri girince dönüşüm + tahmin otomatik
 
-dtrain = xgb.DMatrix(X_train, label=y_train)
-dval   = xgb.DMatrix(X_val,   label=y_val)
-
-params = {
-    'objective':   'binary:logistic',
-    'eval_metric': 'auc',
-    'max_depth':   6,
-    'eta':         0.05,
-    'subsample':   0.8,
-    'colsample_bytree': 0.8,
-    'min_child_weight': 5,
-    'seed': 42
-}
-
-model = xgb.train(
-    params,
-    dtrain,
-    num_boost_round=1000,
-    evals=[(dval, 'val')],
-    early_stopping_rounds=50,
-    verbose_eval=100
-)
-
-y_prob = model.predict(dval)
-print(f"AUC: {roc_auc_score(y_val, y_prob):.4f}")
+```mermaid
+graph LR
+    RAW[Ham Veri] --> IMP[Imputer\nEksik Veri Doldur]
+    IMP --> ENC[Encoder\nKategorik Dönüştür]
+    ENC --> SCL[Scaler\nÖlçeklendir]
+    SCL --> MOD[Model\nTahmin Et]
+    MOD --> PRED[Çıktı]
 ```
+
+Sayısal ve kategorik sütunlar farklı işlemlerden geçer; **ColumnTransformer** bunları paralel uygular. Ardından model eklenir. Bu zincir cross-validation, Grid Search ve production'da aynı şekilde çalışır.
+
+---
+
+## 11. Model Yorumlanabilirliği (SHAP)
+
+Modelin neden bu tahmini yaptığını anlamak üç şey için kritiktir:
+1. **Güven inşası:** "Model ne öğrendi?" sorusuna cevap vermek
+2. **Hata ayıklama:** "Model neden bu örnekte yanıldı?"
+3. **Regülasyon:** Finans, sağlık, hukuk gibi alanlarda karar açıklanmalı
+
+### SHAP (SHapley Additive exPlanations)
+
+Oyun teorisinden türeyen SHAP, her özelliğin her tahmine katkısını hesaplar.
+
+**Global açıklama (Summary Plot):** Tüm veri setinde hangi özellik ne kadar önemli, nasıl etkiliyor. "Yaş değeri yüksekse pozitif tahmine katkısı yüksek."
+
+**Yerel açıklama (Waterfall / Force Plot):** Tek bir tahmin için her özelliğin katkısı. "Bu müşteri için kredi ret nedeni: borç oranı yüksek (+0.4), gelir düşük (+0.3), kredi geçmişi iyi (-0.1)."
+
+**Bağımlılık grafikleri (Dependence Plot):** Bir özellik değiştiğinde SHAP değeri nasıl değişiyor. Etkileşim var mı?
+
+| SHAP Avantajı | Alternatifler |
+|:-------------:|:-------------:|
+| Model agnostik (her model için) | Feature Importance (sadece ağaç) |
+| Yerel + global açıklama | Permutation Importance (sadece global) |
+| Matematiksel garanti (Shapley değerleri tutarlı) | LIME (yaklaşık, tutarsız olabilir) |
+| Etkileşim tespiti | Partial Dependence Plot (tek özellik) |
 
 ---
 
@@ -478,11 +455,11 @@ print(f"AUC: {roc_auc_score(y_val, y_prob):.4f}")
 
 | Problem | Veri | Başlangıç | Gelişmiş |
 |---------|------|:---------:|:--------:|
-| Binary Sınıflandırma | Tablo | Logistic Reg. | XGBoost, LightGBM |
-| Çok Sınıflı | Tablo | Random Forest | XGBoost + OvR |
-| Regresyon | Tablo | Linear Reg. | XGBoost, LightGBM |
+| Binary Sınıflandırma | Tablo | Logistic Regression | XGBoost, LightGBM |
+| Çok Sınıflı | Tablo | Random Forest | XGBoost + One-vs-Rest |
+| Regresyon | Tablo | Ridge Regression | XGBoost, LightGBM |
 | Kümeleme | Tablo | K-Means | DBSCAN, HDBSCAN |
-| Görüntü Sınıflandırma | Görüntü | ResNet-50 ft | EfficientNet, ViT |
+| Görüntü Sınıflandırma | Görüntü | ResNet-50 transfer | EfficientNet, ViT |
 | Nesne Tespiti | Görüntü | YOLOv8 | DINO, DETR |
 | Metin Sınıflandırma | Metin | TF-IDF + LR | BERT fine-tune |
 | Metin Üretimi | Metin | GPT-2 | GPT-4, Llama |

@@ -132,10 +132,14 @@ markdown_extensions:
       custom_checkbox: true # [ ] / [x] checklist
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg  
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
 
 extra_css:
   - assets/css/extra.css
 
 extra_javascript:
   - assets/js/extra.js
+  - assets/js/mathjax-config.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

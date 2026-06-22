@@ -1,7 +1,7 @@
 # Görüntü İşleme
 
 !!! note "Genel Bakış"
-    Görüntü işleme, dijital görüntüler üzerinde matematiksel işlemler uygulayarak bilgi çıkarmayı, görüntüyü iyileştirmeyi veya analiz etmeyi kapsar. OpenCV, Python'da fiili standart kütüphanedir. Bu sayfa; temel kavramlardan nesne tespitine uzanan kapsamlı bir rehberdir.
+    Görüntü işleme, dijital görüntüler üzerinde matematiksel dönüşümler uygulayarak bilgi çıkarmayı, görüntüyü iyileştirmeyi veya analiz etmeyi kapsar. Klasik görüntü işleme (filtreler, kenar tespiti, morfoloji) ile derin öğrenme tabanlı yaklaşımlar (CNN, YOLO, segmentasyon) birbirini tamamlar.
 
 ```mermaid
 graph TD
@@ -14,9 +14,11 @@ graph TD
 
 ---
 
-## Dijital Görüntü Temelleri
+## Dijital Görüntü Nedir?
 
-### Piksel ve Kanal Yapısı
+Bir dijital görüntü, sayısal değerler içeren iki boyutlu bir matristir. Her hücre bir **piksel** (pixel — picture element), her değer o pikselin renk ya da yoğunluk bilgisidir. Bilgisayar için görüntü, sadece sayılardan oluşan bir tablodur.
+
+### Piksel ve Matris Yapısı
 
 ```mermaid
 graph LR
@@ -30,516 +32,565 @@ graph LR
     end
 ```
 
-| Kavram | Açıklama |
-|--------|---------|
-| **Piksel** | Görüntünün en küçük birimi; renk/yoğunluk değeri taşır |
-| **Kanal** | Bir renk bileşeni (R, G, B veya H, S, V) |
-| **Bit Derinliği** | uint8: 0–255; float32: 0.0–1.0; uint16: 0–65535 |
-| **Çözünürlük** | Genişlik × Yükseklik piksel sayısı |
+**Renkli görüntü:** 3 boyutlu bir matris — Yükseklik × Genişlik × 3 kanal (R, G, B). 1920×1080 Full HD görüntü için bu 1920 × 1080 × 3 = yaklaşık 6.2 milyon sayı demektir.
 
-```python title="Temel Görüntü Bilgisi"
-import cv2
-import numpy as np
+**Gri tonlamalı:** Her piksel tek bir değer — 0 (siyah) ile 255 (beyaz) arasında. Renk bilgisi yoktur, sadece parlaklık.
 
-img = cv2.imread("image.jpg")            # BGR formatında okur (!)
-print(f"Boyut: {img.shape}")             # (yükseklik, genişlik, kanal)
-print(f"Tip: {img.dtype}")               # uint8
-print(f"Min/Max: {img.min()} / {img.max()}")
+**Bit derinliği:** Piksel başına kullanılan bit sayısı.
 
-# Piksel erişimi
-pixel = img[100, 200]        # (y=100, x=200) pikselinin BGR değeri
-roi = img[50:200, 100:300]   # Bölge erişimi [y_start:y_end, x_start:x_end]
-```
+- **uint8 (8 bit):** 0–255 arası 256 değer. Standart fotoğraflar ve kamera görüntüleri.
+- **uint16 (16 bit):** 0–65535. Tıbbi görüntüler, astronomik veriler — çok daha ince parlaklık farkları.
+- **float32:** 0.0–1.0 veya herhangi bir aralık. Sinir ağı işlemlerinde kullanılır.
 
-### Renk Uzayları
+### Çözünürlük ve Boyut Kavramları
 
-| Renk Uzayı | Kanallar | Kullanım |
-|:----------:|:-------:|---------|
-| **BGR** | Blue, Green, Red | OpenCV varsayılanı |
-| **RGB** | Red, Green, Blue | PIL/Matplotlib/PyTorch |
-| **HSV** | Hue, Saturation, Value | Renk tabanlı segmentasyon |
-| **LAB** | Luminance, A*, B* | Renk karşılaştırma, transferi |
-| **Grayscale** | Yoğunluk | Kenar, yoğunluk işlemleri |
-| **YCrCb** | Luminance, Cr, Cb | JPEG sıkıştırma, ten tonu |
+| Kavram | Açıklama | Örnek |
+|--------|---------|-------|
+| **Çözünürlük** | Toplam piksel sayısı (Genişlik × Yükseklik) | 1920×1080 = ~2 Megapiksel |
+| **Aspect Ratio** | Genişlik / Yükseklik oranı | 16:9 geniş ekran, 4:3 klasik |
+| **Kanal** | Renk bileşeni | RGB=3, RGBA=4, Grayscale=1 |
+| **Bit Derinliği** | Piksel başına bit | 8-bit: 256 seviye; 16-bit: 65536 seviye |
+| **DPI** | İnç başına nokta (baskı kalitesi) | 72 DPI ekran, 300 DPI baskı |
 
-```python title="Renk Dönüşümleri"
-img_rgb  = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)     # matplotlib için
-gray     = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-hsv      = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-lab      = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+---
 
-# HSV ile renk maskesi — sarı rengi seç
-lower_yellow = np.array([20, 100, 100])
-upper_yellow = np.array([30, 255, 255])
-mask   = cv2.inRange(hsv, lower_yellow, upper_yellow)
-result = cv2.bitwise_and(img, img, mask=mask)
-```
+## Renk Uzayları — Görüntüyü Farklı Temsil Etmek
 
-!!! tip "HSV ile Renk Segmentasyonu"
-    HSV renk uzayında Hue (H) rengin kendisini, Saturation (S) doygunluğunu, Value (V) parlaklığını temsil eder. Işık koşullarından bağımsız renk tespiti için BGR'den çok daha uygun.
+Aynı görüntü farklı renk uzaylarında farklı şekilde temsil edilebilir. Her renk uzayı belirli görevler için avantajlıdır. Doğru renk uzayını seçmek, sonraki adımları dramatik biçimde kolaylaştırır.
+
+### RGB
+
+En doğal renk uzayı. Her piksel kırmızı (R), yeşil (G) ve mavi (B) bileşenlerinin karışımıdır. İnsan gözü bu üç rengi algılar; tüm renkler bu üçünün farklı yoğunluk kombinasyonlarıyla oluşur.
+
+!!! warning "OpenCV'nin BGR Formatı"
+    OpenCV, görüntüleri RGB değil **BGR** sırasıyla okur. Bu tarihsel bir nedendir. Matplotlib ve PyTorch RGB bekler. Hatalı sıra görüntüyü kırmızı-mavi değişmiş gösterir. OpenCV'den gelen görüntüyü Matplotlib'de göstermeden önce BGR→RGB dönüşümü gerekir.
+
+### HSV — Renk Tespiti İçin
+
+RGB'de belirli bir rengi (örn. "sarı") bulmak zordur. Aynı sarı renk gölgede ve güneşte çok farklı RGB değerleri verir. HSV bu sorunu çözer:
+
+- **H (Hue — Ton):** Rengin kendisi. 0°–360° açı. 0° kırmızı → 60° sarı → 120° yeşil → 240° mavi → 360° kırmızı.
+- **S (Saturation — Doygunluk):** Rengin canlılığı. 0 = gri/renksiz, 255 = tam doygun renk.
+- **V (Value — Değer):** Parlaklık. 0 = siyah, 255 = tam parlak.
+
+**Neden HSV kullanılır?** Sarı nesneyi bulmak için H: 20–30, S: 100–255, V: 100–255 aralığı yeterlidir. Bu aralık gölgeli sarı, parlak sarı, mat sarı hepsini kapsar. RGB'de bu kadar basit bir eşik mümkün değildir.
+
+### LAB (L\*a\*b\*)
+
+İnsan gözünün renk algısını modelleyen uzay:
+- **L:** Parlaklık (0 = siyah, 100 = beyaz)
+- **a:** Kırmızı-yeşil ekseni (pozitif = kırmızı, negatif = yeşil)
+- **b:** Sarı-mavi ekseni (pozitif = sarı, negatif = mavi)
+
+**Özel özelliği:** LAB renk uzayında iki renk arasındaki Öklid mesafesi, insan gözünün algıladığı renk farkıyla orantılıdır. "Bu iki renk ne kadar farklı görünüyor?" sorusunu sayısal olarak cevaplayabilirsiniz. Renk karşılaştırma, renk transferi ve baskı kalite kontrolü için standarttır.
+
+### YCrCb
+
+Parlaklık (Y) ile renk farkı (Cr, Cb) bileşenlerine ayırır. JPEG sıkıştırması bu uzayı kullanır: insan gözü parlaklık değişimlerine renk değişimlerinden çok daha duyarlıdır. Cr ve Cb daha fazla sıkıştırılabilir, kaliteden önemli bir kayıp olmaz.
+
+Ten tonu tespiti için de kullanılır: ten tonu Cb ve Cr değerleri oldukça sabit bir aralıkta kalır.
+
+| Renk Uzayı | En İyi Kullanım |
+|:----------:|:---------------:|
+| **RGB / BGR** | Genel amaç, görüntü okuma/yazma |
+| **HSV** | Renk tabanlı nesne tespiti ve segmentasyon |
+| **LAB** | Renk karşılaştırma, renk transferi, kalite kontrol |
+| **Grayscale** | Kenar tespiti, yoğunluk analizi, hız kritikse |
+| **YCrCb** | Ten tonu tespiti, sıkıştırma |
 
 ---
 
 ## Geometrik Dönüşümler
 
-```python title="Yeniden Boyutlandırma ve Döndürme"
-# Yeniden boyutlandırma
-resized = cv2.resize(img, (640, 480))
-resized_ratio = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)   # %50 küçült
+Görüntünün uzamsal yapısını değiştiren işlemler. Nesnenin "nerede" göründüğünü ve "nasıl" göründüğünü etkiler ama piksel içeriklerini değiştirmez.
 
-# Enterpolasyon: INTER_NEAREST hızlı, INTER_CUBIC kaliteli büyütme
-resized_hq = cv2.resize(img, (1280, 720), interpolation=cv2.INTER_CUBIC)
+### Yeniden Boyutlandırma (Resize)
 
-h, w = img.shape[:2]
-cx, cy = w // 2, h // 2
+Piksel sayısını artırır veya azaltır. İki temel durum:
 
-# Döndürme
-M_rot = cv2.getRotationMatrix2D((cx, cy), angle=45, scale=1.0)
-rotated = cv2.warpAffine(img, M_rot, (w, h))
+- **Küçültme (Downscale):** Pikseller atılır. Bilgi kaybı olur. Gerçek zamanlı sistemlerde hız için zorunlu.
+- **Büyütme (Upscale):** Olmayan pikseller "uydurulur." Interpolasyon yöntemi kaliteyi belirler.
 
-# Flip
-flipped_h = cv2.flip(img, 1)    # Yatay ayna
-flipped_v = cv2.flip(img, 0)    # Dikey ayna
+**Interpolasyon yöntemleri:**
 
-# Perspektif düzeltme (dörtgen → dikdörtgen)
-src_pts = np.float32([[100, 100], [400, 80], [420, 350], [80, 370]])
-dst_pts = np.float32([[0, 0],    [300, 0],  [300, 300], [0, 300]])
-M_persp = cv2.getPerspectiveTransform(src_pts, dst_pts)
-warped  = cv2.warpPerspective(img, M_persp, (300, 300))
-```
+| Yöntem | Kalite | Hız | Ne Zaman |
+|--------|:------:|:---:|---------|
+| **Nearest Neighbor** | Düşük (pikselli) | En hızlı | Segmentasyon maskeleri (etiketleri bozma) |
+| **Bilinear** | İyi | Hızlı | Genel amaç, küçültme |
+| **Bicubic** | Çok iyi | Orta | Kaliteli büyütme |
+| **Lanczos** | En iyi | Yavaş | Baskı kalitesi büyütme |
 
----
+### Döndürme ve Afin Dönüşüm
 
-## Filtreleme ve Gürültü Azaltma
+**Afin dönüşüm:** Paralel çizgileri paralel bırakır. Döndürme, ölçekleme, kaydırma, yatırma (shear) bu kategoridedir. 2×3 dönüşüm matrisiyle tanımlanır.
 
-Filtreler, piksel değerini komşuluğunun ağırlıklı ortalamasıyla değiştiren konvolüsyon çekirdeği uygular.
+**Döndürme:** Merkez nokta ve açı belirlenir. Görüntü o merkez etrafında döndürülür. Dikkat: döndürülen görüntü orijinal çerçeveyi aşabilir, köşeler kesilebilir.
 
-```python title="Filtreleme"
-# Gaussian Blur — doğal görüntü gürültüsü
-blurred   = cv2.GaussianBlur(img, ksize=(15, 15), sigmaX=0)
+**Flip:** Yatay veya dikey aynalama. Veri artırmada en sık kullanılan işlem — simetrik nesneler için bilgi kaybı olmadan iki kat veri üretir.
 
-# Median Blur — tuz-biber (salt-pepper) gürültüsü
-median    = cv2.medianBlur(img, ksize=5)
+### Perspektif Dönüşüm
 
-# Bilateral Filter — kenarları koruyarak gürültü azaltma
-bilateral = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)
+Afin dönüşümün ötesinde — bir düzlemi farklı bir bakış açısından görüntülemek gibi. Paralel çizgiler paralel kalmaz (bir yolun uzağa doğru "daraldığı" gibi). 3×3 homografi matrisiyle tanımlanır.
 
-# Keskinleştirme kernel'i
-sharpen_kernel = np.array([[ 0, -1,  0],
-                            [-1,  5, -1],
-                            [ 0, -1,  0]])
-sharpened = cv2.filter2D(img, ddepth=-1, kernel=sharpen_kernel)
-```
-
-| Filtre | Kullanım | Hız |
-|--------|---------|:---:|
-| Gaussian | Genel gürültü, bulanıklaştırma | Hızlı |
-| Median | Tuz-biber gürültüsü | Orta |
-| Bilateral | Kenar koruyarak bulanıklaştırma | Yavaş |
+**Kullanım alanları:**
+- Belge tarama: Eğri çekilmiş belgeyi düz dikdörtgene dönüştür
+- Tahta/ekran yakalama: Açılı çekilmiş tahtayı frontal görünüme getir
+- Plaka tanıma: Açılı araçtaki plakayı düzleştir
 
 ---
 
-## Eşikleme (Thresholding)
+## Filtreleme ve Konvolüsyon — Görüntü Düzeltme
 
-Görüntüyü ön plan (1) ve arka plan (0) olarak ikiye ayırır.
+Filtreler, her pikselin değerini komşuluğuna göre yeniden hesaplar. Matematiksel temeli **konvolüsyon**: küçük bir çekirdek (kernel) görüntü üzerinde kaydırılır.
 
-```python title="Eşikleme Yöntemleri"
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+### Konvolüsyon Nasıl Çalışır?
 
-# Global Binary
-_, binary = cv2.threshold(gray, thresh=127, maxval=255, type=cv2.THRESH_BINARY)
+Çekirdek görüntünün her bölgesine "yapıştırılır": çekirdek değerleri × karşılık gelen piksel değerleri çarpılır ve toplanır. Bu toplam, merkezdeki pikselin yeni değeri olur.
 
-# Otsu — otomatik eşik (bimodal histogram için ideal)
-_, otsu = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+**Farklı çekirdekler farklı etkiler üretir:**
 
-# Adaptif — yerel parlaklık değişimleri için (ışık tutarsızlığı)
-adaptive = cv2.adaptiveThreshold(
-    gray, 255,
-    cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-    cv2.THRESH_BINARY,
-    blockSize=11,   # Komşuluk boyutu (tek sayı)
-    C=2             # Çıkartılan sabit
-)
-```
+| Çekirdek Türü | Etki | Uygulama |
+|:------------:|:----:|:--------:|
+| Tüm değerler eşit, toplam=1 | Bulanıklaştırma | Gürültü azaltma |
+| Merkez yüksek pozitif, etraf negatif | Keskinleştirme | Detay artırma |
+| Bir yönde pozitif, diğer yönde negatif | Kenar tespiti | Nesne sınırı bulma |
 
-!!! tip "Hangi Eşik?"
-    - Eşit aydınlatma → **Otsu**
-    - Düzensiz aydınlatma (gölge, spotlight) → **Adaptive Gaussian**
-    - Bilinen sabit eşik → **Global Binary**
+### Gaussian Bulanıklaştırma
+
+Komşu piksellerin ağırlıklı ortalamasını alır. Ağırlıklar Gaussian (normal) dağılımına göre belirlenir: merkezdeki piksel en yüksek, uzaktakiler azalan ağırlığa sahiptir.
+
+**Ne için kullanılır?**
+- Rastgele gürültüyü azaltmak (kamera sensör gürültüsü, JPEG artifact)
+- Kenar tespitinden önce görüntüyü yumuşatmak
+- Yüksek frekanslı detayları gizlemek (zoom out efekti)
+
+**σ (sigma) parametresi:** Gaussian'ın genişliği. Büyük σ → daha fazla piksel daha yüksek ağırlıkla etkilenir → daha fazla bulanıklaştırma. Çekirdek boyutu (ksize) genellikle 6σ + 1 olarak seçilir.
+
+### Median Filtreleme
+
+Her piksel yerine komşuluğunun medyanını (ortancasını) yazar. Ortalama yerine medyan kullanmak, aşırı değerlere (outlier) karşı dayanıklı kılar.
+
+**Tuz-biber gürültüsü nedir?** Görüntüde rastgele tam beyaz (255) veya tam siyah (0) pikseller görünür. Bir pikselin değeri 0 veya 255 olduğunda, Gaussian filtreleme bu aşırılığı komşulara yayar. Median ise bu piksel azınlıkta kaldığı için onu atar — gürültüsüz sonuç.
+
+### Bilateral Filtreleme
+
+Hem konumdaki yakınlığı hem de piksel değerindeki benzerliği dikkate alır. Benzer renge sahip komşular daha fazla ağırlık alır; farklı rengeyse ağırlık düşer.
+
+**Sonuç:** Kenarları koruyarak bulanıklaştırır. Kenarın iki tarafındaki pikseller renk açısından çok farklıdır → birbirini az etkiler → kenar korunur. Aynı bölgedeki pikseller ise birbirine yakın renklerde → birbirini çok etkiler → gürültü azalır.
+
+**Kullanım:** Cilt retüşü (yüz hatları korunurken cilt pürüzsüzleşir), medikal görüntüleme, çizgi film efekti (bilateral birkaç kez uygulandığında boyama görünümü oluşur).
 
 ---
 
-## Morfolojik İşlemler
+## Eşikleme (Thresholding) — İkili Görüntü Oluşturma
 
-İkili görüntülerdeki şekilleri yapısal eleman (kernel) kullanarak değiştiren temel işlemlerdir.
+Gri tonlamalı görüntüyü siyah-beyaz (ikili) görüntüye dönüştürür. Her piksel, eşik değerinin altında mı üstünde mi olduğuna göre 0 veya 255 değerini alır.
 
-```python title="Morfolojik İşlemler"
-kernel = np.ones((5, 5), np.uint8)
+**Neden gerekli?** Kontur tespiti, morfolojik işlemler, nesne sayımı gibi işlemler ikili görüntü üzerinde çalışır. Karmaşık görüntüden "ön plan / arka plan" ayrımı ilk adımdır.
 
-eroded   = cv2.erode(binary, kernel, iterations=1)            # Küçültür, gürültü temizler
-dilated  = cv2.dilate(binary, kernel, iterations=1)            # Büyütür, boşluk doldurur
-opened   = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)   # Erode + Dilate — gürültü at
-closed   = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)  # Dilate + Erode — delik kapat
-gradient = cv2.morphologyEx(binary, cv2.MORPH_GRADIENT, kernel) # Kenar
-```
+### Global Eşikleme
+
+Tüm görüntü için tek bir eşik değeri kullanılır. "127'den büyük pikseller beyaz, küçükler siyah."
+
+**Hangi değeri seçmeli?** Eşit aydınlatmada histogram iki tepeye sahip olur: koyu arka plan ve aydınlık ön plan. İki tepe arasındaki çukur ideal eşik noktasıdır.
+
+**Otsu Yöntemi:** Bu eşik değerini otomatik hesaplar. İki sınıfın (ön plan ve arka plan) içi varyansını minimize eden değeri bulur. Bimodal (iki tepeli) histogramlarda mükemmel çalışır. Tek tutarsız aydınlatma yoksa Otsu'yu tercih edin.
+
+### Adaptif Eşikleme
+
+Tek eşik tüm görüntü için uygun değilse (gölge, değişen aydınlatma, yansıma), her bölge için lokal eşik hesaplanır. Her piksel için, çevresindeki küçük bir bölgenin ortalaması (veya Gaussian ağırlıklı ortalaması) hesaplanıp sabit bir değer çıkarılarak lokal eşik bulunur.
+
+**Neden daha iyi?** Görüntünün sol üstü parlak, sağ altı gölgeli olsun. Global eşikte parlak bölgeler iyi ayrışır ama gölgeli bölge tamamen siyah olur. Adaptif yöntemde her bölge kendi koşuluna göre eşiklenir.
+
+**Kullanım:** El yazısı metin, karışık aydınlatmalı belgeler, endüstriyel yüzey denetimi, kamerayla yakalanan dokümanlar.
+
+### Eşik Seçim Rehberi
+
+| Durum | Yöntem |
+|-------|--------|
+| Eşit aydınlatma, net kontrast | **Otsu (Global)** |
+| Değişken aydınlatma, gölge var | **Adaptive Gaussian** |
+| Bilinen sabit eşik | **Global Binary** |
+| Çok kanallı, renk tabanlı | **HSV renk maskesi** |
+
+---
+
+## Morfolojik İşlemler — Şekil Manipülasyonu
+
+İkili görüntülerdeki şekilleri yapısal bir eleman (kernel) kullanarak değiştiren işlemlerdir. Kernelin şekli ve boyutu, işlemin hangi yapıları etkileyeceğini belirler: küçük bir daire kerneli küçük yuvarlak gürültüyü, ince bir dikdörtgen kerneli ince çizgileri etkiler.
+
+### Erozyon (Erosion)
+
+Yalnızca kernelin tamamen "sığdığı" yerlerde piksel 1 kalır. Diğer tüm pikseller 0 olur.
+
+**Etki:**
+- Nesneler küçülür (sınırlardan içe doğru erir)
+- İnce bağlantılar kopar
+- Küçük gürültü noktaları tamamen yok olur
+
+**Sezgi:** Kernel bir "eritici" gibi — nesnelerin dışından içe doğru eritir.
+
+### Genişleme (Dilation)
+
+Kernelin herhangi bir piksele "dokunduğu" yerlerde çıktı 1 olur.
+
+**Etki:**
+- Nesneler büyür (sınırlardan dışa doğru genişler)
+- Boşluklar dolar
+- Kopmalar birleşir
+
+**Sezgi:** Kernel bir "boyama fırçası" gibi — nesnelerin etrafına ek piksel boyar.
+
+### Açma (Opening) = Erozyon → Genişleme
+
+Önce erozyon, sonra genişleme uygulanır.
+
+**Etki:** İnce gürültü noktaları erozyon ile yok olur. Büyütme ile kalan asıl nesneler yaklaşık olarak orijinal boyutlarına döner.
+**Kullanım:** Arka plan gürültüsünü temizleme, küçük nesneleri filtreleyerek büyük nesneleri bulma.
+
+### Kapama (Closing) = Genişleme → Erozyon
+
+Önce genişleme, sonra erozyon uygulanır.
+
+**Etki:** Nesnelerin içindeki küçük delikler kapanır. Yakın nesneler birleşir.
+**Kullanım:** Nesne içindeki boşlukları kapatma, kırık/kesintili konturları birleştirme.
 
 ```mermaid
 graph LR
-    BIN[İkili Görüntü] --> ERODE[Erode\nGürültü temizle]
-    BIN --> DILATE[Dilate\nBoşluk doldur]
-    ERODE --> OPEN[Open\nNesne şekli koru]
-    DILATE --> CLOSE[Close\nDelik kapat]
+    BIN[İkili Görüntü] --> ERODE[Erozyon\nGürültü temizle\nKüçüt]
+    BIN --> DILATE[Genişleme\nBoşluk doldur\nBüyüt]
+    ERODE --> OPEN[Açma\nNesne şeklini koru\ngürültü at]
+    DILATE --> CLOSE[Kapama\nDelik kapat\nkırık kontur birleştir]
     ERODE & DILATE --> GRAD[Gradient\nKenar çıkar]
 ```
+
+**Morfolojik Gradient:** Genişleme ile erozyon arasındaki fark. Nesnenin sınır piksellerini verir — kenar tespitinin morfolojik versiyonu.
 
 ---
 
 ## Kenar Tespiti (Edge Detection)
 
-Kenarlar, yoğunluğun hızlı değiştiği piksellerdir. Nesne sınırlarını ve şekilleri temsil eder.
+Kenar, komşu pikseller arasında yoğunluğun ani değiştiği yerdir. Nesne sınırlarını, dokuları ve yapısal bilgiyi temsil eder.
 
-```python title="Kenar Tespiti"
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+**Neden önemli?** İnsan gözü ve beyin görüntüdeki kenarları otomatik olarak nesne sınırları olarak yorumlar. Görüntüyü gri tonlamaya çevirip kenarlarını çizseniz, hangi nesnenin bu olduğu çoğunlukla tanınabilir. Kenarlar yüksek bilgi yoğunluğunda, piksel sayısı açısından kompaktırlar.
 
-# Canny — en yaygın; Gaussian + Sobel + çift eşik içerir
-edges = cv2.Canny(gray, threshold1=50, threshold2=150)
+### Gradyan Tabanlı Yöntemler
 
-# Otomatik Canny eşiği (Otsu tabanlı)
-blur = cv2.GaussianBlur(gray, (5, 5), 0)
-v    = np.median(blur)
-edges_auto = cv2.Canny(blur, int(max(0, 0.67*v)), int(min(255, 1.33*v)))
+Görüntünün türevi (değişim hızı), yüksek gradyan bölgeleri kenar olarak işaretler.
 
-# Sobel — yönsel kenar; gradyan büyüklüğü
-sobel_x   = cv2.Sobel(gray, cv2.CV_64F, dx=1, dy=0, ksize=3)
-sobel_y   = cv2.Sobel(gray, cv2.CV_64F, dx=0, dy=1, ksize=3)
-sobel_mag = np.uint8(np.clip(cv2.magnitude(sobel_x, sobel_y), 0, 255))
-```
+**Sobel Operatörü:** Yatay ve dikey iki ayrı filtre uygular. Yatay filtre (dikey kenarları bulur), dikey filtre (yatay kenarları bulur). İkisini birleştirerek kenar büyüklüğü ve yönü hesaplanır.
 
-| Dedektör | Gürültü Duyarlılığı | Kullanım |
-|----------|:-------------------:|---------|
-| **Canny** | Düşük (Gaussian dahil) | Genel amaçlı (en iyi) |
-| **Sobel** | Orta | Gradyan yönü gerektiğinde |
-| **Laplacian** | Yüksek | Blob tespiti |
+- Yatay Sobel: `[-1 0 +1; -2 0 +2; -1 0 +1]` — sol-sağ geçişi yakalar
+- Dikey Sobel: `[-1 -2 -1; 0 0 0; +1 +2 +1]` — üst-alt geçişi yakalar
+
+**Laplacian Operatörü:** İkinci türev. Yönden bağımsız kenar tespiti yapar ama gürültüye çok duyarlıdır. Blob tespiti için kullanılır.
+
+### Canny Kenar Dedektörü
+
+En güvenilir ve yaygın kullanılan kenar tespit algoritmasıdır. John Canny tarafından 1986'da geliştirilmiş olmasına rağmen hâlâ standarttır.
+
+**4 aşamalı süreç:**
+
+1. **Gaussian Bulanıklaştırma:** Gürültüyü azalt. Gürültülü görüntüde her piksel değişimi "kenar" gibi görünür.
+
+2. **Gradyan Hesapla:** Sobel filtreleriyle her pikselin gradyan büyüklüğü ve yönü bulunur.
+
+3. **Non-Maximum Suppression (Maksimum Olmayan Bastırma):** Kenar yönünde her piksel, komşularıyla karşılaştırılır. Sadece yerel maksimum olanlar korunur. Sonuç: ince, tek piksel kalınlığında kenarlar.
+
+4. **Hysteresis Eşikleme:** İki eşik belirlenir.
+    - Yüksek eşiğin üstü → kesin kenar
+    - Düşük eşiğin altı → kenar değil, at
+    - İkisi arasında kalan → yüksek eşikli bir kenara bağlıysa kenar, değilse at
+    
+    Bu, güçlü kenarlara bağlı zayıf devamları korurken, izole gürültü noktalarını atar.
+
+| Dedektör | Gürültü Duyarlılığı | Yön Bilgisi | Kullanım |
+|----------|:-------------------:|:-----------:|---------|
+| **Canny** | Düşük (Gaussian dahil) | Hayır | **Genel amaçlı (en iyi seçenek)** |
+| **Sobel** | Orta | Evet | Gradyan yönü gerektiğinde |
+| **Laplacian** | Yüksek | Hayır | Blob tespiti, odak ölçümü |
+
+---
+
+## Histogram
+
+Görüntüdeki piksel yoğunluk dağılımını gösterir. Her yoğunluk değerinin (0–255) kaç pikselde göründüğü grafik olarak çizilir.
+
+**Histogramdan ne okunur?**
+
+| Histogram Şekli | Yorum |
+|:---------------:|-------|
+| Sola yığılmış | Görüntü çok koyu (underexposed) |
+| Sağa yığılmış | Görüntü aşırı parlak (overexposed) |
+| İki tepe (bimodal) | Koyu arka plan + aydınlık ön plan — eşikleme için ideal |
+| Geniş yayılım | Yüksek kontrast |
+| Dar yayılım | Düşük kontrast |
+
+### Histogram Eşitleme
+
+Düşük kontrastlı görüntülerde piksel değerleri dar bir aralıkta yığılır (örn. 80–180 arası). Eşitleme bu değerleri tüm 0–255 aralığına yayar, kontrastı artırır. Matematiksel olarak kümülatif dağılım fonksiyonu kullanılarak yapılır.
+
+**Sınırı:** Global eşitleme zaman zaman gerçek dışı görünümlere yol açar: parlak bölgeler gereğinden fazla güçlenir.
+
+### CLAHE (Sınırlandırılmış Adaptif Histogram Eşitleme)
+
+Görüntüyü küçük bloklara (tile) böler, her blokta ayrı histogram eşitleme yapar. Aşırı kontrast artışını "clip limit" ile sınırlandırır — belirli bir yoğunluğun üzerindeki histogram çubuğu kesilir, bu fazlalık diğer çubuklara dağıtılır.
+
+**Neden CLAHE tercih edilir?**
+- Global eşitlemeden daha doğal görünüm
+- Yerel kontrast iyileştirme
+- Gürültüyü aşırı güçlendirmez
+
+**Kullanım:** Tıbbi görüntüleme (X-ray, MRI kontrast iyileştirme), uydu görüntüleri, düşük ışık koşullarında çekilmiş fotoğraflar, endüstriyel denetim.
 
 ---
 
 ## Kontur Tespiti ve Şekil Analizi
 
-Konturlar, aynı yoğunluğa sahip sürekli piksel eğrileridir.
+Konturlar, aynı yoğunluğa sahip sürekli piksel eğrileridir. Pratik olarak: ikili görüntüdeki nesnelerin dış sınırlarıdır.
 
-```python title="Kontur İşlemleri"
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-_, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+**İş akışı:** Ham görüntü → Gri tonlama → Eşikleme → Kontur bul → Analiz et
 
-contours, hierarchy = cv2.findContours(
-    binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-)
-contours = sorted(contours, key=cv2.contourArea, reverse=True)
+### Kontur Özellikleri ve Kullanımı
 
-output = img.copy()
-for cnt in contours:
-    area = cv2.contourArea(cnt)
-    if area < 500:
-        continue
+| Özellik | Tanım | Kullanım |
+|---------|-------|---------|
+| **Alan** | İçindeki piksel sayısı | Küçük gürültüyü filtrele; nesne boyutu sınıflandırma |
+| **Çevre** | Sınırın toplam uzunluğu | Şekil karmaşıklığı ölçümü |
+| **Dairesellik** | 4πA / P² → 1.0 = mükemmel daire | Yuvarlak nesneleri ayırt etme |
+| **Bounding Rect** | Nesneyi çeviren dikdörtgen | Kırpma, ROI belirleme, koordinat çıkarımı |
+| **Doluluk Oranı** | Alan / Bounding Rect Alanı | Kompakt vs uzun nesneler |
+| **Solidity** | Alan / Convex Hull Alanı → 1.0 = dışbükey | İç bükey girinti var mı? |
+| **Moment Merkezi** | Piksel ağırlıklı merkez koordinatı | Nesne konumunu bul |
 
-    # Sınırlayıcı dikdörtgen
-    x, y, w, h = cv2.boundingRect(cnt)
-    cv2.rectangle(output, (x, y), (x+w, y+h), (255, 0, 0), 2)
-
-    # Merkez (moment tabanlı)
-    M = cv2.moments(cnt)
-    if M['m00'] != 0:
-        cx = int(M['m10'] / M['m00'])
-        cy = int(M['m01'] / M['m00'])
-        cv2.circle(output, (cx, cy), 5, (0, 0, 255), -1)
-
-    # Şekil yaklaşımı
-    perimeter = cv2.arcLength(cnt, closed=True)
-    approx    = cv2.approxPolyDP(cnt, 0.02 * perimeter, closed=True)
-    n = len(approx)
-    label = {3: "Üçgen", 4: "Dörtgen"}.get(n, "Daire" if n > 8 else f"{n}-gen")
-    cv2.putText(output, label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,255), 2)
-```
-
-```python title="Kontur Özellikleri"
-cnt = contours[0]
-
-area         = cv2.contourArea(cnt)
-perimeter    = cv2.arcLength(cnt, True)
-circularity  = (4 * np.pi * area) / (perimeter ** 2)   # 1.0 = daire
-
-x, y, w, h  = cv2.boundingRect(cnt)
-aspect_ratio = float(w) / h
-extent       = area / (w * h)                           # Doluluk oranı
-
-hull         = cv2.convexHull(cnt)
-solidity     = area / cv2.contourArea(hull)             # 1.0 = dışbükey
-```
+**Hiyerarşi:** `findContours` dış konturlar ile iç konturlar (delikler) arasındaki hiyerarşik ilişkiyi döndürür.
+- `RETR_EXTERNAL`: Sadece en dıştaki konturlar.
+- `RETR_LIST`: Tüm konturlar, ilişki yok.
+- `RETR_TREE`: Tüm iç içe kontur ağacı.
 
 ---
 
-## Histogram İşlemleri
+## Özellik Tespiti ve Eşleştirme
 
-```python title="Histogram ve Eşitleme"
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+İki görüntüdeki aynı nesneyi bulmak veya iki görüntüyü hizalamak için "parmak izi" gibi davranan, görüntü dönüşümlerine dayanıklı noktalar tespit edilir.
 
-# Histogram hesapla
-hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
+### Özellik Nedir?
 
-# Histogram Eşitleme — düşük kontrast görüntü iyileştirme
-equalized = cv2.equalizeHist(gray)
+Köşeler, blob'lar (yuvarlak bölgeler), kenar kesişimleri gibi "ilginç" noktalardır. **İyi bir özellik:**
+- **Tekrarlanabilir:** Döndürülmüş, ölçeklenmiş, aydınlatması değiştirilmiş görüntüde aynı nokta bulunabilmeli.
+- **Ayırt edici:** İki farklı nokta benzer descriptor'a sahip olmamalı.
+- **Verimli:** Hesaplama süresi uygulamaya uygun olmalı.
 
-# CLAHE — Sınırlandırılmış Adaptif HE (daha doğal sonuç)
-clahe      = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-clahe_gray = clahe.apply(gray)
+**Neden köşeler?** Kenarlar boyunca hareket ettiğinizde görünüm fazla değişmez ama köşelerde her yön farklı görünür. Bu "köşenin her yönden tanınabilmesi" özelliği onu güçlü bir özellik noktası yapar.
 
-# Renkli görüntüde CLAHE (V kanalına uygula)
-hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-hsv[:, :, 2] = clahe.apply(hsv[:, :, 2])
-img_clahe = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-```
+### Anahtar Nokta ve Tanımlayıcı
 
----
+- **Keypoint:** "Bu noktada ilginç bir şey var" — konum, ölçek, yön bilgisi içerir.
+- **Descriptor:** O noktanın çevresini sayısal olarak tanımlayan vektör — parmak izi gibi. Eşleştirme bu vektörler karşılaştırılarak yapılır.
 
-## Özellik Tespiti (Feature Detection)
+### Popüler Algoritmalar
 
-Görüntüdeki tekrarlanabilir, tanınabilir noktaları (keypoint) ve tanımlayıcılarını (descriptor) çıkarır.
+| Algoritma | Hız | Ölçek Değişmez | Döndürme Değişmez | Patent | Kullanım |
+|-----------|:---:|:--------------:|:-----------------:|:------:|---------|
+| **SIFT** | Yavaş | ✓ | ✓ | Açık (2020+) | Hassas eşleştirme, 3D rekonstrüksiyon |
+| **ORB** | Çok hızlı | Kısmen | ✓ | Açık | Gerçek zamanlı, mobil, gömülü |
+| **AKAZE** | Orta | ✓ | ✓ | Açık | SLAM, otonom gezinme |
+| **SuperPoint** | Orta | ✓ | ✓ | Açık | Derin öğrenme tabanlı, güncel |
 
-```python title="ORB — Hızlı ve Patent-free"
-orb = cv2.ORB_create(nfeatures=1000)
-kp, des = orb.detectAndCompute(gray, mask=None)
+### Eşleştirme Yöntemleri
 
-# İki görüntü eşleştirme
-orb2 = cv2.ORB_create(nfeatures=1000)
-kp2, des2 = orb2.detectAndCompute(gray2, None)
+**Brute Force:** Birinci görüntünün her descriptor'ını, ikinci görüntünün tüm descriptor'larıyla karşılaştır. En yakın olanı eşleştir. Kesin sonuç verir ama yavaştır.
 
-bf      = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-matches = bf.match(des, des2)
-matches = sorted(matches, key=lambda x: x.distance)
+**FLANN:** Yaklaşık en yakın komşu araması — hızlı ama bazen yanlış eşleştirme yapabilir. Büyük descriptor kümelerinde Brute Force'tan çok daha hızlı.
 
-img_matches = cv2.drawMatches(img, kp, img2, kp2, matches[:30], None,
-                              flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
-```
+**Lowe's Ratio Test:** Bir noktanın en yakın iki eşleşmesi arasındaki mesafe oranı 0.7'den küçükse kabul et. Bu, belirsiz eşleşmeleri (iki aday çok yakın) reddeder.
 
-```python title="SIFT + FLANN (daha hassas)"
-sift = cv2.SIFT_create(nfeatures=500)
-kp, des = sift.detectAndCompute(gray, None)
-
-flann   = cv2.FlannBasedMatcher({'algorithm': 1, 'trees': 5}, {'checks': 50})
-matches = flann.knnMatch(des, des2, k=2)
-good    = [m for m, n in matches if m.distance < 0.7 * n.distance]  # Lowe's ratio test
-```
-
-| Dedektör | Hız | Ölçek Değişmez | Patent | Kullanım |
-|----------|:---:|:--------------:|:------:|---------|
-| **ORB** | Hızlı | Kısmen | Açık | Gerçek zamanlı |
-| **SIFT** | Yavaş | ✓ | Açık (2020+) | Hassas eşleştirme |
-| **AKAZE** | Orta | ✓ | Açık | SLAM |
+**RANSAC ile Geometrik Doğrulama:** Eşleştirme sonrası bazı yanlış eşleşmeler (outlier) olabilir. RANSAC geometrik tutarlılığı test eder. Görüntüler arasındaki dönüşüm modeliyle tutarsız eşleşmeleri atar — güvenilir eşleşmeler kalır.
 
 ---
 
-## Şablon Eşleştirme (Template Matching)
+## Segmentasyon — Anlam Çıkarma
 
-```python title="Template Matching"
-template = cv2.imread("template.png", cv2.IMREAD_GRAYSCALE)
-th, tw   = template.shape[:2]
+Segmentasyon, görüntüyü anlamlı bölgelere ayırma işlemidir. "Bu piksel hangi nesneye ait?" sorusunu yanıtlar.
 
-result = cv2.matchTemplate(gray, template, cv2.TM_CCOEFF_NORMED)
-min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+### Eşik Tabanlı Segmentasyon
 
-# Tüm eşleşmeleri bul (threshold üstü)
-locations = np.where(result >= 0.8)
-for pt in zip(*locations[::-1]):
-    cv2.rectangle(img, pt, (pt[0]+tw, pt[1]+th), (0, 255, 0), 2)
-```
+En basit yöntem: eşikleme sonrası bağlı bileşenler (connected components) analizi. Her birbirinden ayrı beyaz bölge, ayrı bir nesne olarak etiketlenir.
 
----
+**Sınırı:** Nesneler birbirine değiyorsa ayrılamaz.
 
-## Segmentasyon — Watershed
+### Watershed Algoritması
 
-```python title="Watershed Algoritması"
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-_, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+Su havzası analojisi: görüntüyü bir topografya haritası gibi düşünün. Düşük yoğunluk bölgeler "çukur", yüksek yoğunluk "dağ". Çukurlardan eş zamanlı "su" doldurulur. Farklı çukurlardan gelen su buluştuğunda "su ayrımı" (watershed) oluşur — bu nesne sınırlarıdır.
 
-kernel  = np.ones((3, 3), np.uint8)
-opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel, iterations=2)
-sure_bg = cv2.dilate(opening, kernel, iterations=3)
+**Güçlü olduğu durum:** İç içe nesneleri ayırmak. Dokunuşan hücreler, üst üste meyve, birbirine yakın ürünler.
 
-dist_transform = cv2.distanceTransform(opening, cv2.DIST_L2, 5)
-_, sure_fg = cv2.threshold(dist_transform, 0.7 * dist_transform.max(), 255, 0)
-sure_fg    = np.uint8(sure_fg)
-unknown    = cv2.subtract(sure_bg, sure_fg)
+**Dikkat:** Gürültülü görüntülerde aşırı segmentasyon (over-segmentation) oluşabilir — her küçük çukur ayrı nesne sayılır. Bunu önlemek için önce morfolojik açma uygulanır ve minimum belirgin çukurlar belirlenir.
 
-_, markers = cv2.connectedComponents(sure_fg)
-markers    = markers + 1
-markers[unknown == 255] = 0
+### Derin Öğrenme Tabanlı Segmentasyon
 
-markers = cv2.watershed(img, markers)
-img[markers == -1] = [255, 0, 0]   # Sınırları kırmızıyla işaretle
-```
+Klasik yöntemler basit geometrik nesnelerde iyi çalışır. Karmaşık sahneler için derin öğrenme gerekir.
 
----
+**Semantik Segmentasyon:** Her pikseli bir sınıfa atar. "Bu piksel araba, bu yol, bu ağaç." İki farklı arabanın pikselleri aynı "araba" sınıfında olur. Otonom araçlar için kritik.
 
-## Kamera Kalibrasyonu
+**Instance Segmentasyon:** Her nesne örneğini ayrı ayrı tanımlar. "Bu piksel 1. araba, bu piksel 2. araba." Mask R-CNN bu yaklaşımın öncüsüdür. Kalabalık insan tespiti, hücre sayımı.
 
-Kamera lensi geometrik bozulma (distortion) üretir. Kalibrasyon, bu bozulmayı düzeltmek için intrinsic ve distortion parametrelerini hesaplar.
+**Panoptik Segmentasyon:** Semantik + Instance segmentasyonun birleşimi. Sayılabilen nesneler (araba, insan) → Instance; sayılamayan bölgeler (gökyüzü, yol, çim) → Semantik şeklinde işlenir.
 
-```python title="Satranç Tahtası ile Kalibrasyon"
-import glob
-
-CHESSBOARD = (9, 6)
-objp = np.zeros((CHESSBOARD[0] * CHESSBOARD[1], 3), np.float32)
-objp[:, :2] = np.mgrid[0:CHESSBOARD[0], 0:CHESSBOARD[1]].T.reshape(-1, 2)
-
-obj_points, img_points = [], []
-
-for fname in glob.glob('calib_images/*.jpg'):
-    img  = cv2.imread(fname)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, corners = cv2.findChessboardCorners(gray, CHESSBOARD, None)
-    if not ret:
-        continue
-    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
-    corners2 = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
-    obj_points.append(objp)
-    img_points.append(corners2)
-
-ret, camera_matrix, dist_coeffs, rvecs, tvecs = cv2.calibrateCamera(
-    obj_points, img_points, gray.shape[::-1], None, None
-)
-print(f"RMS hata: {ret:.4f}")   # < 1.0 iyi
-
-# Bozulmayı düzelt
-undistorted = cv2.undistort(img, camera_matrix, dist_coeffs)
-
-# Kaydet
-np.savez('calibration.npz', camera_matrix=camera_matrix, dist_coeffs=dist_coeffs)
-```
-
-```mermaid
-graph LR
-    CALIB[Kalibrasyon\nGörüntüleri] --> FIND[Köşe Noktaları\nfindChessboardCorners]
-    FIND --> CAL[calibrateCamera\nK, D, R, T]
-    CAL --> UNDIST[undistort\nDüzeltilmiş Görüntü]
-    CAL --> POSE[solvePnP\nPoz Tahmini]
-```
-
-!!! tip "İyi Kalibrasyon İçin"
-    - En az 15–20 farklı açı ve mesafeden kare kullanın
-    - RMS hata < 0.5 mükemmel, < 1.0 yeterli
-    - Kalibrasyonu farklı ışık koşullarında tekrarlayın
+**SAM (Segment Anything Model):** Meta tarafından 2023'te çıkarılan bu model, herhangi bir nesneyi nokta, kutu veya metin istemle segmente edebilir. İnsan müdahalesini minimuma indirir.
 
 ---
 
 ## Nesne Tespiti — Derin Öğrenme ile
 
-### YOLOv8 ile Modern Kullanım
+Nesne sınıflandırma: "Bu görüntüde ne var?" → tek sınıf
+Nesne tespiti: "Bu görüntüde ne var ve nerede?" → sınıf + koordinat (bounding box)
 
-```python title="Ultralytics YOLOv8"
-from ultralytics import YOLO
+### Nesne Tespitinin Evrimi
 
-model = YOLO("yolov8n.pt")   # nano: hız odaklı; yolov8l.pt: doğruluk odaklı
-
-# Tek görüntü
-results = model("image.jpg", conf=0.5, iou=0.4)
-for r in results:
-    for box in r.boxes:
-        cls  = int(box.cls[0])
-        conf = float(box.conf[0])
-        x1, y1, x2, y2 = map(int, box.xyxy[0])
-        print(f"{model.names[cls]}: {conf:.2f} @ [{x1},{y1},{x2},{y2}]")
-    r.save("output.jpg")
-
-# Webcam akışı
-model.predict(source=0, show=True, conf=0.5)   # 0 = webcam
-
-# Fine-tune
-model.train(data="dataset.yaml", epochs=100, imgsz=640, batch=16, device=0)
+```mermaid
+graph LR
+    HOG[HOG + SVM\n2005\nKlasik] --> RCNN[R-CNN\n2014\nDerin öğrenme başlangıcı]
+    RCNN --> FRCNN[Faster R-CNN\n2015\nUçtan uca]
+    FRCNN --> YOLO[YOLO\n2016\nGerçek zamanlı]
+    YOLO --> YOLO8[YOLOv8\n2023\nModern standart]
+    FRCNN --> DETR[DETR\n2020\nTransformer tabanlı]
 ```
 
-### OpenCV DNN ile YOLO
+**İki aşamalı dedektörler (R-CNN ailesi):**
 
-```python title="OpenCV DNN"
-net = cv2.dnn.readNet("yolov4.weights", "yolov4.cfg")
-net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
-net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
+1. Bölge önerisi: "Nesne olabilecek ~2000 bölgeyi öner" (Selective Search veya RPN)
+2. Her bölge için sınıflandırma ve bounding box ince ayarı
 
-blob = cv2.dnn.blobFromImage(img, 1/255.0, (416, 416), swapRB=True, crop=False)
-net.setInput(blob)
+Daha doğru ama yavaş. Tıbbi görüntüleme, hassasiyet kritik uygulamalar için.
 
-h, w = img.shape[:2]
-outputs = net.forward(net.getUnconnectedOutLayersNames())
-boxes, confs, class_ids = [], [], []
+**Tek aşamalı dedektörler (YOLO ailesi):**
 
-for output in outputs:
-    for det in output:
-        scores = det[5:]
-        cls    = np.argmax(scores)
-        conf   = scores[cls]
-        if conf > 0.5:
-            cx, cy, bw, bh = (det[:4] * [w, h, w, h]).astype(int)
-            boxes.append([cx - bw//2, cy - bh//2, bw, bh])
-            confs.append(float(conf))
-            class_ids.append(cls)
+Görüntüyü ızgara hücrelerine böl; her hücre doğrudan sınıf + koordinat tahmin eder. "You Only Look Once" — görüntüye bir kez bakıp tüm nesneleri bul.
 
-indices = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
+Çok daha hızlı. Gerçek zamanlı uygulamalar için ideal. YOLOv8 hem hız hem doğruluk açısından dengeli, güncel standarttır.
+
+**Transformer tabanlı (DETR):**
+
+CNN yerine Transformer encoder kullanır. "Nesne sorguları" attention mekanizmasıyla görüntüden nesne konumlarını çıkarır. NMS gerekmez — uçtan uca eğitim.
+
+### Temel Kavramlar
+
+**Bounding Box:** Nesneyi çeviren dikdörtgen. `[x_min, y_min, x_max, y_max]` veya `[cx, cy, width, height]` formatında temsil edilir.
+
+**Confidence Score:** Modelin bu bounding box'ta bir nesne olduğuna dair güveni. Eşik (threshold) altındakiler atılır.
+
+**IoU (Intersection over Union):** İki bounding box'ın ne kadar örtüştüğü.
+
 ```
+IoU = Kesişim Alanı / Birleşim Alanı
+```
+
+IoU = 1.0 → tam üst üste. IoU = 0 → hiç örtüşme yok. Genellikle IoU > 0.5 "iyi eşleşme" sayılır.
+
+**NMS (Non-Maximum Suppression):** Aynı nesne için birden fazla bounding box üretildiğinde fazlaları temizler.
+1. En yüksek confidence'lı kutuyu al.
+2. Bu kutuyla yüksek IoU (> 0.5) olan diğer kutuları sil.
+3. Kalan kutularda tekrar et.
+
+**mAP (mean Average Precision):** Nesne tespitinin temel kalite metriği. Farklı IoU eşiklerinde ve sınıflarda Precision-Recall eğrisinin altındaki alanın ortalaması. mAP@0.5: IoU > 0.5 olan tespitler doğru sayılır.
+
+---
+
+## Kamera Kalibrasyonu
+
+Gerçek dünya 3D, görüntü 2D. Kamera bu projeksiyon sırasında geometrik bozulmalar üretir.
+
+### Lens Bozulması (Distortion)
+
+**Radyal bozulma:** Geniş açılı lenslerde kenarlar içe (barrel) veya dışa (pincushion) doğru bükülür. Balık gözü etkisi aşırı barrel bozulmasıdır. Düz çizgiler eğrilmiş görünür.
+
+**Teğetsel bozulma:** Lens optik merkezi görüntü sensörüne tam hizalanmamış. Nadir görülür, genellikle ihmal edilir.
+
+### Kalibrasyon Ne Sağlar?
+
+Kameranın iç parametrelerini (intrinsic) ve bozulma katsayılarını hesaplar. Bu parametrelerle herhangi bir görüntüdeki bozulma matematiksel olarak giderilebilir.
+
+**İntrinsik Matris (K):**
+
+```
+K = [fx  0  cx]
+    [0  fy  cy]
+    [0   0   1]
+```
+
+- **fx, fy:** Piksel cinsinden focal length (odak uzaklığı). Büyük değer → telezoom etkisi.
+- **cx, cy:** Optik merkezin görüntüdeki koordinatı (genellikle merkeye yakın).
+
+**Bozulma Katsayıları:** k1, k2, k3 (radyal), p1, p2 (teğetsel). Negatif k1 → barrel bozulması, pozitif → pincushion.
+
+**Ekstrinsik Parametreler:** Her kalibre pozisyonu için kameranın yönelimi (R, rotasyon) ve konumu (t, öteleme). Kameradan dünya koordinatına geçiş.
+
+### Kalibrasyon Prosedürü
+
+1. Bilinen boyutlarda satranç tahtası (veya asimetrik daire ızgarası) hazırla.
+2. Tahtayı farklı açı ve mesafelerden 15–20 fotoğraf çek.
+3. Her görüntüde köşe noktaları (veya daire merkezleri) tespit et.
+4. 3D gerçek konumlar ile 2D görüntü konumları arasındaki farkı minimize eden parametreler hesapla.
+
+**RMS hatası:** Kalibrasyon kalitesinin göstergesi. < 0.5 mükemmel, < 1.0 yeterli, > 2.0 kalibrasyon geçersizdir — farklı açılar dene.
+
+**Stereo Kalibrasyon:** İki kamera arasındaki geometrik ilişkiyi (R, T) de hesaplar. Bu, görüntüden derinlik (3D konum) hesaplamak için zorunludur.
 
 ---
 
 ## Optik Akış (Optical Flow)
 
-Ardışık kare çiftleri arasındaki piksel hareketini hesaplar.
+Art arda gelen karelerde nesnelerin nasıl hareket ettiğini tahmin eder. Her piksel için bir hareket vektörü (hız ve yön) hesaplanır.
 
-```python title="Lucas-Kanade Optik Akış"
-cap       = cv2.VideoCapture("video.mp4")
-ret, old  = cap.read()
-old_gray  = cv2.cvtColor(old, cv2.COLOR_BGR2GRAY)
-p0        = cv2.goodFeaturesToTrack(old_gray, maxCorners=100,
-                                     qualityLevel=0.3, minDistance=7)
-lk_params = dict(winSize=(15, 15), maxLevel=2,
-                 criteria=(cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
-mask = np.zeros_like(old)
+**Temel varsayım:** Bir pikselin yoğunluğu bir kareden diğerine değişmez (parlaklık sabiti). Bu varsayım altında hareket hesaplanır. Aydınlatma değişirse varsayım bozulur.
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
-    frame_gray      = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    p1, st, _       = cv2.calcOpticalFlowPyrLK(old_gray, frame_gray, p0, None, **lk_params)
-    good_new        = p1[st == 1]
-    good_old        = p0[st == 1]
+### Lucas-Kanade Yöntemi
 
-    for new, old_pt in zip(good_new, good_old):
-        a, b = new.ravel().astype(int)
-        c, d = old_pt.ravel().astype(int)
-        mask = cv2.line(mask, (a, b), (c, d), (0, 255, 0), 2)
-        frame = cv2.circle(frame, (a, b), 5, (0, 0, 255), -1)
+Küçük bir pencere içinde hareketin sabit olduğunu varsayar. Önce iyi özellik noktaları (genellikle köşeler) seçilir, sonra bu noktalar kareden kareye takip edilir.
 
-    cv2.imshow('Akış', cv2.add(frame, mask))
-    old_gray = frame_gray.copy()
-    p0       = good_new.reshape(-1, 1, 2)
-    if cv2.waitKey(30) & 0xFF == ord('q'):
-        break
-cap.release()
-cv2.destroyAllWindows()
-```
+**Avantaj:** Hızlı, sağlam, az hatalı.
+**Sınır:** Büyük hareketlerde başarısız. Hızlı hareket eden nesneleri takip edemez.
+
+**Piramidal Lucas-Kanade:** Görüntüyü farklı ölçeklerde yeniden boyutlandır, küçük ölçekten büyük ölçeğe doğru hesapla. Büyük hareketleri de yakalayabilir.
+
+### Farneback Yöntemi
+
+Yoğun optik akış — her piksel için ayrı hareket vektörü hesaplar. Tüm görüntüde hareket haritası (flow field) oluşturur. Lucas-Kanade'den yavaş ama daha kapsamlı bilgi verir.
+
+### Derin Öğrenme Tabanlı Optik Akış
+
+**FlowNet, RAFT** gibi CNN tabanlı yöntemler klasik yöntemleri geçmiştir. Büyük hareketleri, aydınlatma değişimlerini ve örtülü nesneleri daha iyi işler. Eğitim gerektirdiği için özelleşmiş veri setlerine ihtiyaç duyar.
+
+**Kullanım alanları:** Video sıkıştırma (kareler arasındaki farkı kodla), otonom araç (yaklaşan nesne tespiti), eylem tanıma, video stabilizasyon, slo-mo oluşturma.
 
 ---
 
-## Görüntü İşleme Hızlı Başvuru
+## Görüntü İşleme Seçim Rehberi
 
-| Amaç | Fonksiyon | Not |
-|------|-----------|-----|
-| Oku / Yaz | `cv2.imread`, `cv2.imwrite` | BGR formatı |
-| Boyutlandır | `cv2.resize` | `INTER_CUBIC` büyütme için |
-| Renk dönüşümü | `cv2.cvtColor` | BGR→HSV tespiti için |
-| Bulanıklaştır | `cv2.GaussianBlur` | Gürültü öncesi |
-| Kenar | `cv2.Canny` | Otomatik: `0.67/1.33 × median` |
-| Eşik | `cv2.threshold + OTSU` | Eşit aydınlatmada |
-| Adaptif Eşik | `cv2.adaptiveThreshold` | Düzensiz ışıkta |
-| Morfoloji | `cv2.morphologyEx` | OPEN gürültü, CLOSE delik |
-| Kontur | `cv2.findContours` | İkili görüntü gerekli |
-| Özellik | `cv2.ORB_create` | Gerçek zamanlı eşleştirme |
-| Nesne Tespiti | `YOLO("yolov8n.pt")` | Modern standart |
-| Kalibrasyon | `cv2.calibrateCamera` | Satranç tahtası ile |
+```mermaid
+graph TD
+    START[Görev] --> SIMPLE[Basit renk/şekil tespiti?]
+    SIMPLE -->|Evet| CLASSIC[Klasik: HSV maskeleme\n+ kontur analizi]
+    SIMPLE -->|Hayır| COMPLEX[Karmaşık sahne?]
+    COMPLEX -->|Evet| DL[Derin öğrenme:\nCNN, YOLO, SAM]
+    COMPLEX -->|Hayır| MID[Orta: Kenar tespiti\n+ özellik eşleştirme]
+    DL --> DATA[Veri miktarı?]
+    DATA -->|Çok| TRAIN[Fine-tune / Sıfırdan eğit]
+    DATA -->|Az| PRETRAIN[Önceden eğitilmiş model\n+ transfer learning]
+```
+
+| Görev | Önerilen Yaklaşım |
+|-------|:-----------------:|
+| Renk tabanlı nesne tespiti | HSV eşikleme + kontur analizi |
+| Belge / tahta tarama | Perspektif dönüşüm + adaptif eşik |
+| Gürültü azaltma | Gaussian (genel) veya Median (tuz-biber) |
+| Kontrast iyileştirme | CLAHE |
+| Kenar tespiti | Canny |
+| İkili görüntü temizleme | Morfolojik açma/kapama |
+| Yüz tespiti | MTCNN veya Haar Cascade |
+| Genel nesne tespiti | YOLOv8 |
+| Segmentasyon | SAM (Segment Anything) veya Mask R-CNN |
+| Özellik eşleştirme / panorama | ORB (hızlı) veya SIFT (hassas) |
+| Derinlik ölçümü | Stereo kalibrasyon + disparity |
+| Hareket takibi | Lucas-Kanade veya RAFT |
