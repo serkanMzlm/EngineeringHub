@@ -1,22 +1,26 @@
 # Design Pattern
 
 !!! note "Genel Bakış"
-    Design Pattern'ler, yazılım geliştirmede sıkça karşılaşılan problemlere karşı geliştirilmiş tekrar kullanılabilir çözüm şablonlarıdır. GoF (Gang of Four) sınıflandırmasına göre üç ana kategoriye ayrılır: **Creational**, **Structural** ve **Behavioral**.
+    Design Pattern'ler, yazılım geliştirmede sıkça karşılaşılan problemlere karşı geliştirilmiş kanıtlanmış çözüm şablonlarıdır. Bunlar belirli bir kod parçası değil, bir **düşünce biçimidir** — aynı problem farklı dillerde farklı kodla yazılabilir ama aynı desen kullanılabilir. GoF (Gang of Four) sınıflandırmasına göre üç ana kategoriye ayrılır: **Creational** (nesne oluşturma), **Structural** (yapısal ilişkiler) ve **Behavioral** (davranışsal iletişim).
+
+!!! abstract "Desenleri Öğrenmenin Değeri"
+    Her desen bir probleme yanıt verir. Deseni ezberlemek değil, **hangi problemin** o deseni doğurduğunu anlamak önemlidir. "Bu kodu nasıl düzgün yazarım?" sorusundan önce "Bu problem daha önce çözülmüş mü?" sorusunu sormayı öğretir.
 
 ---
 
-## Creational
+## Creational (Yaratıcı Desenler)
 
-Nesne oluşturma süreçlerini soyutlayan, sistemin hangi sınıfların örnekleneceğinden bağımsız çalışmasını sağlayan desenlerdir.
+Nesne **oluşturma** süreçlerini soyutlayan desenlerdir. "Nesneyi `new` ile direkt oluşturmak neden yetmez?" sorusunun cevabıdır. Sistem, hangi sınıfın örneğini alacağını bilmeden doğru nesneyi doğru zamanda üretebilmelidir.
 
 ---
 
 ### Factory Method
 
-Nesne oluşturma sorumluluğunu doğrudan istemci kodundan alarak bir fabrika metoduna devreden bir tasarım desenidir. Sistemin hangi somut sınıfı üreteceğine dair bilgi merkezi bir noktada toplanır; üst seviye bileşenler alt seviye detaylardan soyutlanır.
+**Özü:** Nesne oluşturma kararını alt sınıflara bırakır.
 
-!!! tip "Temel Prensip"
-    Open/Closed Principle gereği yeni bir nesne türü eklendiğinde mevcut istemci kodu değiştirilmez; yalnızca yeni bir `ConcreteCreator` sınıfı eklenir.
+**Problem:** Kod belirli bir iş yapar ama bu işi yapacak nesneyi direkt `new` ile oluşturduğunda, nesne türü ilerleyen süreçte değişince o koda dokunmak zorunlu kalırsın. Bu Open/Closed Principle'ı ihlal eder — mevcut koda dokunmadan genişleyebilmek gerekir.
+
+**Analoji:** Bir şube müdürü çalışana "bu görevi üstlen" der ama görevi kimin yapacağına işe alım departmanı karar verir. Müdür kimin işe alındığını bilmez; sadece işin yapılacağını bilir.
 
 ```mermaid
 classDiagram
@@ -49,85 +53,28 @@ classDiagram
     Product <|.. ProductB
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir lojistik sisteminde kara, deniz ve hava taşımacılığı yapılmaktadır. Sipariş yönetim sistemi yalnızca "taşıma" işlemini bilir; taşımanın kamyon, gemi ya da uçak ile yapılacağını bilmez. Factory Method, sipariş türüne göre doğru taşıma nesnesini üretir. Sipariş sistemi "taşıma başlat" talebinde bulunur, hangi aracın kullanıldığı detayından tamamen soyutlanır.
+**Nasıl Çalışır:** Üst sınıf (`Creator`) bir `factoryMethod()` tanımlar ama ne üretileceğini bilmez. Alt sınıflar bu metodu override ederek hangi nesnenin üretileceğine karar verir. Üst sınıf sadece "bir ürün oluştur ve kullan" der, somut sınıfı bilmez.
 
-=== "C++"
-    ```cpp
-    class Transport {
-    public:
-        virtual void deliver() = 0;
-        virtual ~Transport() = default;
-    };
+!!! example "Gerçek Senaryo"
+    Bir lojistik sisteminde kara, deniz ve hava taşımacılığı var. Sipariş yönetimi sadece "taşıma başlat" der. `RoadLogistics` Truck üretir, `SeaLogistics` Ship üretir. Yeni bir hava hattı eklemek istediğinde mevcut kodun hiçbirine dokunmadan yeni bir `AirLogistics` sınıfı yazarsın.
 
-    class Truck : public Transport {
-    public:
-        void deliver() override { /* kara taşımacılığı */ }
-    };
+!!! tip "Ne Zaman Kullanılır?"
+    - Hangi nesnenin oluşturulacağı çalışma zamanında belli oluyorsa
+    - Yeni ürün türleri eklenecek ve mevcut koda dokunmak istemiyorsan
+    - Ürün oluşturma sürecinin ortak bir şablonu var ama somut tipler değişiyorsa
 
-    class Ship : public Transport {
-    public:
-        void deliver() override { /* deniz taşımacılığı */ }
-    };
-
-    class Logistics {
-    public:
-        virtual Transport* createTransport() = 0;
-        void planDelivery() {
-            Transport* t = createTransport();
-            t->deliver();
-        }
-    };
-
-    class RoadLogistics : public Logistics {
-    public:
-        Transport* createTransport() override { return new Truck(); }
-    };
-
-    class SeaLogistics : public Logistics {
-    public:
-        Transport* createTransport() override { return new Ship(); }
-    };
-    ```
-
-=== "Python"
-    ```python
-    from abc import ABC, abstractmethod
-
-    class Transport(ABC):
-        @abstractmethod
-        def deliver(self): pass
-
-    class Truck(Transport):
-        def deliver(self): print("Kara taşımacılığı")
-
-    class Ship(Transport):
-        def deliver(self): print("Deniz taşımacılığı")
-
-    class Logistics(ABC):
-        @abstractmethod
-        def create_transport(self) -> Transport: pass
-
-        def plan_delivery(self):
-            transport = self.create_transport()
-            transport.deliver()
-
-    class RoadLogistics(Logistics):
-        def create_transport(self) -> Transport:
-            return Truck()
-    ```
-
-!!! danger "Dikkat"
-    Her nesne oluşturma senaryosu için Factory Method gerekmez. Nesne türleri sabitse ve değişmeyecekse doğrudan örnekleme daha sade bir çözümdür.
+!!! danger "Ne Zaman Kullanılmaz"
+    Nesne türleri sabitse ve değişmeyecekse gereksiz soyutlamadır. Direkt `new` daha sade ve anlaşılır olur.
 
 ---
 
 ### Abstract Factory
 
-Birbiriyle ilişkili nesnelerin, somut sınıfları belirtilmeden bir "ürün ailesi" olarak oluşturulmasını sağlayan bir tasarım desenidir. Aynı aileye ait nesnelerin birbiriyle uyumlu olmasını garanti eder ve istemci tarafında yanlış kombinasyonların oluşmasını engeller.
+**Özü:** Birbiriyle uyumlu nesne aileleri üretir; yanlış kombinasyonu imkânsız kılar.
 
-!!! tip "Factory Method ile Fark"
-    Factory Method **tek bir ürün** üretir. Abstract Factory ise **birbiriyle uyumlu bir ürün ailesi** üretir.
+**Problem:** Factory Method tek bir nesne üretir. Ama bazı sistemlerde birlikte çalışması gereken, birbiriyle uyumlu birden fazla nesne gerekir. Bunları ayrı ayrı oluşturmak yanlış kombinasyona yol açabilir (Windows butonu + Mac menüsü gibi).
+
+**Analoji:** Mobilya mağazasında "Mid-century" tarz koleksiyon seçtiğinde, o koleksiyonun koltuk, masa ve rafı otomatik olarak uyumludur. Ayrı ayrı seçsen yanlış eşleştirme yapabilirsin.
 
 ```mermaid
 classDiagram
@@ -160,17 +107,28 @@ classDiagram
     EmbeddedFactory ..> Menu
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir kullanıcı arayüzü kütüphanesinin hem masaüstü hem de gömülü sistemler için çalıştığını düşünelim. Abstract Factory, hangi platform seçildiyse o platforma ait tüm bileşenleri (buton, menü, pencere) uyumlu biçimde üretir. Farklı platformlara ait bileşenlerin yanlışlıkla bir arada kullanılması derleme aşamasında önlenir.
+**Nasıl Çalışır:** `AbstractFactory` birden fazla ürün oluşturma metodunu tanımlar. Her konkret fabrika, aynı aileden tüm ürünleri üretir. İstemci hangi fabrikayı kullandığını bilir ama fabrikaların içindeki somut sınıfları bilmez.
+
+!!! example "Gerçek Senaryo"
+    Cross-platform UI kütüphanesi: `WindowsFactory` her şeyin Windows stilini, `MacFactory` Mac stilini üretir. Uygulama platform seçimine göre fabrikayı değiştirir; tüm bileşenler otomatik uyumlu gelir.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Bir "tema" veya "platform" kavramıyla birden fazla nesnenin birlikte değişmesi gerektiğinde
+    - Ürünlerin yanlış kombinasyonlarını derleme aşamasında önlemek istediğinde
+    - İstemci kodu aynı kalırken sadece hangi ailenin kullanıldığı değişiyorsa
+
+!!! tip "Factory Method ile Farkı"
+    Factory Method **tek bir ürün** üretir, sınıf kalıtımıyla çalışır. Abstract Factory **uyumlu bir ürün ailesi** üretir, nesne bileşimiyle çalışır.
 
 ---
 
 ### Builder
 
-Karmaşık nesnelerin oluşturma sürecini, nesnenin son temsilinden ayıran bir tasarım desenidir. Çok sayıda opsiyonel parametresi bulunan veya farklı konfigürasyonlarla üretilebilen nesneler için kullanılır. Aynı oluşturma süreci kullanılarak farklı varyantlarda nesneler üretilebilir.
+**Özü:** Karmaşık nesnenin oluşturulmasını adım adım kontrol eder.
 
-!!! note "Ne Zaman Kullanılır?"
-    Bir sınıfın constructor'ında 4'ten fazla parametre bulunuyorsa ya da bazı parametreler opsiyonelse Builder deseni değerlendirilmelidir. Telescoping constructor anti-pattern'inin çözümüdür.
+**Problem:** Bir nesnenin 10+ parametresi varsa ve bazıları opsiyonelse constructor felakete döner. `new Car(red, 4, true, false, null, "sport", 2.0)` — hangi parametre ne anlama geliyor? Ayrıca aynı nesnenin birden fazla varyantı olabilir (spor araba, SUV, elektrikli). Buna **Telescoping Constructor Anti-Pattern** denir: her kombinasyon için ayrı constructor yazmak zorunda kalırsın.
+
+**Analoji:** Ev inşa etmek gibi düşün. Temel atılır, duvarlar örülür, çatı kurulur, içi döşenir. Her adım bağımsız ama sıralı. Hangi inşaat şirketi (builder) seçersen o şirkete göre sonuç değişir.
 
 ```mermaid
 classDiagram
@@ -202,121 +160,52 @@ classDiagram
     Director --> Builder
 ```
 
-!!! example "Kavramsal Örnek"
-    Aynı İHA (İnsansız Hava Aracı) platformu üzerinde farklı sensörler, haberleşme modülleri ve güç sistemleri seçilebilir. Builder ile adım adım keşif amaçlı veya lojistik amaçlı İHA konfigürasyonları oluşturulur. Oluşturma süreci standart kalırken ortaya çıkan ürün değişir.
+**Nasıl Çalışır:** Builder arayüzü yapım adımlarını tanımlar. Her konkret Builder bu adımları farklı biçimde uygular. `Director` (isteğe bağlı) hangi adımların hangi sırayla çağrılacağını bilir. Son olarak `getResult()` ile tamamlanmış nesne alınır.
 
-=== "C++"
-    ```cpp
-    struct UAV {
-        std::string engine, sensor, camera;
-    };
+!!! example "Gerçek Senaryo"
+    İHA (İnsansız Hava Aracı) konfigürasyonu: aynı platform üzerinde keşif amaçlı (termal kamera, uzun menzil pili) veya lojistik amaçlı (kargo sistemi, kısa menzil) yapılandırma yapılabilir. `ReconBuilder` ve `LogisticsBuilder` aynı adımları farklı değerlerle doldurur. Director her iki İHA için de aynı `construct()` akışını çağırır.
 
-    class UAVBuilder {
-    protected:
-        UAV uav;
-    public:
-        virtual void setEngine()  = 0;
-        virtual void setSensor()  = 0;
-        virtual void setCamera()  = 0;
-        UAV getResult() { return uav; }
-    };
+!!! tip "Ne Zaman Kullanılır?"
+    - 4'ten fazla parametreli constructor varsa
+    - Opsiyonel parametreler çoksa
+    - Aynı nesnenin birden fazla varyantı inşa edilecekse
+    - Nesne oluşturma süreci birden fazla adım gerektiriyorsa
 
-    class ReconBuilder : public UAVBuilder {
-    public:
-        void setEngine() override { uav.engine = "Elektrik"; }
-        void setSensor() override { uav.sensor = "Termal";   }
-        void setCamera() override { uav.camera = "4K";       }
-    };
-
-    class Director {
-        UAVBuilder* builder;
-    public:
-        explicit Director(UAVBuilder* b) : builder(b) {}
-        UAV construct() {
-            builder->setEngine();
-            builder->setSensor();
-            builder->setCamera();
-            return builder->getResult();
-        }
-    };
-    ```
-
-=== "Python"
-    ```python
-    class UAV:
-        def __init__(self):
-            self.engine = self.sensor = self.camera = None
-
-    class ReconBuilder:
-        def __init__(self): self.uav = UAV()
-        def set_engine(self): self.uav.engine = "Elektrik"
-        def set_sensor(self): self.uav.sensor = "Termal"
-        def set_camera(self): self.uav.camera = "4K"
-        def get_result(self): return self.uav
-
-    class Director:
-        def construct(self, builder) -> UAV:
-            builder.set_engine()
-            builder.set_sensor()
-            builder.set_camera()
-            return builder.get_result()
-    ```
+!!! note "Modern Dillerde Fluent Builder"
+    `Car.builder().color("red").wheels(4).sport(true).build()` — zincirleme çağrı (method chaining) ile Builder'ın kullanıcı dostu hali. Pek çok modern kütüphanede bu yaklaşım kullanılır.
 
 ---
 
 ### Prototype
 
-Yeni nesnelerin sıfırdan oluşturulması yerine, mevcut bir nesnenin kopyalanması (klonlanması) yoluyla üretilmesini sağlayan bir tasarım desenidir. Nesne oluşturma maliyetinin yüksek olduğu veya nesnenin karmaşık bir başlangıç konfigürasyonuna sahip olduğu durumlarda tercih edilir.
+**Özü:** Sıfırdan oluşturmak yerine, var olan nesneyi klonla.
 
-!!! note "Deep Copy vs Shallow Copy"
-    Prototype uygulanırken nesnenin derin kopyasının (deep copy) mı yoksa sığ kopyasının (shallow copy) mı alınacağı kritik bir tasarım kararıdır. İç içe geçmiş nesneler için derin kopyalama zorunludur; aksi hâlde kopyalar aynı bellek adresini paylaşır.
+**Problem:** Bazı nesneler oluşturulması pahalıdır: veritabanı sorgusu, dosya okuma, ağır hesaplama gerektirebilir. Üstelik nesnenin karmaşık bir iç durumu varsa bunu sıfırdan tekrar kurmak hem zaman hem de kaynak israfıdır. İkinci sorun: bir nesneyi kopyalamak istiyorsun ama sınıfını bilmiyorsun (sadece soyut arayüzü biliyorsun), dolayısıyla direkt `new` kullanamazsın.
 
-!!! example "Kavramsal Örnek"
-    Simülasyon ortamında aynı temel özelliklere sahip, yalnızca küçük parametre farklılıkları bulunan yüzlerce sensör modeline ihtiyaç duyulmaktadır. Prototype ile önceden yapılandırılmış bir sensör klonlanır ve yalnızca gerekli parametreler güncellenir. Hem zaman kazanılır hem de tutarlı bir başlangıç yapısı korunur.
+**Analoji:** Hücre bölünmesi — yeni hücre üretmek için sıfırdan tüm genetik bilgiyi oluşturmak yerine mevcut hücreyi kopyala ve gerekli küçük değişiklikleri yap.
 
-=== "C++"
-    ```cpp
-    class Sensor {
-    public:
-        std::string type;
-        double sensitivity;
-        virtual Sensor* clone() const = 0;
-        virtual ~Sensor() = default;
-    };
+**Nasıl Çalışır:** Her nesne kendi `clone()` metodunu uygular. İstemci kopyasını almak istediği nesneden `clone()` çağırır. İç yapıyı bilmesine gerek yoktur.
 
-    class ThermalSensor : public Sensor {
-    public:
-        ThermalSensor* clone() const override {
-            return new ThermalSensor(*this);
-        }
-    };
-    ```
+!!! warning "Deep Copy vs Shallow Copy — Kritik Nokta"
+    **Shallow copy:** iç nesnelerin referansları kopyalanır, aynı belleği paylaşırlar. Bir kopyadaki değişiklik diğerini etkiler. **Deep copy:** tüm iç nesneler de ayrı kopyalanır. Prototype uygularken hangi derinlikte kopyalama yapılacağı açıkça belirlenmeli; yanlış seçim sessiz hatalara yol açar.
 
-=== "Python"
-    ```python
-    import copy
+!!! example "Gerçek Senaryo"
+    Simülasyon ortamında yüzlerce sensör modeli var; hepsinin temel konfigürasyonu aynı ama küçük parametreler farklı. Temel sensör bir kez yapılandırılır, geri kalanlar klonlanır ve sadece farklı olan parametre güncellenir. Hem hız kazanılır hem de tutarlı başlangıç yapısı korunur.
 
-    class Sensor:
-        def __init__(self, sensor_type: str, sensitivity: float):
-            self.type        = sensor_type
-            self.sensitivity = sensitivity
-
-        def clone(self):
-            return copy.deepcopy(self)
-
-    base    = Sensor("Thermal", 0.95)
-    variant = base.clone()
-    variant.sensitivity = 0.80
-    ```
+!!! tip "Ne Zaman Kullanılır?"
+    - Nesne oluşturma maliyeti yüksekse (DB sorgusu, ağ çağrısı, ağır hesaplama)
+    - Nesnenin sınıfını bilmeden kopyası gerekiyorsa
+    - Sadece küçük farklılıklarla çok sayıda benzer nesne üretilecekse
 
 ---
 
 ### Singleton
 
-Bir sınıftan sistem genelinde yalnızca tek bir örnek oluşturulmasını ve bu örneğe kontrollü bir erişim noktası sağlanmasını garanti eden bir tasarım desenidir. Paylaşılan kaynakların yönetimi, global konfigürasyon veya sistem çapında tekil olması gereken servisler için kullanılır.
+**Özü:** Sistem genelinde yalnızca tek bir örnek garanti eder ve ona kontrollü erişim noktası sağlar.
 
-!!! danger "Dikkatli Kullanın"
-    Singleton global durum yaratarak bağımlılıkları gizler ve birim testlerini zorlaştırır. Gerçekten tekil olması gereken kaynaklar (logger, konfigürasyon yöneticisi) dışında kullanımından kaçınılmalıdır. Aşırı kullanımı mimari bağımlılıkları artırır.
+**Problem:** Bazı kaynakların birden fazla örneğinin olması anlamsız veya tehlikelidir: birden fazla logger çakışabilir, birden fazla config manager farklı ayarlar okuyabilir, birden fazla connection pool gereksiz kaynak tüketebilir.
+
+**Analoji:** Bir ülkede tek bir hükümet olur. Birden fazla olursa çelişkili kararlar çıkar, kaos oluşur.
 
 ```mermaid
 classDiagram
@@ -329,58 +218,32 @@ classDiagram
     Singleton --> Singleton : creates
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir sistemde merkezi konfigürasyon yöneticisi tüm modüller tarafından kullanılmaktadır. Birden fazla örnek oluşturulursa ayarlar tutarsızlaşır ve beklenmeyen davranışlar ortaya çıkar. Singleton, tüm bileşenlerin aynı konfigürasyon kaynağını kullanmasını garanti eder.
+**Nasıl Çalışır:** Constructor private'tır — dışarıdan `new` ile örnek alınamaz. Tek erişim noktası statik `getInstance()` metodudur. İlk çağrıda örnek oluşturulur, sonraki çağrılarda aynı örnek döner.
 
-=== "C++ (Thread-Safe)"
-    ```cpp
-    #include <mutex>
+!!! danger "Ciddi Tuzaklar Var — Dikkatli Kullanın"
+    - **Test edilemezlik:** Global durum yarattığı için unit testlerde izole etmek zordur. Bir testin değiştirdiği state başka testi etkiler.
+    - **Gizli bağımlılık:** Sınıfın hangi bağımlılıklara sahip olduğu constructor'dan anlaşılmaz; Singleton sınıf içinde gizlenir.
+    - **Thread safety:** Multi-thread ortamda dikkatli implemente edilmesi gerekir (C++11 sonrasında static local variable yaklaşımı en güvenlidir).
+    - **Çoğu durumda yanlış araç:** "Tek örnek" isteği genellikle Dependency Injection ile daha temiz çözülür.
 
-    class ConfigManager {
-    private:
-        static ConfigManager* instance;
-        static std::mutex     mutex_;
-        ConfigManager() = default;
-
-    public:
-        static ConfigManager* getInstance() {
-            std::lock_guard<std::mutex> lock(mutex_);
-            if (!instance)
-                instance = new ConfigManager();
-            return instance;
-        }
-        ConfigManager(const ConfigManager&)            = delete;
-        ConfigManager& operator=(const ConfigManager&) = delete;
-    };
-    ```
-
-=== "Python"
-    ```python
-    class ConfigManager:
-        _instance = None
-
-        def __new__(cls):
-            if not cls._instance:
-                cls._instance = super().__new__(cls)
-            return cls._instance
-    ```
+!!! tip "Ne Zaman Kullanılır?"
+    Gerçekten sistem genelinde tek örnek **zorunlu** olduğunda: logger, yapılandırma yöneticisi, thread pool, donanım sürücüsü arayüzü. Bunların dışında DI container tercih edilmeli.
 
 ---
 
-## Structural
+## Structural (Yapısal Desenler)
 
-Sınıflar ve nesneler arasındaki ilişkileri düzenleyerek daha büyük yapıların kurulmasını kolaylaştıran desenlerdir.
+Sınıflar ve nesneler arasındaki **ilişkileri** düzenleyerek daha büyük, daha esnek yapıların kurulmasını kolaylaştıran desenlerdir. Amaç: bileşenleri birleştirirken bağımlılıkları yönetmek.
 
 ---
 
 ### Adapter
 
-Birbiriyle uyumsuz arayüzlere sahip bileşenlerin birlikte çalışmasını sağlayan bir yapısal tasarım desenidir. Mevcut bir sınıfın arayüzünü istemcinin beklediği arayüze dönüştürerek, kodu değiştirmeden uyumluluk sağlar.
+**Özü:** Uyumsuz arayüzleri birbirine bağlayan çevirmen.
 
-!!! tip "Ne Zaman Kullanılır?"
-    - Üçüncü parti kütüphane entegrasyonunda
-    - Legacy sistemlerle çalışırken
-    - Değiştirilemeyen harici bileşenlerle arayüz uyumluluğu gerektiğinde
+**Problem:** Kullanmak istediğin bir kütüphane veya servis var ama arayüzü sisteminde beklenen arayüzle uyuşmuyor. Kütüphaneyi değiştiremezsin (üçüncü parti), kendi kodunu da köklü değiştirmek istemiyorsun.
+
+**Analoji:** Seyahatte farklı priz adaptörü kullanırsın. Cihazın (istemci) ve prizin (servis) hiçbiri değişmez; sadece araya bir adaptör girer.
 
 ```mermaid
 classDiagram
@@ -403,17 +266,28 @@ classDiagram
     Client --> Target
 ```
 
-!!! example "Kavramsal Örnek"
-    Sistemin standart veri formatı JSON iken, entegre edilmesi gereken harici servis XML formatında veri üretmektedir. Adapter, XML veriyi alıp JSON yapısına dönüştürerek üst seviye bileşenlerin bu farklılıktan etkilenmeden çalışmasını sağlar.
+**Nasıl Çalışır:** Adapter, istemcinin beklediği `Target` arayüzünü uygular. İçinde `Adaptee` nesnesini tutar. İstemci `request()` çağırdığında, Adapter bunu `Adaptee`'nin uyumsuz metoduna çevirir.
+
+!!! example "Gerçek Senaryo"
+    Sistemin standart veri formatı JSON, ama entegre etmen gereken harici bir sensör servisi XML döndürüyor. Adapter araya girerek XML'i JSON'a çevirir. Ne sisteme ne de sensör servisine dokunmazsın.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Üçüncü parti kütüphane entegrasyonunda (arayüz değiştirilemez)
+    - Legacy sistem ile yeni sistem arasında köprü kurulurken
+    - Aynı işi yapan ama farklı arayüzlere sahip birden fazla servis kullanılacaksa
+
+!!! note "Bridge ile Farkı"
+    Adapter **mevcut** uyumsuzluğu giderir (reaktif çözüm). Bridge ise tasarım aşamasında kasıtlı olarak soyutlamayı implementasyondan ayırır (proaktif tasarım).
 
 ---
 
 ### Bridge
 
-Soyutlama (abstraction) ile implementasyonu birbirinden ayırarak her ikisinin bağımsız olarak geliştirilebilmesini sağlayan bir tasarım desenidir. Sınıf hiyerarşisinin kontrolsüz büyümesini engeller; "çok boyutlu değişkenlik" içeren sistemlerde esnekliği artırır.
+**Özü:** Soyutlamayı implementasyondan ayırır; her ikisi bağımsız olarak geliştirilebilir.
 
-!!! note "Adapter ile Fark"
-    Adapter mevcut uyumsuzluğu giderir (reaktif). Bridge ise tasarım aşamasında soyutlama ve implementasyonu ayrı tutmak için kullanılır (proaktif).
+**Problem:** İki boyutta değişen bir sistemi kalıtımla modellemek istiyorsun. 3 şekil × 3 renk = 9 sınıf. Yeni renk eklenince 3 sınıf daha, yeni şekil eklenince 3 sınıf daha. Bu **sınıf patlaması** sürdürülemez.
+
+**Analoji:** Uzaktan kumanda (soyutlama) ve TV (implementasyon) ayrıdır. Farklı kumanda modelleri (temel, gelişmiş) farklı TV markaları (Sony, Samsung) ile çalışabilir. Her ikisi bağımsız olarak genişleyebilir.
 
 ```mermaid
 classDiagram
@@ -440,14 +314,25 @@ classDiagram
     Implementation <|.. ConcreteImplB
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir görüntü işleme sistemi farklı görüntü kaynakları (kamera, dosya, ağ) ve farklı işleme yöntemlerini (filtreleme, sıkıştırma, analiz) desteklemektedir. Bridge ile kaynak ve algoritma birbirinden ayrılır. Yeni bir kamera türü eklendiğinde mevcut işleme yöntemleri etkilenmez; yeni bir algoritma eklendiğinde ise kaynaklar değişmeden kullanılır.
+**Nasıl Çalışır:** Soyutlama katmanı bir `Implementation` referansı tutar. Kendi metodları bu implementasyona delege eder. İki hiyerarşi birbirinden bağımsız büyüyebilir. 3 şekil + 3 renk = toplam 6 sınıf (9 yerine).
+
+!!! example "Gerçek Senaryo"
+    Görüntü işleme sistemi: farklı veri kaynakları (kamera, dosya, ağ akışı) × farklı işleme algoritmaları (filtreleme, sıkıştırma, nesne tespiti). Bridge ile kaynak ve algoritma birbirinden ayrılır. Yeni kamera tipi eklenince algoritmalara dokunulmaz; yeni algoritma eklenince kaynaklara dokunulmaz.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - İki bağımsız boyutta büyüyecek bir sistem tasarlarken
+    - Runtime'da implementasyonu değiştirme ihtiyacı olduğunda
+    - Platform bağımsızlığı gerektiğinde (farklı OS, farklı donanım)
 
 ---
 
 ### Composite
 
-Nesneleri ağaç (tree) yapısı içinde organize ederek, tekil nesneler ile nesne gruplarının aynı arayüz üzerinden yönetilmesini sağlayan bir tasarım desenidir. İstemci, tekil mi yoksa bileşik bir yapı ile çalıştığını bilmeden işlem yapabilir.
+**Özü:** Tekil nesneleri ve nesne gruplarını aynı arayüzle kullan.
+
+**Problem:** Ağaç yapısı gibi hiyerarşik bir veri var: dosyalar ve klasörler, askerler ve birlikler, UI bileşenleri ve konteynerler. İstemcinin "bu bir yaprak mı, yoksa grup mu?" diye sorgulamadan işlem yapabilmesi gerekiyor.
+
+**Analoji:** Askeri hiyerarşi — tek bir asker de "ateş et" emri alır, tüm bir tugay da. Komutan kimi emrettiğini sorgulamaz; emir kademelere göre aşağı iner.
 
 ```mermaid
 classDiagram
@@ -471,17 +356,25 @@ classDiagram
     Composite --> Component : içerir
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir dosya sistemi yapısında dosyalar tekil nesneler, klasörler ise dosya ve alt klasörlerden oluşan bileşik yapılardır. "Boyut hesapla" işlemi hem bir dosya hem de bir klasör üzerinde aynı şekilde çağrılabilir; klasör tüm alt elemanların toplamını otomatik döndürür.
+**Nasıl Çalışır:** Her şey (hem yaprak hem grup) aynı `Component` arayüzünü uygular. `Composite` nesnesi çocuklarını tutar ve kendine gelen `operation()` çağrısını tüm çocuklarına iletir. İstemci her ikisine de aynı şekilde davranır.
+
+!!! example "Gerçek Senaryo"
+    Dosya sistemi: "boyut hesapla" komutu bir dosyaya da klasöre de uygulanabilir. Klasör, kendi içindeki tüm dosya ve alt klasörlerin boyutunu toplar. Kod yazan kişi her iki durumu ayrı ayrı ele almak zorunda kalmaz.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Ağaç yapısı temsil edilecekse
+    - İstemcinin tekil ve bileşik nesneleri aynı şekilde kullanması gerekiyorsa
+    - Hiyerarşinin derinliği önceden belli değilse
 
 ---
 
 ### Decorator
 
-Bir nesneye çalışma zamanında yeni davranışlar ekleyen bir tasarım desenidir. Kalıtım (inheritance) kullanmadan nesnenin sorumluluklarını genişletir; sınıf sayısının kontrolsüz artmasını önler ve birden fazla davranış kombine edilebilir.
+**Özü:** Nesneye çalışma zamanında yeni davranış ekler; kalıtım kullanmaz.
 
-!!! tip "Kalıtıma Karşı Avantajı"
-    Kalıtım derleme zamanında sabit bir davranış ekler. Decorator ise çalışma zamanında isteğe bağlı olarak katmanlanabilir. Birden fazla Decorator zincir şeklinde kombine edilebilir.
+**Problem:** Bir nesneye davranış eklemek istiyorsun ama alt sınıf açmak istemiyorsun. Çok fazla kombinasyon varsa (şifreli+sıkıştırılmış, sadece şifreli, sadece sıkıştırılmış, ikisi de yok — her biri için ayrı sınıf mı?) ya da davranışın çalışma zamanında dinamik olarak eklenmesi/çıkarılması gerekiyorsa.
+
+**Analoji:** Kahve siparişi — temel espresso, üzerine süt ekle (cafe latte), üzerine krema ekle (cappuccino). Her katman bir öncekini "sarar" ve yeni davranış ekler. Kombinasyonlar serbesttir.
 
 ```mermaid
 classDiagram
@@ -509,60 +402,110 @@ classDiagram
     BaseDecorator --> Component
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir haberleşme modülünde temel veri gönderimi yapılmaktadır. Bazı senaryolarda şifreleme, bazılarında sıkıştırma gerekmektedir. Decorator ile temel gönderim yapısı korunur; ihtiyaç duyulduğunda şifreleme veya sıkıştırma katmanları eklenerek davranış genişletilir. Bu katmanlar isteğe bağlı olarak kombine edilebilir.
+**Nasıl Çalışır:** Decorator, sardığı nesneyle aynı arayüzü uygular. `operation()` çağrıldığında önce/sonra kendi davranışını ekler ve sarılan nesnenin `operation()`'ını da çağırır. Birden fazla Decorator zincir şeklinde birbirini sarabilir.
+
+!!! example "Gerçek Senaryo"
+    Haberleşme modülü: temel veri gönderimi var. Bazı senaryolarda şifreleme, bazılarında sıkıştırma, bazılarında ikisi birden gerekiyor. Her kombinasyon için ayrı sınıf açmak yerine `EncryptionDecorator` ve `CompressionDecorator` isteğe bağlı zincire eklenir ve çıkarılabilir.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Nesneye çalışma zamanında dinamik davranış eklenmesi/çıkarılması gerektiğinde
+    - Çok sayıda bağımsız özellik birbirleriyle kombine edilebilecekse
+    - Alt sınıf açmak sınıf sayısını patlatacaksa
+
+!!! note "Kalıtıma Karşı Avantajı"
+    Kalıtım derleme zamanında sabittir. Decorator çalışma zamanında esnektir ve kombine edilebilir.
 
 ---
 
 ### Facade
 
-Karmaşık bir alt sistemin önüne basitleştirilmiş ve tek bir giriş noktası koyarak istemcinin bu alt sistemle olan etkileşimini kolaylaştıran bir tasarım desenidir. Amaç, istemcinin sistem içindeki detaylı bağımlılıkları bilmesini engellemek ve kullanım kolaylığı sağlamaktır.
+**Özü:** Karmaşık alt sistemin önüne sade bir yüz koyar.
+
+**Problem:** Bir alt sistem birden fazla sınıftan oluşuyor; birini kullanmak için diğerini başlatman, birini diğerine bağlaman gerekiyor. İstemci bu karmaşıklığa maruz kalıyor ve alt sistemin iç detaylarını bilmek zorunda kalıyor.
+
+**Analoji:** Ev sinema sistemi kurarken — TV'yi aç, amplifikatörü doğru girişe al, Blu-ray'i bağla, ışıkları kıs, perdeleri indir. Ya da "film izleme modunu başlat" diyen tek buton — hepsini sıralı yapar.
+
+**Nasıl Çalışır:** Facade tüm alt sistemlerin referanslarını tutar. İstemciye basit, yüksek seviyeli metodlar sunar. Bu metodların içinde gerekli alt sistem çağrıları doğru sırayla yapılır.
+
+!!! example "Gerçek Senaryo"
+    Bir multimedya sistemi: ses sürücüsü, video codec, ağ tamponu, donanım hızlandırıcı ayrı ayrı çalışıyor. `MediaFacade.play(file)` tek çağrısı tüm bu bileşenleri doğru sırayla başlatır ve senkronize eder.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Karmaşık bir kütüphane veya framework'e basit bir giriş noktası sağlamak istediğinde
+    - Alt sistem bağımlılıklarını istemciden gizlemek istediğinde
+    - Katmanlı mimaride katmanlar arası erişimi tek noktadan yönetmek için
 
 !!! note "Önemli Ayrım"
-    Facade alt sistemi gizlemez, sadece basit bir arayüz sunar. İsteyen istemci hâlâ alt sistemle doğrudan etkileşime geçebilir.
-
-!!! example "Kavramsal Örnek"
-    Bir multimedya sisteminde ses, video, ağ ve donanım sürücüleri ayrı ayrı çalışmaktadır. Facade, "medya oynat" gibi tek bir operasyon sunarak istemcinin bu alt sistemlerin başlatılması, senkronizasyonu ve kapatılması gibi detaylarla uğraşmasını engeller.
+    Facade alt sistemi gizlemez, sadece basit bir arayüz ekler. İsteyen istemci hâlâ alt sistemle doğrudan etkileşebilir. Bu bir kısıtlama değil, kolaylıktır.
 
 ---
 
 ### Flyweight
 
-Çok sayıda benzer nesnenin bulunduğu sistemlerde bellek kullanımını optimize etmek için kullanılan bir tasarım desenidir. Nesnelerin ortak (intrinsic) durumlarını paylaşarak her nesne için aynı verinin tekrar tutulmasını önler.
+**Özü:** Çok sayıda benzer nesnenin ortak verilerini paylaştır; belleği boşa harcama.
 
-!!! tip "Intrinsic vs Extrinsic"
-    - **Intrinsic (paylaşılan, değişmez):** Tüm örnekler için aynı olan veriler. Flyweight nesnesinin içinde tutulur.
-    - **Extrinsic (bağlamsal, değişken):** Her nesne için farklı olan veriler. Dışarıdan geçirilir, Flyweight içinde saklanmaz.
+**Problem:** Binlerce (ya da milyonlarca) benzer nesne oluşturuyorsun. Her nesne aynı verinin kopyasını taşıyorsa bellek tükenir.
 
-!!! example "Kavramsal Örnek"
-    Bir harita uygulamasında binlerce ağaç nesnesi bulunmaktadır. Ağaçların türü, rengi ve 3D modeli paylaşılan veridir (intrinsic); yalnızca konum bilgisi her ağaç için ayrıdır (extrinsic). Flyweight ile ağaç model bilgisi tek bir yerde tutulur ve bellek tüketimi önemli ölçüde azaltılır.
+**Analoji:** Kelime işlemcide her karakter için ayrı bir nesne oluşturuluyor. Her "A" harfinin font, boyut, stil bilgisini ayrı ayrı tutmak yerine bu bilgiler paylaşılır. Sadece pozisyon bilgisi her karakter için ayrı tutulur.
+
+**Nasıl Çalışır:**
+
+- **Intrinsic (içsel, değişmez) durum:** Tüm örneklerde aynı olan veri. Flyweight nesnesinde saklanır ve paylaşılır.
+- **Extrinsic (dışsal, değişken) durum:** Her örnek için farklı olan veri. Flyweight'e parametre olarak dışarıdan geçirilir, içinde saklanmaz.
+
+!!! example "Gerçek Senaryo"
+    Harita uygulamasında 10.000 ağaç nesnesi: her ağacın türü, rengi ve 3D modeli aynı (intrinsic). Sadece konum bilgisi farklı (extrinsic). 10.000 ayrı büyük nesne yerine tek bir `TreeType` nesnesi paylaşılır, konumlar ayrı tutulur. Bellek kullanımı dramatik biçimde düşer.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Çok sayıda benzer nesne oluşturulacak ve bellek kritikse
+    - Nesnenin büyük kısmı paylaşılabilir (intrinsic) durumdan oluşuyorsa
+    - Oyun motorları, grafik sistemleri, metin işleme motorları
+
+!!! danger "Dikkat"
+    Extrinsic durumu yönetmek karmaşıklaşır. Nesne sayısı gerçekten büyük değilse eklenen karmaşıklık faydasızdır. Önce profil et, sonra uygula.
 
 ---
 
 ### Proxy
 
-Başka bir nesneye erişimi kontrol eden veya yöneten bir ara katman nesnesidir. Erişim kontrolü, gecikmeli başlatma (lazy initialization), önbellekleme veya loglama gibi gereksinimler için kullanılır.
+**Özü:** Başka bir nesneye erişimi kontrol eden ya da yöneten vekil nesne.
 
-!!! note "Proxy Türleri"
-    - **Virtual Proxy:** Gecikmeli başlatma — kaynak ağır nesneler için
-    - **Protection Proxy:** Erişim kontrolü — yetkilendirme gereksinimleri için
-    - **Caching Proxy:** Önbellekleme — tekrar eden maliyetli sorgular için
-    - **Remote Proxy:** Uzak nesneye yerel arayüzden erişim sağlama
+**Problem:** Bir nesneye erişmeden önce ek kontrol yapmak istiyorsun: yetki kontrolü, önbellekleme, gecikmeli yükleme, loglama. Ama bu kontrolleri nesnenin kendisine eklemek onun sorumluluklarını genişletir ve Tek Sorumluluk Prensibi'ni ihlal eder.
 
-!!! example "Kavramsal Örnek"
-    Uzak bir sunucudan büyük boyutlu veri çeken bir sistem düşünelim. Caching Proxy ile ilk istekte veri sunucudan alınır ve önbelleğe konur. Sonraki taleplerde aynı veri doğrudan proxy üzerinden sunularak performans artırılır ve sunucu yükü azaltılır.
+**Analoji:** Şirket avukatı müvekkil adına iş yapar. Sözleşme imzalamak için doğrudan müvekkile ulaşmak zorunda değilsin. Avukat (proxy) müvekkili temsil eder ve gerekli kontrolleri yapar.
+
+**Proxy Türleri:**
+
+| Tür | Amaç |
+|-----|------|
+| **Virtual Proxy** | Gecikmeli başlatma — pahalı nesneyi gerçekten gerektiğinde oluştur |
+| **Protection Proxy** | Erişim kontrolü — kim neyi görebilir/yapabilir |
+| **Caching Proxy** | Önbellekleme — aynı sonucu tekrar hesaplama |
+| **Remote Proxy** | Uzak nesneye yerel arayüzden eriş (RPC, stub) |
+
+!!! example "Gerçek Senaryo"
+    Büyük veri dosyası yükleyen bir sistem: dosya henüz gerekmeyebilir. Virtual Proxy ile gerçek dosya nesnesi `load()` ilk çağrılana kadar oluşturulmaz. Kullanıcı dosyayı hiç açmazsa kaynak harcanmamış olur.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Pahalı nesnenin gecikmeli başlatılması gerekiyorsa (Virtual)
+    - Nesneyi değiştirmeden erişim kontrolü eklemek istiyorsan (Protection)
+    - Ağ çağrılarını veya hesaplamaları önbelleğe almak istiyorsan (Caching)
 
 ---
 
-## Behavioral
+## Behavioral (Davranışsal Desenler)
 
-Nesneler arasındaki iletişim ve sorumluluk dağılımını düzenleyen desenlerdir.
+Nesneler arasındaki **iletişimi** ve **sorumluluk dağılımını** düzenleyen desenlerdir. "Kim ne yapmalı? Kimin kimi bilmesi gerekiyor?" sorularını yanıtlar.
 
 ---
 
 ### Chain of Responsibility
 
-Bir isteğin birden fazla nesne tarafından ele alınabileceği durumlarda, isteği gönderen ile isteği işleyen arasındaki sıkı bağımlılığı ortadan kaldıran bir tasarım desenidir. İstek, zincir hâlinde sıralanmış işleyiciler boyunca iletilir ve uygun olan işleyici tarafından karşılanır.
+**Özü:** İsteği bir zincir boyunca ilet; kimin işleyeceğini başlatıcı bilmek zorunda değil.
+
+**Problem:** Bir istek birden fazla işleyici tarafından ele alınabilir ama hangisinin devreye gireceği önceden belli değil veya değişebilir. İstemci koduna "bu durumda A'ya git, şu durumda B'ye git" yazmak kodu kırılgan yapar.
+
+**Analoji:** Şirket içi onay süreci: 1.000 TL'ye kadar müdür onaylar, 10.000 TL'ye kadar direktör, üzeri CEO. Her onaylayan kendi limitini aşan talepleri bir üst kademeye iletir. Talep sahibi kime gideceğini bilmez; zincire bırakır.
 
 ```mermaid
 flowchart LR
@@ -575,38 +518,28 @@ flowchart LR
     H3 -->|işlerse| R3([Çözüldü])
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir teknik destek sisteminde talepler; seviye 1, 2 ve 3 destek ekipleri tarafından ele alınmaktadır. Basit sorunlar ilk seviyede çözülürken daha karmaşık talepler otomatik olarak üst seviyeye aktarılır. Talep sahibi, isteğin hangi ekip tarafından çözüldüğünü bilmeden süreci başlatır.
+**Nasıl Çalışır:** Her işleyici bir sonraki işleyiciye referans tutar. İsteği işleyebiliyorsa işler, işleyemiyorsa zincirdeki bir sonrakine iletir. İstemci sadece zincirin başını bilir.
 
-=== "C++"
-    ```cpp
-    class Handler {
-    protected:
-        Handler* next = nullptr;
-    public:
-        void setNext(Handler* h) { next = h; }
-        virtual void handle(int level) {
-            if (next) next->handle(level);
-        }
-    };
+!!! example "Gerçek Senaryo"
+    Web framework'lerindeki middleware pipeline: istek sırıyla kimlik doğrulama, yetkilendirme, rate limiting, loglama katmanlarından geçer. Her katman isteği işler veya reddeder; reddedilmezse bir sonrakine iletir.
 
-    class Level1 : public Handler {
-    public:
-        void handle(int level) override {
-            if (level <= 1) { /* çöz */ }
-            else Handler::handle(level);
-        }
-    };
-    ```
+!!! tip "Ne Zaman Kullanılır?"
+    - Birden fazla nesnenin aynı isteği işleyebileceği ve hangisinin işleyeceğinin önceden bilinmediği durumlarda
+    - İşleyici kümesinin çalışma zamanında dinamik değişmesi gerektiğinde
+    - İsteğin birden fazla işleyiciden sırayla geçmesi gerektiğinde (middleware pattern)
+
+!!! danger "Dikkat"
+    Zincir sonuna kadar hiçbir işleyici devreye girmezse istek yanıtsız kalır. Zincir sonunda default bir işleyici tanımlamak iyi pratiktir.
 
 ---
 
 ### Command
 
-Bir isteği nesne olarak kapsülleyerek; isteğin parametreleriyle birlikte saklanmasını, kuyruklanmasını veya geri alınmasını (undo/redo) mümkün kılan bir tasarım desenidir. İsteği başlatan nesne ile isteği yerine getiren nesne arasındaki bağımlılığı minimize eder.
+**Özü:** Bir eylemi nesne olarak kapsüller; sakla, kuyruğa al, geri al.
 
-!!! tip "Undo/Redo Desteği"
-    Command deseni undo/redo özelliğinin en temiz implementasyon yoludur. Her komut nesnesine `execute()` ve `undo()` metodu eklenerek işlem geçmişi yönetilebilir.
+**Problem:** Bir işlem yapmak istiyorsun ama işlemi yapacak kodu hemen çalıştırmak istemiyorsun. Ya da aynı işlemi farklı bağlamlarda (menü tıklaması, tuş basımı, zamanlayıcı) tetiklemek istiyorsun. Ya da "geri al" (undo) özelliği gerekiyor.
+
+**Analoji:** Restoran siparişi — garson siparişi kağıda yazar (komut), mutfağa verir, aşçı kağıdı okuyarak yemeği hazırlar. Garson pişirme detaylarını bilmez. Sipariş nesnesi: başlatan (garson), uygulayan (aşçı) ve işlem (yemek) arasındaki bağı koparır.
 
 ```mermaid
 classDiagram
@@ -634,111 +567,67 @@ classDiagram
     Invoker --> Command
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir uzaktan kumanda sisteminde farklı cihazlar (ışık, klima, perde) kontrol edilmektedir. Her buton belirli bir işlemi temsil eden komut nesnesine bağlıdır. Kumanda, hangi cihazın nasıl çalıştığını bilmeden yalnızca ilgili komutu tetikler.
+**Nasıl Çalışır:** Her işlem bir `Command` nesnesine dönüştürülür. `execute()` işlemi yapar, `undo()` geri alır. `Invoker` komutları kuyruğa alır ve çalıştırır. `Receiver` gerçek işi yapan nesnedir.
+
+!!! example "Gerçek Senaryo"
+    Metin editörü: her yazma, silme, formatlama işlemi bir Command nesnesidir. Ctrl+Z her seferinde son Command'ın `undo()`'sunu çağırır. İşlemler log'lanabilir, tekrar oynatılabilir (macro), hatta ağ üzerinden gönderilebilir.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Undo/redo gerektiğinde
+    - İşlemleri log'lamak veya sıraya almak (queue) gerektiğinde
+    - Aynı işlemi farklı tetikleyicilerden (buton, tuş kısayolu, menü) çağırmak istediğinde
+    - İşlemi tetikleyen ile gerçekleştiren arasındaki bağımlılığı kesmek gerektiğinde
 
 ---
 
 ### Interpreter
 
-Belirli bir dil veya ifade yapısının kurallarını sınıf hiyerarşisi ile temsil ederek, bu ifadelerin yorumlanmasını sağlayan bir tasarım desenidir. Genellikle basit ve sık tekrarlanan kurallara sahip mini dillerde veya yapılandırılabilir ifade sistemlerinde kullanılır.
+**Özü:** Özel bir dili veya ifade gramerini sınıf hiyerarşisiyle temsil et ve yorumla.
+
+**Problem:** Tekrarlayan, belirli kurallara sahip bir mini dil veya ifade sistemi oluşturman gerekiyor: SQL benzeri basit sorgular, kural motoru için koşul ifadeleri, matematiksel ifadeler gibi.
+
+**Nasıl Çalışır:** Her gramer kuralı bir sınıf olur (`TerminalExpr`, `AndExpr`, `OrExpr`). İfade bir ağaca dönüştürülür ve `interpret()` her düğüm için recursive çağrılır.
+
+!!! example "Gerçek Senaryo"
+    IoT sisteminde cihaz kuralları: `"sıcaklık > 80 AND nem < 30"` ifadesi parse edilir. `AndExpr` iki alt ifade tutar. Sistem bu ağacı yürüterek kuralı değerlendirir. Yeni kural tipi eklemek için yeni bir sınıf yazılır.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Basit, tekrarlayan bir gramer yapısı varsa
+    - Kullanıcı tanımlı kurallar/ifadeler çalışma zamanında parse edilecekse
+    - Gramer sık değişmeyecekse
 
 !!! danger "Sınırlı Kullanım Alanı"
-    Interpreter deseni karmaşık gramer yapıları için uygun değildir. Gramer büyüdükçe sınıf sayısı hızla artar ve yönetilemez hâle gelir. Karmaşık diller için ANTLR gibi parser generator araçları tercih edilmelidir.
-
-!!! example "Kavramsal Örnek"
-    Bir konfigürasyon dosyasında `AND`, `OR`, `NOT` gibi mantıksal ifadelerle kurallar tanımlanmaktadır. Interpreter bu ifadeleri parse eder ve sistemin davranışını kurallara göre dinamik olarak belirler.
-
-=== "C++"
-    ```cpp
-    #include <map>
-    #include <string>
-
-    class Expression {
-    public:
-        virtual bool interpret(std::map<std::string, bool>& ctx) = 0;
-        virtual ~Expression() = default;
-    };
-
-    class TerminalExpr : public Expression {
-        std::string name;
-    public:
-        explicit TerminalExpr(std::string n) : name(std::move(n)) {}
-        bool interpret(std::map<std::string, bool>& ctx) override {
-            return ctx[name];
-        }
-    };
-
-    class AndExpr : public Expression {
-        Expression* left;
-        Expression* right;
-    public:
-        AndExpr(Expression* l, Expression* r) : left(l), right(r) {}
-        bool interpret(std::map<std::string, bool>& ctx) override {
-            return left->interpret(ctx) && right->interpret(ctx);
-        }
-    };
-    ```
-
-=== "Python"
-    ```python
-    class Expression:
-        def interpret(self, context: dict) -> bool: ...
-
-    class TerminalExpr(Expression):
-        def __init__(self, name): self.name = name
-        def interpret(self, context): return context[self.name]
-
-    class AndExpr(Expression):
-        def __init__(self, left, right): self.left, self.right = left, right
-        def interpret(self, context):
-            return self.left.interpret(context) and self.right.interpret(context)
-    ```
+    Gramer karmaşıklaştıkça sınıf sayısı ve bakım maliyeti patlar. Gerçek dil işleme ihtiyacında ANTLR, yacc/bison gibi parser generator araçları kullanılmalı.
 
 ---
 
 ### Iterator
 
-Bir koleksiyonun iç yapısını açığa çıkarmadan, elemanları üzerinde sıralı bir şekilde gezinilmesini sağlayan bir tasarım desenidir. Farklı veri yapılarının aynı erişim mantığıyla kullanılmasına imkân tanır.
+**Özü:** Koleksiyonun iç yapısını açığa çıkarmadan elemanları üzerinde dolaş.
 
-!!! note "Modern Dillerde"
-    Python'daki `for x in iterable` yapısı, C++'daki range-based for döngüsü ve STL iterator'ları bu desenin dil seviyesindeki implementasyonlarıdır.
+**Problem:** Liste, ağaç, graf veya özel bir veri yapısı üzerinde dolaşmak istiyorsun. Her veri yapısı için farklı dolaşım kodu yazmak istemiyorsun. Üstelik aynı veri yapısı farklı sıralarda dolaşılabilmeli (önce derinlik, önce genişlik gibi).
 
-!!! example "Kavramsal Örnek"
-    Bir sistemde liste, ağaç ve grafik yapılarında tutulan veriler bulunmaktadır. Iterator sayesinde istemci, bu veri yapılarının nasıl saklandığını bilmeden elemanlar üzerinde tek tip bir dolaşım mantığıyla işlem yapabilir.
+**Analoji:** Netflix'te içerik listesi — ister grid görünümde ister liste görünümde gez. Görünüm değişse de "bir sonraki içerik" mantığı aynı. İç yapıyı bilmeden geziniyorsun.
 
-=== "C++"
-    ```cpp
-    class Iterator {
-    public:
-        virtual bool hasNext() = 0;
-        virtual int  next()    = 0;
-        virtual ~Iterator()    = default;
-    };
+**Nasıl Çalışır:** `Iterator` arayüzü `hasNext()` ve `next()` metodlarını tanımlar. Her koleksiyon kendi Iterator'ını döner. İstemci koleksiyonun yapısını bilmeden döngüyle dolaşır.
 
-    class NumberList {
-        std::vector<int> data;
-    public:
-        void add(int val) { data.push_back(val); }
+!!! note "Modern Dillerde Standart Hale Geldi"
+    Python'da `for x in obj` (dunder metodlar), C++'da range-based for ve STL iteratorlar, Java'da `Iterable/Iterator` — hepsi bu desenin dil seviyesindeki uygulamalarıdır. Günümüzde çoğu durumda language feature'ı kullanırsın; deseni sıfırdan yazmak nadirdir.
 
-        class ListIterator : public Iterator {
-            const std::vector<int>& data;
-            size_t pos = 0;
-        public:
-            explicit ListIterator(const std::vector<int>& d) : data(d) {}
-            bool hasNext() override { return pos < data.size(); }
-            int  next()    override { return data[pos++]; }
-        };
-
-        ListIterator createIterator() { return ListIterator(data); }
-    };
-    ```
+!!! tip "Ne Zaman Kullanılır?"
+    - Özel veri yapısı oluşturup for-each ile kullanılabilmesini istediğinde
+    - Aynı koleksiyon üzerinde farklı dolaşım sırası gerektiğinde
+    - İstemcinin veri yapısının iç detaylarından bağımsız olmasını istediğinde
 
 ---
 
 ### Mediator
 
-Birden fazla nesne arasındaki doğrudan iletişimi ortadan kaldırarak, bu iletişimi merkezi bir aracı nesne üzerinden yöneten bir tasarım desenidir. Her nesne yalnızca Mediator'ı tanır; nesneler arası bağımlılıklar azaltılır.
+**Özü:** Nesnelerin birbirini doğrudan tanıması yerine iletişimi merkezi bir aracıya delege et.
+
+**Problem:** Birden fazla nesne birbirleriyle iletişim kuruyor. Her nesne diğerlerini doğrudan tanıdığında bağımlılık ağı karmaşık bir örümcek ağına döner. Birini değiştirmek diğerlerini etkiler.
+
+**Analoji:** Hava trafik kontrolü — uçaklar birbirleriyle doğrudan konuşmaz, tümü kontrol kulesiyle konuşur. 10 uçakla 10×9=90 doğrudan bağlantı yerine 10 bağlantı yeterlidir.
 
 ```mermaid
 classDiagram
@@ -766,17 +655,28 @@ classDiagram
     ComponentB --> Mediator
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir hava trafik kontrol sisteminde uçaklar birbirleriyle doğrudan iletişim kurmaz. Tüm koordinasyon merkezi kontrol kulesi üzerinden sağlanır. Mediator, uçaklar arasındaki etkileşimi düzenleyerek karmaşıklığı tek noktada toplar.
+**Nasıl Çalışır:** Her bileşen sadece `Mediator`'ı tanır. Bir şey olduğunda `mediator.notify(this, "event")` çağırır. Mediator kimin ne zaman ne yapacağına karar verir ve ilgili bileşeni tetikler.
+
+!!! example "Gerçek Senaryo"
+    Chat uygulaması: kullanıcılar birbirini doğrudan bilmez. Mesajlaşma sunucusu (Mediator) mesajı alır, ilgili kullanıcılara iletir, grupları yönetir. Yeni bir kullanıcı eklenmesi diğer kullanıcıların kodunu etkilemez.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Çok sayıda nesne arasındaki bağımlılıklar spaghetti'ye dönüşüyorsa
+    - Nesnelerin yeniden kullanılabilirliği bağımlılıklar yüzünden azalıyorsa
+    - İletişim mantığını tek bir noktada toplamak istediğinde
+
+!!! danger "Dikkat"
+    Mediator kendisi "God Object"e dönüşebilir. Tüm mantık Mediator'a yığılırsa monolitik bir iletişim merkezi ortaya çıkar. Mediator'ın sorumluluklarını sınırlı tut.
 
 ---
 
 ### Memento
 
-Bir nesnenin iç durumunu kapsülleme ilkesini ihlal etmeden dışarıya aktararak, gerektiğinde bu duruma geri dönülmesini sağlayan bir tasarım desenidir. Undo/redo ve durum geçmişi yönetiminde kullanılır.
+**Özü:** Nesnenin iç durumunu kapsüllemeyi bozmadan kaydet; gerektiğinde geri yükle.
 
-!!! tip "Command ile Fark"
-    Command undo için *işlemi tersine çeviren* kod yazar. Memento ise nesnenin *önceki durumunu saklayarak* geri dönüşü sağlar. Karmaşık durum geri almaları için Memento daha uygundur.
+**Problem:** Bir nesnenin önceki durumuna geri dönmek istiyorsun. Ama nesnenin iç durumu private — dışarıdan okuyamazsın. Durumu dışa aktarmak encapsulation'ı bozar.
+
+**Analoji:** Video oyununda kaydetme noktası (checkpoint). Oyun motoruna iç mekanizmaları bilmeden "buraya kaydet" ve "buraya geri dön" diyebiliyorsun.
 
 ```mermaid
 classDiagram
@@ -799,64 +699,32 @@ classDiagram
     Caretaker --> Originator
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir metin editöründe her düzenleme öncesinde belgenin durumu bir Memento nesnesi olarak saklanır. Kullanıcı "geri al" (Ctrl+Z) dediğinde Caretaker en son Memento'yu Originator'a geri yükler.
+**Nasıl Çalışır:**
 
-=== "C++"
-    ```cpp
-    class Memento {
-        std::string state;
-    public:
-        explicit Memento(std::string s) : state(std::move(s)) {}
-        std::string getState() const { return state; }
-    };
+- **Originator:** Durumu olan asıl nesne. `save()` ile kendi durumunun anlık görüntüsünü Memento olarak döner.
+- **Memento:** Durumu saklayan opak nesne. Sadece Originator içini okuyabilir.
+- **Caretaker:** Memento'ları saklar ama içini okuyamaz. Undo için Originator'a geri verir.
 
-    class Editor {
-        std::string content;
-    public:
-        void write(const std::string& text) { content += text; }
-        Memento save()                      { return Memento(content); }
-        void restore(const Memento& m)      { content = m.getState(); }
-    };
+!!! example "Gerçek Senaryo"
+    Metin editörü Ctrl+Z: her değişiklik öncesi `editor.save()` çağrılır, dönen Memento geçmişe eklenir. Ctrl+Z'de son Memento alınır ve `editor.restore(memento)` çağrılır. Editörün içindeki karmaşık durumun tamamı kurtarılır.
 
-    class History {
-        std::vector<Memento> snapshots;
-    public:
-        void push(Memento m)   { snapshots.push_back(std::move(m)); }
-        Memento pop() {
-            auto m = snapshots.back();
-            snapshots.pop_back();
-            return m;
-        }
-    };
-    ```
+!!! tip "Ne Zaman Kullanılır?"
+    - Undo/redo gerektiğinde ve nesnenin iç durumu karmaşıksa
+    - Nesnenin durumunun anlık görüntüsünü almak gerektiğinde
+    - Encapsulation'ı bozmadan durum geçmişi yönetimi gerektiğinde
 
-=== "Python"
-    ```python
-    class Memento:
-        def __init__(self, state: str): self._state = state
-        def get_state(self) -> str:    return self._state
-
-    class Editor:
-        def __init__(self): self.content = ""
-        def write(self, text): self.content += text
-        def save(self):        return Memento(self.content)
-        def restore(self, m):  self.content = m.get_state()
-
-    class History:
-        def __init__(self): self._stack = []
-        def push(self, m):  self._stack.append(m)
-        def pop(self):      return self._stack.pop()
-    ```
+!!! tip "Command ile Farkı"
+    Command undo için *işlemi tersine çeviren kod* yazar (davranış odaklı). Memento *önceki durumu saklar* (veri odaklı). Karmaşık durum geri almaları için Memento daha uygundur; çünkü ters işlemi yazmak bazen imkânsız veya çok karmaşıktır.
 
 ---
 
 ### Observer
 
-Bir nesnede meydana gelen durum değişikliklerinin, buna bağlı diğer nesnelere otomatik olarak bildirilmesini sağlayan bir tasarım desenidir. Olay tabanlı (event-driven) mimarilerin temel yapı taşıdır.
+**Özü:** Bir nesnedeki değişikliği ilgilenen herkese otomatik bildir.
 
-!!! tip "Publish-Subscribe ile İlişki"
-    Observer deseni publish-subscribe mimarisinin temel prensibiyle aynıdır. Modern mesajlaşma sistemlerinin (Kafka, RabbitMQ, event bus) kökeni bu desene dayanır.
+**Problem:** Bir nesnenin durumu değiştiğinde buna bağlı diğer nesnelerin de güncellenmesi gerekiyor. Ama bu bağımlı nesneler dinamik olarak değişebilir ve hepsini tek tek çağırmak sıkı bağımlılık yaratır.
+
+**Analoji:** Gazete aboneliği — gazete her yayınlandığında abone olan herkese otomatik gönderilir. Gazete kaç abonesi olduğunu veya ne yaptıklarını bilmez. İsteyen abone olur, isteyen aboneliği iptal eder.
 
 ```mermaid
 classDiagram
@@ -885,17 +753,28 @@ classDiagram
     Observer <|.. AlarmSystem
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir sensör verisi güncellendiğinde; izleme ekranı, kayıt sistemi ve alarm modülü bu değişiklikten eş zamanlı olarak haberdar edilir. Sensör bu bileşenleri doğrudan çağırmaz; yalnızca durumunun değiştiğini bildirir.
+**Nasıl Çalışır:** `Subject` (yayıncı) Observer listesi tutar. Durum değişince `notify()` çağırır — tüm Observer'ların `update()` metodu tetiklenir. Observer'lar `subscribe()`/`unsubscribe()` ile listeye girip çıkabilir.
+
+!!! example "Gerçek Senaryo"
+    Sensör sistemi: sıcaklık sensörü her ölçüm yaptığında izleme ekranı, log kaydı ve alarm modülü otomatik haberdar olur. Yeni bir "SMS uyarısı" modülü eklemek istersen sadece Observer'a kaydettirirsin; sensör koduna dokunmazsın.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Bir nesnenin değişikliği belirsiz sayıda başka nesneyi tetikleyecekse
+    - Yayıncı ile abonelerin gevşek bağlı (loose coupling) olması gerekiyorsa
+    - Event-driven mimari, reaktif sistemler, GUI event handling
+
+!!! note "Publish-Subscribe ile İlişki"
+    Observer, publish-subscribe mimarisinin temel prensibidir. Modern sistemlerde (Kafka, RabbitMQ, Redux, event bus) bu desenin çeşitli varyasyonları uygulanır.
 
 ---
 
 ### State
 
-Bir nesnenin iç durumuna bağlı olarak davranışını değiştirmesini sağlayan bir tasarım desenidir. Çok sayıda koşul ifadesi (`if/else`, `switch`) kullanımını ortadan kaldırarak duruma özel davranışları ayrı yapılar hâline getirir.
+**Özü:** Nesnenin davranışı iç durumuna göre değişir; durum geçişlerini if/else yerine ayrı nesnelerle yönet.
 
-!!! note "Strategy ile Fark"
-    Strategy'de istemci hangi algoritmayı kullanacağını seçer ve genellikle değiştirmez. State'de ise nesne kendi durumunu ve buna bağlı geçişleri yönetir; durum değişimleri otomatik olarak gerçekleşebilir.
+**Problem:** Bir nesnenin birden fazla durumu var ve her durumda aynı metodlar farklı davranıyor. Bunu if/else veya switch ile yönetmek hem uzar hem kırılganlaşır. Yeni durum eklenince mevcut kodun her yerine if eklenmesi gerekir.
+
+**Analoji:** Trafik lambası — kırmızıda "dur", yeşilde "geç", sarıda "yavaşla". Aynı "ne yapmalıyım?" sorusunun cevabı lambanın durumuna göre tamamen değişir. Her durum kendi kurallarını bilir.
 
 ```mermaid
 stateDiagram-v2
@@ -907,17 +786,29 @@ stateDiagram-v2
     Emergency --> Idle : Tehlike geçti
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir otonom aracın "beklemede", "hareket hâlinde" ve "acil durum" çalışma modları vardır. Her mod kendi davranış kurallarını içerir. State kullanıldığında araç mevcut durumuna göre farklı tepkiler verirken kod if/else zincirlerinden arındırılır.
+**Nasıl Çalışır:** Her durum ayrı bir sınıf olur; tümü aynı `State` arayüzünü uygular. Context nesnesi mevcut durumuna referans tutar; metodları çağrıldığında mevcut State nesnesine delege eder. Durum geçişleri State sınıflarının içinde yönetilir.
+
+!!! example "Gerçek Senaryo"
+    Otonom araç: `IdleState`, `MovingState`, `EmergencyState` ayrı sınıflar. "Engel algılandı" komutu verildiğinde Moving durumundaki araç Emergency'ye geçer. Her durum kendi tepkisini bilir. Yeni bir durum (`ParkingState`) eklemek mevcut durumları etkilemez.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Nesnenin davranışı durumuna göre köklü biçimde değişiyorsa
+    - Çok sayıda if/else veya switch-case ile durum yönetiliyorsa
+    - Durum sayısı artacaksa ve her durumun kendi karmaşık davranışı varsa
+    - Durum geçişleri açıkça modellenmek isteniyorsa (state machine)
+
+!!! tip "Strategy ile Farkı"
+    Strategy'de istemci algoritmayı seçer ve genellikle değiştirmez. State'de nesne kendi durumunu ve geçişlerini yönetir; değişimler otomatik gerçekleşebilir. State nesneleri birbirini tanıyabilir; Strategy nesneleri genellikle birbirinden habersizdir.
 
 ---
 
 ### Strategy
 
-Aynı işi yapan ancak farklı algoritmalara sahip davranışların çalışma zamanında değiştirilebilir olmasını sağlayan bir tasarım desenidir. Algoritma ailesini kapsüller ve istemcinin algoritma detaylarından bağımsız çalışmasını sağlar.
+**Özü:** Aynı işi yapan farklı algoritmalar arasında çalışma zamanında geçiş yap.
 
-!!! tip "Ne Zaman Kullanılır?"
-    Bir işlemin birden fazla yapılış biçimi varsa ve bu biçimler çalışma zamanında değişebiliyorsa Strategy kullanılır. Örneğin sıralama algoritması, sıkıştırma yöntemi, ödeme yöntemi.
+**Problem:** Bir işlemin birden fazla yapılış biçimi var ve hangisinin kullanılacağı değişebilir. Tüm algoritmaları tek bir sınıfa koymak hem şişirir hem de Open/Closed Principle'ı ihlal eder — yeni algoritma eklemek mevcut koda dokunmayı gerektirir.
+
+**Analoji:** Navigasyon uygulaması — en kısa yol, en hızlı yol, en az yakıt harcayan yol. Algoritma farklı ama "rota bul" talebi aynı. Kullanıcı tercihine göre strateji değişir.
 
 ```mermaid
 classDiagram
@@ -945,78 +836,51 @@ classDiagram
     RouteStrategy <|.. SafestRoute
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir rota planlama sisteminde en kısa yol, en hızlı yol ve en güvenli yol seçenekleri bulunmaktadır. Kullanıcı tercihine göre uygun strateji seçilir ve sistem bu stratejiye göre rotayı üretir. Algoritma değiştiğinde istemci kodu değişmez.
+**Nasıl Çalışır:** Her algoritma ayrı bir sınıfa (`ConcreteStrategy`) taşınır. Tümü aynı `Strategy` arayüzünü uygular. `Context` nesnesi algoritma detaylarını bilmez; çalışma zamanında `setStrategy()` ile strateji değiştirilebilir.
+
+!!! example "Gerçek Senaryo"
+    Sıralama sistemi: küçük veri için insertion sort, büyük veri için quicksort, neredeyse sıralı veri için merge sort tercih edilir. Context veri boyutuna göre strateji seçer. Yeni algoritma eklemek için sadece yeni bir Strategy sınıfı yazılır; Context'e dokunulmaz.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Aynı işi yapan birden fazla algoritma varsa ve aralarında çalışma zamanında geçiş gerekiyorsa
+    - Algoritma detaylarını istemciden gizlemek istediğinde
+    - Koşullu algoritmik dallanma (if/else zinciri) kodu karmaşıklaştırıyorsa
 
 ---
 
 ### Template Method
 
-Bir algoritmanın iskeletini üst sınıfta tanımlayan, bazı adımların alt sınıflar tarafından özelleştirilmesine izin veren bir tasarım desenidir. Algoritmanın genel akışı sabit kalırken değişken adımlar kontrollü biçimde esnetilir.
+**Özü:** Algoritmanın iskeletini üst sınıfa yaz; değişen adımları alt sınıflara bırak.
+
+**Problem:** Birden fazla sınıf aynı genel akışı paylaşıyor ama bazı adımlarda farklı davranıyor. Ortak akışı kopyala-yapıştırla her sınıfa yazmak kod tekrarına yol açar ve bakımı zorlaştırır.
+
+**Analoji:** Franchise restoranı — tüm şubeler aynı müşteri hizmet protokolünü uygular (karşıla, siparişi al, hazırla, sun, ödeme al). Ama hazırlama adımı her ürün için farklıdır. Protokol sabittir; hazırlama detayı değişkendir.
+
+**Nasıl Çalışır:** Üst sınıf `templateMethod()` tanımlar — genel akışı sabit sırayla çağırır. Değişmez adımlar üst sınıfta uygulanır. Değişen adımlar abstract veya override edilebilir (hook) metodlar olarak tanımlanır. Alt sınıflar sadece bu adımları override eder; genel akışa dokunamaz.
+
+!!! example "Gerçek Senaryo"
+    Veri işleme pipeline'ı: her kaynak için sıra aynı — oku, doğrula, işle, raporla. `CSVProcessor` okuma ve işleme adımlarını CSV mantığıyla uygular. `XMLProcessor` aynı adımları XML için uygular. Doğrulama ve raporlama üst sınıftan kalıtılır ve değişmez.
+
+!!! tip "Ne Zaman Kullanılır?"
+    - Birden fazla sınıfın aynı algoritmik iskelet üzerinde çalıştığı ama belirli adımların farklılaştığı durumlarda
+    - Kod tekrarını ortadan kaldırmak için ortak akış üst sınıfa çekilmek istendiğinde
+    - Alt sınıfların tüm algoritmayı değiştirmesini engellemek ama özelleştirmesine izin vermek gerektiğinde
 
 !!! note "Hollywood Prensibi"
-    "Bizi arama, biz seni ararız" — Alt sınıf belirli adımları override eder ancak akışın kontrolü daima üst sınıfta kalır.
+    "Bizi arama, biz seni ararız" — Alt sınıf adımları uygular ama akışın ne zaman ve hangi sırayla çalışacağını üst sınıf yönetir. Kontrolün ters çevrilmesidir.
 
-!!! example "Kavramsal Örnek"
-    Bir veri işleme sürecinde veri okuma, doğrulama, işleme ve raporlama adımları her zaman aynı sıradadır. Ancak doğrulama veya raporlama yöntemi projeye göre değişebilir. Template Method, bu değişken adımların özelleştirilmesini sağlar.
-
-=== "C++"
-    ```cpp
-    class DataProcessor {
-    public:
-        void process() {  // template method — override edilmez
-            readData();
-            validate();
-            processData();
-            report();
-        }
-    protected:
-        virtual void readData()    = 0;
-        virtual void processData() = 0;
-        virtual void validate() { /* varsayılan doğrulama */ }
-        virtual void report()   { /* varsayılan raporlama */ }
-    };
-
-    class CSVProcessor : public DataProcessor {
-    protected:
-        void readData()    override { /* CSV oku   */ }
-        void processData() override { /* CSV işle  */ }
-    };
-    ```
-
-=== "Python"
-    ```python
-    from abc import ABC, abstractmethod
-
-    class DataProcessor(ABC):
-        def process(self):  # template method
-            self.read_data()
-            self.validate()
-            self.process_data()
-            self.report()
-
-        @abstractmethod
-        def read_data(self): pass
-
-        @abstractmethod
-        def process_data(self): pass
-
-        def validate(self): pass  # opsiyonel override
-        def report(self):   pass  # opsiyonel override
-
-    class CSVProcessor(DataProcessor):
-        def read_data(self):    print("CSV okunuyor")
-        def process_data(self): print("CSV işleniyor")
-    ```
+!!! tip "Strategy ile Farkı"
+    Template Method kalıtım kullanır; algoritmanın iskeletini değiştirmeyi engeller. Strategy bileşim (composition) kullanır; tüm algoritmayı çalışma zamanında değiştirebilir.
 
 ---
 
 ### Visitor
 
-Bir nesne yapısı üzerinde çalışacak yeni operasyonların, nesnelerin sınıfı değiştirilmeden eklenmesini sağlayan bir tasarım desenidir. Kararlı (stabil) nesne yapıları üzerinde sık sık yeni işlemler eklenmesi gereken durumlarda tercih edilir.
+**Özü:** Kararlı nesne yapısına, nesneleri değiştirmeden yeni operasyonlar ekle.
 
-!!! danger "Dezavantaj"
-    Yeni bir element türü eklendiğinde tüm Visitor implementasyonları güncellenmek zorundadır. Nesne yapısı sık değişiyorsa Visitor uygun değildir.
+**Problem:** Birçok farklı nesne türünden oluşan bir yapı var (AST, belge, nesne grafiği). Bu yapı üzerinde sık sık yeni operasyonlar eklenmesi gerekiyor (analiz, optimizasyon, yazdırma, serileştirme). Her yeni operasyon için her nesne sınıfına dokunmak Open/Closed Principle'ı ihlal eder.
+
+**Analoji:** Vergi denetçisi — şehirdeki her farklı iş yeri türünü (restoran, mağaza, fabrika) ziyaret eder. Her yerin kendine özgü vergi hesaplama kuralları var. Denetçi yeni bir hesaplama metodu getirdiğinde iş yerlerine dokunmaz; sadece yeni bir denetçi (Visitor) oluşturulur.
 
 ```mermaid
 classDiagram
@@ -1050,32 +914,15 @@ classDiagram
     Node --> Visitor
 ```
 
-!!! example "Kavramsal Örnek"
-    Bir soyut sözdizimi ağacı (AST) üzerinde analiz, optimizasyon ve raporlama gibi farklı işlemler yapılmaktadır. Visitor sayesinde bu işlemler AST'nin yapısı değiştirilmeden sisteme eklenebilir.
+**Nasıl Çalışır:** Her nesne türü `accept(Visitor v)` metodunu uygular ve `v.visit(this)` çağırır (double dispatch). Yeni operasyon eklemek = yeni bir Visitor sınıfı yazmak. Var olan nesnelere dokunulmaz.
 
-=== "C++"
-    ```cpp
-    struct LiteralNode;
-    struct BinaryOpNode;
+!!! example "Gerçek Senaryo"
+    Derleyici: AST (Abstract Syntax Tree) üzerinde tip kontrolü, optimizasyon, kod üretimi, hata raporlama gibi farklı geçişler yapılır. Her geçiş ayrı bir Visitor'dır. AST node sınıfları değişmez; yeni analiz eklemek yeni Visitor yazmak demektir.
 
-    class Visitor {
-    public:
-        virtual void visit(LiteralNode&)  = 0;
-        virtual void visit(BinaryOpNode&) = 0;
-    };
+!!! tip "Ne Zaman Kullanılır?"
+    - Nesne yapısı kararlı (sık değişmiyor) ama üzerindeki operasyonlar sık ekleniyor/değişiyorsa
+    - Birçok farklı türde nesne üzerinde aynı gruptan işlemler yapılacaksa
+    - Nesne sınıflarına davranış eklemek yerine ayrı operasyon sınıfları isteniyorsa
 
-    struct Node {
-        virtual void accept(Visitor& v) = 0;
-    };
-
-    struct LiteralNode : Node {
-        int value;
-        void accept(Visitor& v) override { v.visit(*this); }
-    };
-
-    class PrintVisitor : public Visitor {
-    public:
-        void visit(LiteralNode& n)  override { /* yazdır */ }
-        void visit(BinaryOpNode& n) override { /* yazdır */ }
-    };
-    ```
+!!! danger "Ne Zaman Kullanılmaz"
+    Yeni eleman türü eklendiğinde tüm Visitor implementasyonları güncellenmek zorundadır. Eğer nesne yapısı (element türleri) sık değişiyorsa Visitor uygun değildir — her değişiklik tüm Visitor'lara yayılır.
