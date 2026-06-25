@@ -1,59 +1,73 @@
 # Design Pattern
 
-!!! note "Genel Bakış"
-    Design Pattern'ler, yazılım geliştirmede sıkça karşılaşılan problemlere karşı geliştirilmiş kanıtlanmış çözüm şablonlarıdır. Bunlar belirli bir kod parçası değil, bir **düşünce biçimidir** — aynı problem farklı dillerde farklı kodla yazılabilir ama aynı desen kullanılabilir. GoF (Gang of Four) sınıflandırmasına göre üç ana kategoriye ayrılır: **Creational** (nesne oluşturma), **Structural** (yapısal ilişkiler) ve **Behavioral** (davranışsal iletişim).
+Design Pattern, problemlere karşı geliştirilmiş çözüm yollarıdır. Kod parçası değil, bir **düşünce biçimidir**.
 
-!!! abstract "Desenleri Öğrenmenin Değeri"
-    Her desen bir probleme yanıt verir. Deseni ezberlemek değil, **hangi problemin** o deseni doğurduğunu anlamak önemlidir. "Bu kodu nasıl düzgün yazarım?" sorusundan önce "Bu problem daha önce çözülmüş mü?" sorusunu sormayı öğretir.
 
----
+## Creational
 
-## Creational (Yaratıcı Desenler)
-
-Nesne **oluşturma** süreçlerini soyutlayan desenlerdir. "Nesneyi `new` ile direkt oluşturmak neden yetmez?" sorusunun cevabıdır. Sistem, hangi sınıfın örneğini alacağını bilmeden doğru nesneyi doğru zamanda üretebilmelidir.
-
----
+Nesne **oluşturma** süreçlerini soyutlar. `new` yerine sistemin hangi nesneyi ne zaman üreteceğini kontrol altına alır.
 
 ### Factory Method
 
 **Özü:** Nesne oluşturma kararını alt sınıflara bırakır.
 
-**Problem:** Kod belirli bir iş yapar ama bu işi yapacak nesneyi direkt `new` ile oluşturduğunda, nesne türü ilerleyen süreçte değişince o koda dokunmak zorunlu kalırsın. Bu Open/Closed Principle'ı ihlal eder — mevcut koda dokunmadan genişleyebilmek gerekir.
+**Problem:** Kod belirli bir iş yapar ama bu işi yapacak nesneyi direkt `new` ile oluşturduğunda, nesne türü ilerleyen süreçte değişince o koda dokunmak zorunlu kalırsın. Bu **Open/Closed Principle'ı** ihlal eder mevcut koda dokunmadan genişleyebilmek gerekir.
 
 **Analoji:** Bir şube müdürü çalışana "bu görevi üstlen" der ama görevi kimin yapacağına işe alım departmanı karar verir. Müdür kimin işe alındığını bilmez; sadece işin yapılacağını bilir.
 
-```mermaid
-classDiagram
-    class Creator {
-        +factoryMethod() Product
-        +operation()
-    }
-    class ConcreteCreatorA {
-        +factoryMethod() ProductA
-    }
-    class ConcreteCreatorB {
-        +factoryMethod() ProductB
-    }
-    class Product {
-        <<interface>>
-        +operation()
-    }
-    class ProductA {
-        +operation()
-    }
-    class ProductB {
-        +operation()
-    }
-    Creator <|-- ConcreteCreatorA
-    Creator <|-- ConcreteCreatorB
-    Creator ..> Product
-    ConcreteCreatorA ..> ProductA
-    ConcreteCreatorB ..> ProductB
-    Product <|.. ProductA
-    Product <|.. ProductB
-```
-
 **Nasıl Çalışır:** Üst sınıf (`Creator`) bir `factoryMethod()` tanımlar ama ne üretileceğini bilmez. Alt sınıflar bu metodu override ederek hangi nesnenin üretileceğine karar verir. Üst sınıf sadece "bir ürün oluştur ve kullan" der, somut sınıfı bilmez.
+
+
+
+```cpp
+class Transport { // Soyut -> Tüm Taşıma İçin Ortak
+public:
+    virtual void deliver() = 0;
+    virtual ~Transport() = default;
+};
+
+class Truck : public Transport {
+public:
+    void deliver() override { std::cout << "Truck\n"; }
+};
+
+class Ship : public Transport {
+public:
+    void deliver() override { std::cout << "Ship\n"; }
+};
+
+class Logistics { // Soyut Creator -> Ne Üretileceğini Bilmez, Sadece Kullanır
+public:
+    virtual std::unique_ptr<Transport> createTransport() = 0;
+
+    void planDelivery() {
+        auto transport = createTransport(); // hangi tür olduğu önemli değil
+        transport->deliver();
+    }
+
+    virtual ~Logistics() = default;
+};
+
+// Concrete Creator — hangi nesnenin üretileceğine burada karar verilir
+class RoadLogistics : public Logistics {
+public:
+    std::unique_ptr<Transport> createTransport() override { return std::make_unique<Truck>(); }
+};
+
+class SeaLogistics : public Logistics {
+public:
+    std::unique_ptr<Transport> createTransport() override { return std::make_unique<Ship>(); }
+};
+
+int main() {
+    std::unique_ptr<Logistics> logistics = std::make_unique<RoadLogistics>();
+    logistics->planDelivery(); // Kara yolu ile teslimat
+
+    logistics = std::make_unique<SeaLogistics>();
+    logistics->planDelivery(); // Deniz yolu ile teslimat
+    // planDelivery() kodu hiç değişmedi sadece Creator değişti
+}
+```
 
 !!! example "Gerçek Senaryo"
     Bir lojistik sisteminde kara, deniz ve hava taşımacılığı var. Sipariş yönetimi sadece "taşıma başlat" der. `RoadLogistics` Truck üretir, `SeaLogistics` Ship üretir. Yeni bir hava hattı eklemek istediğinde mevcut kodun hiçbirine dokunmadan yeni bir `AirLogistics` sınıfı yazarsın.
@@ -109,6 +123,87 @@ classDiagram
 
 **Nasıl Çalışır:** `AbstractFactory` birden fazla ürün oluşturma metodunu tanımlar. Her konkret fabrika, aynı aileden tüm ürünleri üretir. İstemci hangi fabrikayı kullandığını bilir ama fabrikaların içindeki somut sınıfları bilmez.
 
+```cpp
+// Soyut ürünler
+class Button {
+public:
+    virtual void render() = 0;
+    virtual ~Button() = default;
+};
+
+class Menu {
+public:
+    virtual void show() = 0;
+    virtual ~Menu() = default;
+};
+
+// Desktop ailesi
+class DesktopButton : public Button {
+public:
+    void render() override { std::cout << "Desktop buton\n"; }
+};
+
+class DesktopMenu : public Menu {
+public:
+    void show() override { std::cout << "Desktop menü\n"; }
+};
+
+// Embedded ailesi
+class EmbeddedButton : public Button {
+public:
+    void render() override { std::cout << "Embedded buton\n"; }
+};
+
+class EmbeddedMenu : public Menu {
+public:
+    void show() override { std::cout << "Embedded menü\n"; }
+};
+
+// Soyut fabrika — bir aile üretmekten sorumlu
+class UIFactory {
+public:
+    virtual std::unique_ptr<Button> createButton() = 0;
+    virtual std::unique_ptr<Menu>   createMenu()   = 0;
+    virtual ~UIFactory() = default;
+};
+
+class DesktopFactory : public UIFactory {
+public:
+    std::unique_ptr<Button> createButton() override {
+        return std::make_unique<DesktopButton>();
+    }
+    std::unique_ptr<Menu> createMenu() override {
+        return std::make_unique<DesktopMenu>();
+    }
+};
+
+class EmbeddedFactory : public UIFactory {
+public:
+    std::unique_ptr<Button> createButton() override {
+        return std::make_unique<EmbeddedButton>();
+    }
+    std::unique_ptr<Menu> createMenu() override {
+        return std::make_unique<EmbeddedMenu>();
+    }
+};
+
+// İstemci — hangi fabrika gelirse aynı kod çalışır; yanlış kombinasyon imkânsız
+void buildUI(UIFactory& factory) {
+    auto btn  = factory.createButton();
+    auto menu = factory.createMenu();
+    btn->render();
+    menu->show();
+}
+
+int main() {
+    DesktopFactory desktop;
+    buildUI(desktop); // Desktop buton + Desktop menü (uyumlu)
+
+    EmbeddedFactory embedded;
+    buildUI(embedded); // Embedded buton + Embedded menü (uyumlu)
+}
+```
+
 !!! example "Gerçek Senaryo"
     Cross-platform UI kütüphanesi: `WindowsFactory` her şeyin Windows stilini, `MacFactory` Mac stilini üretir. Uygulama platform seçimine göre fabrikayı değiştirir; tüm bileşenler otomatik uyumlu gelir.
 
@@ -162,6 +257,77 @@ classDiagram
 
 **Nasıl Çalışır:** Builder arayüzü yapım adımlarını tanımlar. Her konkret Builder bu adımları farklı biçimde uygular. `Director` (isteğe bağlı) hangi adımların hangi sırayla çağrılacağını bilir. Son olarak `getResult()` ile tamamlanmış nesne alınır.
 
+```cpp
+struct UAVConfig {
+    std::string engine;
+    std::string sensor;
+    std::string camera;
+
+    void print() const {
+        std::cout << "Motor: " << engine
+                  << " | Sensör: " << sensor
+                  << " | Kamera: " << camera << "\n";
+    }
+};
+
+// Builder arayüzü — hangi adımların var olduğunu tanımlar
+class UAVBuilder {
+public:
+    virtual void setEngine() = 0;
+    virtual void setSensor() = 0;
+    virtual void setCamera() = 0;
+    virtual UAVConfig getResult() = 0;
+    virtual ~UAVBuilder() = default;
+};
+
+// Keşif İHA'sı — uzun menzil ve termal kamera
+class ReconBuilder : public UAVBuilder {
+    UAVConfig config;
+public:
+    void setEngine() override { config.engine = "Uzun menzil motoru"; }
+    void setSensor() override { config.sensor = "Termal sensör"; }
+    void setCamera() override { config.camera = "Yüksek çözünürlüklü kamera"; }
+    UAVConfig getResult() override { return config; }
+};
+
+// Lojistik İHA'sı — güçlü motor ve kargo sistemi
+class LogisticsBuilder : public UAVBuilder {
+    UAVConfig config;
+public:
+    void setEngine() override { config.engine = "Yük taşıma motoru"; }
+    void setSensor() override { config.sensor = "Temel sensör"; }
+    void setCamera() override { config.camera = "Kargo kamerası"; }
+    UAVConfig getResult() override { return config; }
+};
+
+// Director — hangi adımların hangi sırayla çağrılacağını bilir
+class Director {
+    UAVBuilder* builder;
+public:
+    Director(UAVBuilder* b) : builder(b) {}
+
+    void construct() {
+        builder->setEngine();
+        builder->setSensor();
+        builder->setCamera();
+    }
+};
+
+int main() {
+    ReconBuilder recon;
+    Director dir(&recon);
+    dir.construct();
+    recon.getResult().print();
+    // Motor: Uzun menzil motoru | Sensör: Termal sensör | Kamera: Yüksek çözünürlüklü kamera
+
+    LogisticsBuilder logistics;
+    Director dir2(&logistics);
+    dir2.construct();
+    logistics.getResult().print();
+    // Motor: Yük taşıma motoru | Sensör: Temel sensör | Kamera: Kargo kamerası
+}
+```
+
 !!! example "Gerçek Senaryo"
     İHA (İnsansız Hava Aracı) konfigürasyonu: aynı platform üzerinde keşif amaçlı (termal kamera, uzun menzil pili) veya lojistik amaçlı (kargo sistemi, kısa menzil) yapılandırma yapılabilir. `ReconBuilder` ve `LogisticsBuilder` aynı adımları farklı değerlerle doldurur. Director her iki İHA için de aynı `construct()` akışını çağırır.
 
@@ -172,7 +338,7 @@ classDiagram
     - Nesne oluşturma süreci birden fazla adım gerektiriyorsa
 
 !!! note "Modern Dillerde Fluent Builder"
-    `Car.builder().color("red").wheels(4).sport(true).build()` — zincirleme çağrı (method chaining) ile Builder'ın kullanıcı dostu hali. Pek çok modern kütüphanede bu yaklaşım kullanılır.
+    `Car.builder().color("red").wheels(4).sport(true).build()` — zincirleme çağrı (method chaining) ile Builder'ın kullanıcı dostu hali. Her setter `*this` döndürür, böylece çağrılar zincir oluşturur. Pek çok modern kütüphanede bu yaklaşım kullanılır.
 
 ---
 
@@ -186,8 +352,58 @@ classDiagram
 
 **Nasıl Çalışır:** Her nesne kendi `clone()` metodunu uygular. İstemci kopyasını almak istediği nesneden `clone()` çağırır. İç yapıyı bilmesine gerek yoktur.
 
+```cpp
+// Her sensörün kendi clone() metodu var
+class Sensor {
+protected:
+    std::string type;
+    double      frequency;
+    std::vector<double> calibration; // pahalı yapılandırma verisi
+
+public:
+    Sensor(std::string t, double f, std::vector<double> cal)
+        : type(t), frequency(f), calibration(std::move(cal)) {}
+
+    virtual std::unique_ptr<Sensor> clone() const = 0;
+
+    void setFrequency(double f) { frequency = f; }
+
+    virtual void report() const {
+        std::cout << type << " @ " << frequency << " Hz, "
+                  << calibration.size() << " kalibrasyon noktası\n";
+    }
+
+    virtual ~Sensor() = default;
+};
+
+class TemperatureSensor : public Sensor {
+public:
+    TemperatureSensor(double freq, std::vector<double> cal)
+        : Sensor("Sıcaklık", freq, std::move(cal)) {}
+
+    // Kopya constructor'ı çağırır — deep copy otomatik
+    std::unique_ptr<Sensor> clone() const override {
+        return std::make_unique<TemperatureSensor>(*this);
+    }
+};
+
+int main() {
+    // Temel sensör bir kez pahalı şekilde kurulur
+    TemperatureSensor base(100.0, {0.1, 0.2, 0.3, 0.4, 0.5});
+
+    // Geri kalanlar klonlanır; sadece farklı parametre güncellenir
+    auto sensor1 = base.clone();
+    auto sensor2 = base.clone();
+    sensor2->setFrequency(200.0); // yalnızca bu klonun frekansı değişir
+
+    base.report();    // Sıcaklık @ 100 Hz, 5 kalibrasyon noktası
+    sensor1->report();// Sıcaklık @ 100 Hz, 5 kalibrasyon noktası
+    sensor2->report();// Sıcaklık @ 200 Hz, 5 kalibrasyon noktası
+}
+```
+
 !!! warning "Deep Copy vs Shallow Copy — Kritik Nokta"
-    **Shallow copy:** iç nesnelerin referansları kopyalanır, aynı belleği paylaşırlar. Bir kopyadaki değişiklik diğerini etkiler. **Deep copy:** tüm iç nesneler de ayrı kopyalanır. Prototype uygularken hangi derinlikte kopyalama yapılacağı açıkça belirlenmeli; yanlış seçim sessiz hatalara yol açar.
+    **Shallow copy:** iç nesnelerin referansları kopyalanır, aynı belleği paylaşırlar. Bir kopyadaki değişiklik diğerini etkiler. **Deep copy:** tüm iç nesneler de ayrı kopyalanır. Prototype uygularken hangi derinlikte kopyalama yapılacağı açıkça belirlenmeli; yanlış seçim sessiz hatalara yol açar. C++'da kullanıcı tanımlı kopya constructor yazarak deep copy sağlanır.
 
 !!! example "Gerçek Senaryo"
     Simülasyon ortamında yüzlerce sensör modeli var; hepsinin temel konfigürasyonu aynı ama küçük parametreler farklı. Temel sensör bir kez yapılandırılır, geri kalanlar klonlanır ve sadece farklı olan parametre güncellenir. Hem hız kazanılır hem de tutarlı başlangıç yapısı korunur.
@@ -220,10 +436,39 @@ classDiagram
 
 **Nasıl Çalışır:** Constructor private'tır — dışarıdan `new` ile örnek alınamaz. Tek erişim noktası statik `getInstance()` metodudur. İlk çağrıda örnek oluşturulur, sonraki çağrılarda aynı örnek döner.
 
+```cpp
+class Logger {
+public:
+    // Kopya ve taşıma operasyonları kapalı — ikinci örnek yaratılamaz
+    Logger(const Logger&)            = delete;
+    Logger& operator=(const Logger&) = delete;
+
+    // C++11: static local variable thread-safe garantilidir
+    static Logger& getInstance() {
+        static Logger instance;
+        return instance;
+    }
+
+    void log(const std::string& msg) {
+        std::cout << "[LOG] " << msg << "\n";
+    }
+
+private:
+    Logger() { std::cout << "Logger oluşturuldu\n"; }
+};
+
+int main() {
+    Logger::getInstance().log("Sistem başlatıldı");
+    Logger::getInstance().log("Bağlantı kuruldu");
+    // "Logger oluşturuldu" yalnızca bir kez yazdırılır
+    // Her çağrı aynı nesneyi kullanır
+}
+```
+
 !!! danger "Ciddi Tuzaklar Var — Dikkatli Kullanın"
     - **Test edilemezlik:** Global durum yarattığı için unit testlerde izole etmek zordur. Bir testin değiştirdiği state başka testi etkiler.
     - **Gizli bağımlılık:** Sınıfın hangi bağımlılıklara sahip olduğu constructor'dan anlaşılmaz; Singleton sınıf içinde gizlenir.
-    - **Thread safety:** Multi-thread ortamda dikkatli implemente edilmesi gerekir (C++11 sonrasında static local variable yaklaşımı en güvenlidir).
+    - **Thread safety:** C++11 öncesinde static local variable thread-safe değildi. C++11 sonrasında bu sorun dil garantisiyle çözülmüştür.
     - **Çoğu durumda yanlış araç:** "Tek örnek" isteği genellikle Dependency Injection ile daha temiz çözülür.
 
 !!! tip "Ne Zaman Kullanılır?"
@@ -233,7 +478,7 @@ classDiagram
 
 ## Structural (Yapısal Desenler)
 
-Sınıflar ve nesneler arasındaki **ilişkileri** düzenleyerek daha büyük, daha esnek yapıların kurulmasını kolaylaştıran desenlerdir. Amaç: bileşenleri birleştirirken bağımlılıkları yönetmek.
+Sınıflar ve nesneler arasındaki **ilişkileri** düzenler. Bileşenleri birleştirirken bağımlılıkları kontrol altında tutar.
 
 ---
 
@@ -268,6 +513,44 @@ classDiagram
 
 **Nasıl Çalışır:** Adapter, istemcinin beklediği `Target` arayüzünü uygular. İçinde `Adaptee` nesnesini tutar. İstemci `request()` çağırdığında, Adapter bunu `Adaptee`'nin uyumsuz metoduna çevirir.
 
+```cpp
+// Sistemin beklediği arayüz — JSON döndürmeli
+class DataSource {
+public:
+    virtual std::string getData() = 0;
+    virtual ~DataSource() = default;
+};
+
+// Üçüncü parti sensör servisi — XML döndürüyor, değiştirilemiyor
+class XmlSensor {
+public:
+    std::string getXmlData() {
+        return "<data><temp>25.5</temp><hum>60</hum></data>";
+    }
+};
+
+// Adapter: XmlSensor'ı DataSource arayüzüne uyarlar
+class XmlToJsonAdapter : public DataSource {
+    XmlSensor sensor;
+public:
+    std::string getData() override {
+        std::string xml = sensor.getXmlData();
+        // Gerçek projede XML parser kullanılır; burada basit dönüşüm
+        return R"({"temp": 25.5, "hum": 60})";
+    }
+};
+
+// İstemci — sadece DataSource bilir; XmlSensor'ın varlığından habersiz
+void process(DataSource& src) {
+    std::cout << src.getData() << "\n";
+}
+
+int main() {
+    XmlToJsonAdapter adapter;
+    process(adapter); // {"temp": 25.5, "hum": 60}
+}
+```
+
 !!! example "Gerçek Senaryo"
     Sistemin standart veri formatı JSON, ama entegre etmen gereken harici bir sensör servisi XML döndürüyor. Adapter araya girerek XML'i JSON'a çevirir. Ne sisteme ne de sensör servisine dokunmazsın.
 
@@ -285,7 +568,7 @@ classDiagram
 
 **Özü:** Soyutlamayı implementasyondan ayırır; her ikisi bağımsız olarak geliştirilebilir.
 
-**Problem:** İki boyutta değişen bir sistemi kalıtımla modellemek istiyorsun. 3 şekil × 3 renk = 9 sınıf. Yeni renk eklenince 3 sınıf daha, yeni şekil eklenince 3 sınıf daha. Bu **sınıf patlaması** sürdürülemez.
+**Problem:** İki boyutta değişen bir sistemi kalıtımla modellemek istiyorsun. 3 kaynak × 3 algoritma = 9 sınıf. Yeni algoritma eklenince 3 sınıf daha, yeni kaynak eklenince 3 sınıf daha. Bu **sınıf patlaması** sürdürülemez.
 
 **Analoji:** Uzaktan kumanda (soyutlama) ve TV (implementasyon) ayrıdır. Farklı kumanda modelleri (temel, gelişmiş) farklı TV markaları (Sony, Samsung) ile çalışabilir. Her ikisi bağımsız olarak genişleyebilir.
 
@@ -314,7 +597,71 @@ classDiagram
     Implementation <|.. ConcreteImplB
 ```
 
-**Nasıl Çalışır:** Soyutlama katmanı bir `Implementation` referansı tutar. Kendi metodları bu implementasyona delege eder. İki hiyerarşi birbirinden bağımsız büyüyebilir. 3 şekil + 3 renk = toplam 6 sınıf (9 yerine).
+**Nasıl Çalışır:** Soyutlama katmanı bir `Implementation` referansı tutar. Kendi metodları bu implementasyona delege eder. İki hiyerarşi birbirinden bağımsız büyüyebilir. 3 kaynak + 3 algoritma = toplam 6 sınıf (9 yerine).
+
+```cpp
+// Implementation hiyerarşisi — görüntü işleme algoritmaları
+class ImageProcessor {
+public:
+    virtual void process(const std::string& data) = 0;
+    virtual ~ImageProcessor() = default;
+};
+
+class FilterProcessor : public ImageProcessor {
+public:
+    void process(const std::string& data) override {
+        std::cout << "Filtre uygulandı: " << data << "\n";
+    }
+};
+
+class CompressionProcessor : public ImageProcessor {
+public:
+    void process(const std::string& data) override {
+        std::cout << "Sıkıştırıldı: " << data << "\n";
+    }
+};
+
+// Abstraction hiyerarşisi — veri kaynakları
+// Kaynak, hangi algoritmanın kullanıldığını bilmez
+class DataSource {
+protected:
+    ImageProcessor* processor;
+public:
+    DataSource(ImageProcessor* p) : processor(p) {}
+    virtual void capture() = 0;
+    virtual ~DataSource() = default;
+};
+
+class CameraSource : public DataSource {
+public:
+    CameraSource(ImageProcessor* p) : DataSource(p) {}
+    void capture() override {
+        processor->process("kamera görüntüsü");
+    }
+};
+
+class FileSource : public DataSource {
+public:
+    FileSource(ImageProcessor* p) : DataSource(p) {}
+    void capture() override {
+        processor->process("dosya içeriği");
+    }
+};
+
+int main() {
+    FilterProcessor filter;
+    CompressionProcessor compress;
+
+    CameraSource cam1(&filter);    // kamera + filtre
+    CameraSource cam2(&compress);  // kamera + sıkıştırma
+    FileSource   file(&filter);    // dosya + filtre
+
+    cam1.capture(); // Filtre uygulandı: kamera görüntüsü
+    cam2.capture(); // Sıkıştırıldı: kamera görüntüsü
+    file.capture(); // Filtre uygulandı: dosya içeriği
+    // Yeni algoritma eklense Camera/FileSource'a dokunulmaz
+}
+```
 
 !!! example "Gerçek Senaryo"
     Görüntü işleme sistemi: farklı veri kaynakları (kamera, dosya, ağ akışı) × farklı işleme algoritmaları (filtreleme, sıkıştırma, nesne tespiti). Bridge ile kaynak ve algoritma birbirinden ayrılır. Yeni kamera tipi eklenince algoritmalara dokunulmaz; yeni algoritma eklenince kaynaklara dokunulmaz.
@@ -357,6 +704,73 @@ classDiagram
 ```
 
 **Nasıl Çalışır:** Her şey (hem yaprak hem grup) aynı `Component` arayüzünü uygular. `Composite` nesnesi çocuklarını tutar ve kendine gelen `operation()` çağrısını tüm çocuklarına iletir. İstemci her ikisine de aynı şekilde davranır.
+
+```cpp
+// Hem dosya hem klasör bu arayüzü uygular
+class FileComponent {
+public:
+    virtual int  getSize() const = 0;
+    virtual void print(int depth = 0) const = 0;
+    virtual ~FileComponent() = default;
+};
+
+// Yaprak — çocuğu yoktur
+class File : public FileComponent {
+    std::string name;
+    int size;
+public:
+    File(std::string n, int s) : name(std::move(n)), size(s) {}
+
+    int getSize() const override { return size; }
+
+    void print(int depth = 0) const override {
+        std::cout << std::string(depth * 2, ' ')
+                  << name << " (" << size << " KB)\n";
+    }
+};
+
+// Bileşik — içinde başka Component'lar barındırır
+class Directory : public FileComponent {
+    std::string name;
+    std::vector<std::unique_ptr<FileComponent>> children;
+public:
+    Directory(std::string n) : name(std::move(n)) {}
+
+    void add(std::unique_ptr<FileComponent> c) {
+        children.push_back(std::move(c));
+    }
+
+    int getSize() const override {
+        int total = 0;
+        for (const auto& c : children) total += c->getSize();
+        return total;
+    }
+
+    void print(int depth = 0) const override {
+        std::cout << std::string(depth * 2, ' ') << "[" << name << "]\n";
+        for (const auto& c : children) c->print(depth + 1);
+    }
+};
+
+int main() {
+    auto root = std::make_unique<Directory>("root");
+    root->add(std::make_unique<File>("main.cpp", 10));
+
+    auto src = std::make_unique<Directory>("src");
+    src->add(std::make_unique<File>("utils.cpp", 5));
+    src->add(std::make_unique<File>("driver.cpp", 8));
+    root->add(std::move(src));
+
+    root->print();
+    // [root]
+    //   main.cpp (10 KB)
+    //   [src]
+    //     utils.cpp (5 KB)
+    //     driver.cpp (8 KB)
+
+    std::cout << "Toplam: " << root->getSize() << " KB\n"; // 23 KB
+}
+```
 
 !!! example "Gerçek Senaryo"
     Dosya sistemi: "boyut hesapla" komutu bir dosyaya da klasöre de uygulanabilir. Klasör, kendi içindeki tüm dosya ve alt klasörlerin boyutunu toplar. Kod yazan kişi her iki durumu ayrı ayrı ele almak zorunda kalmaz.
@@ -404,6 +818,65 @@ classDiagram
 
 **Nasıl Çalışır:** Decorator, sardığı nesneyle aynı arayüzü uygular. `operation()` çağrıldığında önce/sonra kendi davranışını ekler ve sarılan nesnenin `operation()`'ını da çağırır. Birden fazla Decorator zincir şeklinde birbirini sarabilir.
 
+```cpp
+// Ortak arayüz — hem gerçek kanal hem decorator bunu uygular
+class DataChannel {
+public:
+    virtual void send(const std::string& data) = 0;
+    virtual ~DataChannel() = default;
+};
+
+// Gerçek kanal — ham gönderim
+class BasicChannel : public DataChannel {
+public:
+    void send(const std::string& data) override {
+        std::cout << "Gönderildi: " << data << "\n";
+    }
+};
+
+// Temel Decorator — sarılan nesneyi tutar ve ona delege eder
+class ChannelDecorator : public DataChannel {
+protected:
+    DataChannel* wrappee;
+public:
+    ChannelDecorator(DataChannel* c) : wrappee(c) {}
+};
+
+class EncryptionDecorator : public ChannelDecorator {
+public:
+    EncryptionDecorator(DataChannel* c) : ChannelDecorator(c) {}
+
+    void send(const std::string& data) override {
+        // Önce kendi işini yap, sonra zincirin geri kalanına ilet
+        wrappee->send("[ENC:" + data + "]");
+    }
+};
+
+class CompressionDecorator : public ChannelDecorator {
+public:
+    CompressionDecorator(DataChannel* c) : ChannelDecorator(c) {}
+
+    void send(const std::string& data) override {
+        wrappee->send("[ZIP:" + data + "]");
+    }
+};
+
+int main() {
+    BasicChannel base;
+
+    // Sadece şifreleme
+    EncryptionDecorator encrypted(&base);
+    encrypted.send("veri");
+    // Gönderildi: [ENC:veri]
+
+    // Önce sıkıştır, sonra şifrele
+    CompressionDecorator both(&encrypted);
+    both.send("veri");
+    // Gönderildi: [ENC:[ZIP:veri]]
+    // Kombinasyonlar çalışma zamanında, sınıf açmadan oluşturulur
+}
+```
+
 !!! example "Gerçek Senaryo"
     Haberleşme modülü: temel veri gönderimi var. Bazı senaryolarda şifreleme, bazılarında sıkıştırma, bazılarında ikisi birden gerekiyor. Her kombinasyon için ayrı sınıf açmak yerine `EncryptionDecorator` ve `CompressionDecorator` isteğe bağlı zincire eklenir ve çıkarılabilir.
 
@@ -426,6 +899,59 @@ classDiagram
 **Analoji:** Ev sinema sistemi kurarken — TV'yi aç, amplifikatörü doğru girişe al, Blu-ray'i bağla, ışıkları kıs, perdeleri indir. Ya da "film izleme modunu başlat" diyen tek buton — hepsini sıralı yapar.
 
 **Nasıl Çalışır:** Facade tüm alt sistemlerin referanslarını tutar. İstemciye basit, yüksek seviyeli metodlar sunar. Bu metodların içinde gerekli alt sistem çağrıları doğru sırayla yapılır.
+
+```cpp
+// Alt sistem sınıfları — ayrı ayrı karmaşık ve birbirine bağımlı
+class AudioDriver {
+public:
+    void initialize()  { std::cout << "Ses sürücüsü başlatıldı\n"; }
+    void setVolume(int v) { std::cout << "Ses seviyesi: " << v << "\n"; }
+    void shutdown()    { std::cout << "Ses sürücüsü kapatıldı\n"; }
+};
+
+class VideoCodec {
+public:
+    void load(const std::string& f) { std::cout << "Video yüklendi: " << f << "\n"; }
+    void decode() { std::cout << "Decode ediliyor\n"; }
+    void release() { std::cout << "Codec serbest bırakıldı\n"; }
+};
+
+class NetworkBuffer {
+public:
+    void allocate(int mb) { std::cout << "Buffer: " << mb << " MB ayrıldı\n"; }
+    void flush() { std::cout << "Buffer temizlendi\n"; }
+};
+
+// Facade — istemci yalnızca bunu kullanır
+class MediaFacade {
+    AudioDriver  audio;
+    VideoCodec   codec;
+    NetworkBuffer buffer;
+public:
+    void play(const std::string& file) {
+        buffer.allocate(256);
+        audio.initialize();
+        audio.setVolume(80);
+        codec.load(file);
+        codec.decode();
+        std::cout << ">> Oynatılıyor: " << file << "\n";
+    }
+
+    void stop() {
+        codec.release();
+        audio.shutdown();
+        buffer.flush();
+        std::cout << ">> Durduruldu\n";
+    }
+};
+
+int main() {
+    MediaFacade media;
+    media.play("video.mp4");
+    // Alt sistemlerin sırası ve bağımlılıkları istemciden tamamen gizlendi
+    media.stop();
+}
+```
 
 !!! example "Gerçek Senaryo"
     Bir multimedya sistemi: ses sürücüsü, video codec, ağ tamponu, donanım hızlandırıcı ayrı ayrı çalışıyor. `MediaFacade.play(file)` tek çağrısı tüm bu bileşenleri doğru sırayla başlatır ve senkronize eder.
@@ -452,6 +978,58 @@ classDiagram
 
 - **Intrinsic (içsel, değişmez) durum:** Tüm örneklerde aynı olan veri. Flyweight nesnesinde saklanır ve paylaşılır.
 - **Extrinsic (dışsal, değişken) durum:** Her örnek için farklı olan veri. Flyweight'e parametre olarak dışarıdan geçirilir, içinde saklanmaz.
+
+```cpp
+// Intrinsic (paylaşılan) veri — büyük, her ağaç için aynı
+struct TreeType {
+    std::string name;
+    std::string color;
+    std::string texture; // 3D model, yüksek boyutlu veri
+
+    void render(int x, int y) const {
+        std::cout << name << " (" << color << ") konumu: ("
+                  << x << "," << y << ")\n";
+    }
+};
+
+// Flyweight Factory — aynı tür için tek nesne döner
+class TreeFactory {
+    std::unordered_map<std::string, TreeType> cache;
+public:
+    const TreeType& getType(const std::string& name,
+                             const std::string& color,
+                             const std::string& texture) {
+        std::string key = name + "|" + color;
+        if (cache.find(key) == cache.end()) {
+            cache[key] = {name, color, texture};
+            std::cout << "Yeni TreeType oluşturuldu: " << key << "\n";
+        }
+        return cache[key];
+    }
+};
+
+// Extrinsic (eşsiz) veri — sadece konum her ağaç için farklı
+struct Tree {
+    int x, y;
+    const TreeType* type; // paylaşılan nesnenin pointer'ı
+
+    void render() const { type->render(x, y); }
+};
+
+int main() {
+    TreeFactory factory;
+    std::vector<Tree> forest;
+
+    // 10.000 ağaç — ama yalnızca 1 TreeType nesnesi
+    for (int i = 0; i < 10000; ++i) {
+        const auto& type = factory.getType("Meşe", "Yeşil", "buyuk_texture.bin");
+        forest.push_back({i % 100, i / 100, &type});
+    }
+    // "Yeni TreeType oluşturuldu" yalnızca 1 kez yazdırılır
+    forest[0].render();
+    forest[999].render();
+}
+```
 
 !!! example "Gerçek Senaryo"
     Harita uygulamasında 10.000 ağaç nesnesi: her ağacın türü, rengi ve 3D modeli aynı (intrinsic). Sadece konum bilgisi farklı (extrinsic). 10.000 ayrı büyük nesne yerine tek bir `TreeType` nesnesi paylaşılır, konumlar ayrı tutulur. Bellek kullanımı dramatik biçimde düşer.
@@ -483,8 +1061,59 @@ classDiagram
 | **Caching Proxy** | Önbellekleme — aynı sonucu tekrar hesaplama |
 | **Remote Proxy** | Uzak nesneye yerel arayüzden eriş (RPC, stub) |
 
+```cpp
+// Ortak arayüz — hem gerçek nesne hem proxy bunu uygular
+class Document {
+public:
+    virtual std::string getContent() = 0;
+    virtual ~Document() = default;
+};
+
+// Gerçek nesne — oluşturması pahalı
+class RealDocument : public Document {
+    std::string filename;
+    std::string content;
+public:
+    RealDocument(const std::string& f) : filename(f) {
+        // Disk okuma simülasyonu — yavaş işlem
+        std::cout << "Disk'ten okunuyor: " << filename << "\n";
+        content = "Dosya içeriği: " + filename;
+    }
+    std::string getContent() override { return content; }
+};
+
+// Virtual Proxy — gerçek nesneyi ilk erişime kadar oluşturmaz
+class DocumentProxy : public Document {
+    std::string filename;
+    std::unique_ptr<RealDocument> real; // başlangıçta null
+public:
+    DocumentProxy(const std::string& f) : filename(f) {
+        std::cout << "Proxy oluşturuldu: " << filename << " (henüz yüklenmedi)\n";
+    }
+
+    std::string getContent() override {
+        if (!real) {
+            real = std::make_unique<RealDocument>(filename); // lazy load
+        }
+        return real->getContent();
+    }
+};
+
+int main() {
+    DocumentProxy doc("rapor.pdf");
+    // "Proxy oluşturuldu" — disk henüz okunmadı
+
+    std::cout << "Belge henüz açılmadı\n";
+    std::cout << doc.getContent() << "\n";
+    // İlk erişimde: "Disk'ten okunuyor: rapor.pdf"
+
+    std::cout << doc.getContent() << "\n";
+    // İkinci erişimde disk okuması yok — zaten yüklü
+}
+```
+
 !!! example "Gerçek Senaryo"
-    Büyük veri dosyası yükleyen bir sistem: dosya henüz gerekmeyebilir. Virtual Proxy ile gerçek dosya nesnesi `load()` ilk çağrılana kadar oluşturulmaz. Kullanıcı dosyayı hiç açmazsa kaynak harcanmamış olur.
+    Büyük veri dosyası yükleyen bir sistem: dosya henüz gerekmeyebilir. Virtual Proxy ile gerçek dosya nesnesi `getContent()` ilk çağrılana kadar oluşturulmaz. Kullanıcı dosyayı hiç açmazsa kaynak harcanmamış olur.
 
 !!! tip "Ne Zaman Kullanılır?"
     - Pahalı nesnenin gecikmeli başlatılması gerekiyorsa (Virtual)
@@ -495,7 +1124,7 @@ classDiagram
 
 ## Behavioral (Davranışsal Desenler)
 
-Nesneler arasındaki **iletişimi** ve **sorumluluk dağılımını** düzenleyen desenlerdir. "Kim ne yapmalı? Kimin kimi bilmesi gerekiyor?" sorularını yanıtlar.
+Nesneler arasındaki **iletişimi** ve **sorumluluk dağılımını** düzenler. Kim ne yapmalı, kim kimi bilmeli sorularını yanıtlar.
 
 ---
 
@@ -520,8 +1149,71 @@ flowchart LR
 
 **Nasıl Çalışır:** Her işleyici bir sonraki işleyiciye referans tutar. İsteği işleyebiliyorsa işler, işleyemiyorsa zincirdeki bir sonrakine iletir. İstemci sadece zincirin başını bilir.
 
+```cpp
+// Her onaylayıcı zincirin bir halkası
+class ApprovalHandler {
+protected:
+    ApprovalHandler* next = nullptr;
+public:
+    void setNext(ApprovalHandler* n) { next = n; }
+
+    virtual void handleRequest(int amount) {
+        if (next) {
+            next->handleRequest(amount);
+        } else {
+            std::cout << amount << " TL onaylanamadı — limit aşıldı\n";
+        }
+    }
+
+    virtual ~ApprovalHandler() = default;
+};
+
+class Manager : public ApprovalHandler {
+public:
+    void handleRequest(int amount) override {
+        if (amount <= 1000) {
+            std::cout << "Müdür onayladı: " << amount << " TL\n";
+        } else {
+            ApprovalHandler::handleRequest(amount); // bir üste ilet
+        }
+    }
+};
+
+class Director : public ApprovalHandler {
+public:
+    void handleRequest(int amount) override {
+        if (amount <= 10000) {
+            std::cout << "Direktör onayladı: " << amount << " TL\n";
+        } else {
+            ApprovalHandler::handleRequest(amount);
+        }
+    }
+};
+
+class CEO : public ApprovalHandler {
+public:
+    void handleRequest(int amount) override {
+        std::cout << "CEO onayladı: " << amount << " TL\n";
+    }
+};
+
+int main() {
+    Manager  mgr;
+    Director dir;
+    CEO      ceo;
+
+    // Zinciri kur — istemci yalnızca zincirin başını bilir
+    mgr.setNext(&dir);
+    dir.setNext(&ceo);
+
+    mgr.handleRequest(500);    // Müdür onayladı: 500 TL
+    mgr.handleRequest(5000);   // Direktör onayladı: 5000 TL
+    mgr.handleRequest(50000);  // CEO onayladı: 50000 TL
+}
+```
+
 !!! example "Gerçek Senaryo"
-    Web framework'lerindeki middleware pipeline: istek sırıyla kimlik doğrulama, yetkilendirme, rate limiting, loglama katmanlarından geçer. Her katman isteği işler veya reddeder; reddedilmezse bir sonrakine iletir.
+    Web framework'lerindeki middleware pipeline: istek sırayla kimlik doğrulama, yetkilendirme, rate limiting, loglama katmanlarından geçer. Her katman isteği işler veya reddeder; reddedilmezse bir sonrakine iletir.
 
 !!! tip "Ne Zaman Kullanılır?"
     - Birden fazla nesnenin aynı isteği işleyebileceği ve hangisinin işleyeceğinin önceden bilinmediği durumlarda
@@ -569,6 +1261,70 @@ classDiagram
 
 **Nasıl Çalışır:** Her işlem bir `Command` nesnesine dönüştürülür. `execute()` işlemi yapar, `undo()` geri alır. `Invoker` komutları kuyruğa alır ve çalıştırır. `Receiver` gerçek işi yapan nesnedir.
 
+```cpp
+// Command arayüzü
+class Command {
+public:
+    virtual void execute() = 0;
+    virtual void undo()    = 0;
+    virtual ~Command() = default;
+};
+
+// Receiver — gerçek işi yapan nesne
+class Light {
+    bool on = false;
+public:
+    void turnOn()  { on = true;  std::cout << "Işık açıldı\n"; }
+    void turnOff() { on = false; std::cout << "Işık kapatıldı\n"; }
+};
+
+// Concrete Command — execute/undo çiftini kapsüller
+class LightOnCommand : public Command {
+    Light& light;
+public:
+    LightOnCommand(Light& l) : light(l) {}
+    void execute() override { light.turnOn(); }
+    void undo()    override { light.turnOff(); }
+};
+
+class LightOffCommand : public Command {
+    Light& light;
+public:
+    LightOffCommand(Light& l) : light(l) {}
+    void execute() override { light.turnOff(); }
+    void undo()    override { light.turnOn(); }
+};
+
+// Invoker — komutları çalıştırır ve geçmişi saklar
+class RemoteControl {
+    std::stack<Command*> history;
+public:
+    void press(Command* cmd) {
+        cmd->execute();
+        history.push(cmd);
+    }
+
+    void undoLast() {
+        if (!history.empty()) {
+            history.top()->undo();
+            history.pop();
+        }
+    }
+};
+
+int main() {
+    Light          light;
+    LightOnCommand  onCmd(light);
+    LightOffCommand offCmd(light);
+    RemoteControl   remote;
+
+    remote.press(&onCmd);   // Işık açıldı
+    remote.press(&offCmd);  // Işık kapatıldı
+    remote.undoLast();      // Işık açıldı  (undo: off->on)
+    remote.undoLast();      // Işık kapatıldı (undo: on->off)
+}
+```
+
 !!! example "Gerçek Senaryo"
     Metin editörü: her yazma, silme, formatlama işlemi bir Command nesnesidir. Ctrl+Z her seferinde son Command'ın `undo()`'sunu çağırır. İşlemler log'lanabilir, tekrar oynatılabilir (macro), hatta ağ üzerinden gönderilebilir.
 
@@ -587,6 +1343,72 @@ classDiagram
 **Problem:** Tekrarlayan, belirli kurallara sahip bir mini dil veya ifade sistemi oluşturman gerekiyor: SQL benzeri basit sorgular, kural motoru için koşul ifadeleri, matematiksel ifadeler gibi.
 
 **Nasıl Çalışır:** Her gramer kuralı bir sınıf olur (`TerminalExpr`, `AndExpr`, `OrExpr`). İfade bir ağaca dönüştürülür ve `interpret()` her düğüm için recursive çağrılır.
+
+```cpp
+// Context — değişken değerlerini tutar
+class Context {
+    std::unordered_map<std::string, bool> vars;
+public:
+    void set(const std::string& name, bool value) { vars[name] = value; }
+    bool get(const std::string& name) const { return vars.at(name); }
+};
+
+// Her gramer kuralı bir sınıf
+class Expression {
+public:
+    virtual bool interpret(const Context& ctx) = 0;
+    virtual ~Expression() = default;
+};
+
+// Terminal: yaprak düğüm — değişken değerine bakar
+class VariableExpr : public Expression {
+    std::string name;
+public:
+    VariableExpr(std::string n) : name(std::move(n)) {}
+    bool interpret(const Context& ctx) override { return ctx.get(name); }
+};
+
+// Non-terminal: AND — her iki tarafı da değerlendirir
+class AndExpr : public Expression {
+    std::unique_ptr<Expression> left, right;
+public:
+    AndExpr(std::unique_ptr<Expression> l, std::unique_ptr<Expression> r)
+        : left(std::move(l)), right(std::move(r)) {}
+
+    bool interpret(const Context& ctx) override {
+        return left->interpret(ctx) && right->interpret(ctx);
+    }
+};
+
+class OrExpr : public Expression {
+    std::unique_ptr<Expression> left, right;
+public:
+    OrExpr(std::unique_ptr<Expression> l, std::unique_ptr<Expression> r)
+        : left(std::move(l)), right(std::move(r)) {}
+
+    bool interpret(const Context& ctx) override {
+        return left->interpret(ctx) || right->interpret(ctx);
+    }
+};
+
+int main() {
+    // "sicaklik AND nem" OR alarm
+    auto expr = std::make_unique<OrExpr>(
+        std::make_unique<AndExpr>(
+            std::make_unique<VariableExpr>("sicaklik"),
+            std::make_unique<VariableExpr>("nem")
+        ),
+        std::make_unique<VariableExpr>("alarm")
+    );
+
+    Context ctx;
+    ctx.set("sicaklik", true);
+    ctx.set("nem", false);
+    ctx.set("alarm", true);
+
+    std::cout << expr->interpret(ctx) << "\n"; // 1 (true — alarm aktif)
+}
+```
 
 !!! example "Gerçek Senaryo"
     IoT sisteminde cihaz kuralları: `"sıcaklık > 80 AND nem < 30"` ifadesi parse edilir. `AndExpr` iki alt ifade tutar. Sistem bu ağacı yürüterek kuralı değerlendirir. Yeni kural tipi eklemek için yeni bir sınıf yazılır.
@@ -610,6 +1432,41 @@ classDiagram
 **Analoji:** Netflix'te içerik listesi — ister grid görünümde ister liste görünümde gez. Görünüm değişse de "bir sonraki içerik" mantığı aynı. İç yapıyı bilmeden geziniyorsun.
 
 **Nasıl Çalışır:** `Iterator` arayüzü `hasNext()` ve `next()` metodlarını tanımlar. Her koleksiyon kendi Iterator'ını döner. İstemci koleksiyonun yapısını bilmeden döngüyle dolaşır.
+
+```cpp
+// Özel koleksiyon — sadece tek sayıları tutan filtreli range
+class OddRange {
+    int from, to;
+public:
+    OddRange(int f, int t) : from(f), to(t) {}
+
+    // C++ range-based for ile uyumlu olması için Iterator sınıfı
+    class Iterator {
+        int current;
+    public:
+        Iterator(int v) : current(v) {
+            if (current % 2 == 0) ++current; // tek sayıya atla
+        }
+
+        int  operator*()  { return current; }
+        Iterator& operator++() { current += 2; return *this; } // bir sonraki tek
+        bool operator!=(const Iterator& o) { return current <= o.current; }
+    };
+
+    Iterator begin() { return Iterator(from); }
+    Iterator end()   { return Iterator(to); }
+};
+
+int main() {
+    OddRange range(1, 10);
+
+    // İç yapı bilinmeden dolaşım
+    for (int x : range) {
+        std::cout << x << " "; // 1 3 5 7 9
+    }
+    std::cout << "\n";
+}
+```
 
 !!! note "Modern Dillerde Standart Hale Geldi"
     Python'da `for x in obj` (dunder metodlar), C++'da range-based for ve STL iteratorlar, Java'da `Iterable/Iterator` — hepsi bu desenin dil seviyesindeki uygulamalarıdır. Günümüzde çoğu durumda language feature'ı kullanırsın; deseni sıfırdan yazmak nadirdir.
@@ -656,6 +1513,61 @@ classDiagram
 ```
 
 **Nasıl Çalışır:** Her bileşen sadece `Mediator`'ı tanır. Bir şey olduğunda `mediator.notify(this, "event")` çağırır. Mediator kimin ne zaman ne yapacağına karar verir ve ilgili bileşeni tetikler.
+
+```cpp
+class ChatRoom; // ileriye bildirim
+
+class User {
+    std::string name;
+    ChatRoom*   room;
+public:
+    User(std::string n, ChatRoom* r) : name(std::move(n)), room(r) {}
+
+    void send(const std::string& msg);
+
+    void receive(const std::string& from, const std::string& msg) {
+        std::cout << "[" << name << "] " << from << " dedi: " << msg << "\n";
+    }
+
+    const std::string& getName() const { return name; }
+};
+
+// Mediator — kullanıcılar birbirini doğrudan tanımaz
+class ChatRoom {
+    std::vector<User*> users;
+public:
+    void join(User* u) { users.push_back(u); }
+
+    void broadcast(const std::string& msg, User* sender) {
+        for (auto* u : users) {
+            if (u != sender) {
+                u->receive(sender->getName(), msg);
+            }
+        }
+    }
+};
+
+void User::send(const std::string& msg) {
+    std::cout << "[" << name << "] gönderdi: " << msg << "\n";
+    room->broadcast(msg, this);
+}
+
+int main() {
+    ChatRoom room;
+    User ali("Ali", &room);
+    User veli("Veli", &room);
+    User ayse("Ayşe", &room);
+
+    room.join(&ali);
+    room.join(&veli);
+    room.join(&ayse);
+
+    ali.send("Merhaba!");
+    // [Veli] Ali dedi: Merhaba!
+    // [Ayşe] Ali dedi: Merhaba!
+    // Yeni kullanıcı eklemek mevcut User sınıfını etkilemez
+}
+```
 
 !!! example "Gerçek Senaryo"
     Chat uygulaması: kullanıcılar birbirini doğrudan bilmez. Mesajlaşma sunucusu (Mediator) mesajı alır, ilgili kullanıcılara iletir, grupları yönetir. Yeni bir kullanıcı eklenmesi diğer kullanıcıların kodunu etkilemez.
@@ -704,6 +1616,65 @@ classDiagram
 - **Originator:** Durumu olan asıl nesne. `save()` ile kendi durumunun anlık görüntüsünü Memento olarak döner.
 - **Memento:** Durumu saklayan opak nesne. Sadece Originator içini okuyabilir.
 - **Caretaker:** Memento'ları saklar ama içini okuyamaz. Undo için Originator'a geri verir.
+
+```cpp
+// Memento — durumu saklayan opak nesne
+class Memento {
+    std::string content; // dışarıdan erişilemez
+    friend class Editor; // yalnızca Editor okuyabilir
+public:
+    Memento(std::string c) : content(std::move(c)) {}
+};
+
+// Originator — asıl nesne
+class Editor {
+    std::string content;
+public:
+    void type(const std::string& text) { content += text; }
+
+    Memento save() const {
+        return Memento(content); // o anki durumun anlık görüntüsü
+    }
+
+    void restore(const Memento& m) {
+        content = m.content; // friend erişimi — dışarıdan mümkün değil
+    }
+
+    void print() const { std::cout << "İçerik: \"" << content << "\"\n"; }
+};
+
+// Caretaker — Memento'ları saklar, içini okuyamaz
+class History {
+    std::stack<Memento> snapshots;
+public:
+    void backup(const Editor& editor) {
+        snapshots.push(editor.save());
+    }
+
+    void undo(Editor& editor) {
+        if (!snapshots.empty()) {
+            editor.restore(snapshots.top());
+            snapshots.pop();
+        }
+    }
+};
+
+int main() {
+    Editor  editor;
+    History history;
+
+    history.backup(editor);    // snapshot: ""
+    editor.type("Merhaba ");
+    history.backup(editor);    // snapshot: "Merhaba "
+    editor.type("Dünya");
+
+    editor.print();            // İçerik: "Merhaba Dünya"
+    history.undo(editor);
+    editor.print();            // İçerik: "Merhaba "
+    history.undo(editor);
+    editor.print();            // İçerik: ""
+}
+```
 
 !!! example "Gerçek Senaryo"
     Metin editörü Ctrl+Z: her değişiklik öncesi `editor.save()` çağrılır, dönen Memento geçmişe eklenir. Ctrl+Z'de son Memento alınır ve `editor.restore(memento)` çağrılır. Editörün içindeki karmaşık durumun tamamı kurtarılır.
@@ -755,6 +1726,72 @@ classDiagram
 
 **Nasıl Çalışır:** `Subject` (yayıncı) Observer listesi tutar. Durum değişince `notify()` çağırır — tüm Observer'ların `update()` metodu tetiklenir. Observer'lar `subscribe()`/`unsubscribe()` ile listeye girip çıkabilir.
 
+```cpp
+class Observer {
+public:
+    virtual void update(float temperature) = 0;
+    virtual ~Observer() = default;
+};
+
+// Subject (yayıncı) — Observer listesi tutar
+class TemperatureSensor {
+    float temperature = 0.0f;
+    std::vector<Observer*> observers;
+public:
+    void subscribe(Observer* o)   { observers.push_back(o); }
+    void unsubscribe(Observer* o) {
+        observers.erase(std::remove(observers.begin(), observers.end(), o),
+                        observers.end());
+    }
+
+    void setTemperature(float t) {
+        temperature = t;
+        notify(); // değişim tüm abonelere iletilir
+    }
+
+private:
+    void notify() {
+        for (auto* o : observers) o->update(temperature);
+    }
+};
+
+// Bağımsız gözlemciler — birbirinden habersiz, yalnızca Subject'i bilir
+class Display : public Observer {
+public:
+    void update(float temp) override {
+        std::cout << "Ekran: " << temp << " C\n";
+    }
+};
+
+class AlarmSystem : public Observer {
+public:
+    void update(float temp) override {
+        if (temp > 80.0f)
+            std::cout << "ALARM: Kritik sicaklik! " << temp << " C\n";
+    }
+};
+
+int main() {
+    TemperatureSensor sensor;
+    Display      display;
+    AlarmSystem  alarm;
+
+    sensor.subscribe(&display);
+    sensor.subscribe(&alarm);
+
+    sensor.setTemperature(50.0f);
+    // Ekran: 50 C
+
+    sensor.setTemperature(90.0f);
+    // Ekran: 90 C
+    // ALARM: Kritik sicaklik! 90 C
+
+    sensor.unsubscribe(&alarm);
+    sensor.setTemperature(95.0f);
+    // Ekran: 95 C  (alarm artık abone değil)
+}
+```
+
 !!! example "Gerçek Senaryo"
     Sensör sistemi: sıcaklık sensörü her ölçüm yaptığında izleme ekranı, log kaydı ve alarm modülü otomatik haberdar olur. Yeni bir "SMS uyarısı" modülü eklemek istersen sadece Observer'a kaydettirirsin; sensör koduna dokunmazsın.
 
@@ -787,6 +1824,76 @@ stateDiagram-v2
 ```
 
 **Nasıl Çalışır:** Her durum ayrı bir sınıf olur; tümü aynı `State` arayüzünü uygular. Context nesnesi mevcut durumuna referans tutar; metodları çağrıldığında mevcut State nesnesine delege eder. Durum geçişleri State sınıflarının içinde yönetilir.
+
+```cpp
+class UAV; // ileriye bildirim
+
+// Her durum aynı arayüzü uygular
+class State {
+public:
+    virtual void handle(UAV& uav, const std::string& cmd) = 0;
+    virtual std::string name() const = 0;
+    virtual ~State() = default;
+};
+
+class UAV {
+    std::unique_ptr<State> state;
+public:
+    UAV();
+    void setState(std::unique_ptr<State> s) {
+        std::cout << "Durum: " << state->name()
+                  << " -> " << s->name() << "\n";
+        state = std::move(s);
+    }
+    void command(const std::string& cmd) { state->handle(*this, cmd); }
+};
+
+// Her durum kendi geçişlerinden sorumlu
+class IdleState : public State {
+public:
+    void handle(UAV& uav, const std::string& cmd) override;
+    std::string name() const override { return "Beklemede"; }
+};
+
+class MovingState : public State {
+public:
+    void handle(UAV& uav, const std::string& cmd) override;
+    std::string name() const override { return "Hareket"; }
+};
+
+class EmergencyState : public State {
+public:
+    void handle(UAV& uav, const std::string& cmd) override;
+    std::string name() const override { return "Acil Durum"; }
+};
+
+void IdleState::handle(UAV& uav, const std::string& cmd) {
+    if      (cmd == "move")   uav.setState(std::make_unique<MovingState>());
+    else if (cmd == "danger") uav.setState(std::make_unique<EmergencyState>());
+    else std::cout << "Beklemede: '" << cmd << "' komutu geçersiz\n";
+}
+
+void MovingState::handle(UAV& uav, const std::string& cmd) {
+    if      (cmd == "stop")   uav.setState(std::make_unique<IdleState>());
+    else if (cmd == "danger") uav.setState(std::make_unique<EmergencyState>());
+    else std::cout << "Hareket halinde: '" << cmd << "' komutu geçersiz\n";
+}
+
+void EmergencyState::handle(UAV& uav, const std::string& cmd) {
+    if (cmd == "clear") uav.setState(std::make_unique<IdleState>());
+    else std::cout << "Acil durumda: yalnızca 'clear' kabul edilir\n";
+}
+
+UAV::UAV() : state(std::make_unique<IdleState>()) {}
+
+int main() {
+    UAV uav;
+    uav.command("move");    // Beklemede -> Hareket
+    uav.command("danger");  // Hareket -> Acil Durum
+    uav.command("move");    // Acil durumda: yalnızca 'clear' kabul edilir
+    uav.command("clear");   // Acil Durum -> Beklemede
+}
+```
 
 !!! example "Gerçek Senaryo"
     Otonom araç: `IdleState`, `MovingState`, `EmergencyState` ayrı sınıflar. "Engel algılandı" komutu verildiğinde Moving durumundaki araç Emergency'ye geçer. Her durum kendi tepkisini bilir. Yeni bir durum (`ParkingState`) eklemek mevcut durumları etkilemez.
@@ -838,6 +1945,66 @@ classDiagram
 
 **Nasıl Çalışır:** Her algoritma ayrı bir sınıfa (`ConcreteStrategy`) taşınır. Tümü aynı `Strategy` arayüzünü uygular. `Context` nesnesi algoritma detaylarını bilmez; çalışma zamanında `setStrategy()` ile strateji değiştirilebilir.
 
+```cpp
+// Strateji arayüzü — tüm rota algoritmaları bunu uygular
+class RouteStrategy {
+public:
+    virtual void buildRoute(const std::string& src,
+                             const std::string& dst) = 0;
+    virtual ~RouteStrategy() = default;
+};
+
+class ShortestRoute : public RouteStrategy {
+public:
+    void buildRoute(const std::string& src,
+                    const std::string& dst) override {
+        std::cout << src << " -> " << dst << ": En kısa rota (Dijkstra)\n";
+    }
+};
+
+class FastestRoute : public RouteStrategy {
+public:
+    void buildRoute(const std::string& src,
+                    const std::string& dst) override {
+        std::cout << src << " -> " << dst << ": En hızlı rota (A*)\n";
+    }
+};
+
+class SafestRoute : public RouteStrategy {
+public:
+    void buildRoute(const std::string& src,
+                    const std::string& dst) override {
+        std::cout << src << " -> " << dst << ": En güvenli rota\n";
+    }
+};
+
+// Context — strateji detaylarını bilmez, delege eder
+class Navigator {
+    std::unique_ptr<RouteStrategy> strategy;
+public:
+    void setStrategy(std::unique_ptr<RouteStrategy> s) {
+        strategy = std::move(s);
+    }
+
+    void route(const std::string& src, const std::string& dst) {
+        if (strategy) strategy->buildRoute(src, dst);
+    }
+};
+
+int main() {
+    Navigator nav;
+
+    nav.setStrategy(std::make_unique<ShortestRoute>());
+    nav.route("Ankara", "İstanbul");
+    // Ankara -> İstanbul: En kısa rota (Dijkstra)
+
+    nav.setStrategy(std::make_unique<FastestRoute>());
+    nav.route("Ankara", "İstanbul");
+    // Ankara -> İstanbul: En hızlı rota (A*)
+    // Context kodu değişmedi — sadece strateji değişti
+}
+```
+
 !!! example "Gerçek Senaryo"
     Sıralama sistemi: küçük veri için insertion sort, büyük veri için quicksort, neredeyse sıralı veri için merge sort tercih edilir. Context veri boyutuna göre strateji seçer. Yeni algoritma eklemek için sadece yeni bir Strategy sınıfı yazılır; Context'e dokunulmaz.
 
@@ -856,7 +2023,59 @@ classDiagram
 
 **Analoji:** Franchise restoranı — tüm şubeler aynı müşteri hizmet protokolünü uygular (karşıla, siparişi al, hazırla, sun, ödeme al). Ama hazırlama adımı her ürün için farklıdır. Protokol sabittir; hazırlama detayı değişkendir.
 
-**Nasıl Çalışır:** Üst sınıf `templateMethod()` tanımlar — genel akışı sabit sırayla çağırır. Değişmez adımlar üst sınıfta uygulanır. Değişen adımlar abstract veya override edilebilir (hook) metodlar olarak tanımlanır. Alt sınıflar sadece bu adımları override eder; genel akışa dokunamaz.
+**Nasıl Çalışır:** Üst sınıf `process()` tanımlar — genel akışı sabit sırayla çağırır. Değişmez adımlar üst sınıfta uygulanır. Değişen adımlar `virtual` (override edilebilir) metodlar olarak tanımlanır. Alt sınıflar sadece bu adımları override eder; genel akışa dokunamaz.
+
+```cpp
+// Üst sınıf — algoritma iskeleti burada, değişen adımlar abstract
+class DataProcessor {
+public:
+    // Template method — akışı sabitler; alt sınıflar override edemez
+    void process() {
+        readData();
+        validate();   // sabit adım
+        transform();
+        report();     // sabit adım
+    }
+
+    virtual ~DataProcessor() = default;
+
+protected:
+    virtual void readData()  = 0; // alt sınıf dolduracak
+    virtual void transform() = 0; // alt sınıf dolduracak
+
+    void validate() { std::cout << "Veri dogrulanıyor\n"; }
+    void report()   { std::cout << "Rapor olusturuldu\n\n"; }
+};
+
+// Sadece değişen adımları override eder — akışa dokunmaz
+class CSVProcessor : public DataProcessor {
+protected:
+    void readData()  override { std::cout << "CSV dosyası okunuyor\n"; }
+    void transform() override { std::cout << "CSV ayrıstırılıyor\n"; }
+};
+
+class XMLProcessor : public DataProcessor {
+protected:
+    void readData()  override { std::cout << "XML dosyası okunuyor\n"; }
+    void transform() override { std::cout << "XML parse ediliyor\n"; }
+};
+
+int main() {
+    CSVProcessor csv;
+    csv.process();
+    // CSV dosyası okunuyor
+    // Veri dogrulanıyor
+    // CSV ayrıstırılıyor
+    // Rapor olusturuldu
+
+    XMLProcessor xml;
+    xml.process();
+    // XML dosyası okunuyor
+    // Veri dogrulanıyor
+    // XML parse ediliyor
+    // Rapor olusturuldu
+}
+```
 
 !!! example "Gerçek Senaryo"
     Veri işleme pipeline'ı: her kaynak için sıra aynı — oku, doğrula, işle, raporla. `CSVProcessor` okuma ve işleme adımlarını CSV mantığıyla uygular. `XMLProcessor` aynı adımları XML için uygular. Doğrulama ve raporlama üst sınıftan kalıtılır ve değişmez.
@@ -914,7 +2133,92 @@ classDiagram
     Node --> Visitor
 ```
 
-**Nasıl Çalışır:** Her nesne türü `accept(Visitor v)` metodunu uygular ve `v.visit(this)` çağırır (double dispatch). Yeni operasyon eklemek = yeni bir Visitor sınıfı yazmak. Var olan nesnelere dokunulmaz.
+**Nasıl Çalışır:** Her nesne türü `accept(Visitor& v)` metodunu uygular ve `v.visit(*this)` çağırır (double dispatch). Yeni operasyon eklemek = yeni bir Visitor sınıfı yazmak. Var olan nesnelere dokunulmaz.
+
+```cpp
+// İleriye bildirimler
+class LiteralNode;
+class BinaryOpNode;
+
+// Visitor arayüzü — her node türü için ayrı metod
+class Visitor {
+public:
+    virtual void visitLiteral(LiteralNode& node) = 0;
+    virtual void visitBinaryOp(BinaryOpNode& node) = 0;
+    virtual ~Visitor() = default;
+};
+
+// AST node arayüzü — kararlı yapı; sık değişmez
+class Node {
+public:
+    virtual void accept(Visitor& v) = 0;
+    virtual ~Node() = default;
+};
+
+class LiteralNode : public Node {
+public:
+    int value;
+    LiteralNode(int v) : value(v) {}
+    void accept(Visitor& v) override { v.visitLiteral(*this); }
+};
+
+class BinaryOpNode : public Node {
+public:
+    char op;
+    std::unique_ptr<Node> left, right;
+    BinaryOpNode(char o, std::unique_ptr<Node> l, std::unique_ptr<Node> r)
+        : op(o), left(std::move(l)), right(std::move(r)) {}
+    void accept(Visitor& v) override { v.visitBinaryOp(*this); }
+};
+
+// Operasyon 1: ağacı yazdır — node sınıflarına dokunmadan yeni özellik
+class PrintVisitor : public Visitor {
+public:
+    void visitLiteral(LiteralNode& node) override {
+        std::cout << node.value;
+    }
+    void visitBinaryOp(BinaryOpNode& node) override {
+        std::cout << "(";
+        node.left->accept(*this);
+        std::cout << " " << node.op << " ";
+        node.right->accept(*this);
+        std::cout << ")";
+    }
+};
+
+// Operasyon 2: hesapla — node sınıflarına dokunmadan yeni özellik
+class EvalVisitor : public Visitor {
+public:
+    int result = 0;
+    void visitLiteral(LiteralNode& node) override { result = node.value; }
+    void visitBinaryOp(BinaryOpNode& node) override {
+        EvalVisitor lv, rv;
+        node.left->accept(lv);
+        node.right->accept(rv);
+        if      (node.op == '+') result = lv.result + rv.result;
+        else if (node.op == '*') result = lv.result * rv.result;
+    }
+};
+
+int main() {
+    // (3 + 4) * 2
+    auto tree = std::make_unique<BinaryOpNode>('*',
+        std::make_unique<BinaryOpNode>('+',
+            std::make_unique<LiteralNode>(3),
+            std::make_unique<LiteralNode>(4)
+        ),
+        std::make_unique<LiteralNode>(2)
+    );
+
+    PrintVisitor printer;
+    tree->accept(printer);       // ((3 + 4) * 2)
+    std::cout << "\n";
+
+    EvalVisitor evaluator;
+    tree->accept(evaluator);
+    std::cout << evaluator.result << "\n"; // 14
+}
+```
 
 !!! example "Gerçek Senaryo"
     Derleyici: AST (Abstract Syntax Tree) üzerinde tip kontrolü, optimizasyon, kod üretimi, hata raporlama gibi farklı geçişler yapılır. Her geçiş ayrı bir Visitor'dır. AST node sınıfları değişmez; yeni analiz eklemek yeni Visitor yazmak demektir.

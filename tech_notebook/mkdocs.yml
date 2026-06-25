@@ -76,10 +76,10 @@ theme:
     - content.code.wrap                          # Uzun kod satırlarını sar
     # - content.tooltips                          # Araç ipuçları ekle
     # - content.action.edit                       # Sayfa düzenleme bağlantısı ekle
-    # - content.action.view                       # Sayfayı GitHub'da görüntüleme bağlantısı ekle
+    - content.action.view                       # Sayfayı GitHub'da görüntüleme bağlantısı ekle
     - search.suggest                             # Arama önerileri ekle
     - search.highlight                           # Arama sonuçlarında vurgulama ekle
-    # - toc.integrate                             # İçindekiler tablosunu içeriğe entegre et
+    - toc.integrate                             # İçindekiler tablosunu içeriğe entegre et
     - header.autohide
     - announce.dismiss
     

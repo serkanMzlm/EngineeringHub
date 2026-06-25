@@ -1,8 +1,5 @@
 # Compiler
 
-!!! note "Genel Bakış"
-    Yazdığın C/C++ kodu bilgisayarın doğrudan anlayabileceği bir şey değildir. İnsan için okunabilir metin, işlemcinin çalıştırabileceği makine diline dönüşmeden önce dört farklı aşamadan geçer: **Preprocessor → Compiler → Assembler → Linker**. Her aşama farklı bir sorunu çözer ve farklı bir çıktı üretir.
-
 ```mermaid
 graph LR
     A["main.c / main.cpp\nKaynak Kod"] -->|Preprocessor| B["main.i\nGenişletilmiş Kod"]
@@ -14,11 +11,15 @@ graph LR
     style E fill:#F44336,color:#fff
 ```
 
----
-
 ## Derleme Aşamaları
 
-Her aşama bağımsız bir araçtır ve belirli bir dönüşüm yapar. `gcc` komutu bunların hepsini sırayla çalıştırır; ama `-E`, `-S`, `-c` bayraklarıyla istediğin noktada durup ara çıktıları inceleyebilirsin. Bu, hata ayıklamada çok değerlidir.
+```bash
+# gcc ile ara çıktıları inceleme
+gcc -E main.c -o main.i
+gcc -S main.i -o main.s
+gcc -c main.s -o main.o
+gcc main.o -o main
+```
 
 | # | Aşama | Girdi | Çıktı | Ne Yapar? |
 |---|-------|-------|-------|-----------|
@@ -28,7 +29,9 @@ Her aşama bağımsız bir araçtır ve belirli bir dönüşüm yapar. `gcc` kom
 | 4 | **Linking** | `.o` + kütüphaneler | executable | Tüm object file'ları ve kütüphaneleri birleştirerek çalıştırılabilir program üretir; sembol referanslarını çözümler |
 
 !!! tip "Neden Birden Fazla Aşama Var?"
-    Her aşamanın bağımsız olması önemli avantajlar sağlar. 100 dosyadan oluşan projede sadece bir dosya değiştiğinde yalnızca o dosya yeniden derlenir; diğer 99 dosyanın `.o` dosyaları kullanılır. Bu incremental build'in temelidir.
+    Her aşamanın bağımsız olması önemli avantajlar sağlar. 100 dosyadan oluşan projede sadece bir dosya değiştiğinde yalnızca o dosya yeniden derlenir; diğer 99 dosyanın `.o` dosyaları kullanılır. Bu **incremental build'in** temelidir.
+
+    **Incremental build**, bir yazılım projesini derlerken zaman kazanmak için sadece değişen veya yeni eklenen kaynak dosyalarını ve bunların etkilendiği kısımları derleme işlemidir.
 
 !!! example "Aşamaları Tek Tek Çalıştırma"
     ```bash
