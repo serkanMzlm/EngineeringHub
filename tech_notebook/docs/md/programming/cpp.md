@@ -876,6 +876,31 @@ void increment() {
 }
 ```
 
+### std::condition_variable
+
+Bir koşul sağlanana kadar thread'i bloke eder; sürekli döngü (busy-wait) yazmayı önler.
+
+```cpp
+std::mutex              mtx;
+std::condition_variable cv;
+std::queue<int>         buffer;
+
+void producer() {
+    std::lock_guard lk(mtx);
+    buffer.push(42);
+    cv.notify_one();                               // bekleyen thread'i uyandır
+}
+
+void consumer() {
+    std::unique_lock lk(mtx);
+    cv.wait(lk, []{ return !buffer.empty(); });   // spurious wakeup koruması
+    int val = buffer.front(); buffer.pop();
+}
+```
+
+!!! danger "notify → wait sırası"
+    `notify_one` çağrısı `wait`'ten önce gelirse bildirim kaybolur. Koşul değişkenini her zaman bir mutex ile birlikte kullanın.
+
 ### Futures ve Async
 
 | | `std::async` | `std::promise` / `std::future` |
@@ -890,3 +915,138 @@ std::future<int> f = std::async(std::launch::async, []() {
 });
 std::cout << f.get() << '\n';  // Hazır olana kadar bekler
 ```
+
+---
+
+## Move Semantics
+
+### Rvalue Referanslar ve std::move
+
+Rvalue referansı (`&&`) geçici ya da "artık kullanılmayacak" nesnelere bağlanır. `std::move` bir nesneyi rvalue'ya çevirir; kopyalamak yerine iç kaynakları taşır.
+
+```cpp
+std::string a = "uzun bir metin";
+std::string b = std::move(a);  // a'nın tamponu b'ye aktarıldı — kopya yok
+// a artık geçerli ama boş; kullanılmamalı
+```
+
+Move constructor ve move assignment, Rule of Five kapsamında tanımlanır:
+
+```cpp
+class Buffer {
+    int* data; size_t size;
+public:
+    Buffer(Buffer&& other) noexcept        // Move constructor
+        : data(other.data), size(other.size)
+    { other.data = nullptr; other.size = 0; }
+
+    Buffer& operator=(Buffer&& other) noexcept {  // Move assignment
+        if (this != &other) { delete[] data; data = other.data; other.data = nullptr; }
+        return *this;
+    }
+};
+```
+
+### Perfect Forwarding
+
+`std::forward`, şablon fonksiyonlarda argümanı orijinal değer kategorisiyle (lvalue/rvalue) iletir. Aksi hâlde her şey lvalue olarak iletilir ve taşıma fırsatı kaçar.
+
+```cpp
+template <typename T>
+void wrapper(T&& arg) {
+    target(std::forward<T>(arg));  // lvalue gelirse lvalue, rvalue gelirse rvalue
+}
+```
+
+!!! note "std::move vs std::forward"
+    `std::move` — koşulsuz rvalue'ya çevirir. `std::forward` — orijinal kategoriyi korur; yalnızca şablon kodda kullanılır.
+
+---
+
+## Utility Types
+
+### std::optional (C++17)
+
+Değeri olmayabilecek sonuçlar için; `nullptr` veya sentinel değer kullanmayı önler.
+
+```cpp
+std::optional<int> divide(int a, int b) {
+    if (b == 0) return std::nullopt;
+    return a / b;
+}
+
+auto r = divide(10, 0);
+r.has_value();           // false
+r.value_or(0);           // değer yoksa 0 döner; exception fırlatmaz
+```
+
+### std::variant (C++17)
+
+Tür güvenli union; birden fazla tipten birini tutabilir; aktif olmayan tipe erişim exception fırlatır.
+
+```cpp
+std::variant<int, float, std::string> v = "merhaba";
+
+std::get<std::string>(v);                          // "merhaba"
+std::visit([](auto& x){ std::cout << x; }, v);    // tüm olası tipleri işler
+```
+
+### std::span (C++20)
+
+Bellek sahibi olmadan array, vector veya pointer üzerinde güvenli bir pencere sunar.
+
+```cpp
+void process(std::span<int> data) {
+    for (auto x : data) std::cout << x << ' ';
+}
+
+std::vector<int> v   = {1, 2, 3};
+int              arr[] = {4, 5, 6};
+
+process(v);    // vector geçerli
+process(arr);  // ham dizi de geçerli — pointer + boyut çifti yazmak gerekmez
+```
+
+!!! tip "std::span ne zaman kullanılır?"
+    Fonksiyona "veriyi oku ama sahiplenme" semantiği vermek istediğinde. `const std::span<const T>` read-only görünüm sağlar.
+
+---
+
+## Derleme Zamanı Programlama
+
+### if constexpr (C++17)
+
+Şablon kodu içinde derleme zamanında dal seçimi yapar; seçilmeyen dal derlenmez, bu sayede tip uyumsuzluğu hatası oluşmaz.
+
+```cpp
+template <typename T>
+void print(T val) {
+    if constexpr (std::is_integral_v<T>)
+        std::cout << "tamsayı: " << val;
+    else if constexpr (std::is_floating_point_v<T>)
+        std::cout << "ondalık: " << val;
+    else
+        std::cout << "diğer: " << val;
+}
+```
+
+### Concepts (C++20)
+
+Şablon parametrelerine anlamlı kısıtlamalar ekler; SFINAE'nin yerini alan, okunabilir hata mesajları üreten modern alternatif.
+
+```cpp
+template <typename T>
+concept Sayisal = std::is_arithmetic_v<T>;
+
+template <Sayisal T>
+T topla(T a, T b) { return a + b; }
+
+// topla("a", "b");  → Açık hata: "T, Sayisal kavramını karşılamıyor"
+// SFINAE ile aynı hata onlarca satır karmaşık mesaj olurdu
+```
+
+| | SFINAE | Concepts |
+|--|:------:|:--------:|
+| Hata mesajı | Karmaşık ve uzun | Net ve okunabilir |
+| Sözdizimi | `enable_if`, `void_t` karmaşası | `requires` / `concept` anahtar kelimeleri |
+| Versiyon | C++98+ | C++20 |

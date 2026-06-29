@@ -337,7 +337,83 @@ graph LR
 
 ---
 
+## Sinyaller (Signals)
+
+Sinyaller, process'lere asenkron olay bildirimi gönderen kernel mekanizmasıdır. Bir sinyal; kullanıcı (`Ctrl+C`), kernel (segfault), başka bir process (`kill`) veya donanım tarafından gönderilebilir.
+
+```mermaid
+graph LR
+    SRC["Kaynak\nKullanıcı / Kernel / Process"] -->|sinyal| QUEUE["Pending Sinyaller\n(Kernel)"]
+    QUEUE -->|"iletim (deliver)"| HANDLER["Process\nSinyal İşleyici"]
+    HANDLER --> A["Varsayılan Eylem\n(terminate, core, ignore, stop)"]
+    HANDLER --> B["Kullanıcı Handler\nsigaction()"]
+    HANDLER --> C["SIG_IGN\n(Yoksay)"]
+```
+
+| Sinyal | No | Varsayılan | Açıklama |
+|--------|----|-----------|---------|
+| `SIGHUP` | 1 | Terminate | Terminal kapandı / daemon yeniden yükle |
+| `SIGINT` | 2 | Terminate | `Ctrl+C` — kullanıcı kesme |
+| `SIGQUIT` | 3 | Core Dump | `Ctrl+\` — core dump ile çıkış |
+| `SIGKILL` | 9 | Terminate | **Yakalanamaz/engellenemez** — zorla öldür |
+| `SIGSEGV` | 11 | Core Dump | Geçersiz bellek erişimi |
+| `SIGPIPE` | 13 | Terminate | Okuyucusu olmayan pipe'a yazma |
+| `SIGALRM` | 14 | Terminate | `alarm()` zamanlayıcı |
+| `SIGTERM` | 15 | Terminate | Nazik sonlandırma isteği (yakalanabilir) |
+| `SIGCHLD` | 17 | Ignore | Alt process durdu / sonlandı |
+| `SIGSTOP` | 19 | Stop | **Yakalanamaz** — process'i durdur |
+| `SIGCONT` | 18 | Continue | Durdurulan process'i devam ettir |
+| `SIGUSR1/2` | 10/12 | Terminate | Uygulama tanımlı kullanım |
+
+```bash
+# Sinyal gönderme
+kill -SIGTERM 1234          # PID'e nazikçe sonlandırma
+kill -9 1234                # SIGKILL — zorla
+kill -SIGHUP $(pgrep nginx) # nginx'e yeniden yükleme sinyali
+pkill -USR1 gunicorn        # İsme göre SIGUSR1 gönder
+killall -TERM myapp         # Aynı isimli tüm process'lere
+
+# Process'in bekleyen sinyallerini göster
+cat /proc/<PID>/status | grep Sig  # SigPnd, SigBlk, SigIgn, SigCgt
+
+# Sinyal maskesini çöz (bitfield → sinyal adları)
+kill -l                     # Tüm sinyalleri listele
+```
+
+```c
+// C — sinyal yakalama (sigaction)
+#include <signal.h>
+
+static volatile sig_atomic_t running = 1;
+
+static void handle_sigterm(int sig) {
+    running = 0;    // async-signal-safe: sadece atomic yaz
+}
+
+int main(void) {
+    struct sigaction sa = {
+        .sa_handler = handle_sigterm,
+        .sa_flags   = SA_RESTART,   // Kesilen syscall'ları yeniden başlat
+    };
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGTERM, &sa, NULL);
+    sigaction(SIGINT,  &sa, NULL);
+
+    while (running) {
+        // ...
+    }
+    return 0;
+}
+```
+
+!!! warning "Async-Signal-Safe"
+    Sinyal işleyici içinde `printf`, `malloc`, `free` gibi fonksiyonlar çağrılmamalıdır — bu fonksiyonlar async-signal-safe değildir ve kilitlenmeye (deadlock) yol açabilir. İşleyici içinde yalnızca `write()`, `_exit()` veya `sig_atomic_t` işlemleri güvenlidir.
+
+---
+
 ## Device Tree (Gömülü Linux)
+
+Donanım kaynaklarını (bellek, kesmeler, saatler, GPIO) yazılımdan bağımsız biçimde tanımlayan hiyerarşik veri yapısıdır. Bootloader, DTB'yi RAM'e yükleyerek kernel'e hangi donanımın mevcut olduğunu bildirir.
 
 | Format | Açıklama |
 |--------|----------|
@@ -348,8 +424,13 @@ graph LR
 ```bash
 dtc -I dts -O dtb -o output.dtb input.dts   # .dts → .dtb derleme
 dtc -I dtb -O dts -o output.dts input.dtb   # .dtb → .dts tersine çevirme
-cat /proc/device-tree/compatible             # Aktif donanım platformunu gör
+dtc -I fs  -O dts /proc/device-tree/        # Aktif DTB'yi okunabilir hale getir
+cat /proc/device-tree/model                 # Kart modeli
+cat /proc/device-tree/compatible            # Uyumluluk listesi
 ```
+
+!!! tip "Detaylı Kılavuz"
+    DTS sözdizimi, düğüm özellikleri, overlay sistemi, U-Boot entegrasyonu ve debug teknikleri için [Device Tree (DTS/DTB)](device_tree.md) sayfasına bakın.
 
 ---
 

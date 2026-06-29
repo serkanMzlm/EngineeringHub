@@ -6,7 +6,7 @@ site_description: "Teknik dokümantasyon"
 
 nav:
   - Programming:
-      - Design Pattern: md/programming/design_pattern.md
+      - Software Design: md/programming/software_design.md
       - Compiler: md/programming/compiler.md
       - C: md/programming/c.md
       - C++: md/programming/cpp.md
@@ -28,6 +28,8 @@ nav:
       - Networking: md/linux/networking.md
       - Services & Daemons: md/linux/services_daemons.md
       - Raspberry Pi: md/linux/raspberry.md
+      - NVIDIA Jetson: md/linux/jetson.md
+      - Device Tree (DTS/DTB): md/linux/device_tree.md
       - Problems & Solutions: md/linux/problems_and_solutions.md
   - AI:
       - Temel Kavramlar: md/ai/fundamentals.md
@@ -35,6 +37,11 @@ nav:
       - Sinir Ağları ve Derin Öğrenme: md/ai/neural_networks.md
       - Görüntü İşleme: md/ai/image_processing.md
       - Araçlar ve Kütüphaneler: md/ai/tools.md
+      - OpenCV (Kalibrasyon, Stereo, Flow): md/ai/opencv.md
+      - PyTorch Temelleri: md/ai/pytorch.md
+      - YOLO (Tespit ve Segmentasyon): md/ai/yolo.md
+      - ONNX ve TensorRT: md/ai/onnx_tensorrt.md
+      - Hailo NPU ve Deployment: md/ai/hailo.md
 
   - Communication:
       - IPC: md/communication/ipc.md
@@ -42,6 +49,7 @@ nav:
 
   - Robotics:
       - ROS2: md/robotics/ros2.md
+      - VIO ve Kalibrasyon (OpenVINS / Kalibr): md/robotics/vio.md
       - Gazebo: md/robotics/gazebo.md
       - Robot Kontrolü: md/robotics/control.md
       
@@ -79,7 +87,7 @@ theme:
     - content.action.view                       # Sayfayı GitHub'da görüntüleme bağlantısı ekle
     - search.suggest                             # Arama önerileri ekle
     - search.highlight                           # Arama sonuçlarında vurgulama ekle
-    - toc.integrate                             # İçindekiler tablosunu içeriğe entegre et
+    # - toc.integrate                             # İçindekiler tablosunu içeriğe entegre et
     - header.autohide
     - announce.dismiss
     

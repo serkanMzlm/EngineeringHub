@@ -1226,3 +1226,203 @@ pip install -r requirements.txt      # Ortamı içe aktar
 | `open(path, mode, encoding)` | Dosya açma |
 | `print(*objs, sep, end, file, flush)` | Çıktı |
 | `input(prompt)` | Kullanıcı girişi — her zaman `str` döner |
+
+---
+
+## Yapısal Desen Eşleştirme (Python 3.10+)
+
+`match/case` — `if/elif` zincirinin okunabilir ve güçlü alternatifi; değer, tür ve yapı bazlı eşleştirme yapar.
+
+```python
+def http_acikla(kod: int) -> str:
+    match kod:
+        case 200:                  return "OK"
+        case 404:                  return "Bulunamadı"
+        case 500 | 503:            return "Sunucu hatası"
+        case n if 400 <= n < 500:  return f"İstemci hatası: {n}"
+        case _:                    return "Bilinmiyor"
+
+# Yapısal eşleştirme — dict / dataclass / tuple üzerinde çalışır
+def isle(komut: dict) -> None:
+    match komut:
+        case {"eylem": "git",  "yol": str(y)}: print(f"Git: {y}")
+        case {"eylem": "sil",  "id":  int(i)}: print(f"Sil: {i}")
+        case _:                                print("Bilinmeyen")
+```
+
+---
+
+## OOP — İleri Konular
+
+### \_\_slots\_\_
+
+Her örnek için `__dict__` yerine sabit alan ayırır; bellek kullanımını önemli ölçüde azaltır.
+
+```python
+class Nokta:
+    __slots__ = ('x', 'y')   # Yalnızca bu nitelikler var olabilir
+
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+# p.z = 1  → AttributeError
+# Milyonlarca örnek oluşturulacaksa __slots__ belleği %40–70 azaltabilir
+```
+
+### Descriptors
+
+`@property`'nin arkasındaki mekanizma. `__get__` / `__set__` / `__delete__` tanımlanarak nitelik erişimi sınıf düzeyinde kontrol edilir.
+
+```python
+class Pozitif:
+    def __set_name__(self, owner, name):
+        self._name = name
+
+    def __get__(self, obj, objtype=None):
+        return obj.__dict__.get(self._name, 0)
+
+    def __set__(self, obj, value):
+        if value < 0:
+            raise ValueError(f"{self._name} negatif olamaz")
+        obj.__dict__[self._name] = value
+
+class Dikdortgen:
+    genislik  = Pozitif()
+    yukseklik = Pozitif()
+    # Her niteliğe atama Pozitif.__set__ üzerinden geçer
+```
+
+### Metaclass ve type
+
+Her Python sınıfı aslında `type`'ın bir örneğidir. `type(isim, temeller, sozluk)` ile çalışma zamanında sınıf üretilebilir.
+
+```python
+# Dinamik sınıf oluşturma
+Hayvan = type("Hayvan", (), {"ses": lambda self: "..."})
+
+# Metaclass: tüm alt sınıflara otomatik davranış ekle
+class AutoRepr(type):
+    def __new__(mcs, name, bases, ns):
+        ns.setdefault('__repr__', lambda self: f"{type(self).__name__}({vars(self)})")
+        return super().__new__(mcs, name, bases, ns)
+
+class Nokta(metaclass=AutoRepr):
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+print(Nokta(1, 2))  # Nokta({'x': 1, 'y': 2})
+```
+
+!!! tip "\_\_init_subclass\_\_ — Metaclass Alternatifi"
+    ```python
+    class Plugin:
+        _registry: dict = {}
+
+        def __init_subclass__(cls, tip: str, **kwargs):
+            super().__init_subclass__(**kwargs)
+            Plugin._registry[tip] = cls
+
+    class JsonPlugin(Plugin, tip="json"): ...
+    class CsvPlugin(Plugin,  tip="csv"):  ...
+
+    # Plugin._registry → {'json': JsonPlugin, 'csv': CsvPlugin}
+    # Eklenti kaydı için metaclass'a gerek kalmadan çalışır
+    ```
+
+---
+
+## Standart Kütüphane — İleri
+
+### concurrent.futures
+
+`threading` ve `multiprocessing`'in yüksek seviye soyutlaması; hem thread hem process havuzunu aynı API ile kullanır.
+
+```python
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
+
+# I/O-bound → ThreadPoolExecutor
+with ThreadPoolExecutor(max_workers=8) as ex:
+    gelecekler = [ex.submit(veri_getir, url) for url in url_listesi]
+    for f in as_completed(gelecekler):   # Tamamlandıkça işle
+        print(f.result())
+
+# CPU-bound → ProcessPoolExecutor
+with ProcessPoolExecutor() as ex:
+    sonuclar = list(ex.map(agir_hesap, veri_listesi))
+```
+
+| | `threading` | `concurrent.futures` |
+|--|:-----------:|:--------------------:|
+| Seviye | Düşük — manuel join | Yüksek — otomatik |
+| İstisna yayılımı | Manuel | `f.result()` fırlatır |
+| `map` desteği | ✗ | ✓ |
+
+### subprocess
+
+Sistem komutlarını çalıştırır, çıktı ve hata kodunu yakalar.
+
+```python
+import subprocess
+
+result = subprocess.run(
+    ["git", "log", "--oneline", "-5"],
+    capture_output=True, text=True, check=True   # check=True → CalledProcessError
+)
+print(result.stdout)
+
+# Birden fazla komut pipeline — Popen ile
+p1 = subprocess.Popen(["ps", "aux"], stdout=subprocess.PIPE)
+p2 = subprocess.Popen(["grep", "python"], stdin=p1.stdout, stdout=subprocess.PIPE)
+p1.stdout.close()
+cikti, _ = p2.communicate()
+```
+
+!!! danger "shell=True Riski"
+    Kullanıcı girdisi `shell=True` ile doğrudan geçirilirse komut enjeksiyonu riski oluşur. Argümanları her zaman liste olarak verin.
+
+### enum
+
+Tip güvenli sabitler; `int`'e karışmaz, isim karşılaştırması çalışır.
+
+```python
+from enum import Enum, auto, Flag
+
+class Renk(Enum):
+    KIRMIZI = auto()
+    YESIL   = auto()
+    MAVI    = auto()
+
+Renk.KIRMIZI.name   # 'KIRMIZI'
+Renk.KIRMIZI.value  # 1
+Renk["MAVI"]        # Renk.MAVI — string'den erişim
+
+# Flag — bit maskesi kombinasyonu
+class Izin(Flag):
+    OKU   = auto()
+    YAZ   = auto()
+    CALIS = auto()
+    TUMU  = OKU | YAZ | CALIS
+
+izin = Izin.OKU | Izin.YAZ
+Izin.OKU in izin    # True
+```
+
+### weakref
+
+Bir nesneye referans tutar; ancak nesnenin çöp toplanmasını engellemez.
+
+```python
+import weakref
+
+class Agir: pass
+
+nesne = Agir()
+ref   = weakref.ref(nesne)
+
+print(ref())   # <__main__.Agir object ...>
+del nesne
+print(ref())   # None — nesne GC tarafından toplandı
+```
+
+!!! tip "Circular Reference Çözümü"
+    Ebeveyn → çocuk ilişkisinde ebeveyn referansını `weakref` yapmak döngüsel bağımlılığı kırar; GC her iki nesneyi de toplayabilir.

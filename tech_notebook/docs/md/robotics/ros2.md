@@ -1092,6 +1092,974 @@ export CYCLONEDDS_URI=file:///path/to/cyclonedds.xml
 
 ---
 
+## Paylaşımlı Bellek — Derinlemesine
+
+ROS 2'de sıfır kopya veri transferi üç farklı mekanizmayla sağlanır. Her katman bir öncekinden daha geniş bir kapsama sahiptir.
+
+```mermaid
+graph TD
+    A["Intra-Process API\nunique_ptr sahiplik devri\nAynı süreç içi, sıfır kopya"] --> FASTEST
+    B["Loaned Messages API\nDDS SHM segment üzerinden\nFarklı süreçler arası, kopyasız"] --> FASTEST
+    C["SHMEM Transport\nFastDDS / iceoryx\nOS shared memory, serileştirme yok"] --> FASTEST
+    FASTEST["Performans\nEn İyiden En İyiye"]
+```
+
+### Loaned Messages API — DDS Düzeyi Sıfır Kopya
+
+Loaned Messages, mesaj belleğini DDS middleware'den **ödünç alır**; mesaj, yayınlandıktan sonra publisher'ın değil DDS'in yönettiği bellekte yaşar. Subscriber aynı belleği okur — hiç kopya olmaz.
+
+```cpp title="loaned_publisher.cpp"
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
+
+class LoanedPublisher : public rclcpp::Node {
+public:
+    LoanedPublisher() : Node("loaned_pub") {
+        pub_ = create_publisher<std_msgs::msg::Float64MultiArray>("/data", 10);
+
+        timer_ = create_wall_timer(std::chrono::milliseconds(10), [this]() {
+            // DDS'den bellek ödünç al — malloc çağrısı yok!
+            auto loaned = pub_->borrow_loaned_message();
+            auto& msg = loaned.get();
+
+            msg.data.resize(1000);
+            for (size_t i = 0; i < msg.data.size(); ++i)
+                msg.data[i] = static_cast<double>(i);
+
+            // Yayınla — DDS sahipliği alır, kopya olmaz
+            pub_->publish(std::move(loaned));
+        });
+    }
+
+private:
+    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_;
+    rclcpp::TimerBase::SharedPtr timer_;
+};
+```
+
+```cpp title="loaned_subscriber.cpp"
+// Subscriber tarafında da aynı belleği referansla al
+sub_ = create_subscription<std_msgs::msg::Float64MultiArray>(
+    "/data", 10,
+    [](std_msgs::msg::Float64MultiArray::ConstSharedPtr msg) {
+        // msg, DDS SHM bölgesindeki veriye işaret eder
+        // Callback dönünce DDS belleği serbest bırakır
+        RCLCPP_INFO(rclcpp::get_logger("sub"), "Boyut: %zu", msg->data.size());
+    }
+);
+```
+
+!!! warning "Loaned Messages Kısıtları"
+    - Yalnızca RMW'nin desteklediği tiplerde çalışır (POD türler, sabit boyutlu diziler)
+    - `std::vector` gibi dinamik boyutlu alanlar desteklenmeyebilir
+    - `rmw_fastrtps_cpp` veya `rmw_cyclonedds_cpp` + iceoryx gereklidir
+    - `ros2 topic echo` gibi araçlar loaned mesajları görmek için deserialization yapar
+
+### iceoryx Entegrasyonu (CycloneDDS)
+
+iceoryx, Eclipse Automotive'in geliştirdiği publish-subscribe middleware'idir. CycloneDDS ile entegre olduğunda ROS 2, host içi haberleşmede **tamamen OS shared memory** kullanır.
+
+```
+Mesaj akışı (iceoryx ile):
+Publisher → iceoryx SHM pool → Subscriber
+             ↑ Sıfır kopya, sıfır serileştirme
+```
+
+```bash
+# Kurulum
+sudo apt install ros-humble-rmw-cyclonedds-cpp
+sudo apt install iceoryx-posh iceoryx-utils
+
+# RouDi daemon — SHM yöneticisi (root veya capabilities ile)
+sudo iox-roudi
+
+# ROS 2 node'larını iceoryx ile başlat
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+export CYCLONEDDS_URI='<Discovery><ExternalDomainId>0</ExternalDomainId></Discovery>'
+ros2 run my_pkg my_node
+```
+
+```xml title="cyclonedds_shm.xml"
+<CycloneDDS>
+    <Domain>
+        <SharedMemory>
+            <Enable>true</Enable>
+            <SubQueueCapacity>256</SubQueueCapacity>
+            <SubHistoryRequest>16</SubHistoryRequest>
+            <PubHistoryCapacity>16</PubHistoryCapacity>
+            <LogLevel>info</LogLevel>
+        </SharedMemory>
+    </Domain>
+</CycloneDDS>
+```
+
+### SHM Performans Karşılaştırması
+
+| Yöntem | Kopyalama | Serileştirme | Kapsam | Gecikme |
+|--------|:---------:|:------------:|--------|:-------:|
+| Intra-Process | ✗ | ✗ | Aynı süreç | ~100 ns |
+| Loaned Msg (FastDDS) | ✗ | ✗ | Aynı host | ~1 µs |
+| iceoryx SHM | ✗ | ✗ | Aynı host | ~1 µs |
+| UDP Loopback | ✓ | ✓ | Aynı host | ~50 µs |
+| UDP Network | ✓ | ✓ | Ağ üzeri | >1 ms |
+
+```bash
+# SHM segmentlerini izle
+ls /dev/shm/
+ipcs -m   # System V shared memory
+
+# iceoryx segment boyutunu kontrol et
+ls -lh /dev/shm/iceoryx_*
+```
+
+---
+
+## tf2 — Koordinat Dönüşümleri
+
+`tf2`, farklı koordinat çerçevelerindeki (frame) verileri birbirine dönüştüren ROS 2'nin temel kütüphanesidir. Her sensör, robot parçası ve ortam öğesi kendi çerçevesinde ifade edilir; `tf2` bunlar arasındaki geometrik ilişkiyi zaman damgalı olarak takip eder.
+
+```mermaid
+graph TD
+    MAP[map\nDünya çerçevesi] --> ODOM[odom\nOdometri çerçevesi]
+    ODOM --> BASE[base_link\nRobot gövdesi]
+    BASE --> LASER[laser_frame\nLidar]
+    BASE --> CAMERA[camera_frame\nKamera]
+    BASE --> IMU[imu_frame\nIMU]
+    BASE --> FL[front_left_wheel]
+    BASE --> FR[front_right_wheel]
+```
+
+| Çerçeve | Açıklama |
+|---------|---------|
+| `map` | Küresel sabit referans; SLAM/lokalizasyon yayınlar |
+| `odom` | Odometrik sürekli (atlama olmaz); encoder/IMU yayınlar |
+| `base_link` | Robot gövde merkezi |
+| `base_footprint` | Zemin projeksiyonu; navigasyon için kullanılır |
+| `sensor_frame` | Sensörün optik merkezi veya fiziksel merkezi |
+
+### Transform Yayınlama
+
+```cpp title="static_transform.cpp"
+#include "geometry_msgs/msg/transform_stamped.hpp"
+#include "tf2_ros/static_transform_broadcaster.h"
+#include "rclcpp/rclcpp.hpp"
+
+// Statik dönüşüm: kamera gövdeye sabit bağlı
+class StaticTFNode : public rclcpp::Node {
+public:
+    StaticTFNode() : Node("static_tf") {
+        broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+        publish_static_transform();
+    }
+
+private:
+    void publish_static_transform() {
+        geometry_msgs::msg::TransformStamped tf;
+        tf.header.stamp    = now();
+        tf.header.frame_id = "base_link";
+        tf.child_frame_id  = "camera_frame";
+
+        tf.transform.translation.x = 0.2;   // 20 cm ileri
+        tf.transform.translation.y = 0.0;
+        tf.transform.translation.z = 0.5;   // 50 cm yukarı
+
+        // Quaternion: 15° aşağı bak (pitch = -15°)
+        tf2::Quaternion q;
+        q.setRPY(0.0, -0.261799, 0.0);  // roll, pitch, yaw (radyan)
+        tf.transform.rotation.x = q.x();
+        tf.transform.rotation.y = q.y();
+        tf.transform.rotation.z = q.z();
+        tf.transform.rotation.w = q.w();
+
+        broadcaster_->sendTransform(tf);
+    }
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> broadcaster_;
+};
+```
+
+```cpp title="dynamic_transform.cpp"
+#include "tf2_ros/transform_broadcaster.h"
+
+// Dinamik dönüşüm: robot odom çerçevesinde hareket ediyor
+class OdomTFNode : public rclcpp::Node {
+public:
+    OdomTFNode() : Node("odom_tf") {
+        broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
+
+        // Odometri mesajına abone ol ve tf yayınla
+        sub_ = create_subscription<nav_msgs::msg::Odometry>(
+            "/odom", rclcpp::SensorDataQoS(),
+            [this](const nav_msgs::msg::Odometry::SharedPtr msg) {
+                geometry_msgs::msg::TransformStamped tf;
+                tf.header         = msg->header;           // odom çerçevesi
+                tf.child_frame_id = "base_link";
+
+                tf.transform.translation.x = msg->pose.pose.position.x;
+                tf.transform.translation.y = msg->pose.pose.position.y;
+                tf.transform.translation.z = msg->pose.pose.position.z;
+                tf.transform.rotation      = msg->pose.pose.orientation;
+
+                broadcaster_->sendTransform(tf);
+            }
+        );
+    }
+
+private:
+    std::unique_ptr<tf2_ros::TransformBroadcaster> broadcaster_;
+    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr sub_;
+};
+```
+
+### Transform Sorgulama (Lookup)
+
+```cpp title="tf_listener.cpp"
+#include "tf2_ros/buffer.h"
+#include "tf2_ros/transform_listener.h"
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
+
+class TFLookupNode : public rclcpp::Node {
+public:
+    TFLookupNode() : Node("tf_lookup") {
+        tf_buffer_   = std::make_unique<tf2_ros::Buffer>(get_clock());
+        tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_, this);
+
+        timer_ = create_wall_timer(std::chrono::milliseconds(100), [this]() {
+            lookup_transform();
+        });
+    }
+
+private:
+    void lookup_transform() {
+        try {
+            // "map" → "laser_frame" dönüşümünü şu anda sorgula
+            auto tf = tf_buffer_->lookupTransform(
+                "map",          // hedef çerçeve
+                "laser_frame",  // kaynak çerçeve
+                tf2::TimePointZero   // en son mevcut dönüşüm
+            );
+
+            RCLCPP_INFO(get_logger(),
+                "Pozisyon: [%.3f, %.3f, %.3f]",
+                tf.transform.translation.x,
+                tf.transform.translation.y,
+                tf.transform.translation.z);
+
+        } catch (const tf2::TransformException& ex) {
+            RCLCPP_WARN(get_logger(), "TF bulunamadı: %s", ex.what());
+        }
+    }
+
+    // Nokta dönüşümü örneği
+    void transform_point() {
+        geometry_msgs::msg::PointStamped pt_in, pt_out;
+        pt_in.header.frame_id = "laser_frame";
+        pt_in.header.stamp    = now();
+        pt_in.point.x = 1.0;
+        pt_in.point.y = 0.5;
+
+        try {
+            // laser koordinatını map koordinatına çevir
+            tf_buffer_->transform(pt_in, pt_out, "map");
+            RCLCPP_INFO(get_logger(), "Map'te: [%.3f, %.3f]",
+                pt_out.point.x, pt_out.point.y);
+        } catch (const tf2::TransformException& ex) {
+            RCLCPP_WARN(get_logger(), "%s", ex.what());
+        }
+    }
+
+    std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
+    std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+    rclcpp::TimerBase::SharedPtr timer_;
+};
+```
+
+```bash
+# TF ağacını görselleştir
+ros2 run tf2_tools view_frames          # PDF oluşturur
+
+# İki çerçeve arasındaki dönüşümü echo et
+ros2 run tf2_ros tf2_echo map base_link
+
+# Gecikmeyi ölç
+ros2 run tf2_ros tf2_monitor
+
+# Statik dönüşüm yayınla (hızlı test için)
+ros2 run tf2_ros static_transform_publisher \
+    0.2 0.0 0.5  0.0 0.0 0.0 1.0 \   # x y z qx qy qz qw
+    base_link camera_frame
+```
+
+!!! tip "map → odom → base_link Ayrımı"
+    - `map → odom`: SLAM/lokalizasyon yayınlar; atlayabilir (discrete jump'lar olabilir)
+    - `odom → base_link`: Odometri yayınlar; monoton artar, atlama olmaz
+    
+    Navigasyon stack'i bu ayrımı kullanır: yerel planlayıcı `odom`'u, küresel planlayıcı `map`'i referans alır.
+
+---
+
+## pluginlib — Çalışma Zamanı Eklenti Mimarisi
+
+`pluginlib`, bir temel sınıfın farklı uygulamalarını **derleme zamanında bağımlılık olmadan** çalışma zamanında yüklemek için kullanılır. Nav2 costmap layer'ları, planlayıcılar, kontrolörler pluginlib kullanır.
+
+```mermaid
+graph LR
+    BASE[Base Plugin Sınıfı\nabstract interface] --> PLUGIN_A[Uygulama A\n.so kütüphanesi]
+    BASE --> PLUGIN_B[Uygulama B\n.so kütüphanesi]
+    BASE --> PLUGIN_C[Uygulama C\n.so kütüphanesi]
+    LOADER[pluginlib::ClassLoader] -->|dlopen| PLUGIN_A
+    LOADER -->|parametre seçimi| PLUGIN_B
+```
+
+### Temel Sınıf Tanımı
+
+```cpp title="include/my_pkg/base_plugin.hpp"
+#pragma once
+#include <string>
+
+namespace my_pkg {
+
+class BaseMotionPlanner {
+public:
+    virtual ~BaseMotionPlanner() = default;
+
+    // Saf sanal — her eklenti uygulamak zorunda
+    virtual void initialize(const std::string& name) = 0;
+    virtual bool computePath(double goal_x, double goal_y) = 0;
+    virtual std::string getName() const = 0;
+
+protected:
+    std::string name_;
+};
+
+}  // namespace my_pkg
+```
+
+### Eklenti Uygulaması
+
+```cpp title="src/my_planner.cpp"
+#include "my_pkg/base_plugin.hpp"
+#include <pluginlib/class_list_macros.hpp>
+
+namespace my_pkg {
+
+class DijkstraPlanner : public BaseMotionPlanner {
+public:
+    void initialize(const std::string& name) override {
+        name_ = name;
+        RCLCPP_INFO(rclcpp::get_logger(name_), "Dijkstra başlatıldı");
+    }
+
+    bool computePath(double goal_x, double goal_y) override {
+        // Dijkstra algoritması...
+        return true;
+    }
+
+    std::string getName() const override { return name_; }
+};
+
+}  // namespace my_pkg
+
+// Macro: base class → plugin class, paket adı, plugin adı
+PLUGINLIB_EXPORT_CLASS(my_pkg::DijkstraPlanner, my_pkg::BaseMotionPlanner)
+```
+
+```xml title="plugins.xml"
+<library path="my_planner">
+    <class type="my_pkg::DijkstraPlanner"
+           base_class_type="my_pkg::BaseMotionPlanner">
+        <description>Dijkstra tabanlı yol planlayıcı</description>
+    </class>
+</library>
+```
+
+```cmake title="CMakeLists.txt (kritik kısım)"
+find_package(pluginlib REQUIRED)
+
+add_library(my_planner SHARED src/my_planner.cpp)
+target_link_libraries(my_planner pluginlib::pluginlib)
+
+# package.xml'e export yap
+pluginlib_export_plugin_description_file(my_pkg plugins.xml)
+```
+
+```xml title="package.xml (export)"
+<export>
+    <build_type>ament_cmake</build_type>
+    <!-- pluginlib bu satırla plugin'i keşfeder -->
+    <my_pkg plugin="${prefix}/plugins.xml"/>
+</export>
+```
+
+### Plugin Yükleme ve Kullanım
+
+```cpp title="plugin_loader.cpp"
+#include "pluginlib/class_loader.hpp"
+#include "my_pkg/base_plugin.hpp"
+
+int main() {
+    // ClassLoader: paket adı, base class tam adı
+    pluginlib::ClassLoader<my_pkg::BaseMotionPlanner> loader(
+        "my_pkg", "my_pkg::BaseMotionPlanner"
+    );
+
+    // Kullanılabilir plugin'leri listele
+    for (const auto& cls : loader.getDeclaredClasses())
+        std::cout << "Plugin: " << cls << "\n";
+
+    // Runtime'da seç ve yükle
+    std::string plugin_name = "my_pkg::DijkstraPlanner";  // parametreden gelebilir
+    auto planner = loader.createSharedInstance(plugin_name);
+
+    planner->initialize("my_dijkstra");
+    planner->computePath(5.0, 3.0);
+
+    return 0;
+}
+```
+
+---
+
+## ros2_control — Donanım Kontrol Çerçevesi
+
+`ros2_control`, robot donanımını (motor, encoder, IMU, kamera) soyutlayan standart bir arayüz sağlar. Controller Manager, donanım sürücüleri ve kontrolörler arasındaki koordinasyonu yönetir.
+
+```mermaid
+graph TD
+    APP[Uygulama\nNav2 / MoveIt] -->|topic/action| CM[Controller Manager]
+    CM --> CTRL1[JointTrajectoryController]
+    CM --> CTRL2[DiffDriveController]
+    CM --> CTRL3[IMU Sensor Broadcaster]
+    CTRL1 -->|command| RI[Resource Interface]
+    CTRL2 -->|command| RI
+    CTRL3 -->|state| RI
+    RI --> HW[Hardware Interface\nActualHardware / MockHardware / Gazebo]
+    HW --> MOTOR[Motor Sürücüsü\nCAN / EtherCAT / UART]
+```
+
+### Command Interface ve State Interface
+
+```cpp title="my_hardware_interface.cpp"
+#include "hardware_interface/system_interface.hpp"
+
+namespace my_robot {
+
+class MyRobotHardware : public hardware_interface::SystemInterface {
+public:
+    // URDF'deki ros2_control bloğundan parametreleri oku
+    hardware_interface::CallbackReturn on_init(
+        const hardware_interface::HardwareInfo& info) override
+    {
+        if (SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
+            return CallbackReturn::ERROR;
+
+        // Joint sayısı kontrolü
+        if (info.joints.size() != 2)
+            return CallbackReturn::ERROR;
+
+        hw_positions_.resize(2, 0.0);
+        hw_velocities_.resize(2, 0.0);
+        hw_commands_.resize(2, 0.0);
+        return CallbackReturn::SUCCESS;
+    }
+
+    // State interface'leri kaydet (encoder okuma)
+    std::vector<hardware_interface::StateInterface> export_state_interfaces() override {
+        std::vector<hardware_interface::StateInterface> state_ifs;
+        for (size_t i = 0; i < 2; ++i) {
+            state_ifs.emplace_back(
+                info_.joints[i].name, "position", &hw_positions_[i]);
+            state_ifs.emplace_back(
+                info_.joints[i].name, "velocity", &hw_velocities_[i]);
+        }
+        return state_ifs;
+    }
+
+    // Command interface'leri kaydet (motor hedef)
+    std::vector<hardware_interface::CommandInterface> export_command_interfaces() override {
+        std::vector<hardware_interface::CommandInterface> cmd_ifs;
+        for (size_t i = 0; i < 2; ++i) {
+            cmd_ifs.emplace_back(
+                info_.joints[i].name, "velocity", &hw_commands_[i]);
+        }
+        return cmd_ifs;
+    }
+
+    // Gerçek donanımdan oku
+    hardware_interface::return_type read(
+        const rclcpp::Time&, const rclcpp::Duration&) override
+    {
+        // CAN bus veya encoder'dan oku
+        hw_positions_[0] = read_encoder(0);
+        hw_velocities_[0] = read_velocity(0);
+        return hardware_interface::return_type::OK;
+    }
+
+    // Donanıma yaz
+    hardware_interface::return_type write(
+        const rclcpp::Time&, const rclcpp::Duration&) override
+    {
+        // Motor sürücüsüne komut gönder
+        send_velocity_command(0, hw_commands_[0]);
+        send_velocity_command(1, hw_commands_[1]);
+        return hardware_interface::return_type::OK;
+    }
+
+private:
+    std::vector<double> hw_positions_, hw_velocities_, hw_commands_;
+    double read_encoder(int)   { return 0.0; }  // gerçek implementasyon
+    double read_velocity(int)  { return 0.0; }
+    void send_velocity_command(int, double) {}
+};
+
+}  // namespace my_robot
+
+#include "pluginlib/class_list_macros.hpp"
+PLUGINLIB_EXPORT_CLASS(my_robot::MyRobotHardware, hardware_interface::SystemInterface)
+```
+
+```yaml title="config/ros2_control.yaml"
+controller_manager:
+  ros__parameters:
+    update_rate: 1000  # Hz
+
+diff_drive_controller:
+  ros__parameters:
+    left_wheel_names:  ["left_wheel_joint"]
+    right_wheel_names: ["right_wheel_joint"]
+    wheel_separation: 0.35      # m
+    wheel_radius:     0.05      # m
+    cmd_vel_timeout: 0.5        # s
+    publish_odom_tf: true
+
+joint_state_broadcaster:
+  ros__parameters:
+    joints: ["left_wheel_joint", "right_wheel_joint"]
+```
+
+```bash
+# Kontrolörleri yönet
+ros2 control list_controllers
+ros2 control list_hardware_interfaces
+ros2 control switch_controllers \
+    --activate diff_drive_controller \
+    --deactivate joint_trajectory_controller
+ros2 control load_controller my_controller --set-state active
+```
+
+---
+
+## Test — gtest ve colcon test
+
+ROS 2'de birim test (gtest/ament_gtest) ve entegrasyon test (launch_testing) standart altyapıdır.
+
+### C++ Birim Testi (gtest)
+
+```cpp title="test/test_my_algo.cpp"
+#include <gtest/gtest.h>
+#include "my_pkg/my_algorithm.hpp"
+
+class AlgoTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        algo_ = std::make_unique<my_pkg::MyAlgorithm>();
+        algo_->initialize(0.01);  // dt = 10ms
+    }
+    std::unique_ptr<my_pkg::MyAlgorithm> algo_;
+};
+
+TEST_F(AlgoTest, ZeroInput) {
+    EXPECT_DOUBLE_EQ(algo_->compute(0.0), 0.0);
+}
+
+TEST_F(AlgoTest, PositiveInput) {
+    double result = algo_->compute(1.0);
+    EXPECT_GT(result, 0.0);
+    EXPECT_LT(result, 10.0);
+}
+
+TEST_F(AlgoTest, NegativeHandling) {
+    EXPECT_THROW(algo_->compute(-1.0), std::invalid_argument);
+}
+
+// Parameterized test
+class AlgoParamTest : public testing::TestWithParam<std::pair<double,double>> {};
+
+TEST_P(AlgoParamTest, InputOutput) {
+    auto [input, expected] = GetParam();
+    my_pkg::MyAlgorithm algo;
+    EXPECT_NEAR(algo.compute(input), expected, 1e-6);
+}
+
+INSTANTIATE_TEST_SUITE_P(Inputs, AlgoParamTest, testing::Values(
+    std::make_pair(0.0, 0.0),
+    std::make_pair(1.0, 0.5),
+    std::make_pair(2.0, 1.0)
+));
+```
+
+```cmake title="CMakeLists.txt (test bölümü)"
+if(BUILD_TESTING)
+    find_package(ament_cmake_gtest REQUIRED)
+    find_package(ament_lint_auto REQUIRED)
+
+    # Linting (opsiyonel)
+    ament_lint_auto_find_test_dependencies()
+
+    # gtest hedefi
+    ament_add_gtest(test_my_algo
+        test/test_my_algo.cpp
+    )
+    target_link_libraries(test_my_algo my_algo_lib)
+endif()
+```
+
+### Launch Testing (Entegrasyon Testi)
+
+```python title="test/test_node_integration.py"
+import pytest
+import rclpy
+import launch
+import launch_ros.actions
+import launch_testing
+import launch_testing.actions
+
+from std_msgs.msg import String
+
+@pytest.mark.launch_test
+def generate_test_description():
+    node = launch_ros.actions.Node(
+        package='my_pkg',
+        executable='my_node',
+        name='test_node'
+    )
+    return launch.LaunchDescription([
+        node,
+        launch_testing.actions.ReadyToTest()
+    ])
+
+
+class TestMyNode(launch_testing.TestCase):
+    def test_publishes_message(self, proc_output):
+        """Node'un /chatter topic'ine yayın yaptığını doğrula"""
+        rclpy.init()
+        node = rclpy.create_node('test_node_client')
+        received = []
+
+        sub = node.create_subscription(
+            String, '/chatter', lambda msg: received.append(msg.data), 10
+        )
+
+        # 3 saniye bekle, mesaj gelmeli
+        end_time = node.get_clock().now() + rclpy.duration.Duration(seconds=3)
+        while node.get_clock().now() < end_time:
+            rclpy.spin_once(node, timeout_sec=0.1)
+            if received:
+                break
+
+        self.assertGreater(len(received), 0, "Hiç mesaj alınmadı")
+        node.destroy_node()
+        rclpy.shutdown()
+```
+
+```bash
+# Tüm testleri çalıştır
+colcon test --packages-select my_pkg
+
+# Test sonuçlarını göster
+colcon test-result --all --verbose
+
+# Sadece belirli test
+colcon test --packages-select my_pkg \
+    --pytest-args -k "test_publishes"
+
+# Kapsam raporu (gcov)
+colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug \
+    -DCMAKE_CXX_FLAGS="--coverage"
+lcov --capture --directory build/ --output-file coverage.info
+genhtml coverage.info --output-directory coverage_html/
+```
+
+---
+
+## SROS2 — Güvenlik
+
+SROS2, DDS-Security standardı üzerinden şifreleme, kimlik doğrulama ve erişim kontrolü sağlar. Her node bir **kimlik (identity)** ve **izin belgesi** ile imzalanır.
+
+```mermaid
+sequenceDiagram
+    participant A as Node A
+    participant PKI as CA (Sertifika Otoritesi)
+    participant B as Node B
+
+    A->>PKI: CSR gönder (kimlik talebi)
+    PKI->>A: Sertifika ver (cert.pem)
+    B->>PKI: CSR gönder
+    PKI->>B: Sertifika ver
+
+    A->>B: TLS El Sıkışması (karşılıklı kimlik doğrulama)
+    Note over A,B: Şifreli, imzalı DDS trafiği
+```
+
+```bash
+# 1. Güvenlik alanı (security enclave) oluştur
+mkdir ~/my_security_ws && cd ~/my_security_ws
+ros2 security create_keystore keystore
+
+# 2. Her node için anahtar ve sertifika üret
+ros2 security create_enclave keystore /my_robot/sensor_node
+ros2 security create_enclave keystore /my_robot/controller_node
+ros2 security create_enclave keystore /my_robot/planner_node
+
+# Oluşturulan dosyalar:
+# keystore/
+# ├─ public/   ← CA sertifikası (herkese dağıtılabilir)
+# ├─ private/  ← CA özel anahtarı (güvenli tut!)
+# └─ enclaves/
+#     └─ my_robot/
+#         ├─ sensor_node/
+#         │   ├─ cert.pem
+#         │   ├─ key.pem
+#         │   ├─ identity_ca.cert.pem
+#         │   ├─ permissions_ca.cert.pem
+#         │   ├─ permissions.p7s  (erişim politikaları)
+#         │   └─ governance.p7s   (şifreleme politikaları)
+```
+
+```bash
+# 3. Node'ları güvenli başlat
+export ROS_SECURITY_KEYSTORE=~/my_security_ws/keystore
+export ROS_SECURITY_ENABLE=true
+export ROS_SECURITY_STRATEGY=Enforce   # Sertifika yoksa başlatma
+
+ros2 run my_pkg sensor_node \
+    --ros-args --enclave /my_robot/sensor_node
+```
+
+```xml title="keystore/enclaves/my_robot/sensor_node/policy.xml"
+<?xml version="1.0" encoding="UTF-8"?>
+<policy version="0.2.0">
+    <enclaves>
+        <enclave path="/my_robot/sensor_node">
+            <profiles>
+                <profile ns="/" node="sensor_node">
+                    <topics publish="ALLOW" subscribe="DENY">
+                        <topic>*/scan</topic>
+                        <topic>*/camera/image_raw</topic>
+                    </topics>
+                    <services reply="DENY" request="DENY"/>
+                </profile>
+            </profiles>
+        </enclave>
+    </enclaves>
+</policy>
+```
+
+!!! warning "SROS2 Üretim Notları"
+    - CA özel anahtarını (`private/`) asla robot üzerinde tutmayın
+    - `ROS_SECURITY_STRATEGY=Enforce` → sertifikasız node başlamaz (güvenli)
+    - `ROS_SECURITY_STRATEGY=Permissive` → sertifikasız node başlar ama şifresiz (test için)
+    - Sertifika süresi dolarsa tüm sistem iletişimi durur — otomatik yenileme planı yapın
+
+---
+
+## Gerçek Zamanlı (Real-Time) ROS 2
+
+Gerçek zamanlı sistemlerde determinizm kritiktir: callback gecikmesi, bellek tahsisi, scheduler gecikmesi minimize edilmelidir.
+
+### RT-Executor Kalıbı
+
+```cpp title="realtime_node.cpp"
+#include "rclcpp/rclcpp.hpp"
+#include "rclcpp/strategies/allocator_memory_strategy.hpp"
+#include <pthread.h>
+#include <sched.h>
+#include <sys/mman.h>
+
+// RT-uyumlu allocator (bellek dönüşü yok)
+using Alloc = std::allocator<void>;
+using ExecutorT = rclcpp::executors::StaticSingleThreadedExecutor;
+
+int main(int argc, char** argv) {
+    rclcpp::init(argc, argv);
+
+    // Belleği önceden kilitle — sayfa hatası yok
+    mlockall(MCL_CURRENT | MCL_FUTURE);
+
+    // SCHED_FIFO — RT zamanlayıcı (root gerektirir)
+    struct sched_param sp;
+    sp.sched_priority = 80;
+    pthread_setschedparam(pthread_self(), SCHED_FIFO, &sp);
+
+    // StaticSingleThreadedExecutor — dinamik bellek yok
+    auto exec = std::make_unique<ExecutorT>();
+
+    auto node = std::make_shared<MyRTNode>();
+    exec->add_node(node);
+
+    // spin() döngüsü RT thread üzerinde çalışır
+    exec->spin();
+
+    rclcpp::shutdown();
+    return 0;
+}
+```
+
+```cpp title="RT-uyumlu Node kalıpları"
+class MyRTNode : public rclcpp::Node {
+public:
+    MyRTNode() : Node("rt_node") {
+        // Önceden bellek ayır — RT döngüsünde tahsis yok
+        cmd_.data.reserve(1000);
+        history_.reserve(500);
+
+        // StaticSingleThreadedExecutor ile uyumlu subscription
+        sub_ = create_subscription<sensor_msgs::msg::LaserScan>(
+            "/scan", rclcpp::SensorDataQoS(),
+            [this](sensor_msgs::msg::LaserScan::ConstSharedPtr msg) {
+                // Callback — RT kurallarına uy:
+                // ✗ malloc/new çağırma
+                // ✗ mutex ile kilitle (priority inversion)
+                // ✗ I/O yapma
+                // ✓ Önceden ayrılan belleği kullan
+                // ✓ lock-free veri yapıları kullan
+                process_scan(*msg);
+            }
+        );
+    }
+
+private:
+    void process_scan(const sensor_msgs::msg::LaserScan& scan) {
+        // lock-free ring buffer ile log
+        // rt_printf yerine RCLCPP_INFO_SKIPFIRST_THROTTLE
+    }
+
+    sensor_msgs::msg::LaserScan cmd_;
+    std::vector<double> history_;
+    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr sub_;
+};
+```
+
+```bash
+# RT thread önceliği ver
+sudo chrt -f 80 ros2 run my_pkg rt_node
+
+# CPU affinity — RT node'u belirli çekirdeğe sabitle
+sudo taskset -c 3 ros2 run my_pkg rt_node
+
+# Kernel RT yamaları kontrolü
+uname -r | grep PREEMPT_RT
+cat /sys/kernel/realtime
+
+# Gecikme testi
+cyclictest -t 4 -p 80 -i 1000 -l 10000
+```
+
+### Priority Inversion Sorunu
+
+```
+Tehlike: RT thread (yüksek öncelik) mutex bekliyor →
+         Normal thread (düşük öncelik) mutex tutuyor ama schedule edilemiyor →
+         RT thread bloklandı, determinizm bozuldu
+
+Çözüm: PTHREAD_MUTEX_PROTOCOL = PTHREAD_PRIO_INHERIT
+       veya lock-free veri yapıları (atomic, ring buffer)
+```
+
+```cpp
+// Priority inheritance mutex
+pthread_mutex_t rt_mutex;
+pthread_mutexattr_t attr;
+pthread_mutexattr_init(&attr);
+pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
+pthread_mutex_init(&rt_mutex, &attr);
+```
+
+---
+
+## Diagnostics — Sistem Sağlık İzleme
+
+`diagnostic_updater`, node'ların kendi sağlık durumlarını standart formatta yayınlamasını sağlar. `diagnostic_aggregator` bunları toplar; operatör uyarı/hata mesajları alır.
+
+```cpp title="diagnostic_node.cpp"
+#include "diagnostic_updater/diagnostic_updater.hpp"
+#include "diagnostic_updater/publisher.hpp"
+
+class SensorNode : public rclcpp::Node {
+public:
+    SensorNode() : Node("sensor_node"),
+                   updater_(this)   // diagnostic_updater node'a bağlı
+    {
+        updater_.setHardwareID("IMU-BNO055-SN12345");
+
+        // Periyodik sağlık kontrolleri ekle
+        updater_.add("IMU Bağlantısı", this, &SensorNode::checkIMU);
+        updater_.add("Sıcaklık",       this, &SensorNode::checkTemp);
+        updater_.add("Veri Hızı",      this, &SensorNode::checkRate);
+
+        // Minimum yayın hızı kontrolü (FrequencyStatus)
+        double min_hz = 50.0, max_hz = 200.0;
+        freq_status_ = std::make_shared<diagnostic_updater::FrequencyStatus>(
+            diagnostic_updater::FrequencyStatusParam(&min_hz, &max_hz)
+        );
+        updater_.add(*freq_status_);
+
+        // Yayın zaman damgası gecikmesi kontrolü (TimeStampStatus)
+        ts_status_ = std::make_shared<diagnostic_updater::TimeStampStatus>(
+            diagnostic_updater::TimeStampStatusParam()
+        );
+        updater_.add(*ts_status_);
+    }
+
+private:
+    void checkIMU(diagnostic_updater::DiagnosticStatusWrapper& stat) {
+        if (imu_connected_) {
+            stat.summary(diagnostic_msgs::msg::DiagnosticStatus::OK, "IMU bağlı");
+            stat.add("Seri No", "SN12345");
+            stat.add("Firmware", "v3.2");
+        } else {
+            stat.summary(diagnostic_msgs::msg::DiagnosticStatus::ERROR, "IMU bağlantı yok");
+        }
+    }
+
+    void checkTemp(diagnostic_updater::DiagnosticStatusWrapper& stat) {
+        float temp = read_temperature();
+        if (temp > 85.0f) {
+            stat.summaryf(diagnostic_msgs::msg::DiagnosticStatus::ERROR,
+                          "Aşırı ısı: %.1f°C", temp);
+        } else if (temp > 70.0f) {
+            stat.summaryf(diagnostic_msgs::msg::DiagnosticStatus::WARN,
+                          "Yüksek sıcaklık: %.1f°C", temp);
+        } else {
+            stat.summaryf(diagnostic_msgs::msg::DiagnosticStatus::OK, "Normal: %.1f°C", temp);
+        }
+        stat.add("Sıcaklık (°C)", temp);
+    }
+
+    void checkRate(diagnostic_updater::DiagnosticStatusWrapper& stat) {
+        // Ölçülen yayın hızını kontrol et
+        freq_status_->run(stat);
+    }
+
+    bool imu_connected_ = true;
+    float read_temperature() { return 45.0f; }
+
+    diagnostic_updater::Updater updater_;
+    std::shared_ptr<diagnostic_updater::FrequencyStatus> freq_status_;
+    std::shared_ptr<diagnostic_updater::TimeStampStatus> ts_status_;
+};
+```
+
+```bash
+# Diagnostics topic'ini izle
+ros2 topic echo /diagnostics
+ros2 topic echo /diagnostics_agg   # aggregator sonrası
+
+# rqt_runtime_monitor ile görsel izleme
+ros2 run rqt_runtime_monitor rqt_runtime_monitor
+```
+
+---
+
 ## İpuçları ve En İyi Pratikler
 
 !!! tip "Büyük Mesajlar (Görüntü, Nokta Bulutu)"
@@ -1105,8 +2073,9 @@ export CYCLONEDDS_URI=file:///path/to/cyclonedds.xml
 !!! tip "Gerçek Zamanlı ROS 2"
     - `StaticSingleThreadedExecutor` kullanın (dinamik bellek yok)
     - Callback'lerde `malloc/new` çağırmayın
-    - `SCHED_FIFO` + yüksek öncelik: `sudo chrt -f 90 ros2 run ...`
+    - `SCHED_FIFO` + yüksek öncelik: `sudo chrt -f 80 ros2 run ...`
     - Loaned Messages API'yi kullanın (FastDDS zero-copy)
+    - `mlockall(MCL_CURRENT | MCL_FUTURE)` ile sayfa hatalarını önleyin
 
 !!! warning "Domain ID'yi Unutmayın"
     Farklı terminal sekmeleri farklı `ROS_DOMAIN_ID` ile çalışıyorsa node'lar birbirini görmez. `env | grep ROS` ile kontrol edin. `.bashrc`'ye sabitleyin.

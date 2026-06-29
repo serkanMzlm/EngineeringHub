@@ -608,3 +608,141 @@ crontab -u serkan -l  # Başka kullanıcının crontab'ı (root)
 
 !!! warning "Crontab Ortam Değişkenleri"
     Cron, interaktif shell'den farklı bir ortamda çalışır; `$PATH` çok kısıtlıdır. Script'lerde komutların **tam yolunu** kullanın: `/usr/bin/python3` yerine `python3` kullanmak çalışmayabilir. Script başına `source /etc/profile` veya `export PATH=/usr/local/bin:$PATH` ekleyin.
+
+---
+
+## İleri Bash Teknikleri
+
+### Process Substitution
+
+Bir komutun çıktısını sanki dosyaymış gibi başka bir komuta argüman olarak aktarır.
+
+```bash
+# diff: iki komut çıktısını karşılaştır (geçici dosya gerekmez)
+diff <(ls /dir1) <(ls /dir2)
+
+# sort + comm: iki dosyanın sıralı farkları
+comm -23 <(sort dosya1.txt) <(sort dosya2.txt)
+
+# while: iki komutu aynı anda oku
+paste <(cut -d: -f1 /etc/passwd) <(cut -d: -f6 /etc/passwd)
+
+# tee ile birden fazla işlem yürütme
+cat büyük_dosya.txt | tee >(gzip > arsiv.gz) >(wc -l) > /dev/null
+```
+
+### Named Pipe (FIFO)
+
+```bash
+# FIFO oluştur
+mkfifo /tmp/myfifo
+
+# Terminal 1: yazar
+echo "Merhaba FIFO" > /tmp/myfifo
+
+# Terminal 2: okuyucu (okuyucu olmadan yazar bloklanır)
+cat /tmp/myfifo
+
+# Pratik: iki script arasında veri akışı
+mkfifo /tmp/veri_akisi
+./veri_üreten.sh > /tmp/veri_akisi &
+./veri_işleyen.sh < /tmp/veri_akisi
+rm /tmp/veri_akisi
+```
+
+### printf — Biçimlendirilmiş Çıktı
+
+```bash
+# printf, echo'dan daha güvenilir ve taşınabilir
+printf "Merhaba, %s!\n" "Dünya"
+printf "Sayı: %d, Ondalık: %.2f\n" 42 3.14159
+printf "Hex: %x, Oct: %o\n" 255 255     # ff  377
+printf "%-20s %5d\n" "Öğe"  42          # Sola hizalı, sağa hizalı
+printf "%0*d\n" 5 7                      # 00007 — genişlik değişkende
+
+# Renkli çıktı (ANSI escape)
+printf "\033[1;32m%-10s\033[0m %s\n" "OK" "Servis çalışıyor"
+printf "\033[1;31m%-10s\033[0m %s\n" "HATA" "Bağlantı kesildi"
+
+# Pratik: tablo çıktısı
+printf "%-15s %-10s %s\n" "HOST" "STATUS" "UPTIME"
+printf "%-15s %-10s %s\n" "192.168.1.1" "UP" "5 gün"
+printf "%-15s %-10s %s\n" "192.168.1.2" "DOWN" "-"
+```
+
+### mapfile / readarray
+
+```bash
+# Dosyayı diziye oku (while okuma yerine)
+mapfile -t satirlar < /etc/hosts
+echo "${satirlar[0]}"          # İlk satır
+echo "${#satirlar[@]}"         # Satır sayısı
+
+# Komut çıktısını diziye al
+mapfile -t process_list < <(ps -eo pid,comm --no-header)
+
+# Döngü
+for satir in "${satirlar[@]}"; do
+    [[ "$satir" == \#* ]] && continue    # Yorum satırlarını atla
+    echo "→ $satir"
+done
+```
+
+### select — Etkileşimli Menü
+
+```bash
+#!/bin/bash
+
+PS3="Seçiminiz: "    # select isteği
+secenekler=("Disk Bilgisi" "RAM Bilgisi" "CPU Bilgisi" "Çıkış")
+
+select secim in "${secenekler[@]}"; do
+    case "$REPLY" in
+        1) df -h ;;
+        2) free -h ;;
+        3) lscpu | grep "Model name" ;;
+        4) echo "Çıkılıyor..."; break ;;
+        *) echo "Geçersiz seçim: $REPLY" ;;
+    esac
+done
+```
+
+### Paralel Komut Çalıştırma
+
+```bash
+# Arka plana alıp bekle
+for host in 192.168.1.{1..10}; do
+    ping -c 1 -W 1 "$host" &>/dev/null && echo "$host UP" &
+done
+wait   # Tüm arka plan işleri tamamlanana kadar bekle
+
+# xargs ile paralel
+cat host_listesi.txt | xargs -P 4 -I{} ping -c 1 {} 2>/dev/null
+
+# GNU parallel (kurulumsa)
+parallel -j 4 ping -c 1 {} ::: 192.168.1.{1..20}
+
+# Semafor ile paralel (maksimum N eş zamanlı iş)
+maks=4
+sayac=0
+for dosya in /data/*.csv; do
+    ./isle.sh "$dosya" &
+    ((++sayac >= maks)) && { wait -n; ((sayac--)); }
+done
+wait
+```
+
+### Güvenli Geçici Dosya
+
+```bash
+# mktemp — güvenli geçici dosya/dizin
+gecici=$(mktemp)                       # /tmp/tmp.XXXXXX
+gecici_dir=$(mktemp -d)               # /tmp/tmp.XXXXXX/
+
+# Temizlik garantisi
+trap 'rm -f "$gecici"; rm -rf "$gecici_dir"' EXIT
+
+# İsimli şablon
+log=$(mktemp /tmp/uygulama_XXXXXX.log)
+echo "Log: $log"
+```

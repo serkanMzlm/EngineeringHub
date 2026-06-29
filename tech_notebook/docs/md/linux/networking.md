@@ -447,3 +447,139 @@ sudo apt install samba
 sudo smbpasswd -a kullanici
 sudo systemctl restart smbd
 ```
+
+---
+
+## tcpdump — Paket Yakalama
+
+`tcpdump`, ağ arayüzünden geçen paketleri yakalar ve filtreler. Ağ debug'lamanın temel aracıdır.
+
+```bash
+# Temel kullanım
+sudo tcpdump -i eth0                      # eth0 arayüzünü dinle
+sudo tcpdump -i any                       # Tüm arayüzler
+sudo tcpdump -i lo                        # Loopback
+
+# Çıktı formatı
+sudo tcpdump -n                           # DNS çözme yapma (daha hızlı)
+sudo tcpdump -nn                          # DNS + port adları çözme
+sudo tcpdump -v                           # Ayrıntılı (TTL, checksum vb.)
+sudo tcpdump -vvv                         # En ayrıntılı
+
+# Dosyaya kaydet / oku
+sudo tcpdump -i eth0 -w capture.pcap      # Wireshark ile açılabilir
+sudo tcpdump -r capture.pcap              # Kaydedilmiş dosyayı oku
+sudo tcpdump -r capture.pcap -n           # Oku + DNS çözme
+
+# Yakalama limiti
+sudo tcpdump -i eth0 -c 100              # 100 paket sonra dur
+sudo tcpdump -i eth0 -G 60 -w out_%T.pcap  # 60s'de döngüsel dosya
+```
+
+### BPF Filtreleri
+
+```bash
+# Host filtresi
+sudo tcpdump host 192.168.1.10              # Kaynak veya hedef
+sudo tcpdump src host 192.168.1.10          # Sadece kaynak
+sudo tcpdump dst host 192.168.1.10          # Sadece hedef
+
+# Port filtresi
+sudo tcpdump port 80                         # HTTP
+sudo tcpdump port 443 or port 80             # HTTP + HTTPS
+sudo tcpdump not port 22                     # SSH hariç
+
+# Protokol filtresi
+sudo tcpdump tcp
+sudo tcpdump udp
+sudo tcpdump icmp
+
+# Ağ filtresi
+sudo tcpdump net 192.168.1.0/24
+
+# Kombinasyon
+sudo tcpdump -i eth0 -n 'tcp and dst port 8080 and src net 10.0.0.0/8'
+
+# HTTP GET isteklerini göster
+sudo tcpdump -i eth0 -A 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'
+
+# SYN paketleri (TCP bağlantı isteği)
+sudo tcpdump 'tcp[tcpflags] & tcp-syn != 0'
+
+# MQTT protokolü debug
+sudo tcpdump -i any port 1883 -A -n
+```
+
+### Wireshark için Kayıt
+
+```bash
+# Uzak sunucudan SSH üzerinden Wireshark'ta görüntüle
+ssh user@host "sudo tcpdump -i eth0 -w - 2>/dev/null" | wireshark -k -i -
+```
+
+---
+
+## ethtool — NIC Teşhisi
+
+Ethernet arayüzünün fiziksel katman ayarlarını sorgular ve değiştirir.
+
+```bash
+# Bağlantı durumu
+ethtool eth0                          # Hız, duplex, link durumu
+ethtool -i eth0                       # Sürücü bilgisi
+ethtool -S eth0                       # Detaylı istatistikler (rx_errors, tx_dropped vb.)
+
+# Hız/Duplex ayarı
+sudo ethtool -s eth0 speed 100 duplex full autoneg off
+
+# Offload özellikleri
+ethtool -k eth0                       # Aktif offload'lar
+sudo ethtool -K eth0 gso off          # Generic Segmentation Offload kapat
+sudo ethtool -K eth0 tso off          # TCP Segmentation Offload kapat
+
+# Wake-on-LAN
+sudo ethtool -s eth0 wol g            # Magic packet ile uyandır
+
+# Bağlantı testi (loopback)
+sudo ethtool -t eth0 online
+```
+
+---
+
+## Ağ Namespace
+
+Linux ağ namespace'leri, birbirinden izole edilmiş ağ yığını örnekleri oluşturur. Container teknolojisinin (Docker, LXC) temeli.
+
+```bash
+# Namespace oluştur
+sudo ip netns add ns1
+
+# Namespace listesi
+ip netns list
+
+# Namespace içinde komut çalıştır
+sudo ip netns exec ns1 bash             # Namespace shell'ine gir
+sudo ip netns exec ns1 ip addr         # ns1 içindeki arayüzler
+
+# Virtual Ethernet çifti (veth pair) oluştur
+sudo ip link add veth0 type veth peer name veth1
+
+# veth1'i namespace'e taşı
+sudo ip link set veth1 netns ns1
+
+# Ana namespace'de veth0'a IP ver
+sudo ip addr add 10.0.0.1/24 dev veth0
+sudo ip link set veth0 up
+
+# ns1 içinde veth1'e IP ver
+sudo ip netns exec ns1 ip addr add 10.0.0.2/24 dev veth1
+sudo ip netns exec ns1 ip link set veth1 up
+sudo ip netns exec ns1 ip link set lo up
+
+# Bağlantı testi
+ping 10.0.0.2                           # Ana → ns1
+sudo ip netns exec ns1 ping 10.0.0.1   # ns1 → Ana
+
+# Namespace sil
+sudo ip netns del ns1
+```

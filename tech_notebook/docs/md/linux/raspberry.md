@@ -330,3 +330,91 @@ sudo udevadm trigger
 # Cihaz bilgisi
 udevadm info --query=all --name=/dev/ttyUSB0
 ```
+
+---
+
+## Systemd Servis — Uygulama Otomasyonu
+
+Pi'de çalışan uygulamayı önyüklemede otomatik başlatmak ve izlemek için systemd kullanılır.
+
+```ini title="/etc/systemd/system/myapp.service"
+[Unit]
+Description=My Embedded Application
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/myapp
+ExecStart=/home/pi/myapp/myapp --config /etc/myapp.conf
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# Kaynak sınırları (isteğe bağlı)
+MemoryMax=128M
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable myapp.service    # Önyüklemede başlat
+sudo systemctl start  myapp.service    # Hemen başlat
+sudo systemctl status myapp.service    # Durum kontrol
+journalctl -u myapp.service -f         # Canlı log
+```
+
+---
+
+## Cross-Compilation (Çapraz Derleme)
+
+Geliştirme bilgisayarında (x86_64) Pi için ARM kodu derlemek, Pi üzerinde native derlemeye kıyasla çok daha hızlıdır.
+
+```bash
+# ARM64 cross-compiler kurulumu (Ubuntu/Debian)
+sudo apt install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+
+# Basit C programı cross-compile
+aarch64-linux-gnu-gcc -o hello_arm hello.c
+file hello_arm   # ELF 64-bit LSB executable, ARM aarch64
+
+# CMake ile cross-compile
+cat > toolchain-aarch64.cmake << 'EOF'
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR aarch64)
+
+set(CMAKE_C_COMPILER   aarch64-linux-gnu-gcc)
+set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)
+
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+EOF
+
+mkdir build && cd build
+cmake .. -DCMAKE_TOOLCHAIN_FILE=../toolchain-aarch64.cmake
+make -j$(nproc)
+
+# Pi'ye kopyala ve çalıştır
+scp hello_arm pi@raspberrypi.local:~/
+ssh pi@raspberrypi.local ./hello_arm
+```
+
+### QEMU ile Pi Öykünme
+
+```bash
+# QEMU ARM64 kurulumu
+sudo apt install qemu-user-static
+
+# Derlenmiş binary'yi host'ta çalıştır (QEMU sayesinde)
+qemu-aarch64-static ./hello_arm
+
+# Debian ARM64 chroot ortamı
+sudo debootstrap --arch=arm64 bookworm /opt/arm64-sysroot
+sudo chroot /opt/arm64-sysroot /bin/bash
+```

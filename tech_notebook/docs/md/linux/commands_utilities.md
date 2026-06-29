@@ -482,3 +482,117 @@ write serkan pts/1                                # Belirli terminale
 # notify-send (masaüstü bildirimi)
 notify-send "Yedekleme" "Tamamlandı!" --icon=dialog-information
 ```
+
+---
+
+## Sistem Debug Araçları
+
+### strace — Sistem Çağrısı İzleme
+
+Bir process'in kernel'e yaptığı tüm sistem çağrılarını (open, read, write, ioctl, mmap...) gösterir. Gömülü sistemlerde sürücü debug'lamanın temel aracıdır.
+
+```bash
+# Temel kullanım
+strace ls /tmp                          # Komutun syscall'larını göster
+strace -p 1234                          # Çalışan process'e bağlan
+
+# Sadece belirli syscall'lar
+strace -e trace=open,read,write ls      # Dosya işlemleri
+strace -e trace=network curl http://x  # Ağ çağrıları
+strace -e trace=ioctl ./myapp          # ioctl çağrıları (cihaz debug)
+strace -e trace=mmap,brk ./myapp       # Bellek tahsisi
+
+# Detay ve zaman
+strace -t ./app                         # Zaman damgası
+strace -T ./app                         # Her syscall süresi
+strace -c ./app                         # Özet istatistik (hangi çağrı kaç kez)
+
+# Dosyaya yaz
+strace -o trace.txt ./app
+strace -ff -o trace ./app              # Fork'ları ayrı dosyaya
+
+# Pratik: hangi dosyalara erişiyor?
+strace -e trace=openat ./app 2>&1 | grep -v ENOENT
+
+# Pratik: cihaz dosyası kullanımını izle
+strace -e trace=open,ioctl,read,write ./sensor_app 2>&1 | grep /dev/
+
+# Pratik: başarısız sistem çağrıları
+strace -e trace=all ./app 2>&1 | grep " = -1"
+```
+
+### ltrace — Kütüphane Çağrısı İzleme
+
+```bash
+ltrace ./app              # Dinamik kütüphane çağrıları
+ltrace -S ./app           # Syscall + kütüphane çağrıları
+ltrace -p 1234            # Çalışan process
+ltrace -c ./app           # Özet istatistik
+```
+
+### Binary Analiz Araçları
+
+```bash
+# ldd — dinamik bağımlılıklar
+ldd /usr/bin/python3               # Hangi .so dosyalarını kullanıyor
+ldd -v /bin/ls                     # Detaylı versiyon bilgisi
+LD_TRACE_LOADED_OBJECTS=1 ./app   # ldd'nin yaptığı şey
+
+# readelf — ELF dosyası analizi
+readelf -h /bin/ls                 # ELF başlığı (mimari, tip)
+readelf -S /bin/ls                 # Section listesi
+readelf -d ./app                   # Dinamik bölüm (NEEDED = bağımlılıklar)
+readelf -l /bin/ls                 # Program header (segment'ler)
+readelf --syms ./app               # Sembol tablosu
+
+# nm — sembol tablosu
+nm ./app                           # Tüm semboller
+nm -D ./app                        # Dinamik semboller
+nm -u ./app                        # Tanımsız (dış bağımlılık) semboller
+nm --defined-only ./libmylib.so    # Sadece tanımlı semboller
+
+# objdump — disassemble
+objdump -d ./app                   # Text section'ı decompile et
+objdump -S ./app                   # Kaynak+assembly (debug bilgisi varsa)
+objdump -j .data -s ./app         # .data section içeriği
+
+# file — dosya türü
+file /bin/ls                       # ELF 64-bit LSB executable, ARM aarch64...
+file ./firmware.bin                # Firmware analizi
+
+# strings — ikili içindeki ASCII dizeler
+strings ./app | grep -i "error\|config\|version"
+strings -n 8 firmware.bin         # En az 8 karakterlik dizeler
+```
+
+### perf — Performans Analizi
+
+```bash
+# Temel profil
+sudo perf stat ./app                    # CPU istatistikleri (cycles, instructions vb.)
+sudo perf stat -e cache-misses ./app   # Cache miss sayısı
+sudo perf top                           # Gerçek zamanlı CPU profili (top gibi)
+
+# Örnekleme profili
+sudo perf record ./app                  # Örnekleme yap (perf.data dosyası oluşur)
+sudo perf record -g ./app              # Stack trace ile
+sudo perf report                        # perf.data'yı analiz et
+sudo perf report --stdio               # Terminal çıktısı
+
+# Callgraph
+sudo perf record -g --call-graph dwarf ./app
+sudo perf report --call-graph
+
+# Sistem geneli izleme
+sudo perf top -e cycles -p 1234       # Belirli process
+
+# Flamegraph (görsel profil — FlameGraph aracı gerekli)
+sudo perf record -g ./app
+sudo perf script | ./stackcollapse-perf.pl | ./flamegraph.pl > flame.svg
+```
+
+!!! tip "Gömülü Sistemlerde Debug Öncelikleri"
+    1. **Çalışmıyor mu?** → `strace -e trace=openat,ioctl` ile hangi dosyaya/cihaza erişemeduğunu bul
+    2. **Yavaş mı?** → `strace -c` ile en çok zaman harcayan syscall'ı bul, sonra `perf` ile darboğazı bul
+    3. **Crash oluyor mu?** → `gdb ./app core` ile core dump analiz et
+    4. **Kütüphane hatası mı?** → `ldd` + `ltrace` kombinasyonu
