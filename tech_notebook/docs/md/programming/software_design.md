@@ -2,34 +2,18 @@
 
 ## SOLID
 
-```mermaid
-graph TD
-    SOLID --> S[S — Single Responsibility\nBir sınıfın tek bir değişme sebebi olmalı]
-    SOLID --> O[O — Open/Closed\nGenişlemeye açık, değişime kapalı]
-    SOLID --> L[L — Liskov Substitution\nAlt sınıf üst sınıfın yerine geçebilmeli]
-    SOLID --> I[I — Interface Segregation\nKullanılmayan metod zorlanmamalı]
-    SOLID --> D[D — Dependency Inversion\nSoyutlamaya bağlı ol, somuta değil]
-```
-
-!!! abstract "Tanım"
-    Nesne yönelimli tasarımın 5 temel prensibi. Bakımı kolay, esnek, test edilebilir kod yazmanın kılavuzudur. Yazılım büyüdükçe üç temel sorun ortaya çıkar: 
-    
-    - Bir değişiklik beklenmedik yerleri kırar (**kırılganlık**).
-    - Yeni özellik eklemek için her yeri değiştirmek gerekir (**katılık**).
-    - Bileşenleri başka projede kullanmak imkânsız hale gelir (**hareketsizlik**). 
-    
-    SOLID bu üç soruya karşı geliştirilen tasarım reçetesidir. Design Pattern ise bu yapıyı kurma prensipleridir.
+**SOLID**, sürdürülebilir, genişletilebilir ve esnek yazılımlar geliştirmek için kullanılan beş temel nesne yönelimli tasarım (Object-Oriented Design) prensibinin baş harflerinden oluşan bir kısaltmadır. Kodun zamanla hantallaşmasını, kırılgan hale gelmesini ve **"spagetti koda"** dönüşmesini engeller.
 
 
-- **S - Single Responsibility:** Her sınıfın değişmek için **tek bir nedeni** olmalıdır. Bir sınıf yalnızca bir iş yapmalı; o iş değiştiğinde sınıf değişir, başka bir şey değiştiğinde değil. Sınıf ne kadar çok sorumluluk taşırsa o kadar fazla şey onu değiştirmeye zorlar. Bu da bir değişikliğin nerede patlak vereceğini öngörmeyi güçleştirir.
+- **Single Responsibility Principle (SRP):** Bir Class veya modülün değişmek için yalnızca tek bir nedeni olmalıdır. Yani bir yapı, sadece tek bir işten sorumlu olmalıdır.
 
-- **O - Open / Closed:** Sınıflar **genişletmeye açık, değiştirmeye kapalı** olmalıdır. Yeni davranış eklemek mevcut, test edilmiş koda dokunmayı gerektirmemelidir. `if/else` veya `switch` ile tür kontrolü yapıldığında her yeni tür bu bloğu değiştirmeyi zorunlu kılar. Polimorfizm ile yeni tür yeni bir sınıf olarak eklenir; var olan kod değişmez.
+- **Open/Closed Principle (OCP):** Sınıflar **genişletmeye açık, değiştirmeye kapalı** olmalıdır. Yeni davranış eklemek mevcut, test edilmiş koda dokunmayı gerektirmemelidir. `if/else` veya `switch` ile tür kontrolü yapıldığında her yeni tür bu bloğu değiştirmeyi zorunlu kılar. Polimorfizm ile yeni tür yeni bir sınıf olarak eklenir; var olan kod değişmez.
 
-- **L - Liskov Substitution:** Alt sınıf, üst sınıfın **her kullanıldığı yerde onun yerine sorunsuz geçebilmelidir**. Alt sınıf üst sınıfın davranış sözleşmesini bozmamalıdır. Klasik tuzak: `Square`, `Rectangle`'dan türetilir; ancak `setWidth` çağrıldığında hem genişliği hem yüksekliği değiştirmek zorunda kalır — dikdörtgenin sözleşmesini bozar. İstemci `Rectangle*` ile çalışırken bunun aslında kare olduğunu bilmek zorunda kalmamalıdır.
+- **Liskov Substitution Principle (LSP):** Alt sınıflar (türetilen sınıflar), miras aldıkları üst sınıfların (ata sınıflar) yerine kullanılabilmeli ve bu durum programın davranışını bozmamalıdır.
 
-- **I - Interface Segregation:** İstemci, **kullanmadığı metodlara bağımlı olmamalıdır**. Büyük tek arayüz yerine küçük ve odaklı arayüzler tercih edilir. Bir sınıf devasa bir arayüzü uygulamak zorunda kalıp bazı metodları boş bırakıyor ya da istisna fırlatıyorsa, bu arayüz çok fazla sorumluluk taşıyordur. Arayüzü böl; sınıf yalnızca ihtiyacı olan parçayı uygulasın.
+- **Interface Segregation Principle (ISP):** Sınıflar, kullanmadıkları metotları barındıran Interface implemente etmeye zorlanmamalıdır. Çok amaçlı tek bir arayüz yerine, amaca yönelik özelleştirilmiş birden fazla arayüz tercih edilmelidir
 
-- **D - Dependency Inversion:** Üst seviye modüller alt seviye modüllere **doğrudan bağımlı olmamalıdır**; her ikisi de soyutlamalara bağımlı olmalıdır. İş mantığı doğrudan `new MySQLDatabase()` yaratırsa, veritabanı değiştiğinde iş mantığı koduna dokunmak gerekir. Soyutlamaya bağımlı olunduğunda somut uygulama dışarıdan enjekte edilir; iş mantığı neyin kullanıldığını bilmek zorunda kalmaz. Bu aynı zamanda test için sahte (mock) nesnelerin kolayca takılabilmesini sağlar.
+- **Dependency Inversion Principle (DIP):** Yüksek seviyeli modüller (iş mantığı taşıyanlar), düşük seviyeli modülleri (veri tabanı, loglama gibi araçlar) doğrudan referans almamalıdır. Her iki modül de soyutlamalara (Abstraction) bağımlı olmalıdır. Soyutlamalar detaylara değil, detaylar soyutlamalara bağımlı olmalıdır.
 
 ---
 
@@ -42,34 +26,18 @@ graph TD
     - **Structural (Yapısal):** Sınıfların ve nesnelerin birbirine nasıl bağlandığını düzenler. Uyumsuz parçaları birleştirir, karmaşık yapıları sadeleştirir.
     - **Behavioral (Davranışsal):** Nesneler arasındaki iletişimi ve sorumlulukların dağılımını yönetir. Kim ne yapmalı, kim kimi bilmeli sorularına yanıt verir.
 
-!!! note "SOLID → Design Pattern"
-    - **OCP** → Factory Method, Strategy, Decorator
-    - **LSP** → Template Method, tüm kalıtım tabanlı desenler
-    - **DIP** → Abstract Factory, Dependency Injection
-
 ## Creational
 
 ### Factory Method
 
 !!! abstract "Tanım"
-    Nesne oluşturma kararını alt sınıflara bırakır. Sabit bağımlılıklar koda sıkışınca yeni tür eklemek için mevcut koda dokunmak zorunlu hale gelir. Üst sınıf yalnızca nesne oluştur der ne oluşacağına alt sınıf karar verir. Bu sayede genişletme, mevcut kodu değiştirmek yerine yeni sınıf yazmak anlamına gelir.
-
-    **Ne Zaman Kullanılır?**
-
-    - Hangi nesnenin oluşturulacağı çalışma zamanında veya konfigürasyona göre belirleniyor
-    - Yeni türler ekleneceği biliniyor ve mevcut koda dokunmak istemiyorsun
-
-    **Ne Zaman Kullanılmaz**
-
-    - Nesne türleri sabitse direkt `new` daha sade ve anlaşılır
-
+    Nesne oluşturma kararını alt sınıflara bırakır. Üst sınıf yalnızca nesne oluştur der ne oluşacağına alt sınıf karar verir. Bu sayede genişletme, mevcut kodu değiştirmek yerine yeni sınıf yazmak anlamına gelir.
 
 ```cpp
 /** 
  * `AirLogistics : Logistics` eklemek için yalnızca yeni bir sınıf yazarsın
  * `plan()` metoduna ya da mevcut Creator sınıflarına dokunmazsın.
 */
-
 class Transport {
 public:
     virtual void deliver() = 0;
@@ -85,22 +53,18 @@ public:
     void plan() { create()->deliver(); } // türü bilmez, sadece kullanır
     virtual ~Logistics() = default;
 };
-class RoadLogistics : public Logistics {
-    std::unique_ptr<Transport> create() override { return std::make_unique<Truck>(); }
-};
-class SeaLogistics : public Logistics {
-    std::unique_ptr<Transport> create() override { return std::make_unique<Ship>(); }
-};
 
-std::unique_ptr<Logistics> l = std::make_unique<RoadLogistics>();
+class RLogistics : public Logistics { std::unique_ptr<Transport> create() override { return std::make_unique<Truck>(); } };
+
+class SLogistics : public Logistics { std::unique_ptr<Transport> create() override { return std::make_unique<Ship>(); } };
+
+std::unique_ptr<Logistics> l = std::make_unique<RLogistics>();
 l->plan(); // Kara
 
-l = std::make_unique<SeaLogistics>();
+l = std::make_unique<SLogistics>();
 l->plan(); // Deniz - plan() hiç değişmedi
 ```
-
----
-
+ 
 ### Abstract Factory
 
 !!! abstract "Tanım"
@@ -112,10 +76,6 @@ l->plan(); // Deniz - plan() hiç değişmedi
     - Yanlış kombinasyonları derleme zamanında önlemek istiyorsun
     - İstemci kodu değişmeden sadece hangi ailenin kullanıldığı değişiyor
 
-    **Ne Zaman Kullanılmaz**
-
-    - Ürün ailesi tek türden oluşuyorsa Factory Method daha sade
-    - Aile genişleyecekse (yeni ürün tipi eklenmesi tüm fabrika sınıflarını etkiler)
 
 ```cpp
 class Button { public: virtual void render() = 0; virtual ~Button() = default; };
@@ -151,88 +111,25 @@ DesktopFactory  desktop;  buildUI(desktop);   // Desktop buton + Desktop menü
 EmbeddedFactory embedded; buildUI(embedded);  // Embedded buton + Embedded menü
 ```
 
----
-
 ### Builder
 
 !!! abstract "Tanım"
-    Karmaşık bir nesneyi adım adım ve isimli metodlarla oluşturur. `new Car(red, 4, true, false, null, "sport", 2.0)` gibi çok parametreli yapıcılar okunaksız hale gelir. Builder her adımı açık isimli bir metodla tanımlar; yalnızca gereken adımlar çağrılır, geri kalanlar varsayılan değerde kalır.
+    karmaşık nesnelerin adım adım inşa edilmesini (step-by-step construction) sağlayan Creational (Yaratımsal) bir tasarım desenidir. `new Car(red, 4, true, false, null, "sport", 2.0)` gibi çok parametreli yapıcılar okunaksız hale gelir. Builder her adımı açık isimli bir metodla tanımlar; yalnızca gereken adımlar çağrılır, geri kalanlar varsayılan değerde kalır.
 
     **Ne Zaman Kullanılır?**
     - 4'ten fazla parametreli yapıcı varsa
     - Opsiyonel parametreler çoksa
     - Aynı nesnenin birden fazla varyantı inşa edilecekse
 
-    **Ne Zaman Kullanılmaz**
-    - Nesne basit ve sabit parametreli ise direkt yapıcı daha okunabilir
-
 
 ```cpp
-/**
- * Car.builder().color("red").wheels(4).sport(true).build() -> this döndürür.
- * Bu sayede zincir oluşur. C++/Java kütüphanelerinde yaygın tercih edilir.
-*/
-class Robot { // Ana ürünümüz: Karmaşık Robot Nesnesi
-public:
-    int motorCount = 2;
-    std::string protocol = "Serial";
-    bool hasLidar = false;
-    bool hasImu = false;
+// KÖTÜ PRATİK: Parametre sayısı arttıkça anlaşılmaz olur
+Drone drone(6, true, true, false, "");
 
-    void printSpec() {
-        std::cout << "Robot Yapılandırıldı:\n"
-                  << "- Motor Sayısı: " << motorCount << "\n"
-                  << "- Protokol: " << protocol << "\n"
-                  << "- LIDAR var mı: " << (hasLidar ? "Evet" : "Hayır") << "\n"
-                  << "- IMU var mı: " << (hasImu ? "Evet" : "Hayır") << "\n\n";
-    }
-};
-
-// Builder Sınıfımız
-class RobotBuilder {
-private:
-    std::unique_ptr<Robot> robot;
-public:
-    RobotBuilder() { robot = std::make_unique<Robot>(); }
-
-    // Her fonksiyon ayarı yapar ve kendi referansını (*this) döner (Zincirleme çağrı için)
-    RobotBuilder& setMotors(int count) {
-        robot->motorCount = count;
-        return *this;
-    }
-
-    RobotBuilder& useEtherCAT() {
-        robot->protocol = "EtherCAT";
-        return *this;
-    }
-
-    RobotBuilder& addLidar() {
-        robot->hasLidar = true;
-        return *this;
-    }
-
-    RobotBuilder& addImu() {
-        robot->hasImu = true;
-        return *this;
-    }
-
-    // En son üretilen bitmiş nesneyi teslim eden metot
-    std::unique_ptr<Robot> build() {
-        return std::move(robot);
-    }
-};
-
-int main() {
-    // Her adımı çağırmak zorunda değiliz. (default değer)
-    auto industrialRobot = RobotBuilder()
-                            .setMotors(6)
-                            .useEtherCAT()
-                            .addImu()
-                            .build();
-}
+// BUILDER: Her adım isimlendirilmiş, sadece gereken adımlar çağrılır
+auto drone = Drone::builder().setMotors(6)
+                 .useEtherCAT().addImu().build();
 ```
-
----
 
 ### Prototype
 
@@ -241,79 +138,66 @@ int main() {
 
     **Ne Zaman Kullanılır?**
 
-    - Nesne oluşturma maliyeti yüksekse
+    - Nesne oluşturma maliyeti yüksekse (deep copy maliyeti yüksekse bu durumda uygulanmaz)
     - Küçük farklılıklarla çok sayıda benzer nesne üretilecekse
     - Nesnenin sınıfını bilmeden kopyası gerekiyorsa
 
-    **Ne Zaman Kullanılmaz**
-
-    - Nesne basit ve oluşturması ucuzsa, klonlama gereksiz karmaşıklık ekler
-    - İç yapı iç içe geçmiş nesnelerden oluşuyorsa ve derin kopyalama maliyetliyse
 
 ```cpp
 class Sensor {
 protected:
-    std::string type;
-    double frequency;
-    std::vector<double> calibration; // pahalı kurulum verisi
+    double freq;
+    std::vector<double> calib; // pahalı kurulum verisi
 public:
-    Sensor(std::string t, double f, std::vector<double> cal)
-        : type(t), frequency(f), calibration(std::move(cal)) {}
+    Sensor(double f, std::vector<double> cal): freq(f), calib(std::move(cal)) {}
+    virtual ~Sensor() = default;
 
     virtual std::unique_ptr<Sensor> clone() const = 0;
-    void setFrequency(double f) { frequency = f; }
-    virtual void report() const {
-        std::cout << type << " @ " << frequency << " Hz, "
-                  << calibration.size() << " kalibrasyon noktası\n";
-    }
-    virtual ~Sensor() = default;
+    virtual void report() const {std::cout << freq << " Hz, " << calib.size() << " kalibrasyon noktası\n"; }
+
+    void setFreq(double f) { freq = f; }
+
 };
 
 class TemperatureSensor : public Sensor {
 public:
-    TemperatureSensor(double f, std::vector<double> cal)
-        : Sensor("Sıcaklık", f, std::move(cal)) {}
+    TemperatureSensor(double f, std::vector<double> cal): Sensor(f, std::move(cal)) {}
     std::unique_ptr<Sensor> clone() const override {
         return std::make_unique<TemperatureSensor>(*this); // deep copy
     }
 };
 
-int main() {
-    TemperatureSensor base(100.0, {0.1, 0.2, 0.3, 0.4, 0.5}); // bir kez pahalı kurulum
 
-    auto s1 = base.clone();       // hızlı kopyalama
-    auto s2 = base.clone();
-    s2->setFrequency(200.0);      // sadece bu klonda değişir
+TemperatureSensor base(100.0, {0.1, 0.2, 0.3, 0.4, 0.5}); // bir kez pahalı kurulum
 
-    base.report(); // Sıcaklık @ 100 Hz, 5 kalibrasyon noktası
-    s2->report();  // Sıcaklık @ 200 Hz, 5 kalibrasyon noktası
-}
+auto s1 = base.clone();       // hızlı kopyalama
+s1->setFreq(200.0);      // sadece bu klonda değişir
+
+base.report(); // 100 Hz, 5 kalibrasyon noktası
+s1->report();  // 200 Hz, 5 kalibrasyon noktası
 ```
 
 !!! warning "Deep Copy vs Shallow Copy"
-    **Shallow copy:** iç nesnelerin referanslarını kopyalar - bir kopyada değişim diğerini de etkiler. **Deep copy:** tüm iç yapıyı ayrı kopyalar. C++'da kopya yapıcı yazarak derin kopyalama garantilenir.
-
----
+    - **Shallow copy:** iç nesnelerin referanslarını kopyalar. Bir kopyada değişim diğerini de etkiler. 
+    - **Deep copy:** tüm iç yapıyı ayrı kopyalar. C++'da kopya yapıcı yazarak derin kopyalama garantilenir.
 
 ### Singleton
 
 !!! abstract "Tanım"
-    Sistem genelinde yalnızca tek bir örnek garanti eder ve ona kontrollü erişim sağlar. Logger, yapılandırma yöneticisi veya donanım sürücüsü gibi kaynakların birden fazla örneği çakışma veya tutarsızlık yaratır. Yapıcı private yapılır; dışarıdan `new` ile örnek alınamaz. Tek giriş noktası `getInstance()` olur.
+    Bir sınıfın runtime yalnızca tek bir örneğinin (instance) olmasını garanti altına alan ve bu örneğe global access point sağlayan tasarım desenidir.
 
-    **Ne Zaman Kullanılır?**
+!!! danger "Ciddi Tuzaklar"
+    - **Test edilemezlik:** Global durum yarattığı için testlerde izole etmek zordur; bir testin değiştirdiği state başkasını etkiler
+    - **Gizli bağımlılık:** Bağımlılıklar yapıcıdan değil sınıf içinden alınır
+    - Çoğu durumda bağımlılık enjeksiyonu daha temiz çözümdür
 
-    - Logger, yapılandırma yöneticisi, thread pool, donanım sürücüsü gibi tek örneği zorunlu olan durumlarda
-
-    **Ne Zaman Kullanılmaz**
-
-    - Tek örnek zorunluluğu yoksa bağımlılık enjeksiyonu daha test edilebilir ve esnek bir çözümdür
-    - Birim testlerde izole edilmesi gereken bileşenlerde
 
 ```cpp
 class Logger {
+    Logger() = default; // private
+
 public:
-    Logger(const Logger&)            = delete;
-    Logger& operator=(const Logger&) = delete;
+    Logger(const Logger&) = delete; Logger& operator=(const Logger&) = delete;
 
     static Logger& getInstance() {
         static Logger instance; // C++11: thread-safe garantili
@@ -321,85 +205,37 @@ public:
     }
 
     void log(const std::string& msg) { std::cout << "[LOG] " << msg << "\n"; }
-
-private:
-    Logger() = default;
 };
 
-int main() {
-    Logger::getInstance().log("Sistem başlatıldı");
-    Logger::getInstance().log("Bağlantı kuruldu");
-    // Örnek yalnızca bir kez oluşturulur; her çağrı aynı nesneyi kullanır
-}
+Logger::getInstance().log("Sistem başlatıldı");
+Logger::getInstance().log("Bağlantı kuruldu");
 ```
-
-!!! danger "Ciddi Tuzaklar"
-    - **Test edilemezlik:** Global durum yarattığı için testlerde izole etmek zordur; bir testin değiştirdiği state başkasını etkiler
-    - **Gizli bağımlılık:** Bağımlılıklar yapıcıdan değil sınıf içinden alınır
-    - Çoğu durumda bağımlılık enjeksiyonu daha temiz çözümdür
-
----
 
 ## Structural
 
 ### Adapter
 
 !!! abstract "Tanım"
-    Uyumsuz arayüzleri birbirine bağlayan çevirmendir. Kullanmak istediğin kütüphane veya servis mevcut sisteminle uyumsuz bir arayüze sahip olabilir; kütüphaneyi de kendi kodunu da köklü biçimde değiştirmek istemiyorsun. Adapter ikisi arasına girerek çevirmenlik yapar; ne sisteme ne servise dokunmazsın.
+    Birbiriyle uyumsuz arayüzlere sahip iki farklı sınıfın birlikte çalışabilmesini tasarım desenidir.
 
-    **Ne Zaman Kullanılır?**
-
-    - Üçüncü parti kütüphane entegrasyonunda
-    - Eski sistem ile yeni sistem arasında köprü kurulurken
-    - Aynı işi yapan ama farklı arayüzlere sahip birden fazla servis kullanılacaksa
-
-    **Ne Zaman Kullanılmaz**
-
-    - Arayüzler benzer ve fark küçükse sarmalayıcı olmadan doğrudan kullanmak daha sade
-    - Kaynak koda erişim varsa ve arayüzü düzenlemek mümkünse
-
-
----
 
 ### Bridge
 
 !!! abstract "Tanım"
-    Soyutlamayı implementasyondan ayırır; her ikisi bağımsız olarak büyür. İki boyutta değişen sistem kalıtımla modellenirse sınıf patlaması kaçınılmaz olur: 3 kaynak × 3 algoritma = **9 sınıf**. Bridge ile iki ayrı hiyerarşi oluşturulur; toplamda 3+3=**6 sınıf** yeterlidir.
+    Bir sınıfın soyutlama (Abstraction) katmanı ile bu soyutlamanın arka plandaki gerçek işi yapan implementation katmanını birbirinden ayıran ve ikisinin bağımsız olarak genişlemesini sağlayan tasarım desenidir.
 
-    **Ne Zaman Kullanılır?**
-
-    - İki bağımsız boyutta büyüyecek sistem tasarlanırken
-    - Çalışma zamanında implementasyonu değiştirme ihtiyacı olduğunda
-    - Platform bağımsızlığı gerektiğinde (farklı işletim sistemi, farklı donanım)
-
-    **Ne Zaman Kullanılmaz**
-
-    - Yalnızca tek boyutlu bir değişim varsa basit kalıtım daha anlaşılır
-    - Boyutlar gerçekten bağımsız değilse birbirine bağlı boyutları ayırmak kodu karmaşıklaştırır
 
 !!! note "Bridge ile Farkı"
-    Adapter **mevcut** uyumsuzluğu giderir (reaktif). Bridge ise tasarım aşamasında kasıtlı olarak soyutlamayı implementasyondan ayırır (proaktif).
+    **Adapter:** Genellikle projenin ilerleyen aşamalarında veya bakım sürecinde kullanılır. Birbiriyle hiç alakası olmayan, uyumsuz iki eski/yeni sistemi sonradan "yamamak" ve birlikte çalıştırmak için tercih edilir.
 
-    Adapter geçmişteki uyuşmazlıkları yamamak için acil durum kurtarıcısıdır; Bridge ise gelecekteki büyüme sancılarını engellemek için çizilen profesyonel bir mimari plandır.
+    **Bridge:** Projenin en başında, tasarım aşamasında bilinçli olarak tasarlanır. Amaç, bir yapının ara yüzü ile o yapının platforma veya donanıma bağımlı kodlarını birbirinden baştan izole etmektir.
 
----
 
 ### Composite
 
 !!! abstract "Tanım"
     Tekil nesneleri ve nesne gruplarını aynı arayüzle kullanmayı sağlar. Dosya sistemi veya arayüz hiyerarşisi gibi ağaç yapılarında istemcinin "bu yaprak mı, grup mu?" diye sorgulamadan aynı işlemi yapabilmesi gerekir. Her şey aynı arayüzü uyguladığında istemci ikisini ayırt etmek zorunda kalmaz.
-
-    **Ne Zaman Kullanılır?**
-
-    - Ağaç yapısı temsil edilecekse
-    - İstemcinin tekil ve bileşik nesneleri aynı şekilde kullanması gerekiyorsa
-    - Hiyerarşinin derinliği önceden belli değilse
-
-    **Ne Zaman Kullanılmaz**
-
-    - Yapı hiyerarşik değilse — ortak arayüz zorlama olur ve kodu karmaşıklaştırır
-    - Yaprak ve grup nesnelerinin davranışları çok farklıysa — tek arayüz yetmeyebilir
-
+    
 ---
 
 ### Decorator
